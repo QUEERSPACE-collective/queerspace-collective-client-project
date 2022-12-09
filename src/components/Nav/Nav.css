@@ -1,3 +1,25 @@
-h1 {
-    color:red;
+
+
+nav {
+    text-align: center;
+    
 }
+.myHeader {
+    border:1px solid black;
+    width:100%;
+    text-align: center;
+    background-color: white; 
+}
+
+.myHeader img {
+    width:100px;
+    padding:10px 0px;
+}
+
+
+
+
+
+
+
+
