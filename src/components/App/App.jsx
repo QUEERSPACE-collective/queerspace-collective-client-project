@@ -37,6 +37,7 @@ import EventListItems from '../EventListItems/EventListItems';
 import EventRegForm from '../EventRegForm/EventRegForm';
 import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
+import QSClogo from '../QSClogo/QSClogo';
 //END OF NEW COMPONENTS
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
@@ -138,6 +139,9 @@ function App() {
       </div>
 
 {/* IMPORTING ALL COMPONENTS TO TEST */}
+            <Route exact path='/QSClogo'>
+              <QSClogo/>
+            </Route>
             <Route exact path='/ProfilePage'>
               <ProfilePage/>
             </Route>
