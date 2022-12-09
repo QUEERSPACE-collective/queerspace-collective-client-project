@@ -19,8 +19,27 @@ import Resources from '../Resources/Resources';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+//IMPORTING ALL COMPONENTS HERE TO TEST THEY WORK CORRECTLY
+import AddResourceForm from '../AddResourceForm/AddResourceForm';
+import AddUserForm from '../AddUserForm/AddUserForm';
+import AllEventsDetails from '../AllEventsDetails/AllEventsDetails';
+import AllEventsList from '../AllEventsList/AllEventsList';
+import AllEventsListItems from '../AllEventsListItems/AllEventsListItems';
+import AllUserListItems from '../AllUserListItems/AllUserListItems';
+import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
+import AllUsersList from '../AllUsersList/AllUsersList';
+import Calendar from '../Calendar/Calendar';
+import Drawer from '../Drawer/Drawer';
+import EditUser from '../EditUser/EditUser';
+import EventDetails from '../EventDetails/EventDetails';
+import EventList from '../EventList/EventList';
+import EventListItems from '../EventListItems/EventListItems';
+import EventRegForm from '../EventRegForm/EventRegForm';
+import MyEventsList from '../MyEventsList/MyEventsList';
+import NewEventForm from '../NewEventForm/NewEventForm';
+//END OF NEW COMPONENTS
 import './App.css';
+import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,7 +62,7 @@ function App() {
           <Route
             // shows AboutPage at all times (logged in or not)
             exact
-            path="/about"
+            path="/AboutPage"
           >
             <AboutPage />
           </Route>
@@ -117,6 +136,66 @@ function App() {
         </Switch>
         <Footer />
       </div>
+
+{/* IMPORTING ALL COMPONENTS TO TEST */}
+            <Route exact path='/AddResourceForm'>
+              <AddResourceForm/>
+            </Route>
+            <Route exact path='/AddUserForm'>
+              <AddUserForm/>
+              </Route>
+              <Route exact path='/AllEventsDetails'>
+              <AllEventsDetails/>
+              </Route>
+              <Route exact path='/AllEventsList'>
+              <AllEventsList/>
+              </Route>
+              <Route exact path='/AllEventsListItems'>
+              <AllEventsListItems/>
+              </Route>
+              <Route exact path='/AllUserListItems'>
+              <AllUserListItems/>
+              </Route>
+              <Route exact path='/AllUsersDetails'>
+              <AllUsersDetails/>
+              </Route>
+              <Route exact path='/AllUsersList'>
+              <AllUsersList/>
+              </Route>
+              <Route exact path='/Calendar'>
+              <Calendar/>
+              </Route>
+              <Route exact path='/Drawer'>
+              <Drawer/>
+              </Route>
+              <Route exact path='/EditUser'>
+              <EditUser/>
+              </Route>
+              <Route exact path='/EventDetails'>
+              <EventDetails/>
+              </Route>
+              <Route exact path='/EventList'>
+              <EventList/>
+              </Route>
+              <Route exact path='/EventListItems'>
+              <EventListItems/>
+              </Route>
+              <Route exact path='/EventRegForm'>
+              <EventRegForm/>
+              </Route>
+              <Route exact path='/MyEventsList'>
+              <MyEventsList/>
+              </Route>
+              <Route exact path='/MyEventsListItems'>
+              <MyEventsListItems/>
+              </Route>
+              <Route exact path='/NewEventForm'>
+              <NewEventForm/>
+              </Route>
+              <Route exact path='/Resources'>
+                <Resources/>
+              </Route>
+{/* END NEW COMPONENTS */}
     </Router>
   );
 }
