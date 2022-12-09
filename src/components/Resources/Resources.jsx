@@ -5,12 +5,12 @@ import React from 'react';
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is
 
-function InfoPage() {
+function Resources() {
   return (
     <div className="container">
-      <p>Info Page</p>
+      <h1>Resources</h1>
     </div>
   );
 }
 
-export default InfoPage;
+export default Resources;

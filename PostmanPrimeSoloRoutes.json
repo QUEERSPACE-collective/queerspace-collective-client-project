@@ -1,6 +1,6 @@
 {
 	"id": "5e3e8d98-813d-5d2a-a79a-39cd12328d63",
-	"name": "Prime Solo Routes",
+	"name": "Client Routes",
 	"description": "Routes setup to test registration, login, and getting basic user data from the server.",
 	"order": [
 		"d78bc69f-0d9e-4489-ec9d-ac502b78acf8",
