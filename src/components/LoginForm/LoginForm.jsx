@@ -34,7 +34,7 @@ function LoginForm() {
       )}
       <div>
         <label htmlFor="username">
-          Username:
+          Email:
           <input
             type="text"
             name="username"

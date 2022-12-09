@@ -11,7 +11,9 @@ function Nav() {
     <div className="nav">
       <Link to="/home">
         <h2 className="nav-title">QUEERSPACE collective</h2>
-      </Link>
+        <img src='./images/queerspaceLogo.png' className='logo'/>
+
+        </Link>
       <div>
         {/* If no user is logged in, show these links */}
         {!user.id && (
@@ -24,7 +26,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/user"> 
               Home
             </Link>
 
@@ -36,7 +38,7 @@ function Nav() {
           </>
         )}
 
-        <Link className="navLink" to="/about">
+        <Link className="navLink" to="/AboutPage">
           About
         </Link>
       </div>

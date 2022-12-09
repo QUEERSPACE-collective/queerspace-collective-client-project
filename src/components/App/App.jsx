@@ -138,6 +138,9 @@ function App() {
       </div>
 
 {/* IMPORTING ALL COMPONENTS TO TEST */}
+            <Route exact path='/ProfilePage'>
+              <ProfilePage/>
+            </Route>
             <Route exact path='/AddResourceForm'>
               <AddResourceForm/>
             </Route>
