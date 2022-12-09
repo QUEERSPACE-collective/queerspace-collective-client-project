@@ -8,7 +8,35 @@ function ProfilePage() {
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
-      <p>Your ID is: {user.id}</p>
+      
+     
+      
+      <img src='./images/turtle.jpeg' style={{border:'1px solid black',borderRadius:'50%'}}/>
+      <caption>Edit User</caption>
+      <select>
+        
+      <option disabled selected hidden>Type</option>
+      <option>Mentor</option>
+      <option>Mentee</option>
+      <option>Caregiver</option>
+      <option>Volunteer</option>
+
+
+      </select>
+      <p> Name____ </p>
+      <p> Pronouns____ </p>
+      <p> Email____ </p>
+      <p>Mentor____<button>Search Mentors</button></p>
+      <button>Edit Profile</button>
+      <article>Bio_____________</article>
+      <div>
+        <h2>
+          Your Upcoming Events...
+        </h2>
+        <p>Map through user's saved events list....</p>
+        <button>Go to Calendar </button>
+        <button>Delete</button>
+      </div>
       <LogOutButton className="btn" />
     </div>
   );
