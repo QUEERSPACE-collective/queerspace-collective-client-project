@@ -19,7 +19,18 @@ function AllUsersList() {
 
   return (
     <div>
-    <h1>AllUsersList</h1>
+      <h1>AllUsersList</h1>
+      <div>
+        {allUsersList.map(allUsers => (
+          <ul>
+            <li key={allUsers.username}>{allUsers.username}</li>
+              <ul>
+                <li>{allUsers.fname} {allUsers.lname} {allUsers.pronouns}</li>
+                <button>Edit User</button>
+              </ul>
+          </ul>
+        ))}
+      </div>
     </div>
     
   );
