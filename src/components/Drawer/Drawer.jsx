@@ -46,21 +46,21 @@ function Drawers() {
 
   const list = (anchor) => (
     <Router>
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+    <Box 
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 } }
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List className='drawerText'> 
+      <List className='drawerText' sx={{ p: 0 }}> 
         {[<Link to='./home'><p>Home</p></Link>, 
           <Link to='./calendar'><p>Calendar</p></Link>, 
             <Link to='./resources'><p>Resources</p></Link>, 
               <Link to='./feedback'><p>Feedback Form</p> </Link>,
                 <Link to='./findmembers'><p>Find members</p></Link>].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
+            <ListItemButton sx={{ p: 0 }}>
+              <ListItemIcon  >
                 {index == 0 ? <Link to='./home'><p className='drawerPadding'><CottageIcon /> </p></Link> : 
                   index == 1 ? <Link to='./calendar'><p className='drawerPadding'><CalendarMonthIcon /></p></Link> :
                   index == 2 ? <Link to='./resources'><p className='drawerPadding'><HomeRepairServiceIcon/></p> </Link> :
