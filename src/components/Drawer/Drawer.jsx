@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Drawer.css';
+
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+  Link,
+} from 'react-router-dom';
+
+
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -11,8 +21,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
+
+import CottageIcon from '@mui/icons-material/Cottage';
+import LogoutIcon from '@mui/icons-material/Logout';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import MoodIcon from '@mui/icons-material/Mood';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 // CUSTOM COMPONENTS
 
 function Drawers() {
@@ -29,18 +45,27 @@ function Drawers() {
   };
 
   const list = (anchor) => (
+    <Router>
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+      <List className='drawerText'> 
+        {[<Link to='./home'><p>Home</p></Link>, 
+          <Link to='./calendar'><p>Calendar</p></Link>, 
+            <Link to='./resources'><p>Resources</p></Link>, 
+              <Link to='./feedback'><p>Feedback Form</p> </Link>,
+                <Link to='./findmembers'><p>Find members</p></Link>].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index == 0 ? <Link to='./home'><p className='drawerPadding'><CottageIcon /> </p></Link> : 
+                  index == 1 ? <Link to='./calendar'><p className='drawerPadding'><CalendarMonthIcon /></p></Link> :
+                  index == 2 ? <Link to='./resources'><p className='drawerPadding'><HomeRepairServiceIcon/></p> </Link> :
+                  index == 3 ? <Link to='./feedback'><p className='drawerPadding'><MoodIcon/> </p></Link> :
+                  index == 4 ? <Link to='./findmembers'><p className='drawerPadding'><PersonSearchIcon/></p>  </Link>: "" }
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -49,18 +74,21 @@ function Drawers() {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['Logout'].map((text, index) => (
+          <Link to='./login'>
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
+              <LogoutIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+              </LogoutIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
+          </Link>
         ))}
       </List>
     </Box>
+  </Router>
   );
 
   return (
