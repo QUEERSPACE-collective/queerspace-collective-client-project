@@ -65,7 +65,7 @@ function Drawers() {
 
   return (
 <>
-    <div>
+    <div className='drawerContainer'>
     {['left'].map((anchor) => (
       <React.Fragment key={anchor}>
         <Button onClick={toggleDrawer(anchor, true)}><MenuIcon/></Button>

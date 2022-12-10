@@ -9,14 +9,20 @@ function Nav() {
   const user = useSelector((store) => store.user);
 
   return (
+    <>
     <div className="nav">
-      
-        <header className='myHeader'>
-        <Drawers/>
-        <QSClogo/>
-        <Link to="/home">
-        </Link>
+    <span className='drawersContainer'>
+    <Drawers />
+    </span>
+      <header className='myHeader'>
+           
+
+          
+          <Link to="/home">
+            <QSClogo />
+          </Link>
         </header>
+        </div>
       <div>
 
         {/* If no user is logged in, show these links */}
@@ -30,7 +36,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user"> 
+            <Link className="navLink" to="/user">
               Home
             </Link>
 
@@ -45,8 +51,9 @@ function Nav() {
         <Link className="navLink" to="/AboutPage">
           About
         </Link>
-      </div>
+      
     </div>
+    </>
   );
 }
 
