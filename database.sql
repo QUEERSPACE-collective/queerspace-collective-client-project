@@ -66,13 +66,11 @@ VALUES('chrismaki123@gmail.com', 'f', 'Chris', 'Maki', '3', 'he/him', 'url', 'am
 ('jimmy@yahoo.com', 'f', 'Jimmy', 'Jimmerson', '3', 'he/she', 'url', 'jimbos the name', '11');
 
 
------
-
 INSERT INTO "events" ("name", "dateTime", "location", "programLocationID", "type", "description")
 VALUES ('BBQ', '04/22/2022', 'Prime Digital Academy', '1', '2', 'we out here'),
-		('Monthly get-together', '04/22/2022','Prime Digital Academy', '1', '2', 'come hang out!'),
-		('Picnic', '04/22/2022', 'alleyway somehwere', '2','1','no plus ones'),
-		('Snowboarding', '04/22/2022', 'Wild Mountain',  '1','5', 'dress warm!');
+('Monthly get-together', '04/22/2022','Prime Digital Academy', '1', '2', 'come hang out!'),
+('Picnic', '04/22/2022', 'alleyway somehwere', '2','1','no plus ones'),
+('Snowboarding', '04/22/2022', 'Wild Mountain',  '1','5', 'dress warm!');
 		
 		
 INSERT INTO "userEvents" ("userId", "eventId")

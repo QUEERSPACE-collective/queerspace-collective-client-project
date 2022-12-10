@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import './EventListItems.css';
 
 // CUSTOM COMPONENTS
 
 function EventListItems() {
+  const dispatch = useDispatch()
   
 
-  return (
 
-    <h1>EventListItems</h1>
+
+  return (
+    <>
+    <h3>List of events...</h3>
+    </>
     
   );
 }

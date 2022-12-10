@@ -1,6 +1,7 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function ProfilePage() {
   // this component doesn't do much to start, just renders some user reducer info to the DOM
@@ -34,7 +35,7 @@ function ProfilePage() {
           Your Upcoming Events...
         </h2>
         <p>Map through user's saved events list....</p>
-        <button>Go to Calendar </button>
+        <Link to = "/EventList">Go to Calendar </Link>
         <button>Delete</button>
       </div>
       <LogOutButton className="btn" />
