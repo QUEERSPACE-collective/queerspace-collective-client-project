@@ -48,7 +48,7 @@ CREATE TABLE "userEvents" (
 
 
 
-INSERT INTO "user" ("email","password","fname","lname","userType","pronouns","profilePic","bio","mentorPair")
+INSERT INTO "user" ("username","password","fname","lname","userType","pronouns","profilePic","bio","mentorPair")
 VALUES('chrismaki123@gmail.com', 'f', 'Chris', 'Maki', '3', 'he/him', 'url', 'am not chris', '1'),
 ('janice4482@gmail.com', 'f', 'Janice', 'Janetson', '2', 'they/them', 'url', 'I like trains', '6'),
 ('billYahoo@yahoo.com', 'f', 'Bill', 'Billington', '3', 'they/them', 'url', 'kill bill is a movie', '2'),
