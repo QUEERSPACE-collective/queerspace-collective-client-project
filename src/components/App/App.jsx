@@ -175,7 +175,7 @@ function App() {
               <Route exact path='/Drawer'>
               <Drawer/>
               </Route>
-              <Route exact path='/EditUser'>
+              <Route exact path='/allusers/:id/edit'>
               <EditUser/>
               </Route>
               <Route exact path='/EventDetails'>
