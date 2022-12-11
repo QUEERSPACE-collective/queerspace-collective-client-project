@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import './AllEventsList.css';
+import { 
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow
+} from '@mui/material';
 
 // CUSTOM COMPONENTS
 
@@ -46,6 +55,7 @@ function AllEventsList() {
           <th>Location</th>
           <th>Event Type</th>
           <th>Program Location</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -58,6 +68,14 @@ function AllEventsList() {
           <td> {event.location}</td>
           <td> {event.type} </td>
           <td>{event.programLocation} </td> 
+          <td>
+            <Button 
+              variant="contained"
+              color="error"
+            > 
+              Delete
+            </Button>
+          </td>
         </tr>
         )}
       
