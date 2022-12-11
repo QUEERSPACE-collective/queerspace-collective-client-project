@@ -23,7 +23,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import CottageIcon from '@mui/icons-material/Cottage';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -31,6 +30,9 @@ import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import MoodIcon from '@mui/icons-material/Mood';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useSelector } from 'react-redux';
+
+// NOTE: THIS PAGE'S FUNCTIONALITY WILL BE FINISHED WHEN WE CAN GRAB
+// THE USER'S TYPE (mentee/youth, mentor, admin, caregiver, volunteer)
 
 function Drawers() {
   const user = useSelector((store) => store.user); 
@@ -204,6 +206,9 @@ function Drawers() {
           ))
         )}
       </div>  */}
+
+{/* 5. END */}
+
     </>
   );
 }
