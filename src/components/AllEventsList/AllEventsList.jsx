@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import './AllEventsList.css';
 
@@ -6,6 +6,9 @@ import './AllEventsList.css';
 
 function AllEventsList() {
   
+  useEffect(()=> {
+    dispatch({type: "GET_ALL_EVENTS"})
+  },[])
 
   return (
 <>

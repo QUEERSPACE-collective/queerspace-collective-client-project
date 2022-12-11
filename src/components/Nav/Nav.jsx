@@ -37,7 +37,15 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
-
+        
+        {/* if the user is an admin, show these links */}
+        {user.userType === 5 && (
+          <>
+          <Link className="navLink" to="/AllEventsList">
+            All Events
+          </Link>
+          </>
+        )}
         <Link className="navLink" to="/AboutPage">
           About
         </Link>
