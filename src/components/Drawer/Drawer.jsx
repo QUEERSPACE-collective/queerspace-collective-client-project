@@ -47,7 +47,7 @@ function Drawers() {
     }
     setState({ ...state, [anchor]: open });
   };
-
+// 1. CONST LIST IS WHAT WILL SHOW FOR ADMIN AND MENTORS
   const list = (anchor) => (
     <Router>
       <Box
@@ -94,8 +94,57 @@ function Drawers() {
       </Box>
     </Router>
   );
+// 1. END MENTOR/ADMIN LIST 
+
+
+// 2. CONST LIST 2 IS WHAT VOLUNTEERS, MENTEES/YOUTH, AND CAREGIVERS WILL SEE
+  const list2 = (anchor) => (
+    <Router>
+      <Box
+        sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <List className='drawerText' sx={{ p: 0 }}>
+          {[<Link to='./home'><p>Home</p></Link>,
+          <Link to='./calendar'><p>Calendar</p></Link>,
+          <Link to='./findmembers'><p>Find members</p></Link>].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton sx={{ p: 0 }} className='drawerPadding'>
+                <ListItemIcon  >
+                  {index == 0 ? <Link to='./home'><p><CottageIcon /> </p></Link> :
+                    index == 1 ? <Link to='./calendar'><p><CalendarMonthIcon /></p></Link> :
+                          index == 2 ? <Link to='./findmembers'><p><PersonSearchIcon /></p></Link> : ""}
+                </ListItemIcon>
+                <ListItemText primary={text}/>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Logout'].map((text) => (
+            <Link to='./login'>
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <LogoutIcon>
+                    <InboxIcon/>
+                  </LogoutIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+      </Box>
+    </Router>
+  );
+
+  // 2. END LIST FOR VOLUNTEERS, MENTEES/YOUTH, AND CAREGIVERS
 
   return (
+    // 3. IF USER IS NOT LOGGED IN
     <>
       <div>
         {!user.id && (
@@ -103,17 +152,23 @@ function Drawers() {
             <Redirect to='/home'></Redirect> 
             {/* Set to 'home' right now, could also be 'login' page */}
             {/* Whenever the page is reloaded, it will take us back to /home */}
-            
             <Link className="navLink navLogin" to="/login"  >
               Login
             </Link> 
-
           </div>
         )}
       </div>
+    {/* 3. END  */}
 
+
+{/* 4. IF USER.ID IS TRUE, AND USER.USERTYPE == ADMIN OR MENTOR */}
+{/* 4. THIS SHOWS THE DRAWER IN CONST LIST ( 1. ) */}
       <div className='drawerContainer'>
-        {user.id && (
+        {user.id &&   (
+
+  // WILL BE GRABBING THE USER TYPE AND ADDING THE CONDITIONAL RENDER TO
+  // LINE 167 ABOVE (USER.ID && USER.USERTYPE == ADMIN || MENTOR)
+
           ['left'].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
@@ -128,6 +183,27 @@ function Drawers() {
           ))
         )}
       </div>
+  {/* 4. END */}
+
+{/* 5. IF USER.ID IS TRUE AND USER.USERTYPE == YOUTH OR VOLUNTEER, THEN DISPLAY
+  THE DRAWER WITHOUT RESOURCES AND FEEDBACK LINKS ( CONST LIST2 ) */}
+
+{/* <div className='drawerContainer'>
+        {user.id && user.userType != ADMIN || user.userType != MENTOR (
+          ['left'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list2(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))
+        )}
+      </div>  */}
     </>
   );
 }
