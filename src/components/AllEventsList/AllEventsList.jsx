@@ -37,11 +37,32 @@ function AllEventsList() {
     </select>
 
     {/* display all events from database */}
-    <ul>
-    {events.map(event =>
-      <li>{event.name} {event.dateTime} {event.description} {event.location} {event.type} {event.programLocation} </li> 
-    )}
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Date Time</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Event Type</th>
+          <th>Program Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        {events.map(event =>
+        <tr key={event.id}>
+          <td>{event.name}</td> 
+          <td>{event.dateTime}</td>
+          <td> {event.description}</td>
+          <td> {event.location}</td>
+          <td> {event.type} </td>
+          <td>{event.programLocation} </td> 
+        </tr>
+        )}
+      
+      </tbody>
+    </table>
 </>   
   );
 }
