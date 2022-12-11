@@ -8,10 +8,12 @@ import './EventListItems.css';
 // CUSTOM COMPONENTS
 
 function EventListItems() {
+  const history = useHistory()
   const eventList = useSelector(store => store.event)
 
   const eventDetails = (id) => {
     console.log('in event details function with event id:', id)
+    history.push('/EventDetails')
   }
 
   return (
