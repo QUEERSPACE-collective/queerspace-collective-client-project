@@ -12,8 +12,10 @@ function* fetchEvents () {
     try{
         const response = yield axios.get(`/api/event/`, config)
         console.log('in fetch events saga')
-
-
+        yield put ({
+            type: "SET_EVENTS", 
+            payload: response.data
+        })
 
     } catch (error) {
         console.log('error GETting events from server', error)
