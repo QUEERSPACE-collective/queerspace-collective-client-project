@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import './AllEventsList.css';
 
 // CUSTOM COMPONENTS
 
 function AllEventsList() {
-  
-  useEffect(()=> {
-    dispatch({type: "GET_ALL_EVENTS"})
-  },[])
+  const dispatch = useDispatch();
+  const events = useSelector((store) => store.events);
+
+  // useEffect(()=> {
+  //   dispatch({type: "FETCH_ALL_EVENTS"})
+  // },[])
 
   return (
 <>
@@ -16,7 +19,8 @@ function AllEventsList() {
     <caption>Filter:</caption>
     <select>
       <option disabled>Event Type</option>
-    <option>1 : 1 hangout</option>
+      {/* TODO we're not using the 1:1 on any calendars, are we? */}
+    <option disabled> 1 : 1 hangout</option>
     <option>Training</option>
     <option>Family</option>
     <option>Youth Only</option>
@@ -30,9 +34,10 @@ function AllEventsList() {
         <option>Newest</option>
         <option>Oldest</option>
         <option>Upcoming</option>
+    </select>
 
-      </select>
-    
+    {/* display all events from database */}
+    {/* events.map */}
 </>   
   );
 }
