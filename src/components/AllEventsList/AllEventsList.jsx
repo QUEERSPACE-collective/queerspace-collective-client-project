@@ -9,7 +9,10 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Select,
+  MenuItem,
+  InputLabel
 } from '@mui/material';
 
 // CUSTOM COMPONENTS
@@ -51,13 +54,13 @@ function AllEventsList() {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Event</TableCell>
-            <TableCell align="right">Date and Time</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Location</TableCell>
-            <TableCell align="right">Event Type</TableCell>
-            <TableCell align="right">Program Location</TableCell>
-            <TableCell align="right">Delete</TableCell>
+            <TableCell sx={{fontWeight: 'bold'}}>Event</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Date and Time</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Description</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Location</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
