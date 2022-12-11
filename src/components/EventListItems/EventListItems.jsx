@@ -10,6 +10,10 @@ import './EventListItems.css';
 function EventListItems() {
   const eventList = useSelector(store => store.event)
 
+  const eventDetails = (id) => {
+    console.log('in event details function with event id:', id)
+  }
+
   return (
     <>
           <ul>
@@ -20,7 +24,7 @@ function EventListItems() {
             Location: {event.location}<br/>
             Type: {event.type}<br/>
             Description: {event.description}<br/>
-            <button>Details</button>
+            <button onClick = {() => eventDetails(event.id)}>Details</button>
             <br/>
             <br/>
           </li>
