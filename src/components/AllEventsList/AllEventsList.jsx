@@ -46,41 +46,43 @@ function AllEventsList() {
     </select>
 
     {/* display all events from database */}
-    <table>
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Date Time</th>
-          <th>Description</th>
-          <th>Location</th>
-          <th>Event Type</th>
-          <th>Program Location</th>
-          <th>Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        
+
+    <TableContainer>
+      <Table stickyHeader>
+        <TableHead>
+          <TableRow>
+            <TableCell>Event</TableCell>
+            <TableCell align="right">Date and Time</TableCell>
+            <TableCell align="right">Description</TableCell>
+            <TableCell align="right">Location</TableCell>
+            <TableCell align="right">Event Type</TableCell>
+            <TableCell align="right">Program Location</TableCell>
+            <TableCell align="right">Delete</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
         {events.map(event =>
-        <tr key={event.id}>
-          <td>{event.name}</td> 
-          <td>{event.dateTime}</td>
-          <td> {event.description}</td>
-          <td> {event.location}</td>
-          <td> {event.type} </td>
-          <td>{event.programLocation} </td> 
-          <td>
+        <TableRow key={event.id}>
+          <TableCell>{event.name}</TableCell> 
+          <TableCell align="right">{event.dateTime}</TableCell>
+          <TableCell align="right"> {event.description}</TableCell>
+          <TableCell align="right"> {event.location}</TableCell>
+          <TableCell align="right"> {event.type} </TableCell>
+          <TableCell align="right">{event.programLocation} </TableCell> 
+          <TableCell align="right">
             <Button 
               variant="contained"
               color="error"
             > 
               Delete
             </Button>
-          </td>
-        </tr>
-        )}
-      
-      </tbody>
-    </table>
+          </TableCell>
+        </TableRow>
+)}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
 </>   
   );
 }
