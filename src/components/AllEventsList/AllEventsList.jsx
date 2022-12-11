@@ -9,9 +9,9 @@ function AllEventsList() {
   const dispatch = useDispatch();
   const events = useSelector((store) => store.events);
 
-  // useEffect(()=> {
-  //   dispatch({type: "FETCH_ALL_EVENTS"})
-  // },[])
+  useEffect(()=> {
+    dispatch({type: "FETCH_ALL_EVENTS"})
+  },[])
 
   return (
 <>
