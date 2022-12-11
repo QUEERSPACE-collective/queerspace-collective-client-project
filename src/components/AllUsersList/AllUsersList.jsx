@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './AllUsersList.css';
 
@@ -26,7 +26,9 @@ function AllUsersList() {
             <li key={allUsers.username}>{allUsers.username}</li>
               <ul>
                 <li>{allUsers.fname} {allUsers.lname} {allUsers.pronouns}</li>
+                <Link to={`/allusers/${allUsers.id}/edit`}>
                 <button>Edit User</button>
+                </Link>
               </ul>
           </ul>
         ))}
