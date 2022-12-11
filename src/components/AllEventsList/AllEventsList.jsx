@@ -37,7 +37,11 @@ function AllEventsList() {
     </select>
 
     {/* display all events from database */}
-    {/* events.map */}
+    <ul>
+    {events.map(event =>
+      <li>{event.name} {event.dateTime} {event.description} {event.location} {event.type} {event.programLocation} </li> 
+    )}
+    </ul>
 </>   
   );
 }
