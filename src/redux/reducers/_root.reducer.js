@@ -10,6 +10,7 @@ import newEventStoredQuestions from './newEventStoredQuestions.reducer';
 import newEventVolunteer from './newEventVolunteer.reducer';
 import newEventVolunteerMax from './newEventVolunteerMax.reducer';
 import newEventType from './newEventType.reducer';
+import newEventProgramArea from './newEventProgramArea.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -28,7 +29,7 @@ const rootReducer = combineReducers({
   newEventVolunteer,
   newEventVolunteerMax,
   newEventType,
-  
+  newEventProgramArea,
 });
 
 export default rootReducer;

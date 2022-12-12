@@ -74,8 +74,8 @@ function NewEventForm() {
       <br/>
       <label for='programArea'>Event Area: </label>
       <select name="programArea" id="programArea">
-        <option value='1'>Twin Cities</option>
-        <option value='2'>St. Cloud</option>
+        <option value='1' onClick={(e)=>{dispatch({type:"SET_NEW_EVENT_PROGRAM_AREA", payload: e.target.value})}}>Twin Cities</option>
+        <option value='2' onClick={(e)=>{dispatch({type:"SET_NEW_EVENT_PROGRAM_AREA", payload: e.target.value})}}>St. Cloud</option>
       </select>
       <br/>
       <br/>
