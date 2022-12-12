@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import './EventDetails.css';
 
 // CUSTOM COMPONENTS
@@ -9,7 +11,6 @@ function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const eventDetails = useSelector(store => store.event)
-  console.log('event details are!!!!!!!!!!', eventDetails)
 
   useEffect(() => {
     console.log('params is', params)
@@ -21,6 +22,7 @@ function EventDetails() {
 
   return (
 <>
+
     <h2>EventDetails</h2>
     <Link to = "/EventList">
       <button>Back to Calendar</button>
@@ -28,30 +30,53 @@ function EventDetails() {
     <Link to = "/user">
         <button>Home</button>
     </Link>
-  
-    <p>
+    <div className='event-details-container'>
+    <Box      
+    sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#b4b4b43d',
+        padding: '20px', 
+        width: '60%',
+        textAlign: 'center',
+        borderRadius: 3,
+        '&:hover': {
+          backgroundColor: 'grey',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}>
+    <h2>
       {eventDetails[0].name}
-    </p>
+    </h2>
 
-    <p>
+    <h4>
       {eventDetails[0].location}
-    </p>
+    </h4>
 
     <p>
       {eventDetails[0].description}
     </p>
-      
+    </Box>
 
-
-
-
-
-    <h1>
     {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
     {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
-    </h1>
 
-      <button>Register</button>
+    
+    <Button 
+      variant="contained"
+      sx = {{mt: 5,
+        backgroundColor: '#1793e1',
+        '&:hover': {
+          backgroundColor: '#30a0be',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}>
+      Register
+    </Button>
+
+    </div>
 
 </>
   );

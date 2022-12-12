@@ -11,7 +11,6 @@ const config = {
 function* fetchEvents(){
     try{
         const response = yield axios.get(`/api/event/`, config)
-        console.log('in fetch events saga')
         yield put ({
             type: "SET_EVENTS", 
             payload: response.data
@@ -23,7 +22,6 @@ function* fetchEvents(){
 }
 
 function* fetchEventDetails(action){
-    console.log('in fetch event details saga with params', action.payload)
     try { 
         const response = yield axios.get(`/api/event/${action.payload}`, config)
         yield put ({
