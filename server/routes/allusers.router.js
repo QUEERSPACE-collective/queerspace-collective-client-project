@@ -48,10 +48,10 @@ router.put('/:id', (req, res) => {
         req.body.fname,
         req.body.lname,
         req.body.userType,
-        req.body.username,
         req.body.pronouns,
         req.body.bio,
         req.body.profilePic,
+        req.body.mentorPair,
         req.params.id
       ]
   
