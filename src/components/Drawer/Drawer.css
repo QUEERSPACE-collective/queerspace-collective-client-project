@@ -1,3 +1,17 @@
-h1 {
-    color:red;
+.drawerContainer {
+    margin-top: 45%;
+    padding: 0;
+}
+.drawerContainer svg {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+}
+.drawerPadding {
+    padding-right:30px;
+    color:black;
+ }
+.drawerText p{
+    color:black;
+    padding:20px;
 }

@@ -13,6 +13,10 @@ import newEventType from './newEventType.reducer';
 import newEventProgramArea from './newEventProgramArea.reducer';
 import newEventAttendeeMax from './newEventAttendeeMax.reducer';
 import newEventDescription from './newEventDescription.reducer';
+import allUsers from './allUsers.reducer';
+import editUser from "./editUser.reducer";
+import event from './event.reducer';
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -21,6 +25,7 @@ import newEventDescription from './newEventDescription.reducer';
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
+
   user, // will have an id and username if someone is logged in'
   newEventName, 
   newEventDate,
@@ -34,6 +39,9 @@ const rootReducer = combineReducers({
   newEventProgramArea,
   newEventAttendeeMax,
   newEventDescription,
-  });
+  allUsers, //fetch all users from database
+  editUser, // fetch specifc user to edit 
+  event,
+}); 
 
 export default rootReducer;

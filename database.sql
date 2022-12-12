@@ -10,10 +10,12 @@ CREATE TABLE "user" (
 	"bio" VARCHAR,
 	"mentorPair" VARCHAR
 );
+
 CREATE TABLE "programLocations" (
 	"id" SERIAL PRIMARY KEY,
 	"locationName" VARCHAR
 );
+
 INSERT INTO "programLocations" ("locationName")
 VALUES  ('Twin Cities'), ('St. Cloud');
 
@@ -47,14 +49,14 @@ VALUES
 
 CREATE TABLE "questions"(
 	"id" SERIAL PRIMARY KEY,
-	"eventId" INT REFERENCES "events",
+	"eventId" INT REFERENCES "events" ON DELETE CASCADE,
 	"question" VARCHAR
 );
 
 CREATE TABLE "answers" (
 	"id" SERIAL PRIMARY KEY,
-	"questionId" INT REFERENCES "questions",
-	"userId" INT REFERENCES "user",
+	"questionId" INT REFERENCES "questions" ON DELETE CASCADE,
+	"userId" INT REFERENCES "user" ON DELETE CASCADE,
 	"answer" VARCHAR
 );
 

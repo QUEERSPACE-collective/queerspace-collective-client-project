@@ -1,48 +1,69 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import QSClogo from '../QSClogo/QSClogo';
+import Drawers from '../Drawer/Drawer';
+
+import {
+  HashRouter as Router,
+  Link,
+} from 'react-router-dom';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">QUEERSPACE collective</h2>
-        <img src='./images/queerspaceLogo.png' className='logo'/>
+    <>
+      {/* The drawer component dictates whether the user will see the
+         hamburger menu or not, depending if the user is logged in or not. */}
+      <div className="nav">
 
-        </Link>
-      <div>
-        {/* If no user is logged in, show these links */}
-        {!user.id && (
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
-            Login
+        <span className='drawersContainer'>
+          <Drawers />
+        </span>
+
+        <header className='myHeader'>
+
+          <Link to="/home">
+            <QSClogo />
           </Link>
-        )}
 
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Link className="navLink" to="/user"> 
-              Home
-            </Link>
+          {/* SHOW THIS IF NOT LOGGED IN */}
 
-            <Link className="navLink" to="/info">
-              Info Page
-            </Link>
+         {!user.id && (
+          <div className='webNavbar'>
+            <Link to='./login'><p>Login</p></Link>
+          </div>
+          )}  
 
-            <LogOutButton className="navLink" />
-          </>
-        )}
+          {/* SHOW THIS IF THE USER IS AN ADMIN OR MENTOR */}
+          
+          {user.userType > 3 && (
+          <div className='webNavbar'>
+            <Link to='./home'><p>Home</p></Link>
+            <Link to='./calendar'><p>Calendar</p></Link>
+            <Link to='./resources'><p>Resources</p></Link>
+            <Link to='./feedback'><p>Feedback Form</p> </Link>
+            <Link to='./alluserslist'><p>Find members</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
+          </div>
+          )} 
 
-        <Link className="navLink" to="/AboutPage">
-          About
-        </Link>
+          {/* SHOW THIS IF THE USER IS NOT ADMIN OR MENTOR */}
+
+          {user.userType < 4 && (
+           <div className='webNavbar'>
+            <Link to='./home'><p>Home</p></Link>
+            <Link to='./calendar'><p>Calendar</p></Link>
+            <Link to='./alluserslist'><p>Find members</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
+          </div> 
+           )} 
+        
+        </header>
       </div>
-    </div>
+    </>
   );
 }
 
