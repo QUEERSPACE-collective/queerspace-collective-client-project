@@ -151,7 +151,7 @@ function Drawers() {
     // 3. IF USER IS NOT LOGGED IN
     <>
       <div>
-        {user.id && (
+        {!user.id && (
           <div>
             <Redirect to='/home'></Redirect> 
             {/* Set to 'home' right now, could also be 'login' page?? */}
@@ -168,7 +168,7 @@ function Drawers() {
 
 {/* 4. THIS SHOWS THE DRAWER IN CONST LIST ( 1. ) */}
       <div className='drawerContainer'>
-        {!user.id &&   (
+        {user.id &&   (
 
   // WILL BE GRABBING THE USER TYPE AND ADDING THE CONDITIONAL RENDER TO
   // LINE 171 ABOVE example: (user.id && user.userType == admin(integer) || mentor(integer))

@@ -7,7 +7,13 @@
     display: flex;
     justify-content: center;
 }
-
+.navLogin {
+    color: black;
+    padding: 5px 10px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 15px;
+}
 .myHeader img {
     width: 100px;
     padding: 10px 0px;

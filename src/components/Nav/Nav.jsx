@@ -10,9 +10,7 @@ import {
 } from 'react-router-dom';
 
 function Nav() {
-  // const user = useSelector((store) => store.user);
-  // We can use this ⬆️ if we want to run a conditional on this page, otherwise
-  // all that is being done in the Drawer component
+  const user = useSelector((store) => store.user);
 
   return (
     <>
@@ -32,6 +30,10 @@ function Nav() {
 
           {/* Hide these initially, and change visibility depending on screen size */}
           {/* If these are showing, then the Drawer will not be */}
+
+
+          {/* SHOW THIS IF THE USER IS AN ADMIN OR MENTOR */}
+          {/* {user.userType == "ADMIN" || user.userType == "MENTOR" ( */}
           <div className='webNavbar'>
             <Link to='./home'><p>Home</p></Link>
             <Link to='./calendar'><p>Calendar</p></Link>
@@ -40,6 +42,18 @@ function Nav() {
             <Link to='./alluserslist'><p>Find members</p></Link>
             <Link to='./login'><p>Logout</p></Link>
           </div>
+
+          {/* )} */}
+
+          {/* SHOW THIS IF THE USER IS NOT ADMIN OR MENTOR */}
+          {/* {user.userType != "ADMIN" || user.userType != "MENTOR" ( */}
+          {/* <div className='webNavbar'>
+            <Link to='./home'><p>Home</p></Link>
+            <Link to='./calendar'><p>Calendar</p></Link>
+            <Link to='./alluserslist'><p>Find members</p></Link>
+            <Link to='./login'><p>Logout</p></Link>
+          </div> */}
+          {/* )} */}
         </header>
       </div>
     </>
