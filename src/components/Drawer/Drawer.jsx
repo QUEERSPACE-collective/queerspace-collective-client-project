@@ -18,7 +18,6 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -28,15 +27,14 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import MoodIcon from '@mui/icons-material/Mood';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import { useSelector } from 'react-redux';
 
-// NOTE: THIS PAGE'S FUNCTIONALITY WILL BE FINISHED WHEN WE CAN GRAB
-// THE USER'S TYPE (mentee/youth, mentor, admin, caregiver, volunteer)
+import { useSelector, useDispatch } from 'react-redux';
 
 function Drawers() {
+    const dispatch = useDispatch();
+
   const user = useSelector((store) => store.user); 
-  //Allows us to determine what the user sees,
-  // whether they are logged in or not
+  // Used to show whether the user is logged in or not
 
   const [state, setState] = React.useState({
     left: false
@@ -48,7 +46,7 @@ function Drawers() {
     }
     setState({ ...state, [anchor]: open });
   };
-// 1. VARIABLE 'CONST LIST' IS WHAT WILL SHOW FOR ADMIN AND MENTORS
+// 1. List is what will show for ADMIN AND MENTORS
   const list = (anchor) => (
     <Router>
       <Box
@@ -60,6 +58,7 @@ function Drawers() {
 {/* Below, I had to add <p> elements to the text and imports, as well as <Link to=>'s. 
   Without it, there was too much of a dead space between them and it would be very annoying
     for a regular user to use */}
+  {/* Edan said I should fix this so we don't map through anything because it's confusing. Which it is. */}
         <List className='drawerText' sx={{ p: 0 }}>
           {[<Link to='./home'><p>Home</p></Link>,
           <Link to='./calendar'><p>Calendar</p></Link>,
@@ -68,13 +67,11 @@ function Drawers() {
           <Link to='./alluserslist'><p>Find members</p></Link>].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton sx={{ p: 0 }} className='drawerPadding'>
-                <ListItemIcon>
                   {index == 0 ? <Link to='./home'><p><CottageIcon /> </p></Link> :
                     index == 1 ? <Link to='./calendar'><p><CalendarMonthIcon /></p></Link> :
                       index == 2 ? <Link to='./resources'><p><HomeRepairServiceIcon /></p></Link> :
                         index == 3 ? <Link to='./feedback'><p><MoodIcon /> </p></Link> :
                           index == 4 ? <Link to='./alluserslist'><p><PersonSearchIcon /></p></Link> : ""}
-                </ListItemIcon>
                 <ListItemText primary={text}/>
               </ListItemButton>
             </ListItem>
@@ -83,10 +80,10 @@ function Drawers() {
         <Divider />
         <List>
           {['Logout'].map((text) => (
-            <Link to='./login'>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
-                  <LogoutIcon>
+                  <LogoutIcon >
                     <InboxIcon/>
                   </LogoutIcon>
                   <ListItemText primary={text} />
@@ -101,7 +98,7 @@ function Drawers() {
 // 1. END MENTOR/ADMIN LIST 
 
 
-// 2. VARIABLE 'CONST LIST2' IS WHAT VOLUNTEERS, MENTEES/YOUTH, AND CAREGIVERS WILL SEE.
+// 2. List2' IS WHAT VOLUNTEERS, MENTEES/YOUTH, AND CAREGIVERS WILL SEE.
   const list2 = (anchor) => (
     <Router>
       <Box
@@ -116,11 +113,9 @@ function Drawers() {
           <Link to='./findmembers'><p>Find members</p></Link>].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton sx={{ p: 0 }} className='drawerPadding'>
-                <ListItemIcon  >
                   {index == 0 ? <Link to='./home'><p><CottageIcon /> </p></Link> :
                     index == 1 ? <Link to='./calendar'><p><CalendarMonthIcon /></p></Link> :
-                          index == 2 ? <Link to='./findmembers'><p><PersonSearchIcon /></p></Link> : ""}
-                </ListItemIcon>
+                    index == 2 ? <Link to='./findmembers'><p><PersonSearchIcon /></p></Link> : ""}
                 <ListItemText primary={text}/>
               </ListItemButton>
             </ListItem>
@@ -129,7 +124,7 @@ function Drawers() {
         <Divider />
         <List>
           {['Logout'].map((text) => (
-            <Link to='./login'>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <LogoutIcon>
@@ -145,7 +140,7 @@ function Drawers() {
     </Router>
   );
 
-  // 2. END LIST FOR VOLUNTEERS, MENTEES/YOUTH, & CAREGIVERS
+  // 2. END 
 
   return (
     // 3. IF USER IS NOT LOGGED IN
@@ -153,12 +148,7 @@ function Drawers() {
       <div>
         {!user.id && (
           <div>
-            <Redirect to='/home'></Redirect> 
-            {/* Set to 'home' right now, could also be 'login' page?? */}
-            {/* Whenever the page is reloaded, it will take us back to whichever we decide. This 
-              won't happen if the user is logged in. I know there's an easier way to do this, if you remember how
-                please make it happen and/or show me */}
-                
+            <Redirect to='/home'></Redirect>                 
             <Link className="navLink navLogin" to="/login" >
               Login
             </Link> 
@@ -167,12 +157,9 @@ function Drawers() {
       </div>
     {/* 3. END  */}
 
-{/* 4. THIS SHOWS THE DRAWER IN CONST LIST ( 1. ) */}
+{/* 4. (List) */}
       <div className='drawerContainer'>
-        {user.id &&   (
-
-  // WILL BE GRABBING THE USER TYPE AND ADDING THE CONDITIONAL RENDER TO
-  // LINE 171 ABOVE example: (user.id && user.userType == admin(integer) || mentor(integer))
+        {user.userType > 3 &&   (
           ['left'].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
@@ -186,15 +173,14 @@ function Drawers() {
             </React.Fragment>
           ))
         )}
-        
       </div>
+
   {/* 4. END */}
 
-{/* 5. IF user.id IS TRUE AND user.userType == YOUTH(int) OR VOLUNTEER(int), THEN DISPLAY
-  THE DRAWER WITHOUT "resources" AND "feedback" LINKS ( display variable const list2 ) */}
+{/* 5. (List2)*/}
 
-{/* <div className='drawerContainer'>
-        {user.id && user.userType != ADMIN || user.userType != MENTOR (
+<div className='drawerContainer'>
+        {user.userType < 4 && (
           ['left'].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
@@ -208,10 +194,9 @@ function Drawers() {
             </React.Fragment>
           ))
         )}
-      </div>  */}
+      </div> 
 
 {/* 5. END */}
-
     </>
   );
 }
