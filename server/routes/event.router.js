@@ -11,11 +11,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.send(dbResult.rows)
         })
         .catch(error => {
-            console.log('error getting events back from db', error)
+            console.error('error getting events back from db', error)
             res.sendStatus(500);
         })
 })
 
+//not currently set up as cascading with 'quetions' and 'answers' in database.... so I have nested delete queries
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = `
+                        DELETE FROM "events"
+                        WHERE "id" = $1;
+                        `;
+        await pool.query(sqlText, [req.params.id]);
+    }
+    catch (error) {
+        console.error('error in delete event from db', error);
+        res.sendStatus(500);
+    }
+});
 
 
 

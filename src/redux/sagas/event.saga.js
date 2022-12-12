@@ -7,7 +7,7 @@ const config = {
     withCredentials: true,
 }
 
-
+// fetch all events
 function* fetchEvents () {
     try{
         const response = yield axios.get(`/api/event/`, config)
@@ -18,16 +18,30 @@ function* fetchEvents () {
         })
 
     } catch (error) {
-        console.log('error GETting events from server', error)
+        console.log('error fetchEvents saga', error);
+    }
+}
+
+// delete a specified event
+function* deleteEvent(action){
+    try{
+        yield axios.delete(`/api/event/${action.payload}`);
+
+        //  after deleting an event, reset the events store with all events from DB
+        yield put ({
+            type: "FETCH_EVENTS"
+        });
+    }
+    catch(error) {
+        console.log('error in deleteEvent saga', error);
     }
 }
 
 
 
-
-
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
+    yield takeLatest('DELETE_EVENT', deleteEvent);
 }
 
 export default eventSaga;

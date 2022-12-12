@@ -19,14 +19,23 @@ import {
 
 function AllEventsList() {
   const dispatch = useDispatch();
-  const events = useSelector((store) => store.events);
+  const event = useSelector((store) => store.event);
 
   useEffect(()=> {
     dispatch({type: "FETCH_EVENTS"})
   },[])
 
+  const handleDeleteEvent = (eventId) => {
+
+    console.log(`delete event`, eventId)
+    dispatch({
+      type: 'DELETE_EVENT',
+      payload: eventId
+    })
+  }
+  
   return (
-<>
+  <>
     <h1>AllEventsList</h1>
     <caption>Filter:</caption>
     <select>
@@ -64,30 +73,34 @@ function AllEventsList() {
           </TableRow>
         </TableHead>
         <TableBody>
-        {events.map(event =>
-        <TableRow key={event.id}>
-          <TableCell>{event.name}</TableCell> 
-          <TableCell align="right">{event.dateTime}</TableCell>
-          <TableCell align="right"> {event.description}</TableCell>
-          <TableCell align="right"> {event.location}</TableCell>
-          <TableCell align="right"> {event.type} </TableCell>
-          <TableCell align="right">{event.programLocation} </TableCell> 
-          <TableCell align="right">
-            <Button 
-              variant="contained"
-              color="error"
-            > 
-              Delete
-            </Button>
-          </TableCell>
-        </TableRow>
-)}
+
+        {event.map(thisEvent =>
+          <TableRow key={thisEvent.id}>
+            <TableCell>{thisEvent.name}</TableCell> 
+            <TableCell align="right">{thisEvent.dateTime}</TableCell>
+            <TableCell align="right"> {thisEvent.description}</TableCell>
+            <TableCell align="right"> {thisEvent.location}</TableCell>
+            <TableCell align="right"> {thisEvent.type} </TableCell>
+            <TableCell align="right">{thisEvent.programLocation} </TableCell> 
+            <TableCell align="right">
+              <Button 
+                variant="contained"
+                color="error"
+                value={thisEvent.id}
+                onClick={(evt) => handleDeleteEvent(evt.target.value)}
+              > 
+                Delete
+              </Button>
+            </TableCell>
+          </TableRow>
+        )}
         </TableBody>
       </Table>
     </TableContainer>
 
-</>   
-  );
-}
+  </>   
+    );
+  }
+
 
 export default AllEventsList;
