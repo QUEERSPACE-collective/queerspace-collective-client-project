@@ -28,6 +28,20 @@ function Nav() {
             <QSClogo />
           </Link>
 
+      
+
+        
+        {/* if the user is an admin, show these links */}
+        {/* {user.userType === 5 && (
+          <>
+          <Link className="navLink" to="/AllEventsList">
+            All Events
+          </Link>
+          </>
+        )} */}
+        
+
+
           {/* Hide these initially, and change visibility depending on screen size */}
           {/* If these are showing, then the Drawer will not be */}
 
