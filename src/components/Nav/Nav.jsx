@@ -3,6 +3,7 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import QSClogo from '../QSClogo/QSClogo';
 import Drawers from '../Drawer/Drawer';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 import {
   HashRouter as Router,
@@ -59,7 +60,7 @@ function Nav() {
             <Link to='./resources'><p>Resources</p></Link>
             <Link to='./feedback'><p>Feedback Form</p> </Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login'><p>Logout</p></Link>
+            <Link to='./login'><p> Logout</p></Link>
           </div>
           )} 
 

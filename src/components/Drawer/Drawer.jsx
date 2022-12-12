@@ -28,6 +28,8 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import MoodIcon from '@mui/icons-material/Mood';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import LogOutButton from '../LogOutButton/LogOutButton';
+
 import { useSelector } from 'react-redux';
 
 // NOTE: THIS PAGE'S FUNCTIONALITY WILL BE FINISHED WHEN WE CAN GRAB
