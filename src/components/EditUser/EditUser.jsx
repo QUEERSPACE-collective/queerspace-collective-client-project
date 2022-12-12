@@ -16,6 +16,12 @@ function EditUser() {
             type: "FETCH_EDIT_USER",
             payload: params.id
         });
+
+        return () => {
+          dispatch({
+            type: "CLEAR_EDIT_USER"
+          })
+        }
     }, [params.id]);
 
 
@@ -30,6 +36,15 @@ function EditUser() {
         });
         history.push('/allusers')
     }
+
+    const deleteUser = (id) => {
+      console.log('in delete item function onclick')
+        dispatch({
+          type: "DELETE_USER",
+          payload: id,
+        });
+        history.push('/allusers')
+      }
 
     return (
         <div>
@@ -123,8 +138,10 @@ function EditUser() {
                 />
                 </div>
                 <button type="submit">Submit</button>
+                <button onClick={() => deleteUser(user.id)}>Delete</button>
             </form>
 
+            
             <Link to="/allusers">
                 <button>Back To User List</button>
             </Link>
