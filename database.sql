@@ -1,6 +1,6 @@
 CREATE TABLE "user" (
 	"id" SERIAL PRIMARY KEY,
-	"email" VARCHAR UNIQUE NOT NULL,
+	"username" VARCHAR UNIQUE NOT NULL,
 	"password" VARCHAR,
 	"fname" VARCHAR,
 	"lname" VARCHAR,
