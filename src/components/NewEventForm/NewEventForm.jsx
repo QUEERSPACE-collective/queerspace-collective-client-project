@@ -44,10 +44,10 @@ function NewEventForm() {
       <br/>
       <label for='eventType'>Event Type: </label>
       <select name='eventType' id='eventType'>
-        <option value='1'>Group Hangout</option>
-        <option value='2'>Family Event</option>
-        <option value='3'>Training Event</option>
-        <option value='4'>Mentor Only</option>
+        <option value='1' onClick={(e)=>{dispatch({type: 'SET_NEW_EVENT_TYPE', payload: e.target.value})}}>Group Hangout</option>
+        <option value='2' onClick={(e)=>{dispatch({type: 'SET_NEW_EVENT_TYPE', payload: e.target.value})}}>Family Event</option>
+        <option value='3' onClick={(e)=>{dispatch({type: 'SET_NEW_EVENT_TYPE', payload: e.target.value})}}>Training Event</option>
+        <option value='4' onClick={(e)=>{dispatch({type: 'SET_NEW_EVENT_TYPE', payload: e.target.value})}}>Mentor Only</option>
       </select>
       <br/>
       <br/>
