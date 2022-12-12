@@ -25,7 +25,7 @@ function NewEventForm() {
   const history = useHistory();
   
   function onSubmit(){
-    let dateTime = newEventDate + 'T' + newEventTime;
+    let dateTime = `${newEventDate} ${newEventTime}`;
     dispatch({
       type: 'SUBMIT_NEW_EVENT',
       payload: {
