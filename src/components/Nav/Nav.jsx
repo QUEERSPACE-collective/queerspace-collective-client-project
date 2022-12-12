@@ -1,56 +1,47 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 import QSClogo from '../QSClogo/QSClogo';
 import Drawers from '../Drawer/Drawer';
-import LoginPage from '../LoginPage/LoginPage';
 
 import {
   HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
   Link,
 } from 'react-router-dom';
 
 function Nav() {
-  const user = useSelector((store) => store.user);
+  // const user = useSelector((store) => store.user);
+  // We can use this ⬆️ if we want to run a conditional on this page, otherwise
+  // all that is being done in the Drawer component
 
   return (
     <>
-     {/* The drawers component dictates whether the user will see the
-         hamburger menu or not */}   
-    <div className="nav">
-      <span className='drawersContainer'>
-        <Drawers />
-      </span>
-      <header className='myHeader'>
-        <Link to="/home">
-          <QSClogo />
-        </Link>
-        
-      </header>
-      
-    </div>
+      {/* The drawer component dictates whether the user will see the
+         hamburger menu or not, depending if the user is logged in or not. */}
+      <div className="nav">
 
-    <div>
-      {user.id && (
-        <>
-          <Link className="navLink" to="/user">
-            Home
+        <span className='drawersContainer'>
+          <Drawers />
+        </span>
+
+        <header className='myHeader'>
+
+          <Link to="/home">
+            <QSClogo />
           </Link>
 
-          <Link className="navLink" to="/info">
-            Info Page
-          </Link>
-
-          <LogOutButton className="navLink" />
-        </>
-      )}
-
-      
-    </div>
+          {/* Hide these initially, and change visibility depending on screen size */}
+          {/* If these are showing, then the Drawer will not be */}
+          <div className='webNavbar'>
+            <Link to='./home'><p>Home</p></Link>
+            <Link to='./calendar'><p>Calendar</p></Link>
+            <Link to='./resources'><p>Resources</p></Link>
+            <Link to='./feedback'><p>Feedback Form</p> </Link>
+            <Link to='./alluserslist'><p>Find members</p></Link>
+            <Link to='./login'><p>Logout</p></Link>
+          </div>
+        </header>
+      </div>
     </>
   );
 }
