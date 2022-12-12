@@ -167,9 +167,30 @@ function Drawers() {
       </div>
     {/* 3. END  */}
 
-{/* 4. THIS SHOWS THE DRAWER IN CONST LIST ( 1. ) */}
+{/* 4. THIS SHOWS THE DRAWER IN VARIABLE CONST LIST ( 1. ) */}
       <div className='drawerContainer'>
-        {user.id &&   (
+        {user.userType === 5 &&   (
+
+  // WILL BE GRABBING THE USER TYPE AND ADDING THE CONDITIONAL RENDER TO
+  // LINE 171 ABOVE example: (user.id && user.userType == admin(integer) || mentor(integer))
+          ['left'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))
+        )}
+        
+      </div>
+
+      <div className='drawerContainer'>
+        {user.userType === 4 &&   (
 
   // WILL BE GRABBING THE USER TYPE AND ADDING THE CONDITIONAL RENDER TO
   // LINE 171 ABOVE example: (user.id && user.userType == admin(integer) || mentor(integer))
@@ -193,8 +214,8 @@ function Drawers() {
 {/* 5. IF user.id IS TRUE AND user.userType == YOUTH(int) OR VOLUNTEER(int), THEN DISPLAY
   THE DRAWER WITHOUT "resources" AND "feedback" LINKS ( display variable const list2 ) */}
 
-{/* <div className='drawerContainer'>
-        {user.id && user.userType != ADMIN || user.userType != MENTOR (
+<div className='drawerContainer'>
+        {user.userType ===3 && (
           ['left'].map((anchor) => (
             <React.Fragment key={anchor}>
               <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
@@ -208,7 +229,41 @@ function Drawers() {
             </React.Fragment>
           ))
         )}
-      </div>  */}
+      </div> 
+
+      <div className='drawerContainer'>
+        {user.userType ===2 && (
+          ['left'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list2(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))
+        )}
+      </div> 
+
+      <div className='drawerContainer'>
+        {user.userType ===1 && (
+          ['left'].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
+              <Drawer
+                anchor={anchor}
+                open={state[anchor]}
+                onClose={toggleDrawer(anchor, false)}
+              >
+                {list2(anchor)}
+              </Drawer>
+            </React.Fragment>
+          ))
+        )}
+      </div> 
 
 {/* 5. END */}
 
