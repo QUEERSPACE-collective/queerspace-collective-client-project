@@ -25,11 +25,12 @@ function NewEventForm() {
   const history = useHistory();
   
   function onSubmit(){
+    let dateTime = newEventDate + 'T' + newEventTime;
     dispatch({
       type: 'SUBMIT_NEW_EVENT',
       payload: {
         name: newEventName,
-        dateTime: new Date(newEventDate, newEventTime).getTime() / 1000,
+        dateTime: new Date(dateTime).getTime() / 1000,
         location: newEventAddress,
         programLocationID: newEventProgramArea,
         type: newEventType,
