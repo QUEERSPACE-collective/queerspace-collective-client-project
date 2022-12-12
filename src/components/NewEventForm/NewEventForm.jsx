@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
+import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
 
 // CUSTOM COMPONENTS
@@ -16,7 +18,9 @@ function NewEventForm() {
   const newEventVolunteerMax = useSelector(store=>store.newEventVolunteerMax);
   const newEventDescription = useSelector(store=>store.newEventDescription);
   const newEventAttendeeMax = useSelector(store=>store.newEventAttendeeMax);
-
+  const newEventProgramArea = useSelector(store=>store.newEventProgramArea);
+  const newEventType = useSelector(store=>store.newEventType);
+  const newEventVolunteer = useSelector(store=>store.newEventVolunteer);
 
   const history = useHistory();
   
@@ -27,9 +31,12 @@ function NewEventForm() {
         name: newEventName,
         dateTime: new Date(newEventDate, newEventTime).getTime() / 1000,
         location: newEventAddress,
-
-
-
+        programLocationID: newEventProgramArea,
+        type: newEventType,
+        attendeeMax: newEventAttendeeMax,
+        hasVolunteers: newEventVolunteer,
+        volunteerMax: newEventVolunteerMax,
+        description: newEventDescription
       }
     })
     dispatch({
