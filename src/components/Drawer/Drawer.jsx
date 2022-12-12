@@ -158,6 +158,7 @@ function Drawers() {
             {/* Whenever the page is reloaded, it will take us back to whichever we decide. This 
               won't happen if the user is logged in. I know there's an easier way to do this, if you remember how
                 please make it happen and/or show me */}
+                
             <Link className="navLink navLogin" to="/login" >
               Login
             </Link> 
