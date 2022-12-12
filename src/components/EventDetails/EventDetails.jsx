@@ -25,6 +25,9 @@ function EventDetails() {
     <Link to = "/EventList">
       <button>Back to Calendar</button>
     </Link>
+    <Link to = "/user">
+        <button>Home</button>
+    </Link>
   
     <p>
       {eventDetails[0].name}
