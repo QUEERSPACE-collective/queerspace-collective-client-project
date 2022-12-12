@@ -22,7 +22,7 @@ function AllEventsList() {
   const events = useSelector((store) => store.events);
 
   useEffect(()=> {
-    dispatch({type: "FETCH_ALL_EVENTS"})
+    dispatch({type: "FETCH_EVENTS"})
   },[])
 
   return (

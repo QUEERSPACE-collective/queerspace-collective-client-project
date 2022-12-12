@@ -12,7 +12,6 @@ import events from './events.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  events // contains every single event, past and present, in the database
 });
 
 export default rootReducer;
