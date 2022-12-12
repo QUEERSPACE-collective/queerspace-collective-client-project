@@ -173,7 +173,7 @@ function App() {
               <Route exact path='/AllUsersDetails'>
               <AllUsersDetails/>
               </Route>
-              <Route exact path='/AllUsersList'>
+              <Route exact path='/allusers'>
               <AllUsersList/>
               </Route>
               <Route exact path='/Calendar'>
@@ -182,7 +182,7 @@ function App() {
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
-              <Route exact path='/EditUser'>
+              <Route exact path='/allusers/:id/edit'>
               <EditUser/>
               </Route>
 
