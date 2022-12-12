@@ -30,7 +30,7 @@ function NewEventForm() {
       type: 'SUBMIT_NEW_EVENT',
       payload: {
         name: newEventName,
-        dateTime: new Date(dateTime).getTime() / 1000,
+        dateTime: new Date(dateTime),
         location: newEventAddress,
         programLocationID: newEventProgramArea,
         type: newEventType,
