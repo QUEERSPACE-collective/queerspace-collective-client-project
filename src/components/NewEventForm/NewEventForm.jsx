@@ -36,7 +36,8 @@ function NewEventForm() {
         attendeeMax: newEventAttendeeMax,
         hasVolunteers: newEventVolunteer,
         volunteerMax: newEventVolunteerMax,
-        description: newEventDescription
+        description: newEventDescription,
+        questions: newEventStoredQuestions,
       }
     })
     dispatch({
