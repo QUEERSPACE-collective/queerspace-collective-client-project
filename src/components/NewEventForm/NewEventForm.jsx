@@ -15,6 +15,7 @@ function NewEventForm() {
   const newEventStoredQuestions = useSelector(store=> store.newEventStoredQuestions);
   const newEventVolunteerMax = useSelector(store=>store.newEventVolunteerMax);
   const newEventDescription = useSelector(store=>store.newEventDescription);
+  const newEventAttendeeMax = useSelector(store=>store.newEventAttendeeMax);
 
 
   const history = useHistory();
@@ -85,7 +86,11 @@ function NewEventForm() {
       <br/>
       <br/>
       <label for="newEventAttendeeMax">How many people can attend? </label>
-      <input type='number' id="newEventAttendeeMax"></input>
+      <input type='number' id="newEventAttendeeMax" value={newEventAttendeeMax} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_ATTENDEE_MAX',payload: e.target.value})}}></input>
+      <br/>
+      <br/>
+      <label for="description">Description: </label>
+      <input type="text" id='description' value={newEventDescription} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_DESCRIPTION', payload: e.target.value})}}></input>
       <br/>
       <br/>
       <label for="newEventQuestions">Questions: </label>
@@ -93,13 +98,9 @@ function NewEventForm() {
       <button onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}> Add question </button>
       <br/> 
       <br/>
-      <label for="description">Description: </label>
-      <input type="text" id='description' value={newEventDescription} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_DESCRIPTION', payload: e.target.value})}}></input>
-      <br/>
-      <br/>
       <ul>
-        {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(event=>(
-          <li key={event}>{event}</li>
+        {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(question=>(
+          <li key={question}>{question}</li>
         ))}
       </ul>
       <button onClick={onSubmit}>Create New Event</button>
