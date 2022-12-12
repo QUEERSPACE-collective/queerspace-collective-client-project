@@ -14,6 +14,7 @@ function NewEventForm() {
   const newEventQuestion = useSelector(store=> store.newEventQuestion);
   const newEventStoredQuestions = useSelector(store=> store.newEventStoredQuestions);
   const newEventVolunteerMax = useSelector(store=>store.newEventVolunteerMax);
+  const newEventDescription = useSelector(store=>store.newEventDescription);
 
 
   const history = useHistory();
@@ -92,8 +93,8 @@ function NewEventForm() {
       <button onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}> Add question </button>
       <br/> 
       <br/>
-      
-      <input type="text" id='description'></input>
+      <label for="description">Description: </label>
+      <input type="text" id='description' value={newEventDescription} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_DESCRIPTION', payload: e.target.value})}}></input>
       <br/>
       <br/>
       <ul>
