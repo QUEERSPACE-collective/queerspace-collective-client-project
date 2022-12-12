@@ -6,10 +6,22 @@ import './AddUserForm.css';
 
 function AddUserForm() {
   
-
+  function handleSubmit() {
+    console.log('yo')
+  }
   return (
 
-    <h1>AddUserForm</h1>
+   <>
+      <h1>Add New User</h1>
+
+      <form className='addUserFormContainer'>
+      <label for='email' name='email'>   
+      Add Email:  
+      </label>
+      <input type='email' id='email' placeholder='email'></input>
+      <button onSubmit={handleSubmit}>Add User</button>
+      </form>
+   </>
     
   );
 }

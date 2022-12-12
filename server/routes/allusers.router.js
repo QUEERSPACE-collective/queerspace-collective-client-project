@@ -36,6 +36,9 @@ router.get('/:id', (req, res) => {
       });
 })
 
+// Might make GET requests to filter the results, otherwise if I can do it in the componenents to conditional render I would rather do it that way.
+
+
 // PUT route
 router.put('/:id', (req, res) => {
     const sqlText = `
