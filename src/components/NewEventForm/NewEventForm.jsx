@@ -92,6 +92,10 @@ function NewEventForm() {
       <button onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}> Add question </button>
       <br/> 
       <br/>
+      
+      <input type="text" id='description'></input>
+      <br/>
+      <br/>
       <ul>
         {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(event=>(
           <li key={event}>{event}</li>
