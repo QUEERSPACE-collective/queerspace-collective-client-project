@@ -1,6 +1,6 @@
 import React from 'react';
 import './Nav.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import QSClogo from '../QSClogo/QSClogo';
 import Drawers from '../Drawer/Drawer';
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -12,6 +12,7 @@ import {
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -60,7 +61,7 @@ function Nav() {
             <Link to='./resources'><p>Resources</p></Link>
             <Link to='./feedback'><p>Feedback Form</p> </Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login'><p> Logout</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
           </div>
           )} 
 
@@ -71,7 +72,7 @@ function Nav() {
             <Link to='./resources'><p>Resources</p></Link>
             <Link to='./feedback'><p>Feedback Form</p> </Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login'><p>Logout</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
           </div>
           )} 
           {/* SHOW THIS IF THE USER IS NOT ADMIN OR MENTOR */}
@@ -81,7 +82,7 @@ function Nav() {
             <Link to='./home'><p>Home</p></Link>
             <Link to='./calendar'><p>Calendar</p></Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login'><p>Logout</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
           </div> 
            )} 
            {user.userType === 2 && (
@@ -89,7 +90,7 @@ function Nav() {
             <Link to='./home'><p>Home</p></Link>
             <Link to='./calendar'><p>Calendar</p></Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login'><p>Logout</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
           </div> 
            )} 
            {user.userType === 1 && (
@@ -97,7 +98,7 @@ function Nav() {
             <Link to='./home'><p>Home</p></Link>
             <Link to='./calendar'><p>Calendar</p></Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login'><p>Logout</p></Link>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
           </div> 
            )} 
         </header>

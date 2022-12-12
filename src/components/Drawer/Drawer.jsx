@@ -30,12 +30,14 @@ import MoodIcon from '@mui/icons-material/Mood';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // NOTE: THIS PAGE'S FUNCTIONALITY WILL BE FINISHED WHEN WE CAN GRAB
 // THE USER'S TYPE (mentee/youth, mentor, admin, caregiver, volunteer)
 
 function Drawers() {
+    const dispatch = useDispatch();
+
   const user = useSelector((store) => store.user); 
   //Allows us to determine what the user sees,
   // whether they are logged in or not
@@ -85,10 +87,10 @@ function Drawers() {
         <Divider />
         <List>
           {['Logout'].map((text) => (
-            <Link to='./login'>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
-                  <LogoutIcon>
+                  <LogoutIcon >
                     <InboxIcon/>
                   </LogoutIcon>
                   <ListItemText primary={text} />
@@ -131,7 +133,7 @@ function Drawers() {
         <Divider />
         <List>
           {['Logout'].map((text) => (
-            <Link to='./login'>
+            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <LogoutIcon>
