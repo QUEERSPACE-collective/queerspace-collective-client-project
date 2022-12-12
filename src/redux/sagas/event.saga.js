@@ -8,7 +8,7 @@ const config = {
 }
 
 
-function* fetchEvents () {
+function* fetchEvents(){
     try{
         const response = yield axios.get(`/api/event/`, config)
         console.log('in fetch events saga')
@@ -22,12 +22,26 @@ function* fetchEvents () {
     }
 }
 
+function* fetchEventDetails(action){
+    console.log('in fetch event details saga with params', action.payload)
+    try { 
+        const response = yield axios.get(`/api/event/${action.payload}`, config)
+        yield put ({
+            type: 'SET_EVENT_DETAILS',
+            payload: response.data
+        })
+    } catch (error) {
+        console.log('error GETting event details from server', error)
+    }
+}
+
 
 
 
 
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
+    yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails)
 }
 
 export default eventSaga;

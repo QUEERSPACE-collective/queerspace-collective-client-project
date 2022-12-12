@@ -16,6 +16,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('what is req params at router', req.params)
+    const sqlParams = [req.params.id]
+    const sqlText = 
+    `SELECT * FROM "events"
+    WHERE "id" = $1;`;
+
+    pool.query(sqlText, sqlParams)
+        .then(dbResult => {
+            res.send(dbResult.rows)
+            console.log('getting back from the server...', dbResult.rows)
+        })
+        .catch(error => {
+            console.log('error getting event details from db', error)
+            res.sendStatus(500)
+        })
+})
+
 
 
 

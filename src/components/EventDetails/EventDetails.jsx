@@ -1,26 +1,53 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import './EventDetails.css';
 
 // CUSTOM COMPONENTS
 
 function EventDetails() {
-  
+  const dispatch = useDispatch();
+  const params = useParams();
+  const eventDetails = useSelector(store => store.event)
+  console.log('event details are!!!!!!!!!!', eventDetails)
+
+  useEffect(() => {
+    console.log('params is', params)
+    dispatch({
+      type: 'FETCH_EVENT_DETAILS',
+      payload: params.id
+    })
+  }, [params.id])
 
   return (
 <>
-    <h1>EventDetails</h1>
+    <h2>EventDetails</h2>
+    <button>Back to Calendar</button>
+  
+    <p>
+      {eventDetails[0].name}
+    </p>
+
+    <p>
+      {eventDetails[0].location}
+    </p>
+    
+    <p>
+      {eventDetails[0].description}
+    </p>
+      
+
+
+
+
 
     <h1>
-    <a href="https://www.google.com/maps">Maps icon here</a>
+    {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
     {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
     </h1>
-    <button>Back to Calendar</button>
-    <div>
-
 
       <button>Register</button>
-    </div>
+
 </>
   );
 }
