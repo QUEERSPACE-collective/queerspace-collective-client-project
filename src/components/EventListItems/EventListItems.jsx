@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
 import './EventListItems.css';
 
 
@@ -20,20 +21,29 @@ function EventListItems() {
     <>
           <ul>
         {eventList.map(event => (
-          <li key = {event.id}>
+          <div key = {event.id}>
             {event.name}<br/>
             Date: {event.dateTime}<br/>
             Location: {event.location}<br/>
             {/* Type: {event.type}<br/> */}
             {/* Description: {event.description}<br/> */}
             <Link to = {`/EventDetails/${event.id}`}>
-              <button>Details</button>
+            <Button 
+              variant="contained"
+              sx = {{mt: 5,
+              backgroundColor: '#1793e1',
+                '&:hover': {
+                  backgroundColor: '#30a0be',
+                  opacity: [0.9, 0.8, 0.7],
+                },
+              }}>
+                Details
+            </Button>
             </Link>
             <br/>
             <br/>
-          </li>
+          </div>
         ))}
-
       </ul>
 
     </>
