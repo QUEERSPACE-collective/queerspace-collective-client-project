@@ -11,9 +11,6 @@ function EditUser() {
     console.log(params.id);
     const history = useHistory();
 
-    const user = useSelector(store => store.allUsers);
-    console.log(user);
-
     useEffect(() => {
         dispatch({
             type: "FETCH_EDIT_USER",
@@ -21,13 +18,17 @@ function EditUser() {
         });
     }, [params.id]);
 
+
+    const user = useSelector(store => store.editUser);
+    console.log(user);
+
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
             type: "SAVE_USER",
             payload: user
         });
-        history.push('/alluserslist')
+        history.push('/allusers')
     }
 
     return (
@@ -41,7 +42,7 @@ function EditUser() {
                     First Name:
                 </label>
                 <input
-                    value={user.fname}
+                    value={user && user.fname}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { fname: evt.target.value }
@@ -53,7 +54,7 @@ function EditUser() {
                     Last Name:
                 </label>
                 <input
-                    value={user.lname}
+                    value={user && user.lname}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { lname: evt.target.value }
@@ -65,7 +66,7 @@ function EditUser() {
                     User Type:
                 </label>
                 <input
-                    value={user.userType}
+                    value={user && user.userType}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { userType: evt.target.value }
@@ -77,7 +78,7 @@ function EditUser() {
                     Pronouns:
                 </label>
                 <input
-                    value={user.pronouns}
+                    value={user && user.pronouns}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { pronouns: evt.target.value }
@@ -89,7 +90,7 @@ function EditUser() {
                     Bio:
                 </label>
                 <input
-                    value={user.bio}
+                    value={user && user.bio}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { bio: evt.target.value }
@@ -101,7 +102,7 @@ function EditUser() {
                     Profile Picture:
                 </label>
                 <input
-                    value={user.profilePic}
+                    value={user && user.profilePic}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { profilePic: evt.target.value }
@@ -114,7 +115,7 @@ function EditUser() {
                     Mentor:
                 </label>
                 <input
-                    value={user.mentorPair}
+                    value={user && user.mentorPair}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { mentorPair: evt.target.value }
@@ -124,7 +125,7 @@ function EditUser() {
                 <button type="submit">Submit</button>
             </form>
 
-            <Link to="/alluserslist">
+            <Link to="/allusers">
                 <button>Back To User List</button>
             </Link>
         </div>
