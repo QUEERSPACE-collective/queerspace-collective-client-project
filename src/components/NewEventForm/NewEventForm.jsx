@@ -13,6 +13,7 @@ function NewEventForm() {
   const newEventAddress = useSelector(store=>store.newEventAddress);
   const newEventQuestion = useSelector(store=> store.newEventQuestion);
   const newEventStoredQuestions = useSelector(store=> store.newEventStoredQuestions);
+  const newEventVolunteerMax = useSelector(store=>store.newEventVolunteerMax);
 
 
   const history = useHistory();
@@ -60,7 +61,7 @@ function NewEventForm() {
       </div>
       <br/>
       <label for='newEventVolunteerMax'>If yes, how many volunteers are needed? </label>
-      <input type='number' id="newEventVolunteerMax"></input>
+      <input type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value})}}></input>
       <br/>
       <br/>
       <label for="newEventDate">Date: </label>
