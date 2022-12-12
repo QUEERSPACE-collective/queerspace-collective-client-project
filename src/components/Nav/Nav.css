@@ -1,3 +1,77 @@
-h1 {
-    color:red;
+.nav {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.7);
+}
+
+.myHeader {
+    border: none;
+    display: flex;
+    justify-content: center;
+}
+.navLogin {
+    color: black;
+    padding: 5px 10px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 15px;
+    margin-top: 50%;
+
+}
+.myHeader img {
+    width: 100px;
+    padding: 10px 0px;
+    /* This is the nav bar logo, changes size with media queries */
+}
+
+.drawersContainer {
+     /* Container for hamburger Drawer */
+    float: left;
+    position: absolute;
+}
+
+.webNavbar {
+    display: none;
+/* This shows the content of the hamburger drawer when the viewport
+    is in a mobile view */
+}
+
+/* Will need more specific media query widths for this at some point. */
+@media screen and (min-width: 600px) {
+/* This is saying "if screen width is greater than 600px, do THIS ⬇️ " */
+    .drawersContainer { 
+        display: none;
+    }
+    .myHeader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+/* If we want it like their website, we will need to remove "space-between", 
+    but personally I think it looks better this way. */
+        flex-wrap: wrap;
+    }
+    .myHeader img {
+        width: 150px;
+        padding: 30px;
+    }
+    .webNavbar {
+        display: flex;
+        text-align: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .webNavbar a {
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: bold;
+        justify-content: center;
+        padding: 60px 15px;
+        display: flex;
+        color: #000;
+        align-items: center;
+        width: 100px;
+    }
+}
+
+.webNavbar a:hover {
+    color: #E33292;
 }
