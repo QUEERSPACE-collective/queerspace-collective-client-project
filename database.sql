@@ -31,30 +31,22 @@ CREATE TABLE "events" (
 
 CREATE TABLE "userEvents" (
 	"id" SERIAL PRIMARY KEY,
-	"userId" INT REFERENCES "user",
-	"eventId" INT REFERENCES "events"
+	"userId" INT REFERENCES "user" ON DELETE CASCADE,
+	"eventId" INT REFERENCES "events" ON DELETE CASCADE
 );
 
 CREATE TABLE "questions"(
 	"id" SERIAL PRIMARY KEY,
-	"eventId" INT REFERENCES "events",
+	"eventId" INT REFERENCES "events" ON DELETE CASCADE,
 	"question" VARCHAR
 );
 
 CREATE TABLE "answers" (
 	"id" SERIAL PRIMARY KEY,
-	"questionId" INT REFERENCES "questions",
-	"userId" INT REFERENCES "user",
+	"questionId" INT REFERENCES "questions" ON DELETE CASCADE,
+	"userId" INT REFERENCES "user" ON DELETE CASCADE,
 	"answer" VARCHAR
 );
-
-
-CREATE TABLE "userEvents" (
-	"id" SERIAL PRIMARY KEY,
-	"userId" INT REFERENCES "user",
-	"eventId" INT REFERENCES "events"
-);
-
 
 INSERT INTO "user" ("username","password","fname","lname","userType","pronouns","profilePic","bio","mentorPair")
 VALUES('chrismaki123@gmail.com', 'f', 'Chris', 'Maki', '3', 'he/him', 'url', 'am not chris', '1'),
