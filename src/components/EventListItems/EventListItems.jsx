@@ -13,7 +13,7 @@ function EventListItems() {
 
   const eventDetails = (id) => {
     console.log('in event details function with event id:', id)
-    history.push('/EventDetails')
+    history.push('/EventDetails/')
   }
 
   return (

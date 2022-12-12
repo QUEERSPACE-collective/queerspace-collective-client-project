@@ -12,6 +12,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
         .catch(error => {
             console.log('error getting events back from db', error)
+            res.sendStatus(500);
         })
 })
 
