@@ -3,7 +3,6 @@ import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import QSClogo from '../QSClogo/QSClogo';
 import Drawers from '../Drawer/Drawer';
-import LogOutButton from '../LogOutButton/LogOutButton';
 
 import {
   HashRouter as Router,
@@ -30,19 +29,6 @@ function Nav() {
             <QSClogo />
           </Link>
 
-        {/* if the user is an admin, show these links */}
-        
-        {/* {user.userType === 5 && (
-          <>
-          <Link className="navLink" to="/AllEventsList">
-            All Events
-          </Link>
-          </>
-        )} */}
-
-          {/* Hide these initially, and change visibility depending on screen size */}
-          {/* If these are showing, then the Drawer will not be */}
-
           {/* SHOW THIS IF NOT LOGGED IN */}
 
          {!user.id && (
@@ -53,8 +39,7 @@ function Nav() {
 
           {/* SHOW THIS IF THE USER IS AN ADMIN OR MENTOR */}
           
-{/* I REGRET HAVING TO DO THIS I'M SORRY */}
-          {user.userType === 5 && (
+          {user.userType > 3 && (
           <div className='webNavbar'>
             <Link to='./home'><p>Home</p></Link>
             <Link to='./calendar'><p>Calendar</p></Link>
@@ -65,19 +50,9 @@ function Nav() {
           </div>
           )} 
 
-{user.userType === 4 && (
-          <div className='webNavbar'>
-            <Link to='./home'><p>Home</p></Link>
-            <Link to='./calendar'><p>Calendar</p></Link>
-            <Link to='./resources'><p>Resources</p></Link>
-            <Link to='./feedback'><p>Feedback Form</p> </Link>
-            <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
-          </div>
-          )} 
           {/* SHOW THIS IF THE USER IS NOT ADMIN OR MENTOR */}
 
-          {user.userType === 3 && (
+          {user.userType < 4 && (
            <div className='webNavbar'>
             <Link to='./home'><p>Home</p></Link>
             <Link to='./calendar'><p>Calendar</p></Link>
@@ -85,22 +60,7 @@ function Nav() {
             <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
           </div> 
            )} 
-           {user.userType === 2 && (
-           <div className='webNavbar'>
-            <Link to='./home'><p>Home</p></Link>
-            <Link to='./calendar'><p>Calendar</p></Link>
-            <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
-          </div> 
-           )} 
-           {user.userType === 1 && (
-           <div className='webNavbar'>
-            <Link to='./home'><p>Home</p></Link>
-            <Link to='./calendar'><p>Calendar</p></Link>
-            <Link to='./alluserslist'><p>Find members</p></Link>
-            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
-          </div> 
-           )} 
+        
         </header>
       </div>
     </>
