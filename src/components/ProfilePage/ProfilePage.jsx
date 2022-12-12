@@ -13,7 +13,7 @@ function ProfilePage() {
      
       
       <img src='./images/belle.jpg' style={{border:'1px solid black',borderRadius:'50%', height:'350px'}}/>
-      <caption>Edit User</caption>
+      <p>Edit User</p>
       <select>
         
       <option disabled selected hidden>Type</option>
