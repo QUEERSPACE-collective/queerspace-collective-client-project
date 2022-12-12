@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './EventDetails.css';
 
@@ -22,7 +22,9 @@ function EventDetails() {
   return (
 <>
     <h2>EventDetails</h2>
-    <button>Back to Calendar</button>
+    <Link to = "/EventList">
+      <button>Back to Calendar</button>
+    </Link>
   
     <p>
       {eventDetails[0].name}
@@ -31,7 +33,7 @@ function EventDetails() {
     <p>
       {eventDetails[0].location}
     </p>
-    
+
     <p>
       {eventDetails[0].description}
     </p>
