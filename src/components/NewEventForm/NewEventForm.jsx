@@ -53,10 +53,10 @@ function NewEventForm() {
       <label for="volunteerPicker">Does this event need volunteers?</label>
       <div id="volunteerPicker">
       <label for="isVolunteer">Yes</label>
-      <input type="radio" id="isVolunteer" name="volunteers"></input>
+      <input type="radio" id="isVolunteer" name="volunteers" onClick={()=>{dispatch({type: 'SET_VOLUNTEERS_TRUE'})}}></input>
       <br/>
       <label for="isNotVolunteer">No</label>
-      <input type='radio' id='isNotVolunteer' name="volunteers"></input>
+      <input type='radio' id='isNotVolunteer' name="volunteers" onClick={()=>{dispatch({type: 'SET_VOLUNTEERS_FALSE'})}}></input>
       </div>
       <br/>
       <label for='newEventVolunteerMax'>If yes, how many volunteers are needed? </label>
