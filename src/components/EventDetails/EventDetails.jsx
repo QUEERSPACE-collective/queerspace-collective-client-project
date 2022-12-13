@@ -146,25 +146,25 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   add button to unregister*/}
 
 
-    {isRegistered == true ? (
-    <>
-      {/* <Button sx = {{mt: 5}} variant = 'contained' disabled>Register</Button> */}
-      <Button sx = {{mt: 2}} variant='contained' color = 'error' onClick = {eventUnregistration}>Unregister</Button>
-    </>
-    ) 
-    : 
-    (<Button 
-      variant="contained"
-      sx = {{mt: 5,
-        backgroundColor: '#1793e1',
-        '&:hover': {
-          backgroundColor: '#30a0be',
-          opacity: [0.9, 0.8, 0.7],
-        },
-      }}
-      onClick = {handleClickOpen}>
-      Register
-    </Button>)}
+    {isRegistered == true ? 
+      (
+        <Button sx = {{mt: 2}} variant='contained' color = 'error' onClick = {eventUnregistration}>Unregister</Button>
+      ) 
+      : 
+      (<Button 
+        variant="contained"
+        sx = {{mt: 5,
+          backgroundColor: '#1793e1',
+          '&:hover': {
+            backgroundColor: '#30a0be',
+            opacity: [0.9, 0.8, 0.7],
+          },
+        }}
+        onClick = {handleClickOpen}>
+        Register
+      </Button>
+      )
+    }
 
 
     <Dialog
