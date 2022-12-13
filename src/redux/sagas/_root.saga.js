@@ -11,6 +11,7 @@ import userEvents from './userEvents.saga';
 import viewResourcesSaga from './viewResources.saga';
 import newResourceSaga from './submitNewResource.saga';
 import newEventSaga from './newEventForm.saga'; 
+import addUserSaga from './addUser.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -34,5 +35,6 @@ export default function* rootSaga() {
     eventSaga(),
     viewResourcesSaga(),
     newResourceSaga(),
+    addUserSaga(),
   ]);
 }
