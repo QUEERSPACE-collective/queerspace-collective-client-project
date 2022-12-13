@@ -5,15 +5,12 @@ import './AllUsersList.css';
 
 // On page load, GET all users
 
-// Only admins will be able to edit/see the edit User buttons.
-//I should also make this so the non-admin members can't see the username, only the name.
 // Also, all users should be able to click on their name and go to that profile.
-// Maybe display the number of users depending on the type of filter applied.
+// Maybe display the total # of users depending on the type of filter applied.
 
 function AllUsersList() {
   const allUsersList = useSelector(store => store.allUsers);
   const user = useSelector((store) => store.user);
-
   const [userType, setUserType] = useState(0);
 
   const dispatch = useDispatch();
@@ -59,12 +56,20 @@ function goToProfile(evt) {
       </form>
       {/* Render conditionally based off what the filter value is ⬇️*/}
       <div>
+
         {allUsersList.map(allUsers => (
+
           (userType > 0 && userType == allUsers.userType) && (
+
             <ul key={allUsers.username}>
-              <span onClick={()=> {goToProfile(allUsers)}}>{allUsers.username}</span>
-              {user.userType == 5 && (
-              <li>{allUsers.fname} {allUsers.lname} {allUsers.pronouns}</li>
+
+              <Link to='/AllUsersList/:id' onClick={()=> {goToProfile(allUsers)}}>
+              <span>{allUsers.fname} {allUsers.lname}</span>
+              </Link>              {user.userType == 5 && (
+               <>
+              {/* <li>  {allUsers.pronouns}</li> */}
+              <li>Email: {allUsers.username}</li>
+              </>
               )}
               <hr></hr>
               {user.userType == 5 && (
@@ -72,6 +77,7 @@ function goToProfile(evt) {
                 <button>Edit User</button>
               </Link>
               )}
+
             </ul>
           )
         ))}
@@ -83,17 +89,30 @@ function goToProfile(evt) {
       {(userType == 0) && (
       <div>
         {allUsersList.map(allUsers => (
+          
             <ul key={allUsers.username}>
-              <span onClick={()=> {goToProfile(allUsers)}}>{allUsers.username}</span>
-              {user.userType > 4 && (
-              <li>{allUsers.fname} {allUsers.lname} {allUsers.pronouns}</li>
+              <Link to='/AllUsersList/:id' onClick={()=> {goToProfile(allUsers)}}>
+              <span>{allUsers.fname} {allUsers.lname}</span>
+              </Link>
+
+              {user.userType == 5 && (
+                
+              <li> 
+                
+                {/* <li>  {allUsers.pronouns}</li> */}
+              
+                <li>
+                {allUsers.username}
+                </li>
+                </li>
               )}
               <hr></hr>
-              {user.userType > 4 && (
+              {user.userType == 5 && (
               <Link to={`/allusers/${allUsers.id}/edit`}>
                 <button>Edit User</button>
               </Link>
               )}
+                        
             </ul>
           ))}
       </div>   
