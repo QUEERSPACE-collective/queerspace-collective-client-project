@@ -19,12 +19,23 @@ function* saveUser(action) {
     if (action.payload.id) {
         yield axios.put(`/api/allusers/${action.payload.id}`, action.payload);
     }
-    yield put ({ type: 'FETCH_ALL_USERS'});
+    // yield put ({ type: 'FETCH_ALL_USERS'});
+}
+
+function* deleteUser(action) {
+    console.log('in delete user fn');
+    try {
+        yield axios.delete(`/api/allusers/${action.payload}`);
+        yield put({ type: 'FETCH_ALL_USERS' })
+    } catch (err) {
+        console.log("error deleting item", err);
+    }
 }
 
 function* editUsersSaga() {
     yield takeLatest('FETCH_EDIT_USER', fetchEditUser);
     yield takeLatest('SAVE_USER', saveUser);
+    yield takeLatest('DELETE_USER', deleteUser);
 }
 
 export default editUsersSaga;

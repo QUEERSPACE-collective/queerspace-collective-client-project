@@ -2,7 +2,6 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
 // GET all users
 router.get('/', (req, res) => {
   const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
@@ -48,10 +47,10 @@ router.put('/:id', (req, res) => {
         req.body.fname,
         req.body.lname,
         req.body.userType,
-        req.body.username,
         req.body.pronouns,
         req.body.bio,
         req.body.profilePic,
+        req.body.mentorPair,
         req.params.id
       ]
   
@@ -66,5 +65,19 @@ router.put('/:id', (req, res) => {
         })
   })
   
+// DELETE route
+router.delete('/:id', (req, res) => { 
+    const sqlText = `DELETE FROM "user" 
+                      WHERE id = $1;`;
+    const sqlParams = [req.params.id]
+    
+    pool.query(sqlText, sqlParams)
+      .then((dbRes) => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log('error deleting user', err);
+      })
+  });
 
 module.exports = router;

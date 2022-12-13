@@ -15,7 +15,8 @@ CREATE TABLE "programLocations" (
 	"locationName" VARCHAR
 );
 INSERT INTO "programLocations" ("locationName")
-VALUES ('St. Cloud'), ('Twin Cities');
+VALUES  ('Twin Cities'), ('St. Cloud');
+
 
 CREATE TABLE "events" (
 	"id" SERIAL PRIMARY KEY,
@@ -23,9 +24,28 @@ CREATE TABLE "events" (
 	"dateTime" TIMESTAMP,
 	"location" VARCHAR,
 	"programLocationID" INT REFERENCES "programLocations",
-	"type" INT,
+	"type" INT REFERENCES "eventTypes",
+	"attendeeMax" INT,
+	"hasVolunteers" BOOLEAN,
+	"volunteerMax" INT,
 	"description" VARCHAR
 );
+
+
+CREATE TABLE "eventTypes" (
+	"id" SERIAL PRIMARY KEY,
+	"eventType" VARCHAR NOT NULL
+);
+
+INSERT INTO "eventTypes" (
+	"eventType"
+)
+VALUES 
+('Group Hangout'),
+('Family Event'),
+('Training Event'),
+('Mentor Only');
+
 
 CREATE TABLE "questions"(
 	"id" SERIAL PRIMARY KEY,
@@ -45,6 +65,7 @@ CREATE TABLE "userEvents" (
 	"userId" INT REFERENCES "user" ON DELETE CASCADE,
 	"eventId" INT REFERENCES "events" ON DELETE CASCADE
 );
+
 
 
 
@@ -119,12 +140,17 @@ VALUES ('1', '1', 'user 1 answer'), ('2', '1', 'user 1 answer again'), ('3', '2'
 --ON "user"."id" = "answers"."userId"
 --;
 
-----
+
+CREATE TABLE "resources" (
+	"id" SERIAL PRIMARY KEY,
+	"resourceName" VARCHAR,
+	"resourceDescription" VARCHAR,
+	"resourceLink" VARCHAR
+);
+
 --DROP TABLE "userEvents";
 --DROP TABLE "answers";
 --DROP TABLE "questions";
 --DROP TABLE "user";
 --DROP TABLE "events";
 --DROP TABLE "programLocations";
-
-
