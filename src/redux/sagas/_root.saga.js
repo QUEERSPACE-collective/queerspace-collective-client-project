@@ -4,6 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import allUsersSaga from './allUsers.saga';
 import editUsersSaga from './editUsers.saga';
+import editEventSaga from './editEvent.saga';
 import eventSaga from './event.saga';
 import viewResourcesSaga from './viewResources.saga';
 import newResourceSaga from './submitNewResource.saga';
@@ -25,6 +26,8 @@ export default function* rootSaga() {
     allUsersSaga(),
     newEventSaga(),
     editUsersSaga(),
+    editEventSaga(),
+    eventSaga()
     eventSaga(),
     viewResourcesSaga(),
     newResourceSaga(),
