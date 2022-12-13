@@ -57,6 +57,5 @@ const rootReducer = combineReducers({
   newResourceLink,
 
 });
-}); 
 
 export default rootReducer;

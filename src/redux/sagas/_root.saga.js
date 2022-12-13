@@ -27,7 +27,6 @@ export default function* rootSaga() {
     newEventSaga(),
     editUsersSaga(),
     editEventSaga(),
-    eventSaga()
     eventSaga(),
     viewResourcesSaga(),
     newResourceSaga(),
