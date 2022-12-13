@@ -24,6 +24,7 @@ import AddResourceForm from '../AddResourceForm/AddResourceForm';
 import AddUserForm from '../AddUserForm/AddUserForm';
 import AllEventsDetails from '../AllEventsDetails/AllEventsDetails';
 import AllEventsList from '../AllEventsList/AllEventsList';
+import EditEvents from '../EditEvents/EditEvents';
 import AllEventsListItems from '../AllEventsListItems/AllEventsListItems';
 import AllUserListItems from '../AllUserListItems/AllUserListItems';
 import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
@@ -162,6 +163,9 @@ function App() {
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
               </Route>
+              <Route exact path='/AllEventsList/:id/edit'>
+                <EditEvents/>
+              </Route>
               <Route exact path='/AllEventsList'>
               <AllEventsList/>
               </Route>
@@ -174,7 +178,7 @@ function App() {
               <Route exact path='/AllUsersDetails'>
               <AllUsersDetails/>
               </Route>
-              <Route exact path='/AllUsersList'>
+              <Route exact path='/allusers'>
               <AllUsersList/>
               </Route>
               <Route exact path='/Calendar'>
@@ -183,7 +187,7 @@ function App() {
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
-              <Route exact path='/EditUser'>
+              <Route exact path='/allusers/:id/edit'>
               <EditUser/>
               </Route>
 
