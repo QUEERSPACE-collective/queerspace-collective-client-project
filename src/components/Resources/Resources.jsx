@@ -1,15 +1,22 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
 
-// This is one of our simplest components
-// It doesn't have local state
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is
 
 function Resources() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   return (
+    <>
     <div className="container">
       <h1>Resources</h1>
     </div>
+    <div>
+      
+    </div>
+    </>
   );
 }
 

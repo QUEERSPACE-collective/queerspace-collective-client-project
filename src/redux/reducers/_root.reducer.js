@@ -4,6 +4,7 @@ import user from './user.reducer';
 import allUsers from './allUsers.reducer';
 import editUser from "./editUser.reducer";
 import event from './event.reducer';
+import viewResources from './viewResources.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   allUsers, //fetch all users from database
   editUser, // fetch specifc user to edit 
   event,
+  viewResources,
 });
 
 export default rootReducer;
