@@ -60,14 +60,14 @@ function ProfilePage() {
         <Link to = "/EventList">Go to Calendar </Link><br/>
         <div>
           {userEvents.map(event => (
-            
             <div className='user-events'
             key = {event.id} onClick = {() => {history.push(`/EventDetails/${event.id}`)}}>
               {event.name}
             </div>
           ))}
-
         </div>
+
+       
 
         <button>Delete</button>
      

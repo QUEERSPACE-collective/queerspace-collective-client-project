@@ -14,6 +14,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+
 import './EventDetails.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -25,21 +26,34 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
+
+  // loop through userEvents, if any name matches eventDetails.name,
+  // disable register button and render a unregister button
+
+
+
+
+
+
 // CUSTOM COMPONENTS
 
 function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
+  const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
+  const userEvents = useSelector(store => store.userEventsReducer);
+  console.log('user events on the events detail page', userEvents)
   console.log('event details are', eventDetails)
+
+  // console.log('user event name is', userEvents[0].name, 'and current event is', eventDetails[0].name) 
+
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -47,11 +61,9 @@ function EventDetails() {
   //handling alert confirmation 
   // not functional right now
   const [alertOpen, setAlertOpen] = useState({alertOpen: false, vertical: 'top', horizontal: 'center'});
-
   const handleAlertOpen = () => {
     setAlertOpen(true);
   };
-
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -61,8 +73,19 @@ function EventDetails() {
   // end alert confirmation
 
 
+
+userEvents.forEach((event) => {
+  if (eventDetails.length > 0 && event.length > 0 && event.id === eventDetails[0].id){
+    setIsRegistered(true)
+  }
+  console.log('is this user registered for this event', isRegistered)
+})
+
+
+
+
+
   useEffect(() => {
-    console.log('params is', params)
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
       payload: params.id
@@ -124,7 +147,12 @@ function EventDetails() {
     {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
     {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
 
-    
+
+  {/* TO DO: if user is already registered for this event, disable register button, 
+  add button to unregister*/}
+
+
+
     <Button 
       variant="contained"
       sx = {{mt: 5,
@@ -137,6 +165,7 @@ function EventDetails() {
       onClick = {handleClickOpen}>
       Register
     </Button>
+
     <Dialog
         open={open}
         TransitionComponent={Transition}
