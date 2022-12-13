@@ -62,10 +62,9 @@ CREATE TABLE "answers" (
 
 CREATE TABLE "userEvents" (
 	"id" SERIAL PRIMARY KEY,
-	"userId" INT REFERENCES "user",
-	"eventId" INT REFERENCES "events"
+	"userId" INT REFERENCES "user" ON DELETE CASCADE,
+	"eventId" INT REFERENCES "events" ON DELETE CASCADE
 );
-
 
 CREATE TABLE "resources" (
 	"id" SERIAL PRIMARY KEY,
