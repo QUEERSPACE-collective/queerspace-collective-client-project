@@ -42,7 +42,7 @@ function Nav() {
           {user.userType > 3 && (
           <div className='webNavbar'>
             <Link to='./home'><p>Home</p></Link>
-            <Link to='./calendar'><p>Calendar</p></Link>
+            <Link to='./eventlist'><p>Calendar</p></Link>
             <Link to='./resources'><p>Resources</p></Link>
             <Link to='./feedback'><p>Feedback Form</p> </Link>
             <Link to='./alluserslist'><p>Find members</p></Link>
