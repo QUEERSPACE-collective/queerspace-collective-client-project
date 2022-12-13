@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import allUsersSaga from './allUsers.saga';
 import editUsersSaga from './editUsers.saga';
 import eventSaga from './event.saga';
+import viewResourcesSaga from './viewResources.saga';
 
 
 // rootSaga is the primary saga.
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     userSaga(),
     allUsersSaga(),
     editUsersSaga(),
-    eventSaga()
+    eventSaga(),
+    viewResourcesSaga(),
   ]);
 }

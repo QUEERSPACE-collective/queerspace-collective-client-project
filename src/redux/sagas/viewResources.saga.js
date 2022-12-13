@@ -13,3 +13,9 @@ function* viewResources(action){
         console.error(err);
     }
 }
+
+function* viewResourcesSaga(){
+    yield takeLatest('GET_RESOURCES', viewResources);
+}
+
+export default viewResourcesSaga;
