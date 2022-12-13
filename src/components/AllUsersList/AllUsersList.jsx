@@ -20,14 +20,18 @@ function AllUsersList() {
     dispatch({ type: "FETCH_ALL_USERS" });
   }, [])
 
-  function goToAddUser() {
-    history.push('/AddUserForm')
-  }
+  //------------------
 function goToProfile(evt) {
   // evt.preventDefault();
-  console.log('user id is',evt.id);
+  console.log('event id issssssss',evt.id)
+ 
+  history.push(`/AllUsersDetails/${evt.id}`)
+ 
   // Now that we have the user's id on click, we need to use it to send us to the user's profile page that has that ID
 }
+
+  //------------------
+
   return (
     <>
       <h1>AllUsersList</h1>
@@ -62,10 +66,12 @@ function goToProfile(evt) {
           (userType > 0 && userType == allUsers.userType) && (
 
             <ul key={allUsers.username}>
+              Name:
 
-              <Link to='/AllUsersList/:id' onClick={()=> {goToProfile(allUsers)}}>
+              <button onClick={()=> {goToProfile(allUsers)}}>
               <span>{allUsers.fname} {allUsers.lname}</span>
-              </Link>              {user.userType == 5 && (
+              </button>
+              {user.userType == 5 && (
                <>
               {/* <li>  {allUsers.pronouns}</li> */}
               <li>Email: {allUsers.username}</li>
@@ -91,9 +97,10 @@ function goToProfile(evt) {
         {allUsersList.map(allUsers => (
           
             <ul key={allUsers.username}>
-              <Link to='/AllUsersList/:id' onClick={()=> {goToProfile(allUsers)}}>
+              Name:
+              <button onClick={()=> {goToProfile(allUsers)}}>
               <span>{allUsers.fname} {allUsers.lname}</span>
-              </Link>
+              </button>
 
               {user.userType == 5 && (
                 
@@ -118,7 +125,7 @@ function goToProfile(evt) {
       </div>   
       )}
       <div>
-        <button onClick={goToAddUser}>Add New User</button>
+        <button>Add New User</button>
       </div>
     </>
   );

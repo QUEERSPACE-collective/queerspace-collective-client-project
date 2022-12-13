@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 // GET specific user
 router.get('/:id', (req, res) => {
-    console.log(req.params.id);
+    console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `
         SELECT * FROM "user"

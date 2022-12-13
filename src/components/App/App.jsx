@@ -170,9 +170,11 @@ function App() {
               <Route exact path='/AllUserListItems'>
               <AllUserListItems/>
               </Route>
-              <Route exact path='/AllUsersDetails'>
+
+              <Route exact path='/AllUsersDetails/:id'>
               <AllUsersDetails/>
               </Route>
+              
               <Route exact path='/allusers'>
               <AllUsersList/>
               </Route>
