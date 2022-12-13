@@ -3,20 +3,115 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+// get all events
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const sqlText = `SELECT * FROM "events"`;
+    const sqlText = `SELECT * FROM "events"
+                    ORDER BY id ASC;
+                `;
 
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
         })
         .catch(error => {
-            console.log('error getting events back from db', error)
+            console.error('error getting events back from db', error)
             res.sendStatus(500);
         })
 })
 
 
+// get a specific event for editing
+router.get('/:id', rejectUnauthenticated, async (req, res)=>{
+    try{
+        const id = req.params.id;
+        const sqlText=`
+            SELECT * FROM "events"
+            WHERE id = $1;
+            `;
+        let dbRes = await pool.query(sqlText, [id]);
+        res.send(dbRes.rows[0]);
+    }
+    catch (error) {
+        console.error('error in edit event', error);
+        res.sendStatus(500);
+    }
+});
 
+// edit the user
+router.put('/:id', rejectUnauthenticated, async (req, res)=>{
+    console.log('req params id', req.params.id)
+
+    try{
+        const sqlText=`
+            UPDATE "events"
+            SET "name" = $1, 
+                "dateTime" = $2, 
+                "location" = $3, 
+                "programLocationID" = $4, 
+                "type" = $5, 
+                "description" = $6
+            WHERE "id" = $7;
+            `;
+
+        const sqlParams = [
+            req.body.name,
+            req.body.dateTime,
+            req.body.location,
+            req.body.programLocationID,
+            req.body.type,
+            req.body.description,
+            req.params.id
+        ];
+        let dbRes = await pool.query(sqlText, sqlParams);
+        res.send(dbRes.rows);
+    }
+    catch (error) {
+        console.error('error in PUT event', error);
+        res.sendStatus(500);
+    }
+})
+
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+    try{
+        const sqlText = `
+            DELETE FROM "events"
+            WHERE "id" = $1;
+            `;
+        await pool.query(sqlText, [req.params.id]);
+        res.sendStatus(204);
+    }
+    catch (error) {
+        console.error('error in delete event from db', error);
+        res.sendStatus(500);
+    }
+});
+
+router.post('/', (req, res) => {
+    console.log('reqbody is', req.body);
+    let sqlText = `INSERT INTO "events" ("name","dateTime","location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    RETURNING "id";`;
+    let sqlParams = [req.body.data.name, req.body.data.dateTime, req.body.data.location, req.body.data.programLocationID, req.body.data.type, req.body.data.attendeeMax, req.body.data.hasVolunteers, req.body.data.volunteerMax, req.body.data.description];
+    pool.query(sqlText, sqlParams)
+        .then(dbRes=>{
+            const eventId = dbRes.rows[0].id;
+            sqlText = `INSERT INTO "questions" ("eventId", "question")
+            VALUES($1,$2);`;
+            req.body.data.questions.map(question=>{
+                sqlParams = [eventId, question];
+                pool.query(sqlText, sqlParams)
+                    .catch(dbQuestionErr=>{
+                        console.error(dbQuestionErr);
+                    });
+            });
+        res.sendStatus(201);
+        })
+        .catch(dbErr=>{
+            console.error(dbErr);
+            res.sendStatus(500);
+        });
+});
+
+module.exports = router;
 
 module.exports = router;

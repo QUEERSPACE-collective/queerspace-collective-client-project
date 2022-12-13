@@ -4,7 +4,11 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import allUsersSaga from './allUsers.saga';
 import editUsersSaga from './editUsers.saga';
+import editEventSaga from './editEvent.saga';
 import eventSaga from './event.saga';
+import viewResourcesSaga from './viewResources.saga';
+import newResourceSaga from './submitNewResource.saga';
+import newEventSaga from './newEventForm.saga'; 
 
 
 // rootSaga is the primary saga.
@@ -20,7 +24,12 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     allUsersSaga(),
+    newEventSaga(),
     editUsersSaga(),
+    editEventSaga(),
     eventSaga()
+    eventSaga(),
+    viewResourcesSaga(),
+    newResourceSaga(),
   ]);
 }
