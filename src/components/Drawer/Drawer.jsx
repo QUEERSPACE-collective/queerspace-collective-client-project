@@ -61,17 +61,17 @@ function Drawers() {
   {/* Edan said I should fix this so we don't map through anything because it's confusing. Which it is. */}
         <List className='drawerText' sx={{ p: 0 }}>
           {[<Link to='./home'><p>Home</p></Link>,
-          <Link to='./calendar'><p>Calendar</p></Link>,
+          <Link to='./eventlist'><p>Calendar</p></Link>,
           <Link to='./resources'><p>Resources</p></Link>,
           <Link to='./feedback'><p>Feedback Form</p> </Link>,
-          <Link to='./alluserslist'><p>Find members</p></Link>].map((text, index) => (
+          <Link to='./allusers'><p>Find members</p></Link>].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton sx={{ p: 0 }} className='drawerPadding'>
                   {index == 0 ? <Link to='./home'><p><CottageIcon /> </p></Link> :
-                    index == 1 ? <Link to='./calendar'><p><CalendarMonthIcon /></p></Link> :
+                    index == 1 ? <Link to='./eventlist'><p><CalendarMonthIcon /></p></Link> :
                       index == 2 ? <Link to='./resources'><p><HomeRepairServiceIcon /></p></Link> :
                         index == 3 ? <Link to='./feedback'><p><MoodIcon /> </p></Link> :
-                          index == 4 ? <Link to='./alluserslist'><p><PersonSearchIcon /></p></Link> : ""}
+                          index == 4 ? <Link to='./allusers'><p><PersonSearchIcon /></p></Link> : ""}
                 <ListItemText primary={text}/>
               </ListItemButton>
             </ListItem>
@@ -109,13 +109,13 @@ function Drawers() {
       >
         <List className='drawerText' sx={{ p: 0 }}>
           {[<Link to='./home'><p>Home</p></Link>,
-          <Link to='./calendar'><p>Calendar</p></Link>,
-          <Link to='./findmembers'><p>Find members</p></Link>].map((text, index) => (
+          <Link to='./eventlist'><p>Calendar</p></Link>,
+          <Link to='./allusers'><p>Find members</p></Link>].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton sx={{ p: 0 }} className='drawerPadding'>
                   {index == 0 ? <Link to='./home'><p><CottageIcon /> </p></Link> :
-                    index == 1 ? <Link to='./calendar'><p><CalendarMonthIcon /></p></Link> :
-                    index == 2 ? <Link to='./findmembers'><p><PersonSearchIcon /></p></Link> : ""}
+                    index == 1 ? <Link to='./eventlist'><p><CalendarMonthIcon /></p></Link> :
+                    index == 2 ? <Link to='./allusers'><p><PersonSearchIcon /></p></Link> : ""}
                 <ListItemText primary={text}/>
               </ListItemButton>
             </ListItem>
