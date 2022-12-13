@@ -14,6 +14,7 @@ const eventRouter = require('./routes/event.router');
 const resourcesRouter = require('./routes/resources.router');
 
 
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,9 +28,11 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+
 app.use('/api/allusers', allUsersRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/resources', resourcesRouter);
+
 
 // Serve static files
 app.use(express.static('build'));

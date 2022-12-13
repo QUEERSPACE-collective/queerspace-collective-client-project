@@ -17,5 +17,20 @@ router.get('/', (req, res) => {
     }
 });
 
+router.post('/', (req, res) => {
+  if(req.isAuthenticated()){
+    const sqlText = `INSERT INTO "resources" ("resourceName", "resourceDescription", "resourceLink")
+    VALUES ($1,$2,$3);`;
+    const sqlParams = [req.body.data.resourceName, req.body.data.resourceDescription, req.body.data.resourceLink];
+    pool.query(sqlText, sqlParams)
+        .then(dbRes=>{
+            res.sendStatus(201);
+        })
+        .catch(dbErr=>{
+            res.sendStatus(500);
+            console.error(dbErr);
+        });
+  }
+});
 
 module.exports = router;
