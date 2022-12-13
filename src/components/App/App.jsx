@@ -24,6 +24,7 @@ import AddResourceForm from '../AddResourceForm/AddResourceForm';
 import AddUserForm from '../AddUserForm/AddUserForm';
 import AllEventsDetails from '../AllEventsDetails/AllEventsDetails';
 import AllEventsList from '../AllEventsList/AllEventsList';
+import EditEvents from '../EditEvents/EditEvents';
 import AllEventsListItems from '../AllEventsListItems/AllEventsListItems';
 import AllUserListItems from '../AllUserListItems/AllUserListItems';
 import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
@@ -134,9 +135,10 @@ function App() {
               <EventList/>
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/EventDetails'>
+          <ProtectedRoute exact path='/EventDetails/:id'>
               <EventDetails/>
           </ProtectedRoute>
+
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
@@ -160,6 +162,9 @@ function App() {
               </Route>
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
+              </Route>
+              <Route exact path='/AllEventsList/:id/edit'>
+                <EditEvents/>
               </Route>
               <Route exact path='/AllEventsList'>
               <AllEventsList/>
