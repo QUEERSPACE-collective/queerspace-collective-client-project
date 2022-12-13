@@ -22,6 +22,7 @@ import editEvent from './editEvent.reducer';
 import newResourceName from './newResourceName.reducer';
 import newResourceDescription from './newResourceDescription.reducer';
 import newResourceLink from './newResourceLink.reducer';
+import viewResources from './viewResources.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -50,9 +51,11 @@ const rootReducer = combineReducers({
   editUser, // fetch specifc user to edit 
   editEvent, //fetch specific event to edit
   event,
+  viewResources,
   newResourceName,
   newResourceDescription,
   newResourceLink,
+
 });
 }); 
 

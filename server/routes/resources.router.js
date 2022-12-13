@@ -2,16 +2,21 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+
 router.get('/', (req, res) => {
-  // GET route code here
+    if(req.isAuthenticated()){
+        const sqlText = `SELECT * FROM "resources" ORDER BY "resourceName" ASC;`
+        pool.query(sqlText)
+            .then(dbRes=>{
+                res.send(dbRes.rows);
+            })
+            .catch(dbErr=>{
+                console.error(dbErr);
+                res.sendStatus(500);
+            });
+    }
 });
 
-/**
- * POST route template
- */
 router.post('/', (req, res) => {
   if(req.isAuthenticated()){
     const sqlText = `INSERT INTO "resources" ("resourceName", "resourceDescription", "resourceLink")

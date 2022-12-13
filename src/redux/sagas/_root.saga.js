@@ -6,6 +6,7 @@ import allUsersSaga from './allUsers.saga';
 import editUsersSaga from './editUsers.saga';
 import editEventSaga from './editEvent.saga';
 import eventSaga from './event.saga';
+import viewResourcesSaga from './viewResources.saga';
 import newResourceSaga from './submitNewResource.saga';
 import newEventSaga from './newEventForm.saga'; 
 
@@ -25,10 +26,10 @@ export default function* rootSaga() {
     allUsersSaga(),
     newEventSaga(),
     editUsersSaga(),
-
     editEventSaga(),
     eventSaga()
+    eventSaga(),
+    viewResourcesSaga(),
     newResourceSaga(),
-
   ]);
 }
