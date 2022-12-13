@@ -6,6 +6,7 @@ import editUser from "./editUser.reducer";
 import event from './event.reducer';
 import newResourceName from './newResourceName.reducer';
 import newResourceDescription from './newResourceDescription.reducer';
+import newResourceLink from './newResourceLink.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,7 +22,7 @@ const rootReducer = combineReducers({
   event,
   newResourceName,
   newResourceDescription,
-
+  newResourceLink,
 });
 
 export default rootReducer;
