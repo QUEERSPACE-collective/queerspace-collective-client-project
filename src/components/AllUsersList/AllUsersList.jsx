@@ -61,13 +61,12 @@ function goToProfile(evt) {
       {/* Render conditionally based off what the filter value is ⬇️*/}
       <div>
 
+
+
         {allUsersList.map(allUsers => (
-
           (userType > 0 && userType == allUsers.userType) && (
-
             <ul key={allUsers.username}>
               Name:
-
               <button onClick={()=> {goToProfile(allUsers)}}>
               <span>{allUsers.fname} {allUsers.lname}</span>
               </button>
@@ -83,7 +82,6 @@ function goToProfile(evt) {
                 <button>Edit User</button>
               </Link>
               )}
-
             </ul>
           )
         ))}

@@ -13,7 +13,7 @@ function AllUsersDetails() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const params = useParams();
-  
+
   useEffect(() => {
     console.log('in useEffect in allusersdetails.jsx',);
     dispatch({
@@ -26,14 +26,27 @@ function AllUsersDetails() {
   }, [params.id])
 
   return (
-
+<>
     <div>
-      <h1>User profile when searched by another user</h1>
+      <h1>User: {allUsersList.fname} {allUsersList.lname} </h1>
+    {user.userType ==5 && (
+      <>
+     <h1>{allUsersList.username}</h1>
+      
+       <p>{allUsersList.mentorPair} </p>
+      </>
+     )}
 
-     
+     <h1>{allUsersList.profilePic}</h1>
+     <h1>{allUsersList.pronouns}</h1>
+     <h1>{allUsersList.bio}</h1>
+      {user.userType == 5 && (
 
+<button>Edit Profile</button>
+
+      )}
     </div>
-
+</>
   );
 }
 
