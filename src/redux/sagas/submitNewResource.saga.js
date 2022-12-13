@@ -3,7 +3,7 @@ import axios from "axios";
 
 function* submitNewResource (action){
     try{
-       yield axios.post('/api/resource', {data: action.payload});
+       yield axios.post('/api/resources', {data: action.payload});
     }
     catch(err){
         console.error(err);
