@@ -47,4 +47,25 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+// getting all events that the user is registered for
+// want to use async await to do multiple queries - 
+// also get the name of the event back from "events" table
+// so that the event name is rendered on 'your upcoming events..'
+router.get('/events', (req, res) => {
+  const sqlParams = [req.user.id]
+  const sqlText = 
+  `
+  SELECT * FROM "userEvents" 
+  WHERE "userId" = $1;
+  `;
+  pool.query(sqlText, sqlParams)
+    .then(dbResult => {
+      res.send(dbResult.rows)
+    })
+    .catch(error => {
+      console.log('error getting users registered events in router', error)
+    })
+})
+
+
 module.exports = router;

@@ -11,10 +11,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import './EventDetails.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 
@@ -25,9 +32,8 @@ function EventDetails() {
   const params = useParams();
   const eventDetails = useSelector(store => store.event)
 
-  // handling modal open and close
+  // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
-  // const handleOpen = () => setOpen(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,6 +41,20 @@ function EventDetails() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  //handling alert confirmation 
+  const [alertOpen, setAlertOpen] = useState({alertOpen: false, vertical: 'top', horizontal: 'center'});
+
+  const handleAlertOpen = () => {
+    setAlertOpen(true);
+  };
+
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertOpen(false);
   };
 
 
@@ -54,6 +74,7 @@ function EventDetails() {
       payload: params.id
     })
     setOpen(false);
+    setAlertOpen(true)
   }
 
 
@@ -130,6 +151,18 @@ function EventDetails() {
           <Button variant = "contained" onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
+
+
+
+
+      <Stack spacing={2} sx={{ width: '100%' }}>
+      <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
+        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
+
+    </Stack>
     </div>
 
 </>

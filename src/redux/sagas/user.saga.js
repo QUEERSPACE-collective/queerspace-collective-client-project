@@ -24,6 +24,8 @@ function* fetchUser() {
   }
 }
 
+
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
 }
