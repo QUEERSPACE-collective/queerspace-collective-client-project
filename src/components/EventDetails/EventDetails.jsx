@@ -40,7 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
-  const [isRegistered, setIsRegistered] = useState(false)
+  // const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('user events on the events detail page', userEvents)
@@ -72,27 +72,17 @@ function EventDetails() {
   };
   // end alert confirmation
 
-
-
-userEvents.forEach((event) => {
-  if (eventDetails.length > 0 && event.length > 0 && event.id === eventDetails[0].id){
-    setIsRegistered(true)
-  }
-  console.log('is this user registered for this event', isRegistered)
-})
-
-
-
-
-
-  useEffect(() => {
+ useEffect(() => {
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
       payload: params.id
     })
   }, [params.id])
-  
 
+// looking through users registered events, 
+let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
+
+  
 
   const eventRegistration  = () => {
     console.log('in event registartion function with id', params.id)
@@ -104,7 +94,11 @@ userEvents.forEach((event) => {
     setAlertOpen(true)
   }
 
+  const eventUnregistration = () => {
+    console.log('in event un-register function')
+  }
 
+  console.log('is this user registered for this event', isRegistered)
 
   return (
   <>
@@ -152,8 +146,14 @@ userEvents.forEach((event) => {
   add button to unregister*/}
 
 
-
-    <Button 
+    {isRegistered == true ? (
+    <>
+      {/* <Button sx = {{mt: 5}} variant = 'contained' disabled>Register</Button> */}
+      <Button sx = {{mt: 2}} variant='contained' color = 'error' onClick = {eventUnregistration}>Unregister</Button>
+    </>
+    ) 
+    : 
+    (<Button 
       variant="contained"
       sx = {{mt: 5,
         backgroundColor: '#1793e1',
@@ -164,7 +164,8 @@ userEvents.forEach((event) => {
       }}
       onClick = {handleClickOpen}>
       Register
-    </Button>
+    </Button>)}
+
 
     <Dialog
         open={open}
