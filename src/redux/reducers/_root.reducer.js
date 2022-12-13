@@ -16,6 +16,7 @@ import newEventDescription from './newEventDescription.reducer';
 import allUsers from './allUsers.reducer';
 import editUser from "./editUser.reducer";
 import event from './event.reducer';
+import userEventsReducer from './userEvents.reducer';
 
 import editEvent from './editEvent.reducer';
 
@@ -51,11 +52,11 @@ const rootReducer = combineReducers({
   editUser, // fetch specifc user to edit 
   editEvent, //fetch specific event to edit
   event,
+  userEventsReducer,
   viewResources,
   newResourceName,
   newResourceDescription,
   newResourceLink,
-
 });
 }); 
 
