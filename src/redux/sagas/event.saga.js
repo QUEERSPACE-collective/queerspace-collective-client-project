@@ -7,7 +7,7 @@ const config = {
     withCredentials: true,
 }
 
-function* fetchEvents(){
+
 // fetch all events
 function* fetchEvents () {
     try{
@@ -35,13 +35,6 @@ function* fetchEventDetails(action){
 }
 
 
-
-
-
-function* eventSaga () {
-    yield takeLatest('FETCH_EVENTS', fetchEvents);
-    yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails)
-  
 // delete a specified event
 function* deleteEvent(action){
     try{
@@ -61,6 +54,8 @@ function* deleteEvent(action){
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
     yield takeLatest('DELETE_EVENT', deleteEvent);
+    yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
+  
 }
 
 export default eventSaga;

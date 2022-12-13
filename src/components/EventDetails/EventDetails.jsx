@@ -28,10 +28,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 // CUSTOM COMPONENTS
 
 function EventDetails() {
-    const history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
   const params = useParams();
-  const history = useHistory();
   // const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
   const userEvents = useSelector(store => store.userEventsReducer);
@@ -147,9 +146,9 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
 
     {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
     {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
-    </h1>
-    <button onClick={() => {history.push('/eventlist')}}>Back to Calendar</button>
     <div>
+    <button onClick={() => {history.push('/eventlist')}}>Back to Calendar</button>
+    </div>
       
       <button>Register</button>
 
