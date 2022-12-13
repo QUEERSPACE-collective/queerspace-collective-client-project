@@ -65,3 +65,11 @@ CREATE TABLE "userEvents" (
 	"userId" INT REFERENCES "user",
 	"eventId" INT REFERENCES "events"
 );
+
+
+CREATE TABLE "resources" (
+	"id" SERIAL PRIMARY KEY,
+	"resourceName" VARCHAR,
+	"resourceDescription" VARCHAR,
+	"resourceLink" VARCHAR
+);
