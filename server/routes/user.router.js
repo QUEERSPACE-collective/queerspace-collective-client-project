@@ -88,4 +88,8 @@ router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
 })
 
 
+// Send email to user to register
+router.post('/adduser', (req, res) => {
+  
+})
 module.exports = router;
