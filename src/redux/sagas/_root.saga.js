@@ -4,6 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import allUsersSaga from './allUsers.saga';
 import editUsersSaga from './editUsers.saga';
+import editEventSaga from './editEvent.saga';
 import eventSaga from './event.saga';
 
 
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     userSaga(),
     allUsersSaga(),
     editUsersSaga(),
+    editEventSaga(),
     eventSaga()
   ]);
 }

@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function* fetchEditEvent(action) {
     try {
-        const response = yield axios.get(`/api/allusers/${action.payload}`);
+        const response = yield axios.get(`/api/event/${action.payload}`);
         yield put({
             type: "SET_EDIT_EVENT",
             payload: response.data
@@ -15,7 +15,17 @@ function* fetchEditEvent(action) {
     }
 }
 
-function* editUsersSaga() {
+function* saveEvent(action) {
+    console.log('this is the id', action.payload.id);
+    if (action.payload.id) {
+        yield axios.put(`/api/event/${action.payload.id}`, action.payload);
+    }
+    yield put ({ type: 'FETCH_ALL_USERS'});
+}
+
+function* editEventSaga() {
     yield takeLatest('FETCH_EDIT_EVENT', fetchEditEvent);
     yield takeLatest('SAVE_EVENT', saveEvent);
 }
+
+export default editEventSaga;

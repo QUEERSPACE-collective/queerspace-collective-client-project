@@ -1,7 +1,10 @@
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import {
+    Button,
+    Select
+} from '@mui/material';
 
 
 function EditEvents(){
@@ -56,7 +59,12 @@ function EditEvents(){
                         payload: {dateTime: evt.target.value}
                     })}
                 />
+
+
+
                 {/* end edit event date time */}
+                <Button type="submit">Submit</Button>
+
             </form>
         
         </>
