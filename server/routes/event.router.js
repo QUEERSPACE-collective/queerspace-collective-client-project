@@ -24,6 +24,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
                         WHERE "id" = $1;
                         `;
         await pool.query(sqlText, [req.params.id]);
+        res.sendStatus(204);
     }
     catch (error) {
         console.error('error in delete event from db', error);

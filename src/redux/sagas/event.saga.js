@@ -25,19 +25,18 @@ function* fetchEvents () {
 // delete a specified event
 function* deleteEvent(action){
     try{
-        yield axios.delete(`/api/event/${action.payload}`);
-
-        //  after deleting an event, reset the events store with all events from DB
-        yield put ({
+        yield axios.delete(`/api/event/${action.payload}`, config);
+        console.log('after delte, before fetch');
+        yield put({
             type: "FETCH_EVENTS"
         });
+        //  after deleting an event, reset the events store with all events from DB
+        
     }
     catch(error) {
         console.log('error in deleteEvent saga', error);
     }
 }
-
-
 
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);

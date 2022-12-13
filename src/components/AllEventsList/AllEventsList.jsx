@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import './AllEventsList.css';
 import { 
@@ -26,8 +26,6 @@ function AllEventsList() {
   },[])
 
   const handleDeleteEvent = (eventId) => {
-
-    console.log(`delete event`, eventId)
     dispatch({
       type: 'DELETE_EVENT',
       payload: eventId
@@ -69,6 +67,8 @@ function AllEventsList() {
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Location</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit User</TableCell>
+
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Delete</TableCell>
           </TableRow>
         </TableHead>
@@ -82,6 +82,11 @@ function AllEventsList() {
             <TableCell align="right"> {thisEvent.location}</TableCell>
             <TableCell align="right"> {thisEvent.type} </TableCell>
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
+            <TableCell align="right">
+              <Link to={`/AllEventsList/${thisEvent.id}/edit`}>
+                <Button>Edit User</Button>
+              </Link>
+            </TableCell>
             <TableCell align="right">
               <Button 
                 variant="contained"
