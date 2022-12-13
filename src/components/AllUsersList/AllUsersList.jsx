@@ -35,20 +35,23 @@ function filterType(evt) {
       <form onSubmit={(evt) => filterType(evt)} value={userType}>
       <select onChange={(evt) => setUserType(evt.target.value)} value={userType}>
         <option disabled selected hidden>Filter</option>
-        <option value="1">
+        <option value="0">
           All Users
         </option>
-        <option value="2">
-          Youth
+        <option value="1">
+          Mentees/Youth
         </option>
-        <option value="3">
+        <option value="2">
           Mentors
         </option>
-        <option value="4">
+        <option value="3">
           Volunteers
         </option>
-        <option value="5">
+        <option value="4">
           Caregivers
+        </option>
+        <option value="5">
+          Admin
         </option>
       </select>
       <button type="submit">Search</button>
@@ -57,7 +60,7 @@ function filterType(evt) {
     
       <div>
         {allUsersList.map(allUsers => (
-           (userType == allUsers.userType) && (
+           (userType > 0 && userType == allUsers.userType) && (
           <ul key={allUsers.username}>
                   {allUsers.username}   
                 <li>{allUsers.fname} {allUsers.lname} {allUsers.pronouns}</li>
@@ -68,7 +71,6 @@ function filterType(evt) {
           </ul>
           )
         ))}
-
         
       <div>
         <button onClick={goToAddUser}>Add New User</button>
@@ -76,6 +78,25 @@ function filterType(evt) {
       
       </div>
       
+      <div>
+        {allUsersList.map(allUsers => (
+           (userType == 0) && (
+          <ul key={allUsers.username}>
+                  {allUsers.username}   
+                <li>{allUsers.fname} {allUsers.lname} {allUsers.pronouns}</li>
+                <hr></hr>
+                <Link to={`/allusers/${allUsers.id}/edit`}>
+                <button>Edit User</button>
+                </Link> 
+          </ul>
+          )
+        ))}
+        
+      <div>
+        <button onClick={goToAddUser}>Add New User</button>
+      </div>
+      
+      </div>
 
     </>
     
