@@ -25,7 +25,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
             res.send(dbResult.rows)
-            console.log('getting back from the server...', dbResult.rows)
         })
         .catch(error => {
             console.log('error getting event details from db', error)

@@ -3,9 +3,11 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 function ProfilePage() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const userEvents = useSelector(store => store.userEventsReducer);
@@ -52,25 +54,20 @@ function ProfilePage() {
       <article>Bio_____________</article>
 
 
-
-
         <h2>
           Your Upcoming Events...
         </h2>
         <Link to = "/EventList">Go to Calendar </Link><br/>
         <div>
           {userEvents.map(event => (
-
-            <div key = {event.id}>
+            
+            <div className='user-events'
+            key = {event.id} onClick = {() => {history.push(`/EventDetails/${event.id}`)}}>
               {event.name}
             </div>
           ))}
 
         </div>
-
-
-
-        
 
         <button>Delete</button>
      

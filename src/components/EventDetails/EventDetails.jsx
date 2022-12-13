@@ -31,6 +31,7 @@ function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const eventDetails = useSelector(store => store.event)
+  console.log('event details are', eventDetails)
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -108,15 +109,15 @@ function EventDetails() {
 
           }}>
         <h2>
-          {eventDetails[0].name}
+          {eventDetails.length > 0 && eventDetails[0].name}
         </h2>
 
       <h4>
-        {eventDetails[0].location}
+        {eventDetails.length > 0 && eventDetails[0].location}
       </h4>
 
       <p>
-        {eventDetails[0].description}
+        {eventDetails.length > 0 && eventDetails[0].description}
       </p>
       </Box>
 

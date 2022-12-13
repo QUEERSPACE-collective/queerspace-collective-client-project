@@ -55,7 +55,7 @@ router.get('/events', rejectUnauthenticated, async (req, res) => {
   const sqlParams = [req.user.id]
   const sqlText = 
   `
-  SELECT "events"."name" 
+  SELECT "events"."name", "events"."id" 
   FROM "userEvents"
   JOIN "events" ON "events".id = "userEvents"."eventId"
   WHERE "userId" = $1;
@@ -64,7 +64,6 @@ router.get('/events', rejectUnauthenticated, async (req, res) => {
 
   pool.query(sqlText, sqlParams)
     .then(dbResult => {
-      console.log('getting back from the server.....', dbResult.rows)
       res.send(dbResult.rows)
     })
     .catch(error => {
