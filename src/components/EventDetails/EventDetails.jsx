@@ -25,29 +25,17 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
-
-  // loop through userEvents, if any name matches eventDetails.name,
-  // disable register button and render a unregister button
-
-
-
-
-
-
 // CUSTOM COMPONENTS
 
 function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
+  const history = useHistory();
   // const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('user events on the events detail page', userEvents)
   console.log('event details are', eventDetails)
-
-  // console.log('user event name is', userEvents[0].name, 'and current event is', eventDetails[0].name) 
-
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -57,6 +45,16 @@ function EventDetails() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // handling unregister confirmation modal open and close
+  const [unregisterOpen, setUnregisterOpen] = useState(false);
+  const handleUnregisterOpen = () => {
+    setUnregisterOpen(true);
+  };
+  const handleUnregisterClose = () => {
+    setUnregisterOpen(false)
+  }
+  // end unregister confirmation
 
   //handling alert confirmation 
   // not functional right now
@@ -72,6 +70,7 @@ function EventDetails() {
   };
   // end alert confirmation
 
+
  useEffect(() => {
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
@@ -79,10 +78,12 @@ function EventDetails() {
     })
   }, [params.id])
 
-// looking through users registered events, 
-let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
 
-  
+
+// looking through users registered events, if they are register for an event
+// with the same id as the currently displayed event, set isRegistered to "true"
+// .some() returns a bool
+let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
 
   const eventRegistration  = () => {
     console.log('in event registartion function with id', params.id)
@@ -95,7 +96,11 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   }
 
   const eventUnregistration = () => {
-    console.log('in event un-register function')
+    dispatch({
+      type: 'DELETE_USER_EVENT',
+      payload: params.id
+    })
+    history.push('/EventList')
   }
 
   console.log('is this user registered for this event', isRegistered)
@@ -148,7 +153,7 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
 
     {isRegistered == true ? 
       (
-        <Button sx = {{mt: 2}} variant='contained' color = 'error' onClick = {eventUnregistration}>Unregister</Button>
+        <Button sx = {{mt: 2}} variant='contained' color = 'error' onClick = {handleUnregisterOpen}>Unregister</Button>
       ) 
       : 
       (<Button 
@@ -183,6 +188,26 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
         <DialogActions>
           <Button variant = "contained" onClick={eventRegistration}>Register</Button>
           <Button variant = "contained" onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+
+
+      <Dialog
+        open={unregisterOpen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleUnregisterClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>{"Are you sure you want to unregister?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Please answer the following questions:
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant = "contained" onClick={eventUnregistration}>Unregister</Button>
+          <Button variant = "contained" onClick={handleUnregisterClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
 

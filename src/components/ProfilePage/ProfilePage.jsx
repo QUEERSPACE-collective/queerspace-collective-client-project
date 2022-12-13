@@ -22,12 +22,6 @@ function ProfilePage() {
   }, [])
 
 
-
-
-
-
-
-
   return (
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
