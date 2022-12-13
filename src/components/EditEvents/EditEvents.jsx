@@ -50,7 +50,7 @@ function EditEvents(){
                 {/* end edit event name */}
                 {/* edit event date time */}
                 <label>
-                    Date and Time
+                    Date and Time:
                 </label>
                 <input
                     value={event && event.dateTime}
@@ -59,10 +59,55 @@ function EditEvents(){
                         payload: {dateTime: evt.target.value}
                     })}
                 />
-
-
-
                 {/* end edit event date time */}
+                {/* edit description */}
+                <label>
+                    Edit Description:
+                </label>
+                <input
+                    value={event && event.description}
+                    onChange={(evt) => dispatch({
+                        type: 'UPDATE_EDIT_EVENT',
+                        payload: {description: evt.target.value}
+                    })}
+                />
+                {/* end edit description */}
+                {/* edit event location */}
+                <label>
+                    Edit Location:
+                </label>
+                <input
+                    value={event && event.location}
+                    onChange={(evt) => dispatch({
+                        type: 'UPDATE_EDIT_EVENT',
+                        payload: {location: evt.target.value}
+                    })}
+                />
+                {/* end edit event location */}
+                {/* edit event type */}
+                <label>
+                    Edit Type:
+                </label>
+                <input
+                    value={event && event.type}
+                    onChange={(evt) => dispatch({
+                        type: 'UPDATE_EDIT_EVENT',
+                        payload: {type: evt.target.value}
+                    })}
+                />
+                {/* end edit event type */}
+                {/* edit event Program location */}
+                <label>
+                    Edit Program Location:
+                </label>
+                <input
+                    value={event && event.programLocationID}
+                    onChange={(evt) => dispatch({
+                        type: 'UPDATE_EDIT_EVENT',
+                        payload: {programLocationID: evt.target.value}
+                    })}
+                />
+                {/* end edit event program location */}
                 <Button type="submit">Submit</Button>
 
             </form>
