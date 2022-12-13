@@ -8,7 +8,8 @@ import './AddResourceForm.css';
 function AddResourceForm() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const newResourceName = useSelector(store=>store.newResourceName)
+  const newResourceName = useSelector(store=>store.newResourceName);
+  const newResourceDescription = useSelector(store=>store.newResourceDescription);
 
   return (
     <>
@@ -20,7 +21,7 @@ function AddResourceForm() {
         <br/>
         <br/>
         <label for='newResourceDescription'>Description: </label>
-        <input type='text' id='newResourceDescription'></input>
+        <input type='text' value={newResourceDescription} id='newResourceDescription' onChange={(e)=>(dispatch({type:'SAVE_NEW_RESOURCE_DESCRIPTION',payload: e.target.value}))}></input>
         <br/>
         <br/>
         <label for='newResourceLink'>Link: </label>
