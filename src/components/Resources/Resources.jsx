@@ -28,6 +28,7 @@ function Resources() {
              <p>{resource.resourceDescription}</p>
              <a href={resource.resourceLink}>View Resource</a>
              <br/>
+             <br/>
           </li>
         )}
       </ul>
