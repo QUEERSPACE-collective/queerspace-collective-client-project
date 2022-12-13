@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 function ProfilePage() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const userEvents = useSelector(store => store.userEventsReducer);
+  console.log('userEvents are', userEvents)
 
   // on page load, fetching all the events 
   // that user is registered for
@@ -56,7 +58,15 @@ function ProfilePage() {
           Your Upcoming Events...
         </h2>
         <Link to = "/EventList">Go to Calendar </Link><br/>
-        <p>Map through user's saved events list....</p>
+        <div>
+          {userEvents.map(event => (
+
+            <div key = {event.id}>
+              {event.name}
+            </div>
+          ))}
+
+        </div>
 
 
 

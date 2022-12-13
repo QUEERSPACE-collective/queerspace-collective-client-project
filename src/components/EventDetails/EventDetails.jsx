@@ -44,6 +44,7 @@ function EventDetails() {
   };
 
   //handling alert confirmation 
+  // not functional right now
   const [alertOpen, setAlertOpen] = useState({alertOpen: false, vertical: 'top', horizontal: 'center'});
 
   const handleAlertOpen = () => {
@@ -56,6 +57,7 @@ function EventDetails() {
     }
     setAlertOpen(false);
   };
+  // end alert confirmation
 
 
   useEffect(() => {
@@ -65,6 +67,7 @@ function EventDetails() {
       payload: params.id
     })
   }, [params.id])
+  
 
 
   const eventRegistration  = () => {
@@ -155,14 +158,13 @@ function EventDetails() {
 
 
 
-      <Stack spacing={2} sx={{ width: '100%' }}>
-      <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
-        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-      </Snackbar>
-
-    </Stack>
+      {/* <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
+          <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+            This is a success message!
+          </Alert>
+        </Snackbar>
+      </Stack> */}
     </div>
 
 </>

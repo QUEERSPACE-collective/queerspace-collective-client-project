@@ -51,15 +51,20 @@ router.post('/logout', (req, res) => {
 // want to use async await to do multiple queries - 
 // also get the name of the event back from "events" table
 // so that the event name is rendered on 'your upcoming events..'
-router.get('/events', (req, res) => {
+router.get('/events', rejectUnauthenticated, async (req, res) => {
   const sqlParams = [req.user.id]
   const sqlText = 
   `
-  SELECT * FROM "userEvents" 
+  SELECT "events"."name" 
+  FROM "userEvents"
+  JOIN "events" ON "events".id = "userEvents"."eventId"
   WHERE "userId" = $1;
   `;
+
+
   pool.query(sqlText, sqlParams)
     .then(dbResult => {
+      console.log('getting back from the server.....', dbResult.rows)
       res.send(dbResult.rows)
     })
     .catch(error => {
