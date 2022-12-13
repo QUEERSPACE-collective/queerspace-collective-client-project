@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 // GET specific user
 router.get('/:id', (req, res) => {
-    console.log(req.params.id);
+    console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `
         SELECT * FROM "user"
@@ -35,6 +35,9 @@ router.get('/:id', (req, res) => {
         console.log(`Error making db query ${sqlText}`, err);
       });
 })
+
+// Might make GET requests to filter the results, otherwise if I can do it in the componenents to conditional render I would rather do it that way.
+
 
 // PUT route
 router.put('/:id', (req, res) => {

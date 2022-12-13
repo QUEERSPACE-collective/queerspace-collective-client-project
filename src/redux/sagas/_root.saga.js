@@ -6,10 +6,11 @@ import allUsersSaga from './allUsers.saga';
 import editUsersSaga from './editUsers.saga';
 import editEventSaga from './editEvent.saga';
 import eventSaga from './event.saga';
+import eventRegistrationSaga from './eventRegistration.saga';
+import userEvents from './userEvents.saga';
 import viewResourcesSaga from './viewResources.saga';
 import newResourceSaga from './submitNewResource.saga';
 import newEventSaga from './newEventForm.saga'; 
-
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,6 +24,9 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    eventSaga(),
+    eventRegistrationSaga(),
+    userEvents(),
     allUsersSaga(),
     newEventSaga(),
     editUsersSaga(),
