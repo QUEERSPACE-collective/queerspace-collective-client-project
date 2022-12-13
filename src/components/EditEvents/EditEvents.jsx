@@ -20,13 +20,13 @@ function EditEvents(){
         });
     }, [params.id]);
 
-    const event = useSelector(store => store.event);
+    const editEvent = useSelector(store => store.editEvent);
 
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
             type: "SAVE_EVENT",
-            payload: user
+            payload: editEvent
         });
         history.push('/AllEventsList')
     }
@@ -41,7 +41,7 @@ function EditEvents(){
                     Event Name:
                 </label>
                 <input
-                    value={event && event.name}
+                    value={editEvent && editEvent.name}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
                         payload: {name: evt.target.value}
@@ -53,7 +53,7 @@ function EditEvents(){
                     Date and Time:
                 </label>
                 <input
-                    value={event && event.dateTime}
+                    value={editEvent && editEvent.dateTime}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
                         payload: {dateTime: evt.target.value}
@@ -65,7 +65,7 @@ function EditEvents(){
                     Edit Description:
                 </label>
                 <input
-                    value={event && event.description}
+                    value={editEvent && editEvent.description}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
                         payload: {description: evt.target.value}
@@ -77,7 +77,7 @@ function EditEvents(){
                     Edit Location:
                 </label>
                 <input
-                    value={event && event.location}
+                    value={editEvent && editEvent.location}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
                         payload: {location: evt.target.value}
@@ -89,7 +89,7 @@ function EditEvents(){
                     Edit Type:
                 </label>
                 <input
-                    value={event && event.type}
+                    value={editEvent && editEvent.type}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
                         payload: {type: evt.target.value}
@@ -101,17 +101,21 @@ function EditEvents(){
                     Edit Program Location:
                 </label>
                 <input
-                    value={event && event.programLocationID}
+                    value={editEvent && editEvent.programLocationID}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
                         payload: {programLocationID: evt.target.value}
                     })}
                 />
                 {/* end edit event program location */}
-                <Button type="submit">Submit</Button>
-
+                <Button 
+                    type="submit"
+                    variant="contained"
+                >Submit</Button>
             </form>
-        
+            <Link to="/AllEventsList">
+                <Button>Back To Events List</Button>
+            </Link>
         </>
     )
 }

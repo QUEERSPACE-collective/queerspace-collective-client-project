@@ -67,7 +67,7 @@ function AllEventsList() {
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Location</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
-            <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit User</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit Event</TableCell>
 
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Delete</TableCell>
           </TableRow>
@@ -84,7 +84,7 @@ function AllEventsList() {
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">
               <Link to={`/AllEventsList/${thisEvent.id}/edit`}>
-                <Button>Edit User</Button>
+                <Button>Edit Event</Button>
               </Link>
             </TableCell>
             <TableCell align="right">

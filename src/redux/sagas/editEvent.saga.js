@@ -4,8 +4,10 @@ import axios from 'axios';
 
 
 function* fetchEditEvent(action) {
+    console.log('fetch edit event ', action.payload);
     try {
         const response = yield axios.get(`/api/event/${action.payload}`);
+        console.log('response data for the fetch edit event', response.data );
         yield put({
             type: "SET_EDIT_EVENT",
             payload: response.data
