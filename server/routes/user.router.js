@@ -137,7 +137,7 @@ async function main() {
     subject: "Thank you for signing up!", // Subject line
     text: `When you sign in, your username will be your email. 
             Please follow the link to sign up:
-            http://localhost:3000/registration/${pw}`, // plain text body
+            http://localhost:3000/registration/#/registration/${pw}`, // plain text body
     // html: "<b>Hello world?</b>", // html body
   });
 

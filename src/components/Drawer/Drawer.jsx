@@ -145,7 +145,7 @@ function Drawers() {
   return (
     // 3. IF USER IS NOT LOGGED IN
     <>
-      <div>
+      {/* <div>
         {!user.id && (
           <div>
             <Redirect to='/home'></Redirect>                 
@@ -154,7 +154,7 @@ function Drawers() {
             </Link> 
           </div>
         )}
-      </div>
+      </div> */}
     {/* 3. END  */}
 
 {/* 4. (List) */}
