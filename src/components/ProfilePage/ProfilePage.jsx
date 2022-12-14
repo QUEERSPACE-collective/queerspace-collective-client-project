@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 function ProfilePage() {
   const history = useHistory();
@@ -63,7 +64,7 @@ function ProfilePage() {
 
        
 
-        <button>Delete</button>
+        <Button variant={'outlined'}>Delete</Button>
      
       <LogOutButton className="btn" />
     </div>

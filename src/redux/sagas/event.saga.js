@@ -7,8 +7,6 @@ const config = {
     withCredentials: true,
 }
 
-
-// fetch all events
 function* fetchEvents () {
     try{
         const response = yield axios.get(`/api/event/`, config)
@@ -35,7 +33,7 @@ function* fetchEventDetails(action){
 }
 
 
-// delete a specified event
+
 function* deleteEvent(action){
     try{
         yield axios.delete(`/api/event/${action.payload}`, config);
@@ -55,7 +53,6 @@ function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
     yield takeLatest('DELETE_EVENT', deleteEvent);
     yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
-  
 }
 
 export default eventSaga;
