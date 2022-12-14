@@ -41,12 +41,12 @@ function Nav() {
           
           {user.userType > 3 && (
           <div className='webNavbar'>
-            <Link to='./home'><p>Home</p></Link>
-            <Link to='./eventlist'><p>Calendar</p></Link>
-            <Link to='./resources'><p>Resources</p></Link>
-            <Link to='./feedback'><p>Feedback Form</p> </Link>
-            <Link to='./allusers'><p>Find members</p></Link>
-            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
+            <Link to='/home'><p>Home</p></Link>
+            <Link to='/eventlist'><p>Calendar</p></Link>
+            <Link to='/resources'><p>Resources</p></Link>
+            <Link to='/feedback'><p>Feedback Form</p> </Link>
+            <Link to='/allusers'><p>Find members</p></Link>
+            <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
           </div>
           )} 
 
@@ -54,10 +54,10 @@ function Nav() {
 
           {user.userType < 4 && (
            <div className='webNavbar'>
-            <Link to='./home'><p>Home</p></Link>
-            <Link to='./calendar'><p>Calendar</p></Link>
-            <Link to='./allusers'><p>Find members</p></Link>
-            <Link to='./login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
+            <Link to='/home'><p>Home</p></Link>
+            <Link to='/calendar'><p>Calendar</p></Link>
+            <Link to='/allusers'><p>Find members</p></Link>
+            <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
           </div> 
            )} 
         
