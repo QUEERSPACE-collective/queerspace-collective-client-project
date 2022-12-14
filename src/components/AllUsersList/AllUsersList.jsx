@@ -51,7 +51,7 @@ function AllUsersList() {
           (userType > 0 && userType == allUsers.userType) && (
             <ul key={allUsers.username} className='allusersP'>
               <p onClick={(evt) => { goToProfile(allUsers) }} >
-              Name: <span>{allUsers.fname} {allUsers.lname}</span>            
+              Name: <span className='clickableName'>{allUsers.fname} {allUsers.lname}</span>            
               </p>
           {user.userType < 5 && (
               <br></br>
@@ -76,14 +76,13 @@ function AllUsersList() {
 
       {/* if userType value is 0, render the whole user list as normal ⬇️*/}
       {(userType == 0) && (
-        <div>
+        <div className='allusersHover'>
             
           {allUsersList.map(allUsers => (
             <ul key={allUsers.username} className='allusersContainer'>
               
               <p onClick={() => { goToProfile(allUsers) }} className='allusersP'>
-              Name: <span>{allUsers.fname} {allUsers.lname}</span>
-              
+              Name: <span className='clickableName'>{allUsers.fname} {allUsers.lname}</span>
               </p>
 
               {user.userType == 5 && (
