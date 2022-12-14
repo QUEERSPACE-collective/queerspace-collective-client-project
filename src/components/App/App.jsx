@@ -41,6 +41,7 @@ import NewEventForm from '../NewEventForm/NewEventForm';
 //END OF NEW COMPONENTS
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
+import EditProfilePage from '../EditProfilePage/EditProfilePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -151,6 +152,9 @@ function App() {
             
             <Route exact path='/ProfilePage'>
               <ProfilePage/>
+            </Route>
+            <Route exact path='/profilepage/:id/edit'>
+              <EditProfilePage/>
             </Route>
             <Route exact path='/AddResourceForm'>
               <AddResourceForm/>

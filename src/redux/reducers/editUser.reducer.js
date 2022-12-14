@@ -9,6 +9,13 @@ const editUserReducer = (state = {}, action) => {
                 ...state,
                 ...action.payload,
             };
+        case 'SET_EDIT_PROFILE':
+            return action.payload;
+        case 'UPDATE_EDIT_PROFILE':
+            return {
+                ...state,
+                ...action.payload,
+            };
     };
     return state;
 }
