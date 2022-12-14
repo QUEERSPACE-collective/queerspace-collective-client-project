@@ -75,9 +75,9 @@ function AllUsersList() {
           {allUsersList.map(allUsers => (
             <ul key={allUsers.username}>
               Name:
-              <button onClick={() => { goToProfile(allUsers) }}>
+              <p onClick={() => { goToProfile(allUsers) }}>
                 <span>{allUsers.fname} {allUsers.lname}</span>
-              </button>
+              </p>
 
               {user.userType == 5 && (
                 <li>                  
@@ -85,12 +85,12 @@ function AllUsersList() {
                   
                 </li>
               )}
-              <hr></hr>
               {user.userType == 5 && (
                 <Link to={`/allusers/${allUsers.id}/edit`}>
                   <button>Edit User</button>
                 </Link>
               )}
+              <hr></hr>
 
             </ul>
           ))}
