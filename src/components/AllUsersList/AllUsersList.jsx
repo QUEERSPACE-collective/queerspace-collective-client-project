@@ -50,9 +50,9 @@ function AllUsersList() {
           (userType > 0 && userType == allUsers.userType) && (
             <ul key={allUsers.username}>
               Name:
-              <button onClick={(evt) => { goToProfile(allUsers) }}>
+              <p onClick={(evt) => { goToProfile(allUsers) }}>
                 <span>{allUsers.fname} {allUsers.lname}</span>
-              </button>
+              </p>
               {user.userType == 5 && (
                 <>
                   <li>Email: {allUsers.username}</li>
