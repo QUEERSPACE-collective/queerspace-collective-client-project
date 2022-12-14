@@ -25,7 +25,7 @@ function Nav() {
 
         <header className='myHeader'>
 
-          <Link to="/home">
+          <Link to="/profilepage">
             <QSClogo />
           </Link>
 
@@ -41,7 +41,7 @@ function Nav() {
           
           {user.userType > 3 && (
           <div className='webNavbar'>
-            <Link to='/home'><p>Home</p></Link>
+            <Link to='/profilepage'><p>Home</p></Link>
             <Link to='/eventlist'><p>Calendar</p></Link>
             <Link to='/resources'><p>Resources</p></Link>
             <Link to='/feedback'><p>Feedback Form</p> </Link>
@@ -54,7 +54,7 @@ function Nav() {
 
           {user.userType < 4 && (
            <div className='webNavbar'>
-            <Link to='/home'><p>Home</p></Link>
+            <Link to='/profilepage'><p>Home</p></Link>
             <Link to='/calendar'><p>Calendar</p></Link>
             <Link to='/allusers'><p>Find members</p></Link>
             <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>

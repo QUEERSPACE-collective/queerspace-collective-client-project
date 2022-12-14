@@ -25,34 +25,49 @@ function ProfilePage() {
 
   return (
     <div className="container">
-      <h2>Welcome, {user.username}!</h2>
-      
-     
-      
-      <img src='./images/belle.jpg' style={{border:'1px solid black',borderRadius:'50%', height:'200px'}}/>
-      <p>Edit User</p>
-      <select>
-        
-      <option disabled selected hidden>Type</option>
-      <option>Mentor</option>
-      <option>Mentee</option>
-      <option>Caregiver</option>
-      <option>Volunteer</option>
+      <h2>Welcome, {user.fname} {user.lname}!</h2>
+      <div>
+      <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px'}}/>
+      </div>
+      <p> Name: {user.fname} {user.lname}</p>
+      <p> Pronouns: {user.pronouns}</p>
+      <p> Email: {user.username}</p>
 
+      <form>
+        <label>
+          Your access level is: 
+        </label>
+        <select value={user.userType}>
+          <option disabled value="1">
+            Mentee/Youth
+          </option>
+          <option disabled value="2">
+            Mentor
+          </option>
+          <option disabled value="3">
+            Volunteer
+          </option>
+          <option disabled value="4">
+            Caregiver
+          </option>
+          <option disabled value="5">
+            Admin
+          </option>
+        </select>
+      </form>
 
-      </select>
-      <p> Name____ </p>
-      <p> Pronouns____ </p>
-      <p> Email____ </p>
-      <p>Mentor____<button>Search Mentors</button></p>
+      <article>Bio: {user.bio}</article>
+      <Link to={'/editprofilepage'}>
       <button>Edit Profile</button>
-      <article>Bio_____________</article>
+      </Link>
 
-
+      <div>
+        {(user.userType < 5) && (
+          <div>
         <h2>
           Your Upcoming Events...
         </h2>
-        <Link to = "/EventList">Go to Calendar </Link><br/>
+        <Link to = "/EventList">Go to Calendar </Link>
         <div>
           {userEvents.map(event => (
             <div className='user-events'
@@ -62,10 +77,11 @@ function ProfilePage() {
           ))}
         </div>
 
-       
-
         <Button variant={'outlined'}>Delete</Button>
-     
+        </div>
+        )}
+      </div>
+
       <LogOutButton className="btn" />
     </div>
   );
