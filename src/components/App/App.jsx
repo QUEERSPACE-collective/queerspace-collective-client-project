@@ -57,7 +57,7 @@ function App() {
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-          <Redirect exact from="/" to="/home" />
+          {/* <Redirect exact from="/" to="/home" /> */}
  
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
@@ -104,7 +104,7 @@ function App() {
 
           <Route
             exact
-            path="/registration"
+            path="/registration/:pw"
           >
             {user.id ?
               // If the user is already logged in, 
@@ -116,7 +116,7 @@ function App() {
             }
           </Route>
 
-          <Route
+          {/* <Route
             exact
             path="/home"
           >
@@ -128,7 +128,7 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
-          </Route>
+          </Route> */}
 
           <ProtectedRoute exact path='/EventList'>
               <EventList/>

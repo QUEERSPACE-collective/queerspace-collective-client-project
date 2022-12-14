@@ -97,7 +97,9 @@ function AllUsersList() {
         </div>
       )}
       <div>
+        <Link to={'/adduserform'}>
         <button>Add New User</button>
+        </Link>
       </div>
     </>
   );

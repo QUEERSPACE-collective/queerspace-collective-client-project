@@ -82,7 +82,18 @@ function Drawers() {
 
   return (
     <>
-     
+      {/* <div>
+        {!user.id && (
+          <div>
+            <Redirect to='/home'></Redirect>                 
+            <Link className="navLink navLogin" to="/login" >
+              Login
+            </Link> 
+          </div>
+        )}
+      </div> */}
+    {/* 3. END  */}
+
 
       <div className='drawerContainer'>
         {user.id &&   (

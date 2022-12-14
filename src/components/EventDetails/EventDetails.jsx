@@ -28,9 +28,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 // CUSTOM COMPONENTS
 
 function EventDetails() {
+  const history = useHistory();
+
   const dispatch = useDispatch();
   const params = useParams();
-  const history = useHistory();
   // const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
   const userEvents = useSelector(store => store.userEventsReducer);
@@ -131,6 +132,29 @@ function EventDetails() {
             boxShadow: 2,
 
           }}>
+        <h2>
+          {eventDetails.length > 0 && eventDetails[0].name}
+        </h2>
+
+      <h4>
+        {eventDetails.length > 0 && eventDetails[0].location}
+      </h4>
+
+      <p>
+        {eventDetails.length > 0 && eventDetails[0].description}
+      </p>
+      </Box>
+
+    {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
+    {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
+    <div>
+    <button onClick={() => {history.push('/eventlist')}}>Back to Calendar</button>
+    </div>
+      
+      <button>Register</button>
+
+
+  {/* TO DO: if user is already registered for this event, disable register button, 
           <h2>
             {eventDetails.length > 0 && eventDetails[0].name}
           </h2>
@@ -143,15 +167,7 @@ function EventDetails() {
             {eventDetails.length > 0 && eventDetails[0].description}
           </p>
         </Box>
-        <h1>
-          {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
-          {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
-        </h1>
-        <button onClick={() => { history.push('/eventlist') }}>Back to Calendar</button>
-        <div>
 
-          <button>Register</button>
-          </div>
 
           {/* TO DO: if user is already registered for this event, disable register button, 
   add button to unregister*/}
