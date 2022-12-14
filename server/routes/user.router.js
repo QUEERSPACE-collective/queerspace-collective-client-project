@@ -89,9 +89,27 @@ router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
   })
 })
 
+// Password generator function
+function generatePW() {
+  var pass = '';
+  var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
+          'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+    
+  for (let i = 1; i <= 8; i++) {
+      var char = Math.floor(Math.random()
+                  * str.length + 1);
+        
+      pass += str.charAt(char)
+  }
+    
+  return pass;
+}
 
 // Send email to user to register
 router.post('/adduser', (req, res) => {
+console.log('this is req.body: ', req.body);
+const userEmail = req.body.data.username;
+const pw = generatePW();
 // async..await is not allowed in global scope, must use a wrapper
 async function main() {
   // Generate test SMTP service account from ethereal.email
@@ -114,11 +132,13 @@ async function main() {
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: 'joanofchoir@outlook.com', // sender address
-    to: "maiaj1306@gmail.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    from: 'joanofchoir@outlook.com', // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
+    to: userEmail, // list of receivers
+    subject: "Thank you for signing up!", // Subject line
+    text: `When you sign in, your username will be your email. 
+            Please follow the link to sign up:
+            http://localhost:3000/registration/${pw}`, // plain text body
+    // html: "<b>Hello world?</b>", // html body
   });
 
   console.log("Message sent: %s", info.messageId);
