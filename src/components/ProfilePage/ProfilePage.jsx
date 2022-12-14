@@ -57,7 +57,7 @@ function ProfilePage() {
       </form>
 
       <article>Bio: {user.bio}</article>
-      <Link to={'/editprofilepage'}>
+      <Link to={`/profilepage/${user.id}/edit`}>
       <button>Edit Profile</button>
       </Link>
 
