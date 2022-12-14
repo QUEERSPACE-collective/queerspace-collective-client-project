@@ -138,7 +138,7 @@ function EditUser() {
                 />
                 </div>
                 <button type="submit">Submit</button>
-                <button onClick={() => deleteUser(user.id)}>Delete</button>
+                <button onClick={() => deleteUser(user.id)}>Dele333333te</button>
             </form>
 
             

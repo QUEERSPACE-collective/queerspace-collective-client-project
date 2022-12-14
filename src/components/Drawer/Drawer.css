@@ -13,5 +13,14 @@
  }
 .drawerText p{
     color:black;
-    padding:20px;
+    padding:20px;   
+}
+.drawerText svg {
+    margin-right: 20px;
+}
+.iconAlign {
+    vertical-align: middle;
+}
+.drawerListLogout {
+    padding-left: 20px;
 }
