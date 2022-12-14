@@ -58,6 +58,6 @@ const rootReducer = combineReducers({
   newResourceDescription,
   newResourceLink,
 });
-}); 
+
 
 export default rootReducer;

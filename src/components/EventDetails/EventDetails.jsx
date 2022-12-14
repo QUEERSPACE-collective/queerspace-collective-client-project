@@ -28,15 +28,14 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 // CUSTOM COMPONENTS
 
 function EventDetails() {
-    const history = useHistory();
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
-  // const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
+  console.log('event details are', eventDetails)
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('user events on the events detail page', userEvents)
-  console.log('event details are', eventDetails)
+  // console.log('event details are', eventDetails)
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -94,6 +93,7 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
     })
     setOpen(false);
     setAlertOpen(true)
+    history.push('/user')
   }
 
   const eventUnregistration = () => {
@@ -110,9 +110,7 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   return (
   <>
       <h2>EventDetails</h2>
-      <Link to = "/EventList">
-        <button>Back to Calendar</button>
-      </Link>
+
       <Link to = "/user">
           <button>Home</button>
       </Link>
@@ -132,6 +130,11 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
             boxShadow: 2,
 
           }}>
+        {/* <div>
+          {eventDetails.map(details => (
+            <h2>{details.name}</h2>
+          ))}
+        </div> */}
         <h2>
           {eventDetails.length > 0 && eventDetails[0].name}
         </h2>
@@ -147,11 +150,9 @@ let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
 
     {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
     {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
-    </h1>
-    <button onClick={() => {history.push('/eventlist')}}>Back to Calendar</button>
-    <div>
+
       
-      <button>Register</button>
+
 
 
   {/* TO DO: if user is already registered for this event, disable register button, 
