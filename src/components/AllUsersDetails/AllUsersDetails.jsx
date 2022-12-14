@@ -1,52 +1,106 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
 
 import './AllUsersDetails.css';
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+  Link,
+} from 'react-router-dom';
 
-// CUSTOM COMPONENTS
-// CHRIS WILL WORK ON THIS
-
-//This page will show the user's profile, depending upon which one was clicked on. Will need to use params
 function AllUsersDetails() {
   const allUsersList = useSelector(store => store.allUsers);
   const user = useSelector((store) => store.user);
-  const dispatch = useDispatch();
   const params = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
-    console.log('in useEffect in allusersdetails.jsx',);
-    dispatch({
-      type: "SHOW_ONE_USER",
-      payload: 
-        params.id
-    });
+    dispatch({ type: "FETCH_ALL_USERS" });
+  }, [])
 
-   
-  }, [params.id])
+  const deleteUser = (id) => {
+    console.log('in delete item function onclick, id is', id)
+      dispatch({
+        type: "DELETE_USER",
+        payload: id,
+      });
+      history.push('/allusers')
+    }
 
   return (
-<>
-    <div>
-      <h1>User: {allUsersList.fname} {allUsersList.lname} </h1>
-    {user.userType ==5 && (
-      <>
-     <h1>{allUsersList.username}</h1>
-      
-       <p>{allUsersList.mentorPair} </p>
-      </>
-     )}
+    <>
+      {allUsersList.map(allUsers => (
+        (params.id == allUsers.id && (
+          <ul key={allUsers.username}>
+            <h2> {allUsers.fname} {allUsers.lname}</h2>
+            {user.userType == 5 && (
+              
+              <div>
 
-     <h1>{allUsersList.profilePic}</h1>
-     <h1>{allUsersList.pronouns}</h1>
-     <h1>{allUsersList.bio}</h1>
-      {user.userType == 5 && (
+                <li>
+                  <p>Edit User</p>
+                  <select>
+                    <option disabled selected hidden>Type</option>
+                    <option>Mentor</option>
+                    <option>Mentee</option>
+                    <option>Caregiver</option>
+                    <option>Volunteer</option>
+                  </select>
+                </li>
+                <li>
+                  Pronouns: {allUsers.pronouns}
+                </li>
+                <li>
+                  Email: {allUsers.username}
+                </li>
+                <li>
+                  <button>Edit Profile</button>
+                </li>
+                <li>
+                  Bio: {allUsers.bio}
+                </li>
+                <li>
+                  Mentor: {allUsers.mentor}
+                </li>
 
-<button>Edit Profile</button>
+                <Button 
+                variant="contained"
+                color="error"
+                value={allUsers.id}
+                onClick={(evt) => deleteUser(evt.target.value)}
+              > 
+                Delete
+              </Button>
+              </div>             
+            )}
 
-      )}
-    </div>
-</>
+              {user.userType < 5 && (
+              <div>
+                
+                <li>
+                  Pronouns: {allUsers.pronouns}
+                </li>
+                <li>
+                  Bio: {allUsers.bio}
+                </li>
+                <li>
+                  Mentor: {allUsers.mentor}
+                </li>
+              </div>
+            )}
+          </ul> 
+        ))
+      ))}
+ <Link to="/allusers">
+                <Button>Back To Events List</Button>
+            </Link>
+    </>
   );
 }
 
