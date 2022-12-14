@@ -1,3 +1,42 @@
 h1 {
-    color:red;
+    text-align: center;
+}
+
+.allusersContainer {
+    border-bottom: 1px solid black;
+    /* display: flex; */
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+    text-align: center;
+ 
+}
+.allusersContainerAdmin {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.allusersP {
+   
+    padding-top: 20px;
+    /* padding-bottom: 20px; */
+
+}
+.editUserBtn  {
+    text-decoration: none;
+}
+.editUserBtn button {
+    padding: 5px 10px;
+    font-size: 10px;
+    margin-bottom:20px;
+
+}
+.allusersForm {
+    text-align: center;
+    border-bottom:1px solid black;
+    /* margin-bottom:20px; */
+    padding-bottom:20px;
+
 }

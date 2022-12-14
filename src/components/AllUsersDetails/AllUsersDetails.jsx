@@ -37,8 +37,8 @@ function AllUsersDetails() {
     <>
       {allUsersList.map(allUsers => (
         (params.id == allUsers.id && (
-          <ul key={allUsers.username}>
-            <h2> {allUsers.fname} {allUsers.lname}</h2>
+          <ul key={allUsers.username} >
+            <h2 > {allUsers.fname} {allUsers.lname}</h2>
             {user.userType == 5 && (
               
               <div>
@@ -81,7 +81,7 @@ function AllUsersDetails() {
             )}
 
               {user.userType < 5 && (
-              <div>
+              <div >
                 
                 <li>
                   Pronouns: {allUsers.pronouns}

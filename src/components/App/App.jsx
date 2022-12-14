@@ -138,6 +138,14 @@ function App() {
               <EventDetails/>
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/allusers'>
+              <AllUsersList/>
+              </ProtectedRoute>
+
+              <ProtectedRoute exact path='/AllUsersDetails/:id'>
+              <AllUsersDetails/>
+              </ProtectedRoute>
+              
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -171,13 +179,8 @@ function App() {
               <AllUserListItems/>
               </Route>
 
-              <Route exact path='/AllUsersDetails/:id'>
-              <AllUsersDetails/>
-              </Route>
+            
               
-              <Route exact path='/allusers'>
-              <AllUsersList/>
-              </Route>
               <Route exact path='/Calendar'>
               <Calendar/>
               </Route>
