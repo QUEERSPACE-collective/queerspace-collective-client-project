@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './AddUserForm.css';
 
@@ -6,8 +6,20 @@ function AddUserForm() {
   const [username, setUsername] = useState('');
   const [userType, setUserType] = useState(0);
   const errors = useSelector((store) => store.errors);
+  const allUsers = useSelector((store) => store.allUsers)
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_USERS" })
+  }, [])
+
+  const isDisabled = () => {
+    {allUsers.map(user => {
+      (username == user.username)
+    })}
+  }
+
+  
   const registerUser = (event) => {
     event.preventDefault();
 
@@ -30,7 +42,7 @@ function AddUserForm() {
       )}
       <div>
         <label htmlFor="username">
-          Email:
+          *Email:
           <input
             type="text"
             name="username"
@@ -42,7 +54,7 @@ function AddUserForm() {
       </div>
       <div>
         <label htmlFor='userType'>
-          Access Level: 
+          *Access Level: 
         </label>
         <select onChange={(event) => setUserType(event.target.value)} value={userType}>
           <option>Select One</option>
@@ -64,7 +76,7 @@ function AddUserForm() {
         </select>
       </div>
       <div>
-        <input type="submit" name="submit" value="Register" />
+        <input type="submit" name="submit" value="Register" disabled={isDisabled()}/>
       </div>
     </form>
   );
