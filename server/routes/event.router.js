@@ -35,24 +35,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-router.post('/register/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in api/event/register router trying to register for event')
 
-    const sqlParams = [req.user.id, req.params.id]
-    const sqlText = 
-    `
-    INSERT INTO "userEvents" ("userId", "eventId")
-    VALUES ($1, $2)
-    `;
-    pool.query(sqlText, sqlParams)
-        .then(dbResult => {
-            res.sendStatus(200)
-        })
-        .catch(error => {
-            console.log('error posting user event registration', error)
-            res.sendStatus
-        })
-})
 
 
 // get a specific event for editing
@@ -144,9 +127,25 @@ router.post('/', (req, res) => {
         .catch(dbErr=>{
             console.error(dbErr);
             res.sendStatus(500);
-        });
+        });      
 });
 
-module.exports = router;
+router.get('/questions/:id', rejectUnauthenticated, (req, res) => {
+    const sqlParams = [req.params.id]
+    const sqlText = 
+    `
+    SELECT * FROM "questions" WHERE "eventId" = $1;
+    `;
+    pool.query(sqlText, sqlParams)
+        .then(dbResult => {
+            res.send(dbResult.rows)
+        })
+        .catch(error => {
+            console.log('error getting event questions from db', error)
+            res.sendStatus(500)
+        })
+})
+
+
 
 module.exports = router;

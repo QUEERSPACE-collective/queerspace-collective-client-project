@@ -12,6 +12,8 @@ const userRouter = require('./routes/user.router');
 const allUsersRouter = require("./routes/allUsers.router");
 const eventRouter = require('./routes/event.router');
 const resourcesRouter = require('./routes/resources.router');
+const registrationRouter = require('./routes/registration.router')
+const answersRouter = require('./routes/answers.router')
 
 
 
@@ -32,6 +34,8 @@ app.use('/api/user', userRouter);
 app.use('/api/allusers', allUsersRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/resources', resourcesRouter);
+app.use('/api/registration', registrationRouter)
+app.use('/api/answers', answersRouter)
 
 
 // Serve static files

@@ -21,24 +21,41 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
+
+// TO DO: Also get the questions where event = ($event detail id)
+// display those questions on the registration modal
+// send over those answers to the answers table where eventid = $1 and userid = $2
+// on admin view all events, show names of people that have registered for event
+          // get from user events (join user for name and email and 
+          // join from questions and answers table) where eventid = $1 and userid = $2
+
+
 // CUSTOM COMPONENTS
 function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
-  // const [isRegistered, setIsRegistered] = useState(false)
   const eventDetails = useSelector(store => store.event)
   const userEvents = useSelector(store => store.userEventsReducer);
+  const eventQuestions = useSelector(store => store.eventQuestions)
+  const registrationAnswer = useSelector(store => store.registrationAnswers)
+  console.log('event questions are', eventQuestions)
   console.log('user events on the events detail page', userEvents);
   console.log('event details are', eventDetails);
+
+
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
+  const [answers, setAnswers] = useState({})
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
+  // end confirmation modal
+
   // handling unregister confirmation modal open and close
   const [unregisterOpen, setUnregisterOpen] = useState(false);
   const handleUnregisterOpen = () => {
@@ -48,29 +65,32 @@ function EventDetails() {
     setUnregisterOpen(false)
   }
   // end unregister confirmation
-  //handling alert confirmation
-  // not functional right now
-  const [alertOpen, setAlertOpen] = useState({ alertOpen: false, vertical: 'top', horizontal: 'center' });
-  const handleAlertOpen = () => {
-    setAlertOpen(true);
-  };
-  const handleAlertClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setAlertOpen(false);
-  };
-  // end alert confirmation
+
+
+
+
+
   useEffect(() => {
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
       payload: params.id
     })
+    dispatch({
+      type: 'FETCH_EVENT_QUESTIONS',
+      payload: params.id
+    })
   }, [params.id])
+
+  eventQuestions && eventQuestions.map(question => {
+  })
+
+
   // looking through users registered events, if they are register for an event
   // with the same id as the currently displayed event, set isRegistered to "true"
   // .some() returns a bool
   let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
+
+
   const eventRegistration = () => {
     console.log('in event registartion function with id', params.id)
     dispatch({
@@ -78,8 +98,9 @@ function EventDetails() {
       payload: params.id
     })
     setOpen(false);
-    setAlertOpen(true)
+    history.push('/user')
   }
+
   const eventUnregistration = () => {
     dispatch({
       type: 'DELETE_USER_EVENT',
@@ -87,6 +108,9 @@ function EventDetails() {
     })
     history.push('/EventList')
   }
+
+
+
   console.log('is this user registered for this event', isRegistered)
   return (
   <>
@@ -120,9 +144,11 @@ function EventDetails() {
           <p>
             {eventDetails.length > 0 && eventDetails[0].description}
           </p>
+
+
+
         </Box>
-          {/* TO DO: if user is already registered for this event, disable register button,
-  add button to unregister*/}
+
           {isRegistered == true ?
             (
               <Button sx={{ mt: 2 }} variant='contained' color='error' onClick={handleUnregisterOpen}>Unregister</Button>
@@ -155,6 +181,29 @@ function EventDetails() {
               <DialogContentText id="alert-dialog-slide-description">
                 Please answer the following questions:
               </DialogContentText>
+              <DialogContentText>
+              {eventQuestions.map(question => (
+                <div>
+                  {question.question}
+                  <input type = "text" onChange={(e)=>{
+                    dispatch({
+                      type: 'STORE_USER_ANSWER', 
+                      payload: { questionId: question.id, answer: e.target.value }
+                    })} 
+                  } /> 
+
+
+                  
+                  <button onClick = {()=>{
+                    dispatch({
+                      type: 'ADD_USER_ANSWER', 
+                      payload: registrationAnswer
+                    })} 
+                  }>save</button>
+             </div>
+              ))}
+
+              </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button variant="contained" onClick={eventRegistration}>Register</Button>
@@ -168,24 +217,12 @@ function EventDetails() {
             onClose={handleUnregisterClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle>{"Are you sure you want to unregister?"}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                Please answer the following questions:
-              </DialogContentText>
-            </DialogContent>
+            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
             <DialogActions>
               <Button variant="contained" onClick={eventUnregistration}>Unregister</Button>
               <Button variant="contained" onClick={handleUnregisterClose}>Cancel</Button>
             </DialogActions>
           </Dialog>
-          {/* <Stack spacing={2} sx={{ width: '100%' }}>
-        <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
-          <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-            This is a success message!
-          </Alert>
-        </Snackbar>
-      </Stack> */}
         </div>
       </>
       );

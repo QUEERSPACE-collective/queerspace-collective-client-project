@@ -7,11 +7,7 @@ const config = {
     withCredentials: true,
 }
 
-<<<<<<< HEAD
 
-// fetch all events
-=======
->>>>>>> 94095f56f798861a7936a44261770556d2d2fb41
 function* fetchEvents () {
     try{
         const response = yield axios.get(`/api/event/`, config)
@@ -37,12 +33,6 @@ function* fetchEventDetails(action){
     }
 }
 
-
-
-<<<<<<< HEAD
-// delete a specified event
-=======
->>>>>>> 94095f56f798861a7936a44261770556d2d2fb41
 function* deleteEvent(action){
     try{
         yield axios.delete(`/api/event/${action.payload}`, config);
@@ -58,11 +48,22 @@ function* deleteEvent(action){
     }
 }
 
+function* fetchEventQuestions (action) {
+    try {
+        const response = yield axios.get(`/api/event/questions/${action.payload}`, config)
+        yield put ({type: 'SET_EVENT_QUESTIONS', payload: response.data})
+    } catch(error) {
+        console.log('error fetching event questions in saga', error)
+    }
+}
+
+
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
     yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
     yield takeLatest('DELETE_EVENT', deleteEvent);
     yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
+    yield takeLatest('FETCH_EVENT_QUESTIONS', fetchEventQuestions);
 }
 
 export default eventSaga;
