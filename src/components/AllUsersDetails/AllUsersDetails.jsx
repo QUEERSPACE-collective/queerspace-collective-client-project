@@ -35,6 +35,7 @@ function AllUsersDetails() {
 
   return (
     <>
+    <section className='alluserDetailsContainer'>
       {allUsersList.map(allUsers => (
         (params.id == allUsers.id && (
           <ul key={allUsers.username} >
@@ -100,6 +101,7 @@ function AllUsersDetails() {
  <Link to="/allusers">
                 <Button>Back To Events List</Button>
             </Link>
+    </section>
     </>
   );
 }

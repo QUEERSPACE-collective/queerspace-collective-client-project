@@ -22,9 +22,9 @@ function AllUsersList() {
   return (
     <>
       <h1>All Users</h1>
-      <form className='allusersForm'>
+      <form className='allusersForm'>   
         <select onChange={(evt) => setUserType(evt.target.value)} value={userType}>
-          <option disabled selected hidden>Filter</option>
+          {/* <option disabled selected hidden>Filter</option> */}
           <option value="0">
             All Users
           </option>
@@ -44,6 +44,9 @@ function AllUsersList() {
             Admin
           </option>
         </select>
+
+        <input type="text" className="allUsersFuzzyInput" placeholder="Fuzzy Search"></input>
+
       </form>
       {/* Render conditionally based off what the filter value is ⬇️*/}
       <div className='allusersContainer'>
@@ -51,16 +54,16 @@ function AllUsersList() {
           (userType > 0 && userType == allUsers.userType) && (
             <ul key={allUsers.username} className='allusersP'>
               <p onClick={(evt) => { goToProfile(allUsers) }} >
-              Name: <span className='clickableName'>{allUsers.fname} {allUsers.lname}</span>            
+              <Button className='clickableName' variant='outlined' size="small" sx={{borderRadius:'10px'}}>{allUsers.fname} {allUsers.lname}</Button>            
               </p>
           {user.userType < 5 && (
               <br></br>
               )}
               {user.userType == 5 && (
                 <>
-                <div className='allusersContainerAdmin'>
+                {/* <div className='allusersContainerAdmin'>
                   <li >Email: {allUsers.username}</li>
-                  </div>
+                  </div> */}
                 </>
               )}
 
@@ -82,14 +85,14 @@ function AllUsersList() {
             <ul key={allUsers.username} className='allusersContainer'>
               
               <p onClick={() => { goToProfile(allUsers) }} className='allusersP'>
-              Name: <span className='clickableName'>{allUsers.fname} {allUsers.lname}</span>
+              <Button className='clickableName' variant='outlined' size="small" sx={{borderRadius:'10px'}}>{allUsers.fname} {allUsers.lname}</Button>
               </p>
 
-              {user.userType == 5 && (
+              {/* {user.userType == 5 && (
                 <li >                  
                     Email: {allUsers.username}               
                 </li>
-              )}
+              )} */}
                {user.userType == 5 && (
                 <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
                   <Button variant='contained'>Edit User</Button>

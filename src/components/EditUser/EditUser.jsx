@@ -2,7 +2,8 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './EditUser.css';
-
+import Button from '@mui/material/Button';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 // CUSTOM COMPONENTS
 
 function EditUser() {
@@ -47,12 +48,12 @@ function EditUser() {
       }
 
     return (
-        <div>
+        <div className='editUserContainer'>
             <div>
                 <h1>Edit User</h1>   
             </div>
-            <form onSubmit={onSubmit}>
-                <div>
+            <div className="formContainer">
+            <form onSubmit={onSubmit} className='editUserForm' >
                 <label>
                     First Name:
                 </label>
@@ -63,8 +64,6 @@ function EditUser() {
                         payload: { fname: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
                 <label>
                     Last Name:
                 </label>
@@ -75,8 +74,6 @@ function EditUser() {
                         payload: { lname: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
                 <label>
                     User Type:
                 </label>
@@ -87,8 +84,6 @@ function EditUser() {
                         payload: { userType: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
                 <label>
                     Pronouns:
                 </label>
@@ -99,8 +94,6 @@ function EditUser() {
                         payload: { pronouns: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
                 <label>
                     Bio:
                 </label>
@@ -111,8 +104,6 @@ function EditUser() {
                         payload: { bio: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
                 <label>
                     Profile Picture:
                 </label>
@@ -123,9 +114,7 @@ function EditUser() {
                         payload: { profilePic: evt.target.value }
                     })}
                 />
-                </div>
                 {/* If the user is a mentee; for mentors it will say Mentee */}
-                <div>
                 <label>
                     Mentor:
                 </label>
@@ -136,15 +125,19 @@ function EditUser() {
                         payload: { mentorPair: evt.target.value }
                     })}
                 />
+                <div className="editUserBottom">
+                <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
+                <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
+                <Link to="/allusers" className="backToUserList">
+                <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
+                </Link>
                 </div>
-                <button type="submit">Submit</button>
-                <button onClick={() => deleteUser(user.id)}>Delete</button>
+                
             </form>
+            </div>
 
-            
-            <Link to="/allusers">
-                <button>Back To User List</button>
-            </Link>
+           
+           
         </div>
     )
 }

@@ -80,6 +80,10 @@ function App() {
             <ProfilePage />
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/allusers/:id/edit'>
+              <EditUser/>
+              </ProtectedRoute>
+              
           <ProtectedRoute
             // logged in shows Resources else shows LoginPage
             exact
@@ -187,9 +191,7 @@ function App() {
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
-              <Route exact path='/allusers/:id/edit'>
-              <EditUser/>
-              </Route>
+              
 
 
               <Route exact path='/EventListItems'>

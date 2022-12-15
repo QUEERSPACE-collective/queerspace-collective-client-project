@@ -20,12 +20,18 @@ h1 {
 .allusersHover ul:hover, .allusersContainer:hover {
     background-color: #dae343;
 }
+.allusersHover ul:hover .allusersP:hover .clickableName {
+    background-color: lightgray;
+}
 .allusersP {
     width:100%;
 
-    padding-top: 20px;
+    padding-top: 15px;
     /* padding-bottom: 20px; */
 
+}
+.allusersP:hover p button {
+    background-color: lightgray;
 }
 .editUserBtn  {
     text-decoration: none;
@@ -44,10 +50,24 @@ h1 {
 
 }
 .clickableName {
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    /* border:1px solid black; */
+    /* border-radius:10px; */
+    padding:2px 5px;
+}
+.clickableName:hover {
+    /* background-color: #79dea8; */
+    cursor: pointer;
 }
 @media screen and (min-width: 480px) {
    .allusersP {
     width:100%;
    }
+  }
+
+  .allUsersFuzzyInput {
+    margin-left:5px;
+  }
+  .allusersForm select {
+    margin-right:5px;
   }
