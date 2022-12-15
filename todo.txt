@@ -1,0 +1,7 @@
+when admin enters user email:
+    [ ] Registers user email (username), userType, and
+        temp password into db
+    [ ] Sends email to user email with username, temp pw,
+        and link to sign in (domain/login/${temp pw})??
+User must sign in w/in 24hrs or pw doesn't work
+Must also change password after first signing in
