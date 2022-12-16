@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
+import Feedback from '../Feedback/Feedback';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
@@ -61,13 +61,13 @@ function App() {
           {/* <Redirect exact from="/" to="/home" /> */}
  
           {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
+          {/* <Route
             // shows AboutPage at all times (logged in or not)
             exact
             path="/AboutPage"
           >
             <AboutPage />
-          </Route>
+          </Route> */}
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the ProfilePage if the user is logged in.
@@ -79,6 +79,14 @@ function App() {
             path="/user"
           >
             <ProfilePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/allusers/:id/edit'>
+              <EditUser/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/feedback'>
+              <Feedback/>
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -139,6 +147,14 @@ function App() {
               <EventDetails/>
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/allusers'>
+              <AllUsersList/>
+              </ProtectedRoute>
+
+              <ProtectedRoute exact path='/AllUsersDetails/:id'>
+              <AllUsersDetails/>
+              </ProtectedRoute>
+              
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -175,22 +191,15 @@ function App() {
               <AllUserListItems/>
               </Route>
 
-              <Route exact path='/AllUsersDetails/:id'>
-              <AllUsersDetails/>
-              </Route>
+            
               
-              <Route exact path='/allusers'>
-              <AllUsersList/>
-              </Route>
               <Route exact path='/Calendar'>
               <Calendar/>
               </Route>
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
-              <Route exact path='/allusers/:id/edit'>
-              <EditUser/>
-              </Route>
+              
 
 
               <Route exact path='/EventListItems'>

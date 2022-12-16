@@ -2,6 +2,9 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './EditUser.css';
+import Button from '@mui/material/Button';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import TextField from '@mui/material/TextField';
 
 // CUSTOM COMPONENTS
 
@@ -47,104 +50,103 @@ function EditUser() {
       }
 
     return (
-        <div>
+        <div className='editUserContainer'>
             <div>
                 <h1>Edit User</h1>   
             </div>
-            <form onSubmit={onSubmit}>
-                <div>
-                <label>
+            <div className="formContainer">
+            <form onSubmit={onSubmit} className='editUserForm' >
+                <label for="fName">
                     First Name:
                 </label>
-                <input
+                <TextField
+                    id="fName"
                     value={user && user.fname}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { fname: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
-                <label>
+                <label for="lName">
                     Last Name:
                 </label>
-                <input
+                <TextField
+                    id="lName"
                     value={user && user.lname}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { lname: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
-                <label>
+                <label for="uType">
                     User Type:
                 </label>
-                <input
+                <TextField
+                    id="uType"
                     value={user && user.userType}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { userType: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
-                <label>
+                <label for="pronouns">
                     Pronouns:
                 </label>
-                <input
+                <TextField
+                    id="pronouns"
                     value={user && user.pronouns}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { pronouns: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
-                <label>
+                <label for="bio">
                     Bio:
                 </label>
-                <input
+                <TextField
+                    id="bio"
                     value={user && user.bio}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { bio: evt.target.value }
                     })}
                 />
-                </div>
-                <div>
-                <label>
+                <label for="pPic">
                     Profile Picture:
                 </label>
-                <input
+                <TextField
+                    id="pPic"
                     value={user && user.profilePic}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { profilePic: evt.target.value }
                     })}
                 />
-                </div>
                 {/* If the user is a mentee; for mentors it will say Mentee */}
-                <div>
-                <label>
+                <label for="mentor">
                     Mentor:
                 </label>
-                <input
+                <TextField
+                    id="mentor"
                     value={user && user.mentorPair}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { mentorPair: evt.target.value }
                     })}
                 />
+                <div className="editUserBottom">
+                <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
+                <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
+                <Link to="/allusers" className="backToUserList">
+                <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
+                </Link>
                 </div>
-                <button type="submit">Submit</button>
-                <button onClick={() => deleteUser(user.id)}>Dele333333te</button>
+                
             </form>
+            </div>
 
-            
-            <Link to="/allusers">
-                <button>Back To User List</button>
-            </Link>
+           
+           
         </div>
     )
 }
