@@ -24,7 +24,7 @@ function EventList() {
 
   return (
     <>
-      <Link to = "/user">
+      <Link to = "/home">
         <button>Home</button>
       </Link>
       <div className='upcoming-events-container'>

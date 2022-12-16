@@ -20,7 +20,7 @@ function EventListItems() {
   return (
     <>
           <ul>
-        {eventList.map(event => (
+        {eventList && eventList.map(event => (
           <div key = {event.id}>
             {event.name}<br/>
             Date: {event.dateTime}<br/>

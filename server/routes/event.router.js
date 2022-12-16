@@ -16,7 +16,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
-            console.log('what am i getting back for events now', dbResult.rows)
         })
         .catch(error => {
             console.error('error getting events back from db', error)
@@ -25,17 +24,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 })
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in router tyingn to get event details', req.params.id)
     const sqlParams = [req.params.id]
     const sqlText = 
-    `SELECT *, count (distinct "userEvents"."userId") as total_attendees
+    `SELECT "events"."name", "events".id, "events"."dateTime", 
+    "events"."location", "events".description, "events"."type", "userEvents"."eventId",
+    "events"."attendeeMax", "events"."programLocationID",
+    count ("userEvents"."userId") as total_attendees
     FROM "events"
     FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
-    WHERE "events".id = $1
-    GROUP BY "events".id, "userEvents".id;`;
+    WHERE "userEvents"."eventId" = $1
+    GROUP BY "events"."name", "events".id, "userEvents"."eventId";`;
 
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
             res.send(dbResult.rows)
+            console.log('what am i getting back for events now', dbResult.rows)
+
         })
         .catch(error => {
             console.log('error getting event details from db', error)

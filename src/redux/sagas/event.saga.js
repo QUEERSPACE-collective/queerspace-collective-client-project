@@ -28,6 +28,7 @@ function* fetchEventDetails(action){
             type: 'SET_EVENT_DETAILS',
             payload: response.data
         })
+        console.log('whats response data', response.data)
     } catch (error) {
         console.log('error GETting event details from server', error)
     }
@@ -60,7 +61,6 @@ function* fetchEventQuestions (action) {
 
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
-    yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
     yield takeLatest('DELETE_EVENT', deleteEvent);
     yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
     yield takeLatest('FETCH_EVENT_QUESTIONS', fetchEventQuestions);

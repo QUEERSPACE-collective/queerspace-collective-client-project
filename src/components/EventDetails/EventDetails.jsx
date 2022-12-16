@@ -33,6 +33,7 @@ function EventDetails() {
   const eventQuestions = useSelector(store => store.eventQuestions)
   const registrationAnswer = useSelector(store => store.registrationAnswers)
   console.log('the event DETAILS are', eventDetails)
+  console.log('user events are', userEvents)
 
 
 
@@ -72,15 +73,15 @@ function EventDetails() {
 
 
 
-  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.eventId);
+  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   
-  let isEventFull = false;
-  if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
-    isEventFull = true
-    console.log('this event is full', isEventFull)
-  } else {
-    console.log('this event is not full', isEventFull)
-  }
+  // let isEventFull = false;
+  // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
+  //   isEventFull = true
+  //   console.log('is this event full', isEventFull)
+  // } else {
+  //   console.log('is this event full', isEventFull)
+  // }
 
   const eventRegistration = () => {
     console.log('in event registartion function with id', params.id)
@@ -89,7 +90,7 @@ function EventDetails() {
       payload: params.id
     })
     setOpen(false);
-    history.push('/user')
+    history.push('/home')
   }
 
   const eventUnregistration = () => {
@@ -105,11 +106,12 @@ function EventDetails() {
   console.log('is this user registered for this event', isRegistered)
   return (
   <>
+     
       <h2>EventDetails</h2>
       <Link to="/EventList">
         <button>Back to Calendar</button>
       </Link>
-      <Link to="/user">
+      <Link to="/home">
         <button>Home</button>
       </Link>
       <div className='event-details-container'>
@@ -163,12 +165,17 @@ function EventDetails() {
             )
           }
 
-          {isEventFull == true && 
-            <Button disabled >
-              Register
-            </Button>}
-
+          {/* {isEventFull == true && 
+            <>
+              <p>Sorry ,this event is full!</p>
+              <Button disabled >
+                Register
+              </Button>
+            </>
+            } */}
             
+
+
           <Dialog
             open={open}
             TransitionComponent={Transition}
@@ -183,7 +190,7 @@ function EventDetails() {
               </DialogContentText>
               <DialogContentText>
               {eventQuestions.map(question => (
-                <div>
+                <div key = {question.id}>
                   {question.question}
                   <input type = "text" onChange={(e)=>{
                     dispatch({
