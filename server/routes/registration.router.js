@@ -23,9 +23,7 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     console.log('in registration router to get all event registered users')
-
     const sqlParams = [req.params.id]
-
         const sqlText = 
         `
         SELECT DISTINCT count(distinct "username"),
@@ -47,7 +45,25 @@ router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
             })
             .catch(error => {
                 console.error('error getting event registered users from db', error)
+                res.sendStatus(500)
             })
+})
+
+router.get(`/total-attendees`, rejectUnauthenticated, (req, res) => {
+    const sqlText = 
+    `
+    SELECT count ("userId") as "total_attendees", "eventId"
+    FROM "userEvents"
+    GROUP BY "userEvents"."eventId";
+    `;
+    pool.query(sqlText) 
+    .then(dbResult => {
+        res.send(dbResult.rows)
+    })
+    .catch(error => {
+        console.error('error getting total attendees from db', error)
+        res.sendStatus(500)
+    })
 
 })
 

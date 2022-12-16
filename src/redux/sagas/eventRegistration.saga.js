@@ -7,8 +7,6 @@ const config = {
 }
 
 
-
-
 function* registerForEvent (action) {
     try {
         yield axios.post(`/api/registration/${action.payload}`, config)
@@ -19,7 +17,6 @@ function* registerForEvent (action) {
 }
 
 function* addUserAnswer(action) {
-    console.log('the users answer is', action.payload)
     try{
         yield axios.post(`/api/answers`, action.payload)
 
@@ -29,10 +26,8 @@ function* addUserAnswer(action) {
 
 }
 
-
 function* fetchEventRegisteredUsers(action){
     try{
-        // going to registration.router
         const response = yield axios.get(`/api/registration/registered-users/${action.payload}`, config)
         yield put({type: 'SET_EVENT_REGISTERED_USERS', payload: response.data})
     } catch (error) {
@@ -40,12 +35,21 @@ function* fetchEventRegisteredUsers(action){
     }
 }
 
+function* fetchTotalAttendees() {
+    try {
+        const response = yield axios.get(`/api/registration/total-attendees`)
+        yield put({type: 'SET_TOTAL_ATTENDEES', payload: response.data})
+    } catch (error) {
+        console.log('error fetching total attendees', error)
+    }
+}
+
 
 function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
-    // yield takeLatest('STORE_USER_ANSWER', storeUserAnswer)
     yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
     yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers)
+    yield takeLatest('FETCH_TOTAL_ATTENDEES', fetchTotalAttendees)
 }
 
 export default eventRegistrationSaga;

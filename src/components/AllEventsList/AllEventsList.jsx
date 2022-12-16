@@ -21,10 +21,11 @@ function AllEventsList() {
   const history = useHistory();
   const dispatch = useDispatch();
   const event = useSelector((store) => store.event);
+  console.log('the events are', event)
 
   useEffect(()=> {
     dispatch({type: "FETCH_EVENTS"})
-     // captured in eventRegistration.saga
+    dispatch({type: 'FETCH_TOTAL_ATTENDEES'})
   },[])
 
   const handleDeleteEvent = (eventId) => {
@@ -91,7 +92,7 @@ function AllEventsList() {
             <TableCell align="right"> {thisEvent.description}</TableCell>
             <TableCell align="right"> {thisEvent.location}</TableCell>
             <TableCell align="right"> {thisEvent.type} </TableCell>
-            <TableCell align="right"><Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}>{thisEvent.id}</Link></TableCell>
+            <TableCell align="right"><Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}>{thisEvent.total_attendees}</Link></TableCell>
             <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">

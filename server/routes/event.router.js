@@ -5,13 +5,19 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 // get all events
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const sqlText = `SELECT * FROM "events"
-                    ORDER BY id ASC;
+    const sqlText = `SELECT "events".id, "events"."name", "events"."dateTime", "events"."location", "events".description,
+    "events"."type", "events"."attendeeMax", "events"."programLocationID", count ("userId") as "total_attendees" 
+    FROM "events"
+    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events"."id"
+    GROUP BY "events".id, "events"."name", "userEvents"."id"
+    ORDER BY "dateTime" DESC;
+    ;
                 `;
 
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
+            console.log('what am i getting back for events now', dbResult.rows)
         })
         .catch(error => {
             console.error('error getting events back from db', error)
