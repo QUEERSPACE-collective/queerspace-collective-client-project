@@ -98,7 +98,7 @@ function AllUsersDetails() {
           </ul> 
         ))
       ))}
- <Link to="/allusers">
+            <Link to="/allusers">
                 <Button>Back To Events List</Button>
             </Link>
     </section>

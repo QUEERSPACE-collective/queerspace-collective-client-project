@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import './EditUser.css';
 import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import TextField from '@mui/material/TextField';
+
 // CUSTOM COMPONENTS
 
 function EditUser() {
@@ -54,60 +56,66 @@ function EditUser() {
             </div>
             <div className="formContainer">
             <form onSubmit={onSubmit} className='editUserForm' >
-                <label>
+                <label for="fName">
                     First Name:
                 </label>
-                <input
+                <TextField
+                    id="fName"
                     value={user && user.fname}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { fname: evt.target.value }
                     })}
                 />
-                <label>
+                <label for="lName">
                     Last Name:
                 </label>
-                <input
+                <TextField
+                    id="lName"
                     value={user && user.lname}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { lname: evt.target.value }
                     })}
                 />
-                <label>
+                <label for="uType">
                     User Type:
                 </label>
-                <input
+                <TextField
+                    id="uType"
                     value={user && user.userType}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { userType: evt.target.value }
                     })}
                 />
-                <label>
+                <label for="pronouns">
                     Pronouns:
                 </label>
-                <input
+                <TextField
+                    id="pronouns"
                     value={user && user.pronouns}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { pronouns: evt.target.value }
                     })}
                 />
-                <label>
+                <label for="bio">
                     Bio:
                 </label>
-                <input
+                <TextField
+                    id="bio"
                     value={user && user.bio}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
                         payload: { bio: evt.target.value }
                     })}
                 />
-                <label>
+                <label for="pPic">
                     Profile Picture:
                 </label>
-                <input
+                <TextField
+                    id="pPic"
                     value={user && user.profilePic}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
@@ -115,10 +123,11 @@ function EditUser() {
                     })}
                 />
                 {/* If the user is a mentee; for mentors it will say Mentee */}
-                <label>
+                <label for="mentor">
                     Mentor:
                 </label>
-                <input
+                <TextField
+                    id="mentor"
                     value={user && user.mentorPair}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',

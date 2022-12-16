@@ -1,6 +1,8 @@
-/* .alluserDetailsContainer {
+.alluserDetailsContainer {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     text-align: center;
-} */
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+}
