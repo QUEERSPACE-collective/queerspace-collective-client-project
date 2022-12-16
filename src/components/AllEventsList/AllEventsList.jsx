@@ -18,11 +18,13 @@ import {
 // CUSTOM COMPONENTS
 
 function AllEventsList() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const event = useSelector((store) => store.event);
 
   useEffect(()=> {
     dispatch({type: "FETCH_EVENTS"})
+     // captured in eventRegistration.saga
   },[])
 
   const handleDeleteEvent = (eventId) => {
@@ -68,8 +70,11 @@ function AllEventsList() {
             {/* <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell> */}
 
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
+            <TableCell align="right" sx = {{fontWeight: 'bold'}}>Attendees</TableCell>
             <TableCell align='right'>Attendee Max</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
 
+{/* Clicking on attendees should take to a page displaying all attendees and their answers */}
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit Event</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Delete</TableCell>
 
@@ -86,8 +91,9 @@ function AllEventsList() {
             <TableCell align="right"> {thisEvent.description}</TableCell>
             <TableCell align="right"> {thisEvent.location}</TableCell>
             <TableCell align="right"> {thisEvent.type} </TableCell>
-            {/* <TableCell align="right">{thisEvent.programLocation} </TableCell>  */}
+            <TableCell align="right"><Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}>{thisEvent.id}</Link></TableCell>
             <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
+            <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">
               <Link to={`/AllEventsList/${thisEvent.id}/edit`}>
                 <Button>Edit Event</Button>

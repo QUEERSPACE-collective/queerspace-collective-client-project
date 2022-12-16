@@ -37,6 +37,7 @@ import EventListItems from '../EventListItems/EventListItems';
 import EventRegForm from '../EventRegForm/EventRegForm';
 import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
+import EventAttendees from '../EventAttendees/EventAttendees';
 // import QSClogo from '../QSClogo/QSClogo';
 //END OF NEW COMPONENTS
 import './App.css';
@@ -140,6 +141,10 @@ function App() {
 
           <ProtectedRoute exact path='/NewEventForm'>
               <NewEventForm/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = '/AllEventsList/attendees/event/:id'>
+              <EventAttendees/>
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

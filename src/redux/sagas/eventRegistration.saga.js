@@ -29,23 +29,23 @@ function* addUserAnswer(action) {
 
 }
 
-// function* storeUserAnswer (action) {
-//     try{
-//         yield put ({
-//             type: 'STORE_USER_ANSWER',
-//             payload: action.payload
-//         })
-//     } catch (error) {
-//         console.log('error storing user answer', error)
-//     }
-// }
 
+function* fetchEventRegisteredUsers(action){
+    try{
+        // going to registration.router
+        const response = yield axios.get(`/api/registration/registered-users/${action.payload}`, config)
+        yield put({type: 'SET_EVENT_REGISTERED_USERS', payload: response.data})
+    } catch (error) {
+        console.error('error fetching users registered for an event', error)
+    }
+}
 
 
 function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
     // yield takeLatest('STORE_USER_ANSWER', storeUserAnswer)
     yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
+    yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers)
 }
 
 export default eventRegistrationSaga;
