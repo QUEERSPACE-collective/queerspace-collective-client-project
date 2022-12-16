@@ -18,7 +18,7 @@ import editUser from "./editUser.reducer";
 import event from './event.reducer';
 import userEventsReducer from './userEvents.reducer';
 import eventQuestions from './eventQuestions.reducer';
-
+import eventRegisteredUsers from './eventRegisteredUsers.reducer';
 import editEvent from './editEvent.reducer';
 
 import newResourceName from './newResourceName.reducer';
@@ -61,6 +61,7 @@ const rootReducer = combineReducers({
   newResourceLink,
   eventQuestions,
   registrationAnswers,
+  eventRegisteredUsers,
 });
 
 
