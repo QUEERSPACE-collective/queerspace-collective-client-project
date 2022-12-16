@@ -99,7 +99,7 @@ function AllUsersList() {
       {results.length > 0 && (
         <div className='allusersContainer'>
           {userResults.map(allUsers => (
-            <ul key={allUsers.username} className='allusersP'>
+            <ul key={allUsers.username} className='allusersP allusersContainer'>
               <p onClick={(evt) => { goToProfile(allUsers) }} >
                 <Button 
                   className='clickableName' 
