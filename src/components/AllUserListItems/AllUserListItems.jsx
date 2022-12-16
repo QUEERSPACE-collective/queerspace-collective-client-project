@@ -5,12 +5,8 @@ import './AllUserListItems.css';
 // CUSTOM COMPONENTS
 // CHRIS WILL WORK ON THIS
 function AllUserListItems() {
-  
-
   return (
-
-    <h1>AllUserListItems</h1>
-    
+    <h1>AllUserListItems</h1> 
   );
 }
 
