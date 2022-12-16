@@ -34,26 +34,26 @@ function ProfilePage() {
       <p> Email: {user.username}</p>
 
       <form>
-        <label>
-          Your access level is: 
+      <label>
+          Your access level is:
         </label>
-        <select value={user.userType}>
-          <option disabled value="1">
-            Mentee/Youth
-          </option>
-          <option disabled value="2">
-            Mentor
-          </option>
-          <option disabled value="3">
-            Volunteer
-          </option>
-          <option disabled value="4">
-            Caregiver
-          </option>
-          <option disabled value="5">
-            Admin
-          </option>
-        </select>
+        <p >
+          {user.userType == 1 && (
+            <p>Volunteer</p>
+          )}
+          {user.userType == 2 && (
+            <p>Mentee/Youth</p>
+          )}
+          {user.userType == 3 && (
+            <p>Caregiver</p>
+          )}
+          {user.userType == 4 && (
+            <p>Mentor</p>
+          )}
+          {user.userType == 5 && (
+            <p>Admin</p>
+          )}
+        </p>
       </form>
 
       <article>Bio: {user.bio}</article>

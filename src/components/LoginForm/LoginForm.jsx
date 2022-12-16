@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
+import { Link } from "react-router-dom";
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -58,6 +59,11 @@ function LoginForm() {
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Log In" />
+      </div>
+      <div>
+        <Link to="/pwreset">
+          <h4>Forgot Password?</h4>
+        </Link>
       </div>
     </form>
   );
