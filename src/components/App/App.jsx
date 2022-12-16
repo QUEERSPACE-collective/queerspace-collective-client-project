@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
+import Feedback from '../Feedback/Feedback';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
@@ -60,13 +60,13 @@ function App() {
           <Redirect exact from="/" to="/home" />
  
           {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
+          {/* <Route
             // shows AboutPage at all times (logged in or not)
             exact
             path="/AboutPage"
           >
             <AboutPage />
-          </Route>
+          </Route> */}
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the ProfilePage if the user is logged in.
@@ -82,8 +82,12 @@ function App() {
 
           <ProtectedRoute exact path='/allusers/:id/edit'>
               <EditUser/>
-              </ProtectedRoute>
-              
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/feedback'>
+              <Feedback/>
+          </ProtectedRoute>
+
           <ProtectedRoute
             // logged in shows Resources else shows LoginPage
             exact
