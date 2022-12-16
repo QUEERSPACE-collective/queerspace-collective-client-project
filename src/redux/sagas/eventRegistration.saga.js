@@ -35,21 +35,11 @@ function* fetchEventRegisteredUsers(action){
     }
 }
 
-function* fetchTotalAttendees() {
-    try {
-        const response = yield axios.get(`/api/registration/total-attendees`)
-        yield put({type: 'SET_TOTAL_ATTENDEES', payload: response.data})
-    } catch (error) {
-        console.log('error fetching total attendees', error)
-    }
-}
-
 
 function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
     yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
     yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers)
-    yield takeLatest('FETCH_TOTAL_ATTENDEES', fetchTotalAttendees)
 }
 
 export default eventRegistrationSaga;

@@ -147,6 +147,10 @@ function App() {
               <EventAttendees/>
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/AllEventsList'>
+              <AllEventsList/>
+          </ProtectedRoute>
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -170,9 +174,7 @@ function App() {
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
               </Route>
-              <Route exact path='/AllEventsList'>
-              <AllEventsList/>
-              </Route>
+
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>
               </Route>

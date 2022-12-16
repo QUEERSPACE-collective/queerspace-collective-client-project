@@ -26,16 +26,14 @@ router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
         const sqlText = 
         `
-        SELECT DISTINCT count(distinct "username"),
-        "user"."id" as userId, 
-        "user".username, 
-        CONCAT("user".fname,' ',  "user".lname) AS "name",
-        "question", "answers"."answer", "eventId"
-        FROM "questions"
-        JOIN "answers" ON "answers"."questionId" = "questions".id
-        JOIN "user" ON "user".id = "answers"."userId"
-        WHERE "eventId" = $1
-        GROUP BY "username", "user"."id", "questions".question, "answers".answer, "questions"."eventId";
+        SELECT "userEvents"."userId", "userEvents"."eventId", "user".username, CONCAT("user".fname,' ',  "user".lname) AS "name", "questions".question, "answers".answer, count(distinct "username") as total_attendees
+        FROM "userEvents"
+        JOIN "user" ON "user".id = "userEvents"."userId"
+        FULL JOIN "questions" ON "questions"."eventId" = "userEvents"."eventId"
+        FULL JOIN "answers" ON "answers"."questionId" = "questions".id
+        WHERE "userEvents"."eventId" = $1
+        GROUP BY "userEvents"."userId", "userEvents"."eventId", "user"."username", "user".fname, "user".lname,
+        "questions"."question", "answers".answer ;
         `;
         pool.query(sqlText, sqlParams)
             .then(dbResult => {
@@ -47,24 +45,6 @@ router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
                 console.error('error getting event registered users from db', error)
                 res.sendStatus(500)
             })
-})
-
-router.get(`/total-attendees`, rejectUnauthenticated, (req, res) => {
-    const sqlText = 
-    `
-    SELECT count ("userId") as "total_attendees", "eventId"
-    FROM "userEvents"
-    GROUP BY "userEvents"."eventId";
-    `;
-    pool.query(sqlText) 
-    .then(dbResult => {
-        res.send(dbResult.rows)
-    })
-    .catch(error => {
-        console.error('error getting total attendees from db', error)
-        res.sendStatus(500)
-    })
-
 })
 
 

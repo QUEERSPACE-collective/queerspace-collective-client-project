@@ -3,17 +3,16 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// get all events
+// also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const sqlText = `SELECT "events".id, "events"."name", "events"."dateTime", "events"."location", "events".description,
+    const sqlText = 
+    `SELECT "events".id, "events"."name", "events"."dateTime", "events"."location", "events".description,
     "events"."type", "events"."attendeeMax", "events"."programLocationID", count ("userId") as "total_attendees" 
     FROM "events"
     FULL JOIN "userEvents" ON "userEvents"."eventId" = "events"."id"
     GROUP BY "events".id, "events"."name", "userEvents"."id"
     ORDER BY "dateTime" DESC;
-    ;
-                `;
-
+    `;
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)

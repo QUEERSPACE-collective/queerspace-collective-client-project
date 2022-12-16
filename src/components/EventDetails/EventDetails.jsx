@@ -191,9 +191,6 @@ function EventDetails() {
                       payload: { questionId: question.id, answer: e.target.value }
                     })} 
                   } /> 
-
-
-                  
                   <button onClick = {()=>{
                     dispatch({
                       type: 'ADD_USER_ANSWER', 
