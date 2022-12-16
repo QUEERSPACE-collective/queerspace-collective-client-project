@@ -27,7 +27,7 @@ function EventListItems() {
             Location: {event.location}<br/>
             {/* Type: {event.type}<br/> */}
             {/* Description: {event.description}<br/> */}
-            <Link to = {`/EventDetails/${event.id}`}>
+            <Link to = {`/EventDetails/event/${event.id}`}>
             <Button 
               variant="contained"
               sx = {{mt: 5,

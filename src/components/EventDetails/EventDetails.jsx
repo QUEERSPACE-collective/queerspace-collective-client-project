@@ -23,14 +23,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 
-// TO DO: Also get the questions where event = ($event detail id)
-// display those questions on the registration modal
-// send over those answers to the answers table where eventid = $1 and userid = $2
-// on admin view all events, show names of people that have registered for event
-          // get from user events (join user for name and email and 
-          // join from questions and answers table) where eventid = $1 and userid = $2
-
-
 // CUSTOM COMPONENTS
 function EventDetails() {
   const dispatch = useDispatch();
@@ -40,14 +32,13 @@ function EventDetails() {
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions)
   const registrationAnswer = useSelector(store => store.registrationAnswers)
-  console.log('event questions are', eventQuestions)
-  console.log('user events on the events detail page', userEvents);
-  console.log('event details are', eventDetails);
+  console.log('the event DETAILS are', eventDetails)
+
+
 
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
-  const [answers, setAnswers] = useState({})
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -68,8 +59,6 @@ function EventDetails() {
 
 
 
-
-
   useEffect(() => {
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
@@ -81,15 +70,17 @@ function EventDetails() {
     })
   }, [params.id])
 
-  eventQuestions && eventQuestions.map(question => {
-  })
 
 
-  // looking through users registered events, if they are register for an event
-  // with the same id as the currently displayed event, set isRegistered to "true"
-  // .some() returns a bool
-  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
-
+  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.eventId);
+  
+  let isEventFull = false;
+  if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
+    isEventFull = true
+    console.log('this event is full', isEventFull)
+  } else {
+    console.log('this event is not full', isEventFull)
+  }
 
   const eventRegistration = () => {
     console.log('in event registartion function with id', params.id)
@@ -144,8 +135,10 @@ function EventDetails() {
           <p>
             {eventDetails.length > 0 && eventDetails[0].description}
           </p>
-
-
+          <p>
+            Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br>
+            Max attendees: {eventDetails.length > 0 && eventDetails[0].attendeeMax}
+          </p>
 
         </Box>
 
@@ -169,6 +162,13 @@ function EventDetails() {
             </Button>
             )
           }
+
+          {isEventFull == true && 
+            <Button disabled >
+              Register
+            </Button>}
+
+            
           <Dialog
             open={open}
             TransitionComponent={Transition}

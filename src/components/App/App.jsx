@@ -135,7 +135,7 @@ function App() {
               <EventList/>
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/EventDetails/:id'>
+          <ProtectedRoute exact path='/EventDetails/event/:id'>
               <EventDetails/>
           </ProtectedRoute>
 
