@@ -185,7 +185,9 @@ function AllUsersList() {
 {/* Maia was working on add new user button I believe, so I won't mess with it for now.
   It will regardless need to be added to the Admin views up above. */}
       <div>
+        <Link to={'/adduserform'}>
         <button>Add New User</button>
+        </Link>
       </div>
     </>
   );

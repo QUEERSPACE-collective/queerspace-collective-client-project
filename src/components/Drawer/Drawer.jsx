@@ -48,7 +48,7 @@ function Drawers() {
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <List className='drawerText' sx={{ p: 0 }}>
-          <Link to='/home'>
+          <Link to='/user'>
             <p><CottageIcon className='iconAlign'/>Home</p>
           </Link>
           <Link to='/eventlist'>
@@ -82,7 +82,18 @@ function Drawers() {
 
   return (
     <>
-     
+      {/* <div>
+        {!user.id && (
+          <div>
+            <Redirect to='/home'></Redirect>                 
+            <Link className="navLink navLogin" to="/login" >
+              Login
+            </Link> 
+          </div>
+        )}
+      </div> */}
+    {/* 3. END  */}
+
 
       <div className='drawerContainer'>
         {user.id &&   (
