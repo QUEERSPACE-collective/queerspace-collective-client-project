@@ -36,6 +36,9 @@ function EditUser() {
         dispatch({
             type: "SAVE_USER",
             payload: user
+        }),
+        dispatch({
+            type: 'FETCH_USER'
         });
         history.push('/allusers')
     }
