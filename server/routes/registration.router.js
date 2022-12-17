@@ -26,14 +26,23 @@ router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
         const sqlText = 
         `
-        SELECT "userEvents"."userId", "userEvents"."eventId", "user".username, CONCAT("user".fname,' ',  "user".lname) AS "name", "questions".question, "answers".answer, count(distinct "username") as total_attendees
-        FROM "userEvents"
-        JOIN "user" ON "user".id = "userEvents"."userId"
-        FULL JOIN "questions" ON "questions"."eventId" = "userEvents"."eventId"
-        FULL JOIN "answers" ON "answers"."questionId" = "questions".id
+        SELECT 
+        "user"."username", 
+        CONCAT("user".fname,' ',"user".lname) AS "name",
+        "userEvents"."eventId", 
+            json_agg(
+                json_build_object(
+                    questions.question,
+                    answers.answer
+                    )
+            ) as question_answer
+        FROM "questions"
+        LEFT JOIN "answers"  
+        ON "answers"."questionId" = "questions".id
+        LEFT JOIN "user" on "user".id = "answers"."userId"
+        LEFT JOIN "userEvents" on "userEvents"."eventId" = "questions"."eventId"
         WHERE "userEvents"."eventId" = $1
-        GROUP BY "userEvents"."userId", "userEvents"."eventId", "user"."username", "user".fname, "user".lname,
-        "questions"."question", "answers".answer ;
+        GROUP BY "user"."username", "user"."fname", "user"."lname", "userEvents"."eventId";
         `;
         pool.query(sqlText, sqlParams)
             .then(dbResult => {

@@ -25,10 +25,8 @@ function EventAttendees(){
                 <>
                 <h3>{attendee.name}</h3>
                 <h5>{attendee.username}</h5>
-                <ul>{attendee.question}</ul>
-                <li>{attendee.answer}</li>
-                </>
-                
+                <br/>
+                </>            
             ))}
         </>
     )

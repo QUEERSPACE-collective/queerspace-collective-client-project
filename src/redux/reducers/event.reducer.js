@@ -4,6 +4,7 @@ const eventReducer = (state = [], action) => {
             return action.payload;
         case 'SET_EVENT_DETAILS':
             return action.payload
+            
         default: 
             return state
     }

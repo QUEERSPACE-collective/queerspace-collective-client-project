@@ -6,12 +6,13 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = 
-    `SELECT "events".id, "events"."name", "events"."dateTime", "events"."location", "events".description,
-    "events"."type", "events"."attendeeMax", "events"."programLocationID", count ("userId") as "total_attendees" 
+    `SELECT "events"."name", "events".id, "events"."dateTime", 
+    "events"."location", "events".description, "events"."type", "userEvents"."eventId",
+    "events"."attendeeMax", "events"."programLocationID",
+    count ("userEvents"."userId") as total_attendees
     FROM "events"
-    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events"."id"
-    GROUP BY "events".id, "events"."name", "userEvents"."id"
-    ORDER BY "dateTime" DESC;
+    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
+    GROUP BY "events"."name", "events".id, "userEvents"."eventId";
     `;
     pool.query(sqlText)
         .then(dbResult => {
@@ -23,6 +24,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// getting event details with count of total attendees
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     console.log('in router tyingn to get event details', req.params.id)
     const sqlParams = [req.params.id]
@@ -39,7 +41,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
             res.send(dbResult.rows)
-            console.log('what am i getting back for events now', dbResult.rows)
 
         })
         .catch(error => {
@@ -47,8 +48,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500)
         })
 })
-
-
 
 
 // get a specific event for editing

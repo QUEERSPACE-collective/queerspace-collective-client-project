@@ -36,14 +36,14 @@ function AllEventsList() {
   }
 
 
-  let isEventfull;
-  event.forEach(event => {
-    if (event.total_attendees == event.attendeeMax){
-      console.log(event, 'this event is full')
-    } else {
-      console.log(event, 'this event is not full')
-    }
-  })
+  // let isEventfull;
+  // event.forEach(event => {
+  //   if (event.total_attendees == event.attendeeMax){
+  //     console.log(event, 'this event is full')
+  //   } else {
+  //     console.log(event, 'this event is not full')
+  //   }
+  // })
   
   return (
   <>

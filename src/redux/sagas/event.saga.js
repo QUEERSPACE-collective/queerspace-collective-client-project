@@ -28,7 +28,6 @@ function* fetchEventDetails(action){
             type: 'SET_EVENT_DETAILS',
             payload: response.data
         })
-        console.log('whats response data', response.data)
     } catch (error) {
         console.log('error GETting event details from server', error)
     }
