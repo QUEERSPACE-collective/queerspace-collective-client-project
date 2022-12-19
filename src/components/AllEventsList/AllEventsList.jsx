@@ -22,9 +22,17 @@ function AllEventsList() {
   const event = useSelector((store) => store.event);
 
   useEffect(()=> {
+    animater(), //fade effect call
     dispatch({type: "FETCH_EVENTS"})
   },[])
-
+//Fade effect
+  function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+//Fade effect
   const handleDeleteEvent = (eventId) => {
     dispatch({
       type: 'DELETE_EVENT',

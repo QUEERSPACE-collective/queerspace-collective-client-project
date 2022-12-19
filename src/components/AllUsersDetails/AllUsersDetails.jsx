@@ -16,21 +16,31 @@ function AllUsersDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({ type: "FETCH_ALL_USERS" });
-  }, [])
-
-  const deleteUser = (id) => {
-    console.log('in delete item function onclick, id is', id)
-    dispatch({
-      type: "DELETE_USER",
-      payload: id,
-    });
-    history.push('/allusers')
-  }
+useEffect(() => {
+  animater(), // Call fade effect, yes I know this is spelled wrong
+  dispatch({ type: "FETCH_ALL_USERS" });
+}, []);
+//Fade effect
+function animater() {
+  document.body.classList.remove("noSalmon");
+  document.body.classList.add("salmon");
+  setTimeout(() => document.body.classList.remove("salmon"), 100);
+  setTimeout(() => document.body.classList.add("noSalmon"), 100);
+};
+//Fade effect
+const deleteUser = (id) => {
+  console.log('in allUsersDetails deleteUser, the users id is', id)
+  dispatch({
+    type: "DELETE_USER",
+    payload: id,
+  });
+  history.push('/allusers')
+}
 
   return (
     <>
+      {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
+      <div className='bannerTop'></div> 
       <section className='alluserDetailsContainer'>
         {allUsersList.map(allUsers => (
           (params.id == allUsers.id && (
@@ -39,14 +49,21 @@ function AllUsersDetails() {
               {user.userType == 5 && (
                 <div>
                   <li>
-                    <p>Edit User</p>
-                    <select>
-                      <option disabled selected hidden>Type</option>
-                      <option>Mentor</option>
-                      <option>Mentee</option>
-                      <option>Caregiver</option>
-                      <option>Volunteer</option>
-                    </select>
+                    {allUsers.userType == 5 && (
+                      <span>Admin</span>
+                    )}
+                    {allUsers.userType == 4 && (
+                      <span>Mentor</span>
+                    )}
+                    {allUsers.userType == 3 && (
+                      <span>Youth/Mentee</span>
+                    )}
+                    {allUsers.userType == 2 && (
+                      <span>Caregiver</span>
+                    )}
+                    {allUsers.userType == 1 && (
+                      <span>Volunteer</span>
+                    )}
                   </li>
                   <li>
                     Pronouns: {allUsers.pronouns}
@@ -55,26 +72,27 @@ function AllUsersDetails() {
                     Email: {allUsers.username}
                   </li>
                   <li>
-                    <button>Edit Profile</button>
-                  </li>
-                  <li>
                     Bio: {allUsers.bio}
                   </li>
                   <li>
                     Mentor: {allUsers.mentor}
                   </li>
-
+                  <li>
+                    <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
+                      <Button variant='contained'>Edit User</Button>
+                    </Link>                  
+                  </li>
                   <Button
                     variant="contained"
                     color="error"
                     value={allUsers.id}
                     onClick={(evt) => deleteUser(evt.target.value)}
                   >
-                    Delete
+                    Delete User
                   </Button>
                 </div>
               )}
-
+              
               {user.userType < 5 && (
                 <div>
                   <li>

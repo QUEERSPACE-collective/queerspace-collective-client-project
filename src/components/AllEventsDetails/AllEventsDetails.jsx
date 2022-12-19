@@ -9,7 +9,7 @@ function AllEventsDetails() {
 
   return (
 
-    <h1>AllEventsDetails</h1>
+    <h1 >AllEventsDetails</h1>
     
   );
 }

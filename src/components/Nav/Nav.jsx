@@ -29,16 +29,15 @@ function Nav() {
             <QSClogo />
           </Link>
 
-          {/* SHOW THIS IF NOT LOGGED IN */}
-
+        {/* show login if not logged in*/}
          {!user.id && (
           <div className='webNavbar'>
             <Link to='./login'><p>Login</p></Link>
           </div>
           )}  
 
-          {/* SHOW THIS IF THE USER IS AN ADMIN OR MENTOR */}
-          
+          {/* show if mentor or admin */}
+          {/* may still need to add more (more socials?) */}
           {user.userType > 3 && (
           <div className='webNavbar'>
             <Link to='/profilepage'><p>Home</p></Link>
@@ -50,21 +49,15 @@ function Nav() {
           </div>
           )} 
 
-          {/* SHOW THIS IF THE USER IS NOT ADMIN OR MENTOR */}
-
+          {/* show if NOT admin or mentor */}
           {user.userType < 4 && (
-           <div className='webNavbar'>
-
-            <Link to='/home'><p>Home</p></Link>
-            <Link to='/eventlist'><p>Calendar</p></Link>
-
-            <Link to='/profilepage'><p>Home</p></Link>
-            <Link to='/calendar'><p>Calendar</p></Link>
-
-            <Link to='/allusers'><p>Find members</p></Link>
-            <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
-          </div> 
-           )} 
+            <div className='webNavbar'>        
+              <Link to='/profilepage'><p>Home</p></Link>
+              <Link to='/eventlist'><p>Calendar</p></Link>
+              <Link to='/allusers'><p>Find members</p></Link>
+              <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
+            </div> 
+          )} 
         
         </header>
       </div>

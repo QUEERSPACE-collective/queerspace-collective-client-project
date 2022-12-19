@@ -11,7 +11,7 @@ function handleSubmit() {
 }
   return (
 <>
-    <h1>EventRegForm</h1>
+    <h1 className='bannerTop'>EventRegForm</h1>
     
       <h1>Register For Event</h1>
     <form onSubmit={handleSubmit}>

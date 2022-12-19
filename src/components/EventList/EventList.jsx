@@ -17,11 +17,19 @@ function EventList() {
   console.log('event list', eventList)
   
   useEffect(() => {
+    animater(),
     dispatch({
         type: 'FETCH_EVENTS'
     })
 }, [])
-
+//Fade effect
+function animater() {
+  document.body.classList.remove("noSalmon");
+  document.body.classList.add("salmon");
+  setTimeout(() => document.body.classList.remove("salmon"), 100);
+  setTimeout(() => document.body.classList.add("noSalmon"), 100);
+}
+//Fade effect
   return (
     <>
       <Link to = "/user">
