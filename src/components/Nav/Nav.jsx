@@ -8,7 +8,8 @@ import {
   HashRouter as Router,
   Link,
 } from 'react-router-dom';
-
+// Nav and Drawer will need to be modified to show more links (alleventslist, neweventform,etc.)
+// Will need to add more key difference between Admin and Mentor views.
 function Nav() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -25,9 +26,9 @@ function Nav() {
 
         <header className='myHeader'>
 
-          <Link to="/profilepage">
-            <QSClogo />
-          </Link>
+        <Link to="/profilepage">
+          <QSClogo />
+        </Link>
 
         {/* show login if not logged in*/}
          {!user.id && (
@@ -45,6 +46,7 @@ function Nav() {
             <Link to='/resources'><p>Resources</p></Link>
             <Link to='/feedback'><p>Feedback Form</p> </Link>
             <Link to='/allusers'><p>Find members</p></Link>
+            <Link to='/alleventslist'><p>Events List</p></Link>
             <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
           </div>
           )} 

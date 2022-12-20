@@ -37,7 +37,7 @@ function ProfilePage() {
     setTimeout(() => document.body.classList.remove("salmon"), 100);
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
   }
-// Fade effect
+// end Fade effect
   return (
     <div className="container">
       <h2>Welcome, {user.fname} {user.lname}!</h2>

@@ -8,27 +8,19 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
-  Select,
-  MenuItem,
-  InputLabel
 } from '@mui/material';
 
 function AllEventsDetails() {
-  const params = useParams();
-  const dispatch = useDispatch();
-  const event = useSelector((store) => store.event);
-  const user = useSelector((store) => store.user);
-  const allUsersList = useSelector(store => store.allUsers);
-  const eventDetails = useSelector(store => store.event)
-  const userEvents = useSelector(store => store.userEventsReducer);
-  const eventList = useSelector(store => store.event)
+    const params = useParams();
+    const dispatch = useDispatch();
+    const event = useSelector((store) => store.event);
     const singleEventsList = useSelector(store => store.eventReducerSpecific); 
-    console.log('what is yo',singleEventsList);
-//
-const uniqueIds = [];
-const uniqueEmployees = singleEventsList.filter(element => {
+    console.log('the single event list: ',singleEventsList); 
+    let count = 0;
+// This filter is used to loop thru singleEventsList and filter out duplicate Ids
+    const uniqueIds = [];
+    const uniqueUser = singleEventsList.filter(element => {
     const isDuplicate = uniqueIds.includes(element.id);
     if(!isDuplicate) {
         uniqueIds.push(element.id);
@@ -36,28 +28,21 @@ const uniqueEmployees = singleEventsList.filter(element => {
     }
     return false;
 });
-console.log(uniqueEmployees, 'what it be??');
-console.log(uniqueIds,'what it eeeeez');
+    console.log('What the uniqueUser filter returns: ',uniqueUser);
+    console.log('the Ids that were found as duplicates: ',uniqueIds);
 //
-  const eventType = params.id;
-
   useEffect(()=> {
-    animater(), //fade effect call
-    dispatch({
-        type: 'FETCH_EVENT_DETAILS',
-        payload: params.id
-      }),
-      dispatch({ type: "FETCH_ALL_USERS" }),
-       dispatch({
-          type: 'FETCH_USER_EVENTS'
-        })
-        ,
+    animater(), // call fade effect
+        dispatch({
+            type: 'FETCH_EVENT_DETAILS',
+            payload: params.id
+        }),
+        dispatch({ type: "FETCH_ALL_USERS" }),
+        dispatch({ type: 'FETCH_USER_EVENTS' }),
         dispatch({ 
             type: "FETCH_SPECIFIC_EVENT",
             payload: params.id       
-        })
-        ;
-        
+        });       
   },[params.id])
 //Fade effect
   function animater() {
@@ -66,25 +51,24 @@ console.log(uniqueIds,'what it eeeeez');
     setTimeout(() => document.body.classList.remove("salmon"), 100);
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
   }
-//Fade effect
+//
   const handleDeleteEvent = (eventId) => {
     dispatch({
       type: 'DELETE_EVENT',
       payload: eventId
     })
-  }
+  };
   
   return (
   <>
-    <h1>SPECIFIC EVENT</h1>
+    <h1>{uniqueUser[0].name}</h1>
 
-    {/* display all events from database */}
+    {/* displays all events from database */}
+    {/* I just duplicated this code from another componenent, it's probably overkill lol */}
 
     <TableContainer>
-      <Table stickyHeader>
-        
+      <Table stickyHeader>     
         <TableBody>
- 
         {event.map(thisEvent =>
           <TableRow key={thisEvent.id}>
             <TableCell>{thisEvent.id}</TableCell>
@@ -113,53 +97,43 @@ console.log(uniqueIds,'what it eeeeez');
         </TableBody>
       </Table>
     </TableContainer>
-
-
-            {/* {singleEventsList.map(theEvent => 
-                <>
-                
-                <div key={theEvent.id}>
-                    <p>{theEvent.name}</p>
-                    <p>{theEvent.fname}</p>
-                    
-                    {singleEventsList.map(innerList => 
-                        
-                        (innerList.id == theEvent.id && (
-                            <>
-                            <div key={innerList.id}>
-                             <p>{innerList.question}</p>
-                             <p>{innerList.answer}</p>
-                             </div>
-                             </>
-                        ))
-                    )}
-                    <hr></hr>
-                </div> 
-                </>             
-                )} */}
-                {uniqueEmployees.map(employee => 
-                <>              
-                <div key={employee.id}>
-                    <p>{employee.name}</p>
-                    <p>{employee.fname}</p>
-                    
+     {uniqueUser.map(employee => 
+        <>              
+            <div key={employee.id} >
+                <span style={{display:'none'}}>{count++}</span>
+                <p>{employee.fname}</p>
                     {singleEventsList.map(theEvent =>               
                         (theEvent.id == employee.id && (
                             <>
                             <div key={theEvent.id}>
                              <p>{theEvent.question}</p>
                              <p>{theEvent.answer}</p>
-                             </div>
-                             </>
+                            </div>
+                            </>
                         ))
                     )}
-                    <hr></hr>
-                </div> 
-                </>             
-                )}
+                <hr></hr>
+            </div> 
+        </>             
+    )}
+    <h1>total attendee count: {count}</h1>
     </>   
     );
   }
-
+// Code explained: singleEventsList is the array of objects which contain all users
+// who are registered for the event in question, called from database. Above, 
+// uniqueUser is the result of filtering through singleEventsList and finding
+// any IDs that are duplicates. uniqueIds gets the values that are unique and those
+// unique values get pushed into a new array. uniqueUser is the result of this process.
+// Now that our array is limited to unique Ids, we loop through it in the return.
+// We increase the {count} for every array index to know how many registered users
+// for this event there are. Because we need to search through all of the questions
+// and answers for this event, we map through the singleEventsList again, with a 
+// different key (theEvent). We add a conditional which compares the theEvent.id,
+// (which is just the user id), against the employee id (which is also the user id,
+// but for the shortened array). If the user of the singleEventsList array match
+// the id of the uniqueUser array id, then we will display the question/answer pair
+// for that user, for this event. Since we already filtered out duplicate IDs with 
+// uniqueIds and uniqueUser, it will appropriately show the data grouped as we want.
 
 export default AllEventsDetails;

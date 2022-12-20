@@ -6,7 +6,6 @@ const config = {
     withCredentials: true,
 }
 
-// going to user.router.js
 function* fetchOneEvent(action){
     console.log('event id is',action.payload)
     try{
@@ -16,23 +15,12 @@ function* fetchOneEvent(action){
         payload: response.data
       })
     } catch (error) {
-        console.log('error getting users registered events at saga', error)
+        console.log('error with GET in specificEvent.saga.js', error)
     }
   }
 
-
-function* deleteUserEvent(action){
-  try{
-    yield axios.delete(`/api/user/events/${action.payload}`, config)
-    yield put({type: 'FETCH_USER_EVENTS'})
-  } catch (error) {
-    console.log('error deleting user event in saga', error)
-  }
-}
-
 function* specificEvent () {
     yield takeLatest ('FETCH_SPECIFIC_EVENT', fetchOneEvent);
-
 }
 
 export default specificEvent;

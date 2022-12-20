@@ -8,5 +8,4 @@ const eventReducerSpecific = (state = [], action) => {
     }
 }
 
-
 export default eventReducerSpecific;
