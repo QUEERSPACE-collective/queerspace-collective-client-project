@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import {useSelector} from 'react-redux';
 
 // Add Social Media links?
-
+ 
 function Footer() {
   const history = useHistory();
   const user = useSelector((store) => store.user);

@@ -18,7 +18,7 @@ function AllUsersDetails() {
 
 useEffect(() => {
   animater(), // Call fade effect, yes I know this is spelled wrong
-  dispatch({ type: "FETCH_ALL_USERS" });
+  dispatch({ type: "FETCH_ALL_USERS" })
 }, []);
 //Fade effect
 function animater() {

@@ -81,17 +81,20 @@ function AllEventsList() {
           </TableRow>
         </TableHead>
         <TableBody>
-
+ 
         {event.map(thisEvent =>
           <TableRow key={thisEvent.id}>
-            <TableCell>{thisEvent.name}</TableCell> 
+            <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+            {thisEvent.name}
+              </Link>
+            </TableCell> 
             <TableCell align="right">{thisEvent.dateTime}</TableCell>
             <TableCell align="right"> {thisEvent.description}</TableCell>
             <TableCell align="right"> {thisEvent.location}</TableCell>
             <TableCell align="right"> {thisEvent.type} </TableCell>
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">
-              <Link to={`/AllEventsList/${thisEvent.id}/edit`}>
+              <Link to={`/alleventslist/${thisEvent.id}/edit`}>
                 <Button>Edit Event</Button>
               </Link>
             </TableCell>

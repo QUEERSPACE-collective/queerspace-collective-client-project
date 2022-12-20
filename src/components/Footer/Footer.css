@@ -39,9 +39,10 @@
 
 .salmon {
     opacity:0;
+    /* transition:1s; */
 }
 .noSalmon {
-    transition: opacity 1s;
+    transition: opacity .3s;
     opacity:1;
 }
 

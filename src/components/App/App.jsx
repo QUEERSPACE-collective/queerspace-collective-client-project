@@ -190,7 +190,13 @@ function App() {
               <Route exact path='/AllUserListItems'>
               <AllUserListItems/>
               </Route>
-
+              {/*  */}
+              <Route exact path='/alleventslist/:id/details'>
+              <AllEventsDetails/>
+              </Route>
+              {/*  */}
+             
+            
             
               
               <Route exact path='/Calendar'>
