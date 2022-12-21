@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import Upload from '../Multer/Multer';
 
 function ProfilePage() {
   const history = useHistory();
@@ -27,7 +28,7 @@ function ProfilePage() {
     <div className="container">
       <h2>Welcome, {user.fname} {user.lname}!</h2>
       <div>
-      <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px'}}/>
+     <Upload/>
       </div>
       <p> Name: {user.fname} {user.lname}</p>
       <p> Pronouns: {user.pronouns}</p>

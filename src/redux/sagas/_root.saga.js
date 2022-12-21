@@ -12,7 +12,7 @@ import viewResourcesSaga from './viewResources.saga';
 import newResourceSaga from './submitNewResource.saga';
 import newEventSaga from './newEventForm.saga'; 
 import addUserSaga from './addUser.saga';
-
+import multerSaga from './multer.saga';
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -36,5 +36,6 @@ export default function* rootSaga() {
     viewResourcesSaga(),
     newResourceSaga(),
     addUserSaga(),
+    multerSaga(),
   ]);
 }

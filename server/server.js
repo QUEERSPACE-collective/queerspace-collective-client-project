@@ -12,7 +12,7 @@ const userRouter = require('./routes/user.router');
 const allUsersRouter = require("./routes/allUsers.router");
 const eventRouter = require('./routes/event.router');
 const resourcesRouter = require('./routes/resources.router');
-
+const multerRouter = require('./routes/multer.router');
 
 
 // Body parser middleware
@@ -33,7 +33,7 @@ app.use('/api/allusers', allUsersRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/resources', resourcesRouter);
 
-
+app.use('/api/upload', multerRouter)
 // Serve static files
 app.use(express.static('build'));
 
