@@ -61,8 +61,10 @@ function AllEventsDetails() {
   
   return (
   <>
-    <h1>{uniqueUser[0].name}</h1>
-
+       {event.map(employee => 
+        <h1>{employee.name}</h1>
+       )}
+       
     {/* displays all events from database */}
     {/* I just duplicated this code from another componenent, it's probably overkill lol */}
 
@@ -97,6 +99,7 @@ function AllEventsDetails() {
         </TableBody>
       </Table>
     </TableContainer>
+    
      {uniqueUser.map(employee => 
         <>              
             <div key={employee.id} >
