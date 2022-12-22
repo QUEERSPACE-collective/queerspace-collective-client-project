@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux';
 function Upload() {
     const dispatch = useDispatch();
     const [selectedFile, setSelectedFile] = useState('');
+    const user = useSelector((store) => store.user);
+    const multerReducer = useSelector((store) => store.multerReducer);
+
     const handleUpload = (event) => {
         event.preventDefault();
-        console.log('in handleUpload Multer');
-
+        console.log('in handleUpload Multer',selectedFile);
         dispatch({
             type: `UPLOAD_IMAGE`,
             payload: selectedFile,
@@ -16,14 +18,14 @@ function Upload() {
     }
 
     const changeHandler = (event) => {
-        console.log('in changeHandler Multer');
+        console.log('in changeHandler Multer',event.target.files);
         setSelectedFile(event.target.files);
     }
     console.log('in upload Multer');
     return (
-        <>
-        <img src={selectedFile} style={{border:'1px solid black',borderRadius:'50%', height:'200px', width:'200px'}}/>
-        <form onSubmit={handleUpload} action="/profile" method="post" enctype="multipart/form-data">
+        <>           
+        <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px', width:'200px'}}/>
+        <form onSubmit={handleUpload} action="/profile" method="post" encType="multipart/form-data">
             <input 
                 type="file" 
                 className="form-control-file" 

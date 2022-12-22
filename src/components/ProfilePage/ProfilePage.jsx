@@ -38,7 +38,9 @@ function ProfilePage() {
         <label>
           Your access level is: 
         </label>
-        <select value={user.userType}>
+        <select 
+          // value={user.userType}
+        >
           <option disabled value="1">
             Mentee/Youth
           </option>
