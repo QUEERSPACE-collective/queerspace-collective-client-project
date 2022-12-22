@@ -80,7 +80,14 @@ function App() {
           >
             <ProfilePage />
           </ProtectedRoute>
-
+          {/* Chris moved these two up here */}
+            <ProtectedRoute exact path='/alleventslist/:id/details'>
+              <AllEventsDetails/>
+            </ProtectedRoute>
+            <ProtectedRoute exact path='/AllEventsList'>
+              <AllEventsList/>
+            </ProtectedRoute>
+          {/*  */}
           <ProtectedRoute exact path='/allusers/:id/edit'>
               <EditUser/>
           </ProtectedRoute>
@@ -178,30 +185,22 @@ function App() {
             <Route exact path='/AddUserForm'>
               <AddUserForm/>
               </Route>
+
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
-              </Route>
-              <Route exact path='/AllEventsList'>
-              <AllEventsList/>
-              </Route>
+              </Route>             
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>
               </Route>
               <Route exact path='/AllUserListItems'>
               <AllUserListItems/>
-              </Route>
-
-            
-              
+              </Route>    
               <Route exact path='/Calendar'>
               <Calendar/>
               </Route>
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
-              
-
-
               <Route exact path='/EventListItems'>
               <EventListItems/>
               </Route>

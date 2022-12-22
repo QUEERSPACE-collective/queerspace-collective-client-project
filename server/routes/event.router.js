@@ -19,6 +19,25 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.get('/specificEvent/:id', rejectUnauthenticated, (req,res) => {
+    const sqlParams = [req.params.id]
+    const sqlText = `SELECT "questions"."eventId", "questionId", "question", "answer", "name", "location", "description", "user"."username","fname","lname","userType", "user"."id" 
+    FROM "questions"
+       RIGHT JOIN "answers" ON "answers"."questionId" = "questions"."id"
+       LEFT JOIN "events" ON "events"."id" = "questions"."eventId" 
+       LEFT JOIN "user" ON "user"."id" = "answers"."userId"
+       LEFT JOIN "userEvents" ON "userEvents"."eventId" = "events"."id" and "events"."id" = "answers"."questionId"
+       LEFT JOIN "eventTypes" ON "eventTypes"."id" = "events"."id" WHERE "events"."id" = $1;`;
+    pool.query(sqlText, sqlParams)
+        .then(dbResult => {
+            res.send(dbResult.rows)
+        })
+        .catch(error => {
+            console.error('error getting specific event data',error)
+            res.sendStatus(500);
+        })
+});
+
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
     const sqlText = 
@@ -56,7 +75,8 @@ router.post('/register/:id', rejectUnauthenticated, (req, res) => {
 
 
 // get a specific event for editing
-router.get('/:id', rejectUnauthenticated, async (req, res)=>{
+router.get('/:id/edit', rejectUnauthenticated, async (req, res)=>{
+    console.log('in router.get /:id', req.params)
     try{
         const id = req.params.id;
         const sqlText=`

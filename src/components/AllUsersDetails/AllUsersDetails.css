@@ -6,3 +6,8 @@
     flex-wrap: wrap;
     align-content: stretch;
 }
+
+.alluserDetailsContainer li  {
+    border-bottom: 1px solid black;
+    padding-bottom:10px;
+}
