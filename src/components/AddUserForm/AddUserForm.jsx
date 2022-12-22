@@ -32,7 +32,7 @@ function AddUserForm() {
 
   return (
     <div>
-    <h1>Add New User</h1>
+    <h1 className='bannerTop'>Add New User</h1>
     <form onSubmit={handleSubmit}>
       <label>
         Email:

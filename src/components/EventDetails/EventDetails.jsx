@@ -25,9 +25,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-// CUSTOM COMPONENTS
+
+
 
 function EventDetails() {
+  
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -73,13 +75,21 @@ function EventDetails() {
 
 
   useEffect(() => {
+    animater(),
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
       payload: params.id
     })
   }, [params.id])
 
-
+  //Fade effect
+  function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+  //Fade effect
 
   // looking through users registered events, if they are register for an event
   // with the same id as the currently displayed event, set isRegistered to "true"
@@ -109,7 +119,7 @@ function EventDetails() {
 
   return (
   <>
-      <h2>EventDetails</h2>
+      <h2 className='bannerTop'>EventDetails</h2>
       <Link to="/EventList">
         <button>Back to Calendar</button>
       </Link>

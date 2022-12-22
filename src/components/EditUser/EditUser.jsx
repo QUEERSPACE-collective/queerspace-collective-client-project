@@ -6,8 +6,6 @@ import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import TextField from '@mui/material/TextField';
 
-// CUSTOM COMPONENTS
-
 function EditUser() {
     const dispatch = useDispatch();
     const params = useParams();
@@ -15,6 +13,7 @@ function EditUser() {
     const history = useHistory();
 
     useEffect(() => {
+        animater(),
         dispatch({
             type: "FETCH_EDIT_USER",
             payload: params.id
@@ -26,33 +25,41 @@ function EditUser() {
           })
         }
     }, [params.id]);
+//Fade effect
+function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+}
+//Fade effect
+const user = useSelector(store => store.editUser);
+console.log(user);
+const onSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch({
+        type: "SAVE_USER",
+        payload: user
+    }),
+    dispatch({
+        type: 'FETCH_USER'
+    });
+    history.push('/allusers')
+}
 
-
-    const user = useSelector(store => store.editUser);
-    console.log(user);
-
-    const onSubmit = (evt) => {
-        evt.preventDefault();
-        dispatch({
-            type: "SAVE_USER",
-            payload: user
-        });
-        history.push('/allusers')
-    }
-
-    const deleteUser = (id) => {
-      console.log('in delete item function onclick')
-        dispatch({
-          type: "DELETE_USER",
-          payload: id,
-        });
-        history.push('/allusers')
-      }
+const deleteUser = (id) => {
+    console.log('in delete item function onclick')
+    dispatch({
+        type: "DELETE_USER",
+        payload: id,
+    });
+    history.push('/allusers')
+}
 
     return (
         <div className='editUserContainer'>
             <div>
-                <h1>Edit User</h1>   
+                <h1 className='bannerTop'>Edit User</h1>   
             </div>
             <div className="formContainer">
             <form onSubmit={onSubmit} className='editUserForm' >
@@ -81,8 +88,13 @@ function EditUser() {
                 <label for="uType">
                     User Type:
                 </label>
-                <TextField
+                {/* min/max didn't work in a TextField. I could conditional it, but here's a simple fix for now */}
+                {/* mobile doesn't work with #, might have to conditional render after all  */}
+                <input
                     id="uType"
+                    type="number"
+                    max='5'
+                    min='1'
                     value={user && user.userType}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_USER',
@@ -140,13 +152,9 @@ function EditUser() {
                 <Link to="/allusers" className="backToUserList">
                 <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
                 </Link>
-                </div>
-                
+                </div>               
             </form>
-            </div>
-
-           
-           
+            </div>          
         </div>
     )
 }
