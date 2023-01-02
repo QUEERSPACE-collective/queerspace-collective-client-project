@@ -14,12 +14,20 @@ function EditEvents(){
     const history = useHistory();
 
     useEffect(() => {
+        animater(),
         dispatch({
             type: "FETCH_EDIT_EVENT",
             payload: params.id
         });
     }, [params.id]);
-
+//Fade effect
+function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+//Fade effect
     const editEvent = useSelector(store => store.editEvent);
 
     const onSubmit = (evt) => {
@@ -33,7 +41,7 @@ function EditEvents(){
     return(
         <>
             <div>
-                <h2> Edit Event</h2>
+                <h2 className='bannerTop'>  Edit Event</h2>
             </div>
             <form onSubmit={onSubmit}>
                  {/* edit event name */}

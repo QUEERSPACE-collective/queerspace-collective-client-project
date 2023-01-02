@@ -26,7 +26,6 @@ import { useSelector, useDispatch } from 'react-redux';
 function Drawers() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-
   const [state, setState] = React.useState({
     left: false
   });
@@ -48,7 +47,7 @@ function Drawers() {
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <List className='drawerText' sx={{ p: 0 }}>
-          <Link to='/home'>
+          <Link to='/user'>
             <p><CottageIcon className='iconAlign'/>Home</p>
           </Link>
           <Link to='/eventlist'>
@@ -72,7 +71,13 @@ function Drawers() {
         <Divider/>
             <List className="drawerListLogout" onClick={() => dispatch({ type: 'LOGOUT' })}>        
             <Link to='/login' >
-              <LogoutIcon className='iconAlign' sx={{pl:'20px'}}></LogoutIcon><Button variant={'containedSizeSmall'}> Logout</Button>
+              <LogoutIcon 
+                className='iconAlign' 
+                sx={{pl:'20px'}}>
+              </LogoutIcon>
+              <Button variant={'containedSizeSmall'}>
+                Logout
+              </Button>
             </Link>
         </List>
       </Box>
@@ -80,39 +85,28 @@ function Drawers() {
     </Router>
   );
 
-  return (
-    <>
-      {/* <div>
-        {!user.id && (
-          <div>
-            <Redirect to='/home'></Redirect>                 
-            <Link className="navLink navLogin" to="/login" >
-              Login
-            </Link> 
-          </div>
-        )}
-      </div> */}
-    {/* 3. END  */}
-
-
-      <div className='drawerContainer'>
-        {user.id &&   (
-          ['left'].map((anchor) => (
-            <React.Fragment key={anchor}>
-              <Button onClick={toggleDrawer(anchor, true)}><MenuIcon /></Button>
-              <Drawer
-                anchor={anchor}
-                open={state[anchor]}
-                onClose={toggleDrawer(anchor, false)}
-              >
-                {list(anchor)}
-              </Drawer>
-            </React.Fragment>
-          ))
-        )}
-      </div>
-    </>
-  );
+return (
+  <>
+    <div className='drawerContainer'>
+      {user.id &&   (
+        ['left'].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>
+              <MenuIcon/>
+            </Button>
+            <Drawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
+        ))
+      )}
+    </div>
+  </>
+);
 }
 
 export default Drawers;

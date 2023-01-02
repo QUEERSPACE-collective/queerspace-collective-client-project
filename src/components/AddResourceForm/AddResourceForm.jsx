@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './AddResourceForm.css';
@@ -11,6 +11,19 @@ function AddResourceForm() {
   const newResourceName = useSelector(store=>store.newResourceName);
   const newResourceDescription = useSelector(store=>store.newResourceDescription);
   const newResourceLink = useSelector(store=>store.newResourceLink);
+
+  useEffect(() => {
+    animater() // Call fade effect
+  }, [])
+
+  //Fade effect
+  function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+  //Fade effect
 
   function onSubmit(e){
     e.preventDefault();
@@ -29,7 +42,7 @@ function AddResourceForm() {
   }
   return (
     <>
-      <h1>Add Resource Form</h1>
+      <h1 className='bannerTop'>Add Resource Form</h1>
 
       <form onSubmit={onSubmit}>
         <label for='newResourceName'>Resource Name: </label>

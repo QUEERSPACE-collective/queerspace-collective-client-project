@@ -1,10 +1,10 @@
 * {
     margin:0;
     padding:0;
-}
-
-/* Added by Chris */
-body, * {
     font-family: 'poppins';
 }
-/* Added by Chris */
+
+ body {
+    font-family: 'poppins';
+    padding-bottom:200px;
+}

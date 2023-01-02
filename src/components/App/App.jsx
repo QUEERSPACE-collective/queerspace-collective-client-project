@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
+import Feedback from '../Feedback/Feedback';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
@@ -41,6 +41,7 @@ import NewEventForm from '../NewEventForm/NewEventForm';
 //END OF NEW COMPONENTS
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
+import EditProfilePage from '../EditProfilePage/EditProfilePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -60,13 +61,13 @@ function App() {
           {/* <Redirect exact from="/" to="/home" /> */}
  
           {/* Visiting localhost:3000/about will show the about page. */}
-          <Route
+          {/* <Route
             // shows AboutPage at all times (logged in or not)
             exact
             path="/AboutPage"
           >
             <AboutPage />
-          </Route>
+          </Route> */}
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the ProfilePage if the user is logged in.
@@ -78,6 +79,21 @@ function App() {
             path="/user"
           >
             <ProfilePage />
+          </ProtectedRoute>
+          {/* Chris moved these two up here */}
+            <ProtectedRoute exact path='/alleventslist/:id/details'>
+              <AllEventsDetails/>
+            </ProtectedRoute>
+            <ProtectedRoute exact path='/AllEventsList'>
+              <AllEventsList/>
+            </ProtectedRoute>
+          {/*  */}
+          <ProtectedRoute exact path='/allusers/:id/edit'>
+              <EditUser/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/feedback'>
+              <Feedback/>
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -138,6 +154,14 @@ function App() {
               <EventDetails/>
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/allusers'>
+              <AllUsersList/>
+              </ProtectedRoute>
+
+              <ProtectedRoute exact path='/AllUsersDetails/:id'>
+              <AllUsersDetails/>
+              </ProtectedRoute>
+              
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -152,43 +176,31 @@ function App() {
             <Route exact path='/ProfilePage'>
               <ProfilePage/>
             </Route>
+            <Route exact path='/profilepage/:id/edit'>
+              <EditProfilePage/>
+            </Route>
             <Route exact path='/AddResourceForm'>
               <AddResourceForm/>
             </Route>
             <Route exact path='/AddUserForm'>
               <AddUserForm/>
               </Route>
+
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
-              </Route>
-              <Route exact path='/AllEventsList'>
-              <AllEventsList/>
-              </Route>
+              </Route>             
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>
               </Route>
               <Route exact path='/AllUserListItems'>
               <AllUserListItems/>
-              </Route>
-
-              <Route exact path='/AllUsersDetails/:id'>
-              <AllUsersDetails/>
-              </Route>
-              
-              <Route exact path='/allusers'>
-              <AllUsersList/>
-              </Route>
+              </Route>    
               <Route exact path='/Calendar'>
               <Calendar/>
               </Route>
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
-              <Route exact path='/allusers/:id/edit'>
-              <EditUser/>
-              </Route>
-
-
               <Route exact path='/EventListItems'>
               <EventListItems/>
               </Route>
