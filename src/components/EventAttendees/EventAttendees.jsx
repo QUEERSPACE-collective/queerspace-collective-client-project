@@ -24,7 +24,14 @@ function EventAttendees(){
             {registeredAttendees.map(attendee => (
                 <>
                 <h3>{attendee.name}</h3>
-                <h5>{attendee.username}</h5>
+                <h3>{attendee.username}</h3>
+                <h3>Answers:</h3>
+                <ul>
+                    {attendee.question_answer.map(answer => (
+                        <li>{answer[0]} {answer[1]}</li>
+                    ))}
+                </ul>
+
                 <br/>
                 </>            
             ))}

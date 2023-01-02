@@ -45,21 +45,21 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 
 // // get a specific event for editing
-// router.get('/:id', rejectUnauthenticated, async (req, res)=>{
-//     try{
-//         const id = req.params.id;
-//         const sqlText=`
-//             SELECT * FROM "events"
-//             WHERE id = $1;
-//             `;
-//         let dbRes = await pool.query(sqlText, [id]);
-//         res.send(dbRes.rows[0]);
-//     }
-//     catch (error) {
-//         console.error('error in edit event', error);
-//         res.sendStatus(500);
-//     }
-// });
+router.get('/:id', rejectUnauthenticated, async (req, res)=>{
+    try{
+        const id = req.params.id;
+        const sqlText=`
+            SELECT * FROM "events"
+            WHERE id = $1;
+            `;
+        let dbRes = await pool.query(sqlText, [id]);
+        res.send(dbRes.rows[0]);
+    }
+    catch (error) {
+        console.error('error in edit event', error);
+        res.sendStatus(500);
+    }
+});
 
 // edit the user
 router.put('/:id', rejectUnauthenticated, async (req, res)=>{

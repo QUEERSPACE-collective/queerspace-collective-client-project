@@ -21,29 +21,67 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
+
+// getting event registered users and their questsions/answers
+// router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
+//     const userId = [req.user.id]
+//     const sqlText = 
+//     `
+//     SELECT 
+// 		json_agg(
+//             json_build_object(
+//                 questions.question,
+//                 answers.answer
+//                 )
+//         ) as "question_answer" FROM "answers" JOIN "user" ON "answers"."userId" = "user"."id" JOIN "questions" ON "answers"."questionId" = "questions"."id" JOIN "events" ON "questions"."eventId" = "events"."id" WHERE "userId" = 8 AND "events"."id" = 16
+// GROUP BY "user"."fname", "user"."lname";
+//     `;
+
+// })
+
+
+
+
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     console.log('in registration router to get all event registered users')
     const sqlParams = [req.params.id]
         const sqlText = 
         `
         SELECT 
-        "user"."username", 
-        CONCAT("user".fname,' ',"user".lname) AS "name",
-        "userEvents"."eventId", 
-            json_agg(
-                json_build_object(
-                    questions.question,
-                    answers.answer
-                    )
-            ) as question_answer
-        FROM "questions"
-        LEFT JOIN "answers"  
-        ON "answers"."questionId" = "questions".id
-        LEFT JOIN "user" on "user".id = "answers"."userId"
-        LEFT JOIN "userEvents" on "userEvents"."eventId" = "questions"."eventId"
-        WHERE "userEvents"."eventId" = $1
-        GROUP BY "user"."username", "user"."fname", "user"."lname", "userEvents"."eventId";
+	    CONCAT("user".fname,' ',"user".lname) AS "name",
+	    "user".username,
+		json_agg(
+            json_build_array(
+                questions.question,
+                answers.answer
+                )
+        ) as "question_answer" 
+        FROM "answers" 
+        JOIN "user" ON "answers"."userId" = "user"."id" 
+        JOIN "questions" ON "answers"."questionId" = "questions"."id" 
+        JOIN "events" ON "questions"."eventId" = "events"."id" 
+        WHERE "events"."id" = $1
+        GROUP BY "user"."fname", "user"."lname", "user".username;
         `;
+        // `
+        // SELECT 
+        // "user"."username", 
+        // CONCAT("user".fname,' ',"user".lname) AS "name",
+        // "userEvents"."eventId", 
+        //     json_agg(
+        //         json_build_object(
+        //             questions.question,
+        //             answers.answer
+        //             )
+        //     ) as question_answer
+        // FROM "questions"
+        // LEFT JOIN "answers"  
+        // ON "answers"."questionId" = "questions".id
+        // LEFT JOIN "user" on "user".id = "answers"."userId"
+        // LEFT JOIN "userEvents" on "userEvents"."eventId" = "questions"."eventId"
+        // WHERE "userEvents"."eventId" = $1
+        // GROUP BY "user"."username", "user"."fname", "user"."lname", "userEvents"."eventId";
+        // `;
         pool.query(sqlText, sqlParams)
             .then(dbResult => {
                 console.log('what am i getting back from the db for event registered users???', dbResult.rows)
