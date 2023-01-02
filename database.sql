@@ -8,7 +8,8 @@ CREATE TABLE "user" (
 	"pronouns" VARCHAR,
 	"profilePic" VARCHAR,
 	"bio" VARCHAR,
-	"mentorPair" VARCHAR
+	"mentorPair" VARCHAR,
+	"token" VARCHAR
 );
 
 INSERT INTO "user" ("username","password","fname","lname","userType","pronouns","profilePic","bio","mentorPair")

@@ -43,6 +43,8 @@ import EventAttendees from '../EventAttendees/EventAttendees';
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
+import PasswordReset from '../PasswordReset/PasswordReset';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
 function App() {
   const dispatch = useDispatch();
@@ -137,9 +139,9 @@ function App() {
             }
           </Route>
 
-          {/* <Route
+          <Route
             exact
-            path="/home"
+            path="/reset/:token"
           >
             {user.id ?
               // If the user is already logged in, 
@@ -147,9 +149,9 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <PasswordReset/>
             }
-          </Route> */}
+          </Route>
 
           <ProtectedRoute exact path='/EventList'>
             <EventList />
@@ -187,54 +189,61 @@ function App() {
         <Footer />
       </div>
 
-      {/* IMPORTING ALL COMPONENTS TO TEST */}
 
 
-      <Route exact path='/ProfilePage'>
-        <ProfilePage />
-      </Route>
-      <Route exact path='/profilepage/:id/edit'>
-        <EditProfilePage />
-      </Route>
-      <Route exact path='/AddResourceForm'>
-        <AddResourceForm />
-      </Route>
+{/* IMPORTING ALL COMPONENTS TO TEST */}
+            
+            
+            <Route exact path='/ProfilePage'>
+              <ProfilePage/>
+            </Route>
+            <Route exact path='/profilepage/:id/edit'>
+              <EditProfilePage/>
+            </Route>
+            <Route exact path='/AddResourceForm'>
+              <AddResourceForm/>
+            </Route>
+            <Route exact path='/AddUserForm'>
+              <AddUserForm/>
+              </Route>
+
+              <Route exact path='/AllEventsDetails'>
+              <AllEventsDetails/>
+              </Route>
 
 
-      <Route exact path='/AllEventsDetails'>
-        <AllEventsDetails />
-      </Route>
+              <Route exact path='/AllEventsListItems'>
+              <AllEventsListItems/>
+              </Route>
+              <Route exact path='/AllUserListItems'>
+              <AllUserListItems/>
+              </Route>    
+              <Route exact path='/Calendar'>
+              <Calendar/>
+              </Route>
+              <Route exact path='/Drawers'>
+              <Drawers/>
+              </Route>
+              <Route exact path='/EventListItems'>
+              <EventListItems/>
+              </Route>
+              <Route exact path='/EventRegForm'>
+              <EventRegForm/>
+              </Route>
+              <Route exact path='/MyEventsList'>
+              <MyEventsList/>
+              </Route>
+              <Route exact path='/MyEventsListItems'>
+              <MyEventsListItems/>
+              </Route>
 
-
-      <Route exact path='/AllEventsListItems'>
-        <AllEventsListItems />
-      </Route>
-      <Route exact path='/AllUserListItems'>
-        <AllUserListItems />
-      </Route>
-      <Route exact path='/Calendar'>
-        <Calendar />
-      </Route>
-      <Route exact path='/Drawers'>
-        <Drawers />
-      </Route>
-      <Route exact path='/EventListItems'>
-        <EventListItems />
-      </Route>
-      <Route exact path='/EventRegForm'>
-        <EventRegForm />
-      </Route>
-      <Route exact path='/MyEventsList'>
-        <MyEventsList />
-      </Route>
-      <Route exact path='/MyEventsListItems'>
-        <MyEventsListItems />
-      </Route>
-
-      <Route exact path='/Resources'>
-        <Resources />
-      </Route>
-      {/* END NEW COMPONENTS */}
+              <Route exact path='/Resources'>
+                <Resources/>
+              </Route>
+              <Route exact path='/forgot'>
+                <ForgotPassword/>
+              </Route>
+{/* END NEW COMPONENTS */}
     </Router>
   );
 }
