@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const multer = require('multer');
 const path = require('node:path');
 const storage = multer.diskStorage({
-    destination: './public/images',
+    destination: './public/images/profilePics',
     filename: function (req,file,cb) {
         cb(null, 'profilePic-' + req.user.id + '.jpg');
     }
@@ -18,8 +18,8 @@ router.put('/', rejectUnauthenticated, upload.single("uploaded_file"), function(
     console.log('in post router for multer');
     console.log('what is current users ID?: ',req.user.id)
     console.log('req.file is', req.file);
-    console.log(`../images/${req.file.filename}`);
-    let pPic = `../images/${req.file.filename}`;
+    console.log(`../images/profilePics/${req.file.filename}`);
+    let pPic = `../images/profilePics/${req.file.filename}`;
     let sqlText = 
         `UPDATE "user" 
          SET "profilePic" = $1
