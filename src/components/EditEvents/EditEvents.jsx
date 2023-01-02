@@ -19,6 +19,12 @@ function EditEvents(){
             type: "FETCH_EDIT_EVENT",
             payload: params.id
         });
+
+        return () => {
+            dispatch({
+                type: "CLEAR_EDIT_EVENT"
+            })
+        }
     }, [params.id]);
 //Fade effect
 function animater() {
