@@ -8,6 +8,8 @@ const config = {
 }
 
 
+// fetch all events
+
 function* fetchEvents () {
     try{
         const response = yield axios.get(`/api/event/`, config)
@@ -33,6 +35,10 @@ function* fetchEventDetails(action){
     }
 }
 
+
+
+
+// delete a specified event
 function* deleteEvent(action){
     try{
         yield axios.delete(`/api/event/${action.payload}`, config);

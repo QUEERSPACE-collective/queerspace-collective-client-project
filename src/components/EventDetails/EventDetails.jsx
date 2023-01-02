@@ -22,6 +22,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+// CUSTOM COMPONENTS
 
 // CUSTOM COMPONENTS
 function EventDetails() {
@@ -74,6 +75,7 @@ function EventDetails() {
     })
   }, [params.id])
 
+
   //Fade effect
   function animater() {
     document.body.classList.remove("noSalmon");
@@ -83,6 +85,9 @@ function EventDetails() {
   }
   //Fade effect
 
+  // looking through users registered events, if they are register for an event
+  // with the same id as the currently displayed event, set isRegistered to "true"
+  // .some() returns a bool
   let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   
   // let isEventFull = false;
