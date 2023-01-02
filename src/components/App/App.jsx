@@ -38,6 +38,7 @@ import EventRegForm from '../EventRegForm/EventRegForm';
 import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
+import EditEvents from '../EditEvents/EditEvents';
 // import QSClogo from '../QSClogo/QSClogo';
 //END OF NEW COMPONENTS
 import './App.css';
@@ -166,6 +167,10 @@ function App() {
           <ProtectedRoute exact path='/AllEventsList'>
               <AllEventsList/>
           </ProtectedRoute>
+          
+          <ProtectedRoute exact path='/AllEventsList/:id/edit'>
+            <EditEvents />
+          </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers'>
               <AllUsersList/>
@@ -202,7 +207,7 @@ function App() {
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
               </Route>
-
+            
 
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>
