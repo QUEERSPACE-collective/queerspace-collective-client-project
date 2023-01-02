@@ -42,6 +42,8 @@ import NewEventForm from '../NewEventForm/NewEventForm';
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
+import PasswordReset from '../PasswordReset/PasswordReset';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
 function App() {
   const dispatch = useDispatch();
@@ -210,6 +212,12 @@ function App() {
               </Route>
               <Route exact path='/Resources'>
                 <Resources/>
+              </Route>
+              <Route exact path='/reset'>
+                <PasswordReset/>
+              </Route>
+              <Route exact path='/forgot'>
+                <ForgotPassword/>
               </Route>
 {/* END NEW COMPONENTS */}
     </Router>

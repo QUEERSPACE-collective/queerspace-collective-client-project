@@ -39,7 +39,6 @@ function LoginForm() {
           <input
             type="text"
             name="username"
-            required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
@@ -51,7 +50,6 @@ function LoginForm() {
           <input
             type="password"
             name="password"
-            required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
@@ -61,8 +59,8 @@ function LoginForm() {
         <input className="btn" type="submit" name="submit" value="Log In" />
       </div>
       <div>
-        <Link to="/pwreset">
-          <h4>Forgot Password?</h4>
+        <Link to='/forgot'>
+          <button>Forgot Password?</button>
         </Link>
       </div>
     </form>

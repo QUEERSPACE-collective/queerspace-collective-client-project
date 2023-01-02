@@ -48,12 +48,21 @@ function* saveProfile(action) {
     yield put({ type: "FETCH_USER" });
 }
 
+function* resetPassword(action) {
+    try {
+        yield axios.post("/api/user/reset", action.payload);
+    } catch (error) {
+        console.log('error resetting pw', error);
+    }
+}
+
 function* editUsersSaga() {
     yield takeLatest('FETCH_EDIT_USER', fetchEditUser);
     yield takeLatest('SAVE_USER', saveUser);
     yield takeLatest('DELETE_USER', deleteUser);
     yield takeLatest('FETCH_EDIT_PROFILE', fetchEditProfile);
     yield takeLatest('SAVE_PROFILE', saveProfile);
+    yield takeLatest("SEND_RESET_EMAIL", resetPassword);
 }
 
 export default editUsersSaga;
