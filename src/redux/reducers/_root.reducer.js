@@ -19,7 +19,7 @@ import event from './event.reducer';
 import userEventsReducer from './userEvents.reducer';
 
 import editEvent from './editEvent.reducer';
-
+import multerReducer from './multer.reducer';
 import newResourceName from './newResourceName.reducer';
 import newResourceDescription from './newResourceDescription.reducer';
 import newResourceLink from './newResourceLink.reducer';
@@ -57,6 +57,7 @@ const rootReducer = combineReducers({
   newResourceName,
   newResourceDescription,
   newResourceLink,
+  multerReducer,
   eventReducerSpecific,
 });
 

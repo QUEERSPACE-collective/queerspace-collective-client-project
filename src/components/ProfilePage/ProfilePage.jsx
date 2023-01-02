@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import Upload from '../Multer/Multer';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -42,12 +43,36 @@ function ProfilePage() {
     <div className="container">
       <h2>Welcome, {user.fname} {user.lname}!</h2>
       <div>
-      <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px'}}/>
+     <Upload/>
       </div>
       <p> Name: {user.fname} {user.lname}</p>
       <p> Pronouns: {user.pronouns}</p>
       <p> Email: {user.username}</p>
 
+      <form>
+        <label>
+          Your access level is: 
+        </label>
+        <select 
+          // value={user.userType}
+        >
+          <option disabled value="1">
+            Mentee/Youth
+          </option>
+          <option disabled value="2">
+            Mentor
+          </option>
+          <option disabled value="3">
+            Volunteer
+          </option>
+          <option disabled value="4">
+            Caregiver
+          </option>
+          <option disabled value="5">
+            Admin
+          </option>
+        </select>
+      </form>
 {/* For some reason, <select> was messing with my fade-in feature I'm messing with */}
        <FormControl  >
         <InputLabel id="demo-simple-select-label">user type</InputLabel>
