@@ -1,5 +1,5 @@
 import { useParams, useHistory, Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -7,28 +7,19 @@ function PasswordReset() {
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
-    console.log(params.id);
-    const allUsersList = useSelector(store => store.allUsers)
-
-    useEffect(() => {
-        dispatch({
-            type: "FETCH_ALL_USERS",
-            payload: params.id
-        })
-    }, [params.id]);
-
-    for (let user of allUsersList) {
-        if (user.username === params.id) {
-            // handleSubmit();
-        }
-    }
+    console.log(params.token);
+    const [password, setPassword] = useState("");
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
-            type: "SAVE_PASSWORD"
+            type: "RESET_PASSWORD",
+            payload: {
+                password: password,
+                token: params.token
+            }
         });
-        history.push('/login')
+        history.push('/login');
     }
 
     return (
@@ -39,13 +30,9 @@ function PasswordReset() {
             <input
               name="password"
               type="password"
-            />
-          </label>
-          <label>
-            Re-type password
-            <input
-              name="passwordVerify"
-              type="password"
+              value={password}
+              required
+              onChange={(evt) => setPassword(evt.target.value)}
             />
           </label>
           <button type="submit">Reset password</button>

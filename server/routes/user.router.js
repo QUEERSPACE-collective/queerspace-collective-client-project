@@ -257,10 +257,8 @@ router.post("/reset", async (req, res) => {
       from: process.env.EMAIL_USERNAME, // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
       to: username, // list of receivers
       subject: "Forgot Password?", // Subject line
-      text: `When you sign in, here are your credentials:
-              username: ${username}
-              Please follow the link to sign up:
-              http://localhost:3000/#/reset/${token}`, // plain text body
+      html: `<p>Follow this link to reset password:</p>
+              <a href=http://localhost:3000/#/reset/${token}>Click Here</a>`, // plain text body
       // html: "<b>Hello world?</b>", // html body
     });
   
@@ -276,5 +274,24 @@ router.post("/reset", async (req, res) => {
     console.log(err);
   }
 
+})
+
+router.put('/reset/:token', (req, res) => {
+  const password = encryptLib.encryptPassword(req.body.password);
+  const sqlText = `
+    UPDATE "user"
+    SET "password" = $1
+    WHERE "token" = $2`;
+
+  const sqlParams = [password, req.body.token]
+
+  pool.query(sqlText, sqlParams)
+    .then((dbRes) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('Error resetting password', err);
+      res.sendStatus(500);
+    })
 })
 module.exports = router;

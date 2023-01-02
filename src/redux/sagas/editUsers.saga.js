@@ -48,11 +48,17 @@ function* saveProfile(action) {
     yield put({ type: "FETCH_USER" });
 }
 
-function* resetPassword(action) {
+function* resetEmail(action) {
     try {
         yield axios.post("/api/user/reset", action.payload);
     } catch (error) {
         console.log('error resetting pw', error);
+    }
+}
+
+function* resetPassword(action) {
+    if (action.payload.token) {
+        yield axios.put(`/api/user/reset/${action.payload.token}`, action.payload);
     }
 }
 
@@ -62,7 +68,8 @@ function* editUsersSaga() {
     yield takeLatest('DELETE_USER', deleteUser);
     yield takeLatest('FETCH_EDIT_PROFILE', fetchEditProfile);
     yield takeLatest('SAVE_PROFILE', saveProfile);
-    yield takeLatest("SEND_RESET_EMAIL", resetPassword);
+    yield takeLatest("SEND_RESET_EMAIL", resetEmail);
+    yield takeLatest("RESET_PASSWORD", resetPassword);
 }
 
 export default editUsersSaga;
