@@ -37,6 +37,7 @@ function* fetchEventDetails(action){
 
 
 
+
 // delete a specified event
 function* deleteEvent(action){
     try{
@@ -53,11 +54,21 @@ function* deleteEvent(action){
     }
 }
 
+function* fetchEventQuestions (action) {
+    try {
+        const response = yield axios.get(`/api/event/questions/${action.payload}`, config)
+        yield put ({type: 'SET_EVENT_QUESTIONS', payload: response.data})
+    } catch(error) {
+        console.log('error fetching event questions in saga', error)
+    }
+}
+
+
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
-    yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
     yield takeLatest('DELETE_EVENT', deleteEvent);
     yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
+    yield takeLatest('FETCH_EVENT_QUESTIONS', fetchEventQuestions);
 }
 
 export default eventSaga;
