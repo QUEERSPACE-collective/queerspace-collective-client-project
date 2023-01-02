@@ -66,6 +66,17 @@ function Drawers() {
           <Link to='/allusers'>
             <p><PersonSearchIcon className='iconAlign'/>Find Users</p>
           </Link>
+          {user.userType == 5 && (
+            <>
+            <Link to='/allEventsList'>
+            <p><CalendarMonthIcon className='allEventsList'/>Events List</p>
+          </Link>
+            <Link to='/adduserform'>
+              <p><PersonSearchIcon className='iconAlign'/>Register Users</p>
+            </Link>
+            </>
+          )}
+         
         </List>
 
         <Divider/>

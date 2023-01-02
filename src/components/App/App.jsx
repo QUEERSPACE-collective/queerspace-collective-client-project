@@ -60,7 +60,7 @@ function App() {
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
- 
+
           {/* Visiting localhost:3000/about will show the about page. */}
           {/* <Route
             // shows AboutPage at all times (logged in or not)
@@ -81,20 +81,24 @@ function App() {
           >
             <ProfilePage />
           </ProtectedRoute>
-          {/* Chris moved these two up here */}
-            <ProtectedRoute exact path='/alleventslist/:id/details'>
-              <AllEventsDetails/>
-            </ProtectedRoute>
-            <ProtectedRoute exact path='/AllEventsList'>
-              <AllEventsList/>
-            </ProtectedRoute>
-          {/*  */}
+
+          <ProtectedRoute exact path='/alleventslist/:id/details'>
+            <AllEventsDetails />
+          </ProtectedRoute>
+          <ProtectedRoute exact path='/AllEventsList'>
+            <AllEventsList />
+          </ProtectedRoute>
+
           <ProtectedRoute exact path='/allusers/:id/edit'>
-              <EditUser/>
+            <EditUser />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/feedback'>
-              <Feedback/>
+            <Feedback />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/AddUserForm'>
+              <AddUserForm/>
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -148,33 +152,33 @@ function App() {
           </Route> */}
 
           <ProtectedRoute exact path='/EventList'>
-              <EventList/>
+            <EventList />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/EventDetails/event/:id'>
-              <EventDetails/>
+            <EventDetails />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/NewEventForm'>
-              <NewEventForm/>
+            <NewEventForm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path = '/AllEventsList/attendees/event/:id'>
-              <EventAttendees/>
+          <ProtectedRoute exact path='/AllEventsList/attendees/event/:id'>
+            <EventAttendees />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEventsList'>
-              <AllEventsList/>
+            <AllEventsList />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers'>
-              <AllUsersList/>
-              </ProtectedRoute>
+            <AllUsersList />
+          </ProtectedRoute>
 
-              <ProtectedRoute exact path='/AllUsersDetails/:id'>
-              <AllUsersDetails/>
-              </ProtectedRoute>
-              
+          <ProtectedRoute exact path='/AllUsersDetails/:id'>
+            <AllUsersDetails />
+          </ProtectedRoute>
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -183,56 +187,54 @@ function App() {
         <Footer />
       </div>
 
-{/* IMPORTING ALL COMPONENTS TO TEST */}
-            
-            
-            <Route exact path='/ProfilePage'>
-              <ProfilePage/>
-            </Route>
-            <Route exact path='/profilepage/:id/edit'>
-              <EditProfilePage/>
-            </Route>
-            <Route exact path='/AddResourceForm'>
-              <AddResourceForm/>
-            </Route>
-            <Route exact path='/AddUserForm'>
-              <AddUserForm/>
-              </Route>
-
-              <Route exact path='/AllEventsDetails'>
-              <AllEventsDetails/>
-              </Route>
+      {/* IMPORTING ALL COMPONENTS TO TEST */}
 
 
-              <Route exact path='/AllEventsListItems'>
-              <AllEventsListItems/>
-              </Route>
-              <Route exact path='/AllUserListItems'>
-              <AllUserListItems/>
-              </Route>    
-              <Route exact path='/Calendar'>
-              <Calendar/>
-              </Route>
-              <Route exact path='/Drawers'>
-              <Drawers/>
-              </Route>
-              <Route exact path='/EventListItems'>
-              <EventListItems/>
-              </Route>
-              <Route exact path='/EventRegForm'>
-              <EventRegForm/>
-              </Route>
-              <Route exact path='/MyEventsList'>
-              <MyEventsList/>
-              </Route>
-              <Route exact path='/MyEventsListItems'>
-              <MyEventsListItems/>
-              </Route>
+      <Route exact path='/ProfilePage'>
+        <ProfilePage />
+      </Route>
+      <Route exact path='/profilepage/:id/edit'>
+        <EditProfilePage />
+      </Route>
+      <Route exact path='/AddResourceForm'>
+        <AddResourceForm />
+      </Route>
 
-              <Route exact path='/Resources'>
-                <Resources/>
-              </Route>
-{/* END NEW COMPONENTS */}
+
+      <Route exact path='/AllEventsDetails'>
+        <AllEventsDetails />
+      </Route>
+
+
+      <Route exact path='/AllEventsListItems'>
+        <AllEventsListItems />
+      </Route>
+      <Route exact path='/AllUserListItems'>
+        <AllUserListItems />
+      </Route>
+      <Route exact path='/Calendar'>
+        <Calendar />
+      </Route>
+      <Route exact path='/Drawers'>
+        <Drawers />
+      </Route>
+      <Route exact path='/EventListItems'>
+        <EventListItems />
+      </Route>
+      <Route exact path='/EventRegForm'>
+        <EventRegForm />
+      </Route>
+      <Route exact path='/MyEventsList'>
+        <MyEventsList />
+      </Route>
+      <Route exact path='/MyEventsListItems'>
+        <MyEventsListItems />
+      </Route>
+
+      <Route exact path='/Resources'>
+        <Resources />
+      </Route>
+      {/* END NEW COMPONENTS */}
     </Router>
   );
 }
