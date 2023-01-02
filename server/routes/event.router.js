@@ -25,48 +25,48 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 })
 
 // getting event details with count of total attendees
-router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in router tyingn to get event details', req.params.id)
-    const sqlParams = [req.params.id]
-    const sqlText = 
-    `SELECT "events"."name", "events".id, "events"."dateTime", 
-    "events"."location", "events".description, "events"."type", "userEvents"."eventId",
-    "events"."attendeeMax", "events"."programLocationID",
-    count ("userEvents"."userId") as total_attendees
-    FROM "events"
-    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
-    WHERE "userEvents"."eventId" = $1
-    GROUP BY "events"."name", "events".id, "userEvents"."eventId";`;
+// router.get('/:id', rejectUnauthenticated, (req, res) => {
+//     console.log('in router tyingn to get event details', req.params.id)
+//     const sqlParams = [req.params.id]
+//     const sqlText = 
+//     `SELECT "events"."name", "events".id, "events"."dateTime", 
+//     "events"."location", "events".description, "events"."type", "userEvents"."eventId",
+//     "events"."attendeeMax", "events"."programLocationID",
+//     count ("userEvents"."userId") as total_attendees
+//     FROM "events"
+//     FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
+//     WHERE "userEvents"."eventId" = $1
+//     GROUP BY "events"."name", "events".id, "userEvents"."eventId";`;
 
-    pool.query(sqlText, sqlParams)
-        .then(dbResult => {
-            console.log('result of event details is', dbResult.rows)
-            res.send(dbResult.rows)
+//     pool.query(sqlText, sqlParams)
+//         .then(dbResult => {
+//             console.log('result of event details is', dbResult.rows)
+//             res.send(dbResult.rows)
 
-        })
-        .catch(error => {
-            console.log('error getting event details from db', error)
-            res.sendStatus(500)
-        })
-})
+//         })
+//         .catch(error => {
+//             console.log('error getting event details from db', error)
+//             res.sendStatus(500)
+//         })
+// })
 
 
 // // get a specific event for editing
-// router.get('/:id', rejectUnauthenticated, async (req, res)=>{
-//     try{
-//         const id = req.params.id;
-//         const sqlText=`
-//             SELECT * FROM "events"
-//             WHERE id = $1;
-//             `;
-//         let dbRes = await pool.query(sqlText, [id]);
-//         res.send(dbRes.rows[0]);
-//     }
-//     catch (error) {
-//         console.error('error in edit event', error);
-//         res.sendStatus(500);
-//     }
-// });
+router.get('/details/:id', rejectUnauthenticated, async (req, res)=>{
+    try{
+        const id = req.params.id;
+        const sqlText=`
+            SELECT * FROM "events"
+            WHERE id = $1;
+            `;
+        let dbRes = await pool.query(sqlText, [id]);
+        res.send(dbRes.rows[0]);
+    }
+    catch (error) {
+        console.error('error in edit event', error);
+        res.sendStatus(500);
+    }
+});
 
 // edit the user
 router.put('/:id', rejectUnauthenticated, async (req, res)=>{
