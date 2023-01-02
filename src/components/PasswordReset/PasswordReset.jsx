@@ -1,54 +1,44 @@
-import Userfront from "@userfront/core";
-import React from "react";
+import { useParams, useHistory, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-// Initialize Userfront Core JS
-Userfront.init("demo1234");
 
-// Define the Password reset form component
-class PasswordReset extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "",
-      passwordVerify: "",
-    };
+function PasswordReset() {
+    const dispatch = useDispatch();
+    const params = useParams();
+    const history = useHistory();
+    console.log(params.id);
+    const allUsersList = useSelector(store => store.allUsers)
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+    useEffect(() => {
+        dispatch({
+            type: "FETCH_ALL_USERS",
+            payload: params.id
+        })
+    }, [params.id]);
 
-  // Whenever an input changes value, change the corresponding state variable
-  handleInputChange(event) {
-    event.preventDefault();
-    const target = event.target;
-    this.setState({
-      [target.name]: target.value,
-    });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    // Verify that the passwords match
-    if (this.state.password !== this.state.passwordVerify) {
-      return;
+    for (let user of allUsersList) {
+        if (user.username === params.id) {
+            // handleSubmit();
+        }
     }
-    // Call Userfront.resetPassword()
-    Userfront.resetPassword({
-      password: this.state.password,
-    });
-  }
 
-  render() {
+    const handleSubmit = (evt) => {
+        evt.preventDefault();
+        dispatch({
+            type: "SAVE_PASSWORD"
+        });
+        history.push('/login')
+    }
+
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
             Password
             <input
               name="password"
               type="password"
-              value={this.state.password}
-              onChange={this.handleInputChange}
             />
           </label>
           <label>
@@ -56,15 +46,14 @@ class PasswordReset extends React.Component {
             <input
               name="passwordVerify"
               type="password"
-              value={this.state.passwordVerify}
-              onChange={this.handleInputChange}
             />
           </label>
           <button type="submit">Reset password</button>
         </form>
       </div>
     );
-  }
+
 }
 
+  
 export default PasswordReset;

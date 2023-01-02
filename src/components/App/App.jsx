@@ -119,9 +119,9 @@ function App() {
             }
           </Route>
 
-          {/* <Route
+          <Route
             exact
-            path="/home"
+            path="/reset/:token"
           >
             {user.id ?
               // If the user is already logged in, 
@@ -129,9 +129,9 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <PasswordReset/>
             }
-          </Route> */}
+          </Route>
 
           <ProtectedRoute exact path='/EventList'>
               <EventList/>
@@ -212,9 +212,6 @@ function App() {
               </Route>
               <Route exact path='/Resources'>
                 <Resources/>
-              </Route>
-              <Route exact path='/reset'>
-                <PasswordReset/>
               </Route>
               <Route exact path='/forgot'>
                 <ForgotPassword/>

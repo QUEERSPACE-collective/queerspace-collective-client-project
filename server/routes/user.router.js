@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 function generatePW() {
   var pass = '';
   var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
-          'abcdefghijklmnopqrstuvwxyz0123456789@#$';
+          'abcdefghijklmnopqrstuvwxyz0123456789@$';
     
   for (let i = 1; i <= 8; i++) {
       var char = Math.floor(Math.random()
@@ -199,27 +199,48 @@ router.put('/:id', (req, res) => {
         })
 })
 
+/*
+router.whatev('/url', async (req, res) => {
+  try {
+    // .... 
+    // await whatever()...
+  }
+  catch (err) {
+
+  }
+})
+*/
+
 // send email for password reset
-router.post("/reset", (req, res) => {
+router.post("/reset", async (req, res) => {
+  let token;
+  try {
+    token = generatePW();
 
-  const sqlText = `SELECT * FROM "user" WHERE "user"."id"=$1;`;
-  const sqlParams = [req.body.id];
+    const sqlText = `UPDATE "user" 
+                      SET "token" = $2
+                      WHERE "username"=$1;`;
+    const sqlParams = [req.body.username, token];
 
-  const dbRes = pool.query(sqlText, sqlParams);
-  res.send(dbRes.rows);
-  const username = req.body.username;
+    const dbRes = await pool.query(sqlText, sqlParams);
+    res.send(dbRes.rows);
+  }
+  catch (err) {
+    console.error(err);
+    res.sendStatus(500)
+  }
 
-  
+  try {
+    const username = req.body.username;
   
   // async..await is not allowed in global scope, must use a wrapper
-  async function main() {
     // Generate test SMTP service account from ethereal.email
     // Only needed if you don't have a real mail account for testing
   //   let testAccount = await nodemailer.createTestAccount();
   
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
+      host: "smtp.office365.com", // TODO: Switch to QSC's host server
       port: 587,
       secure: false, // true for 465, false for other ports
       auth: {
@@ -239,7 +260,7 @@ router.post("/reset", (req, res) => {
       text: `When you sign in, here are your credentials:
               username: ${username}
               Please follow the link to sign up:
-              http://localhost:3000/login`, // plain text body
+              http://localhost:3000/#/reset/${token}`, // plain text body
       // html: "<b>Hello world?</b>", // html body
     });
   
@@ -249,9 +270,11 @@ router.post("/reset", (req, res) => {
     // Preview only available when sending through an Ethereal account
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-  }
   
-  main().catch(console.error);
+  }
+  catch (err) {
+    console.log(err);
+  }
 
 })
 module.exports = router;

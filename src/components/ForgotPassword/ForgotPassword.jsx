@@ -7,28 +7,16 @@ function ForgotPassword() {
     const dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const history = useHistory();
-    const allUsersList = useSelector(store => store.allUsers);
 
-    useEffect(() => {
-        dispatch({
-            type: "FETCH_ALL_USERS"
-        });
-    }, [])
 
     const sendEmail = (evt) => {
         evt.preventDefault();
-        for (let user of allUsersList) {
-            if (user.username = username) {
-        }
         dispatch({
             type: "SEND_RESET_EMAIL",
             payload: {
-                username: username,
-                id: user.id
+            username: username
             }
-        })
-        history.push("/login")};
-    }
+        })};
 
     return (
         <div>
