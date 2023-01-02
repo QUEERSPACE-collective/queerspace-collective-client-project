@@ -20,13 +20,14 @@ import userEventsReducer from './userEvents.reducer';
 import eventQuestions from './eventQuestions.reducer';
 import eventRegisteredUsers from './eventRegisteredUsers.reducer';
 import editEvent from './editEvent.reducer';
-
+import multerReducer from './multer.reducer';
 import newResourceName from './newResourceName.reducer';
 import newResourceDescription from './newResourceDescription.reducer';
 import newResourceLink from './newResourceLink.reducer';
 import viewResources from './viewResources.reducer';
 import registrationAnswers from './registrationAnswers.reducer';
 
+import eventReducerSpecific from './specificEvent.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -62,6 +63,8 @@ const rootReducer = combineReducers({
   eventQuestions,
   registrationAnswers,
   eventRegisteredUsers,
+  multerReducer,
+  eventReducerSpecific,
 });
 
 

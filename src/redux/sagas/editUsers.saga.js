@@ -32,10 +32,28 @@ function* deleteUser(action) {
     }
 }
 
+function* fetchEditProfile(action) {
+    try {
+      const response = yield axios.get(`/api/user/${action.payload}`);
+      yield put({ type: 'SET_EDIT_PROFILE', payload: response.data });
+    } catch (error) {
+      console.log('User get request failed', error);
+    }
+  }
+
+function* saveProfile(action) {
+    if (action.payload.id) {
+        yield axios.put(`/api/user/${action.payload.id}`, action.payload);
+    }
+    yield put({ type: "FETCH_USER" });
+}
+
 function* editUsersSaga() {
     yield takeLatest('FETCH_EDIT_USER', fetchEditUser);
     yield takeLatest('SAVE_USER', saveUser);
     yield takeLatest('DELETE_USER', deleteUser);
+    yield takeLatest('FETCH_EDIT_PROFILE', fetchEditProfile);
+    yield takeLatest('SAVE_PROFILE', saveProfile);
 }
 
 export default editUsersSaga;

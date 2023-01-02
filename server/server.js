@@ -15,6 +15,7 @@ const resourcesRouter = require('./routes/resources.router');
 const registrationRouter = require('./routes/registration.router')
 const answersRouter = require('./routes/answers.router')
 
+const multerRouter = require('./routes/multer.router');
 
 
 // Body parser middleware
@@ -37,7 +38,7 @@ app.use('/api/resources', resourcesRouter);
 app.use('/api/registration', registrationRouter)
 app.use('/api/answers', answersRouter)
 
-
+app.use('/api/upload', multerRouter)
 // Serve static files
 app.use(express.static('build'));
 

@@ -10,15 +10,23 @@ function Resources() {
   const viewResources = useSelector(store=>store.viewResources);
 
   useEffect(()=>{
+    animater(),
     dispatch({
       type: 'GET_RESOURCES'
     });
   },[])
-
+//Fade effect
+function animater() {
+  document.body.classList.remove("noSalmon");
+  document.body.classList.add("salmon");
+  setTimeout(() => document.body.classList.remove("salmon"), 100);
+  setTimeout(() => document.body.classList.add("noSalmon"), 100);
+}
+//Fade effect
   return (
     <>
     <div className="container">
-      <h1>Resources</h1>
+      <h1 className='bannerTop'>Resources</h1>
     </div>
     <div>
       <ul>

@@ -25,6 +25,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 // CUSTOM COMPONENTS
 function EventDetails() {
+
+
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
@@ -61,6 +63,7 @@ function EventDetails() {
 
 
   useEffect(() => {
+    animater(),
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
       payload: params.id
@@ -71,7 +74,14 @@ function EventDetails() {
     })
   }, [params.id])
 
-
+  //Fade effect
+  function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+  //Fade effect
 
   let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   
@@ -106,8 +116,8 @@ function EventDetails() {
   console.log('is this user registered for this event', isRegistered)
   return (
   <>
-     
-      <h2>EventDetails</h2>
+
+      <h2 className='bannerTop'>EventDetails</h2>
       <Link to="/EventList">
         <button>Back to Calendar</button>
       </Link>

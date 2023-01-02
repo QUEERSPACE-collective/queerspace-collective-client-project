@@ -9,7 +9,7 @@ function AllEventsListItems() {
 
   return (
 
-    <h1>AllEventsListItems</h1>
+    <h1 className='bannerTop'>AllEventsListItems</h1>
     
   );
 }

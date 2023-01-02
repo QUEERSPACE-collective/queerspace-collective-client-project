@@ -24,10 +24,18 @@ function AllEventsList() {
   console.log('the events are', event)
 
   useEffect(()=> {
+    animater(), //fade effect call
     dispatch({type: "FETCH_EVENTS"})
     dispatch({type: 'FETCH_TOTAL_ATTENDEES'})
   },[])
-
+//Fade effect
+  function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+//Fade effect
   const handleDeleteEvent = (eventId) => {
     dispatch({
       type: 'DELETE_EVENT',
@@ -94,10 +102,13 @@ function AllEventsList() {
           </TableRow>
         </TableHead>
         <TableBody>
-
+ 
         {event.map(thisEvent =>
           <TableRow key={thisEvent.id}>
-            <TableCell>{thisEvent.name}</TableCell> 
+            <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+            {thisEvent.name}
+              </Link>
+            </TableCell> 
             <TableCell align="right">{thisEvent.dateTime}</TableCell>
             <TableCell align="right"> {thisEvent.description}</TableCell>
             <TableCell align="right"> {thisEvent.location}</TableCell>
@@ -110,7 +121,7 @@ function AllEventsList() {
             <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">
-              <Link to={`/AllEventsList/${thisEvent.id}/edit`}>
+              <Link to={`/alleventslist/${thisEvent.id}/edit`}>
                 <Button>Edit Event</Button>
               </Link>
             </TableCell>
