@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
@@ -7,6 +8,19 @@ import './NewEventForm.css';
 // CUSTOM COMPONENTS
 
 function NewEventForm() {
+
+  useEffect(() => {
+    animater() // Call fade effect
+  }, [])
+
+  //Fade effect
+  function animater() {
+    document.body.classList.remove("noSalmon");
+    document.body.classList.add("salmon");
+    setTimeout(() => document.body.classList.remove("salmon"), 100);
+    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  }
+  //Fade effect
 
   const dispatch = useDispatch();
   const newEventName = useSelector(store=>store.newEventName);
@@ -47,7 +61,7 @@ function NewEventForm() {
   }
   return (
     <>
-    <h1>New Event Form</h1>
+    <h1 className='bannerTop'>New Event Form</h1>
 
       <label for="newEventName">Event Name: </label>
       <input type='text' id="newEventName" value={newEventName} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_NAME', payload: e.target.value})}}></input>
