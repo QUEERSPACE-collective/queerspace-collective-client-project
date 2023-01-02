@@ -78,17 +78,6 @@ function AddUserForm() {
       <div>
         <input type="submit" name="submit" value="Register" disabled={isDisabled()}/>
       </div>
-
-    <div>
-    <h1 className='bannerTop'>Add New User</h1>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-      </label>
-      <input
-        onChange={addUser}
-      />
-      <button type="submit">Submit</button>
     </form>
   );
 }

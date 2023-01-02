@@ -208,9 +208,6 @@ function App() {
             <Route exact path='/AddResourceForm'>
               <AddResourceForm/>
             </Route>
-            <Route exact path='/AddUserForm'>
-              <AddUserForm/>
-              </Route>
 
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
