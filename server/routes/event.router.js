@@ -3,12 +3,17 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// get all events
+// also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const sqlText = `SELECT * FROM "events"
-                    ORDER BY id ASC;
-                `;
-
+    const sqlText = 
+    `SELECT "events"."name", "events".id, "events"."dateTime", 
+    "events"."location", "events".description, "events"."type", "userEvents"."eventId",
+    "events"."attendeeMax", "events"."programLocationID",
+    count ("userEvents"."userId") as total_attendees
+    FROM "events"
+    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
+    GROUP BY "events"."name", "events".id, "userEvents"."eventId";
+    `;
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
@@ -19,6 +24,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// getting event details with count of total attendees
 router.get('/specificEvent/:id', rejectUnauthenticated, (req,res) => {
     const sqlParams = [req.params.id]
     const sqlText = `SELECT "questions"."eventId", "questionId", "question", "answer", "name", "location", "description", "user"."username","fname","lname","userType", "user"."id" 
@@ -39,37 +45,20 @@ router.get('/specificEvent/:id', rejectUnauthenticated, (req,res) => {
 });
 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in router tyingn to get event details', req.params.id)
     const sqlParams = [req.params.id]
     const sqlText = 
-    `SELECT * FROM "events"
-    WHERE "id" = $1;`;
+    `SELECT * FROM "events" WHERE "id" = $1;`
 
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
+            console.log('result of event details is', dbResult.rows)
             res.send(dbResult.rows)
+
         })
         .catch(error => {
             console.log('error getting event details from db', error)
             res.sendStatus(500)
-        })
-})
-
-router.post('/register/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in api/event/register router trying to register for event')
-
-    const sqlParams = [req.user.id, req.params.id]
-    const sqlText = 
-    `
-    INSERT INTO "userEvents" ("userId", "eventId")
-    VALUES ($1, $2)
-    `;
-    pool.query(sqlText, sqlParams)
-        .then(dbResult => {
-            res.sendStatus(200)
-        })
-        .catch(error => {
-            console.log('error posting user event registration', error)
-            res.sendStatus
         })
 })
 
@@ -143,7 +132,8 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
 
 router.post('/', (req, res) => {
     console.log('reqbody is', req.body);
-    let sqlText = `INSERT INTO "events" ("name","dateTime","location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
+    let sqlText = 
+    `INSERT INTO "events" ("name","dateTime","location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
     RETURNING "id";`;
     let sqlParams = [req.body.data.name, req.body.data.dateTime, req.body.data.location, req.body.data.programLocationID, req.body.data.type, req.body.data.attendeeMax, req.body.data.hasVolunteers, req.body.data.volunteerMax, req.body.data.description];
@@ -164,9 +154,25 @@ router.post('/', (req, res) => {
         .catch(dbErr=>{
             console.error(dbErr);
             res.sendStatus(500);
-        });
+        });      
 });
 
-module.exports = router;
+router.get('/questions/:id', rejectUnauthenticated, (req, res) => {
+    const sqlParams = [req.params.id]
+    const sqlText = 
+    `
+    SELECT * FROM "questions" WHERE "eventId" = $1;
+    `;
+    pool.query(sqlText, sqlParams)
+        .then(dbResult => {
+            res.send(dbResult.rows)
+        })
+        .catch(error => {
+            console.log('error getting event questions from db', error)
+            res.sendStatus(500)
+        })
+})
+
+
 
 module.exports = router;

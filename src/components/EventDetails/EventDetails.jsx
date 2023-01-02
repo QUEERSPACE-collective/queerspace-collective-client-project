@@ -14,31 +14,31 @@ import { TransitionProps } from '@mui/material/transitions';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-
 import './EventDetails.css';
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 
-
-
+// CUSTOM COMPONENTS
 function EventDetails() {
-  
-  const history = useHistory();
+
 
   const dispatch = useDispatch();
   const params = useParams();
-  // const [isRegistered, setIsRegistered] = useState(false)
+  const history = useHistory();
   const eventDetails = useSelector(store => store.event)
   const userEvents = useSelector(store => store.userEventsReducer);
-  console.log('user events on the events detail page', userEvents);
-  console.log('event details are', eventDetails);
+  const eventQuestions = useSelector(store => store.eventQuestions)
+  const registrationAnswer = useSelector(store => store.registrationAnswers)
+  console.log('the event DETAILS are', eventDetails)
+  console.log('user events are', userEvents)
+
+
+
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -48,6 +48,7 @@ function EventDetails() {
   const handleClose = () => {
     setOpen(false);
   };
+  // end confirmation modal
 
   // handling unregister confirmation modal open and close
   const [unregisterOpen, setUnregisterOpen] = useState(false);
@@ -59,25 +60,16 @@ function EventDetails() {
   }
   // end unregister confirmation
 
-  //handling alert confirmation 
-  // not functional right now
-  const [alertOpen, setAlertOpen] = useState({ alertOpen: false, vertical: 'top', horizontal: 'center' });
-  const handleAlertOpen = () => {
-    setAlertOpen(true);
-  };
-  const handleAlertClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setAlertOpen(false);
-  };
-  // end alert confirmation
 
 
   useEffect(() => {
     animater(),
     dispatch({
       type: 'FETCH_EVENT_DETAILS',
+      payload: params.id
+    })
+    dispatch({
+      type: 'FETCH_EVENT_QUESTIONS',
       payload: params.id
     })
   }, [params.id])
@@ -91,10 +83,15 @@ function EventDetails() {
   }
   //Fade effect
 
-  // looking through users registered events, if they are register for an event
-  // with the same id as the currently displayed event, set isRegistered to "true"
-  // .some() returns a bool
   let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
+  
+  // let isEventFull = false;
+  // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
+  //   isEventFull = true
+  //   console.log('is this event full', isEventFull)
+  // } else {
+  //   console.log('is this event full', isEventFull)
+  // }
 
   const eventRegistration = () => {
     console.log('in event registartion function with id', params.id)
@@ -103,7 +100,7 @@ function EventDetails() {
       payload: params.id
     })
     setOpen(false);
-    setAlertOpen(true)
+    history.push('/home')
   }
 
   const eventUnregistration = () => {
@@ -114,19 +111,19 @@ function EventDetails() {
     history.push('/EventList')
   }
 
+
+
   console.log('is this user registered for this event', isRegistered)
-
-
   return (
   <>
+
       <h2 className='bannerTop'>EventDetails</h2>
       <Link to="/EventList">
         <button>Back to Calendar</button>
       </Link>
-      <Link to="/user">
+      <Link to="/home">
         <button>Home</button>
       </Link>
-
       <div className='event-details-container'>
         <Box
           sx={{
@@ -140,48 +137,22 @@ function EventDetails() {
             textAlign: 'center',
             borderRadius: 3,
             boxShadow: 2,
-
           }}>
-        <h2>
-          {eventDetails.length > 0 && eventDetails[0].name}
-        </h2>
-
-      <h4>
-        {eventDetails.length > 0 && eventDetails[0].location}
-      </h4>
-
-      <p>
-        {eventDetails.length > 0 && eventDetails[0].description}
-      </p>
-      </Box>
-
-    {/* <a href="https://www.google.com/maps">Maps icon here</a> */}
-    {/* I'm guessing we can probably do something like "http://www.google.com/map/{whatever the location data string is}" */}
-    <div>
-    <button onClick={() => {history.push('/eventlist')}}>Back to Calendar</button>
-    </div>
-      
-      <button>Register</button>
-
-
-  {/* TO DO: if user is already registered for this event, disable register button, 
           <h2>
             {eventDetails.length > 0 && eventDetails[0].name}
           </h2>
-
           <h4>
             {eventDetails.length > 0 && eventDetails[0].location}
           </h4>
-
           <p>
             {eventDetails.length > 0 && eventDetails[0].description}
           </p>
+          <p>
+            Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br>
+            Max attendees: {eventDetails.length > 0 && eventDetails[0].attendeeMax}
+          </p>
+
         </Box>
-
-
-          {/* TO DO: if user is already registered for this event, disable register button, 
-  add button to unregister*/}
-
 
           {isRegistered == true ?
             (
@@ -192,9 +163,9 @@ function EventDetails() {
               variant="contained"
               sx={{
                 mt: 5,
-                backgroundColor: '#1793e1',
+                backgroundColor: '#1793E1',
                 '&:hover': {
-                  backgroundColor: '#30a0be',
+                  backgroundColor: '#30A0BE',
                   opacity: [0.9, 0.8, 0.7],
                 },
               }}
@@ -203,6 +174,16 @@ function EventDetails() {
             </Button>
             )
           }
+
+          {/* {isEventFull == true && 
+            <>
+              <p>Sorry ,this event is full!</p>
+              <Button disabled >
+                Register
+              </Button>
+            </>
+            } */}
+            
 
 
           <Dialog
@@ -217,14 +198,32 @@ function EventDetails() {
               <DialogContentText id="alert-dialog-slide-description">
                 Please answer the following questions:
               </DialogContentText>
+              <DialogContentText>
+              {eventQuestions.map(question => (
+                <div key = {question.id}>
+                  {question.question}
+                  <input type = "text" onChange={(e)=>{
+                    dispatch({
+                      type: 'STORE_USER_ANSWER', 
+                      payload: { questionId: question.id, answer: e.target.value }
+                    })} 
+                  } /> 
+                  <button onClick = {()=>{
+                    dispatch({
+                      type: 'ADD_USER_ANSWER', 
+                      payload: registrationAnswer
+                    })} 
+                  }>save</button>
+             </div>
+              ))}
+
+              </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button variant="contained" onClick={eventRegistration}>Register</Button>
               <Button variant="contained" onClick={handleClose}>Cancel</Button>
             </DialogActions>
           </Dialog>
-
-
           <Dialog
             open={unregisterOpen}
             TransitionComponent={Transition}
@@ -232,32 +231,14 @@ function EventDetails() {
             onClose={handleUnregisterClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle>{"Are you sure you want to unregister?"}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                Please answer the following questions:
-              </DialogContentText>
-            </DialogContent>
+            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
             <DialogActions>
               <Button variant="contained" onClick={eventUnregistration}>Unregister</Button>
               <Button variant="contained" onClick={handleUnregisterClose}>Cancel</Button>
             </DialogActions>
           </Dialog>
-
-
-
-          {/* <Stack spacing={2} sx={{ width: '100%' }}>
-        <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
-          <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-            This is a success message!
-          </Alert>
-        </Snackbar>
-      </Stack> */}
         </div>
-
       </>
-
       );
 }
-
-      export default EventDetails;
+export default EventDetails;

@@ -18,12 +18,15 @@ import {
 // CUSTOM COMPONENTS
 
 function AllEventsList() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const event = useSelector((store) => store.event);
+  console.log('the events are', event)
 
   useEffect(()=> {
     animater(), //fade effect call
     dispatch({type: "FETCH_EVENTS"})
+    dispatch({type: 'FETCH_TOTAL_ATTENDEES'})
   },[])
 //Fade effect
   function animater() {
@@ -39,6 +42,16 @@ function AllEventsList() {
       payload: eventId
     })
   }
+
+
+  // let isEventfull;
+  // event.forEach(event => {
+  //   if (event.total_attendees == event.attendeeMax){
+  //     console.log(event, 'this event is full')
+  //   } else {
+  //     console.log(event, 'this event is not full')
+  //   }
+  // })
   
   return (
   <>
@@ -73,11 +86,19 @@ function AllEventsList() {
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Date and Time</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Description</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Location</TableCell>
-            <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
-            <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
-            <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit Event</TableCell>
+            {/* <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell> */}
 
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
+            <TableCell align="right" sx = {{fontWeight: 'bold'}}>Attendees</TableCell>
+            <TableCell align='right'>Attendee Max</TableCell>
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
+
+{/* Clicking on attendees should take to a page displaying all attendees and their answers */}
+            <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit Event</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Delete</TableCell>
+
+
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -92,6 +113,12 @@ function AllEventsList() {
             <TableCell align="right"> {thisEvent.description}</TableCell>
             <TableCell align="right"> {thisEvent.location}</TableCell>
             <TableCell align="right"> {thisEvent.type} </TableCell>
+            <TableCell align="right">
+              <Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}> {}
+                {thisEvent.total_attendees}
+              </Link>
+            </TableCell>
+            <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">
               <Link to={`/alleventslist/${thisEvent.id}/edit`}>
@@ -113,7 +140,9 @@ function AllEventsList() {
         </TableBody>
       </Table>
     </TableContainer>
-
+        
+  
+          <Link to = "/neweventform"><Button variant = 'contained'>Add New Event</Button></Link>
   </>   
     );
   }

@@ -37,6 +37,7 @@ import EventListItems from '../EventListItems/EventListItems';
 import EventRegForm from '../EventRegForm/EventRegForm';
 import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
+import EventAttendees from '../EventAttendees/EventAttendees';
 // import QSClogo from '../QSClogo/QSClogo';
 //END OF NEW COMPONENTS
 import './App.css';
@@ -76,7 +77,7 @@ function App() {
           <ProtectedRoute
             // logged in shows ProfilePage else shows LoginPage
             exact
-            path="/user"
+            path="/home"
           >
             <ProfilePage />
           </ProtectedRoute>
@@ -111,7 +112,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -125,7 +126,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/home" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -150,8 +151,20 @@ function App() {
               <EventList/>
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/EventDetails/:id'>
+          <ProtectedRoute exact path='/EventDetails/event/:id'>
               <EventDetails/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/NewEventForm'>
+              <NewEventForm/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path = '/AllEventsList/attendees/event/:id'>
+              <EventAttendees/>
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/AllEventsList'>
+              <AllEventsList/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers'>
@@ -188,7 +201,9 @@ function App() {
 
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
-              </Route>             
+              </Route>
+
+
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>
               </Route>
@@ -213,9 +228,7 @@ function App() {
               <Route exact path='/MyEventsListItems'>
               <MyEventsListItems/>
               </Route>
-              <Route exact path='/NewEventForm'>
-              <NewEventForm/>
-              </Route>
+
               <Route exact path='/Resources'>
                 <Resources/>
               </Route>

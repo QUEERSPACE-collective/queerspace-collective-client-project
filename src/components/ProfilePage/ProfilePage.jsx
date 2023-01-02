@@ -107,7 +107,7 @@ function ProfilePage() {
         <div>
           {userEvents.map(event => (
             <div className='user-events'
-            key = {event.id} onClick = {() => {history.push(`/EventDetails/${event.id}`)}}>
+            key = {event.id} onClick = {() => {history.push(`/EventDetails/event/${event.id}`)}}>
               {event.name}
             </div>
           ))}
