@@ -35,11 +35,9 @@ function EventDetails() {
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions)
   const registrationAnswer = useSelector(store => store.registrationAnswers)
+  console.log('registration answers are', registrationAnswer)
   console.log('the event DETAILS are', eventDetails)
   console.log('user events are', userEvents)
-
-
-
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -90,13 +88,13 @@ function EventDetails() {
   // .some() returns a bool
   let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   
-  // let isEventFull = false;
-  // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
-  //   isEventFull = true
-  //   console.log('is this event full', isEventFull)
-  // } else {
-  //   console.log('is this event full', isEventFull)
-  // }
+  let isEventFull = false;
+  if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
+    isEventFull = true
+    console.log('is this event full', isEventFull)
+  } else {
+    console.log('is this event full', isEventFull)
+  }
 
   const eventRegistration = () => {
     console.log('in event registartion function with id', params.id)
@@ -123,12 +121,12 @@ function EventDetails() {
   <>
 
       <h2 className='bannerTop'>EventDetails</h2>
-      <Link to="/EventList">
+      {/* <Link to="/EventList">
         <button>Back to Calendar</button>
       </Link>
       <Link to="/home">
         <button>Home</button>
-      </Link>
+      </Link> */}
       <div className='event-details-container'>
         <Box
           sx={{
@@ -174,11 +172,14 @@ function EventDetails() {
                   opacity: [0.9, 0.8, 0.7],
                 },
               }}
-              onClick={handleClickOpen}>
-              Register
+              onClick={handleClickOpen}
+              >
+                Register
             </Button>
             )
           }
+
+          {}
 
           {/* {isEventFull == true && 
             <>
@@ -203,7 +204,18 @@ function EventDetails() {
               <DialogContentText id="alert-dialog-slide-description">
                 Please answer the following questions:
               </DialogContentText>
+              <br></br>
               <DialogContentText>
+                Including yourself, how many will be attending?
+                <input type = "number" onChange={(e)=>{
+                    dispatch({
+                      type: 'ADD_GUESTS', 
+                      payload: {guests: e.target.value, eventId: params.id}
+                    })
+                  } 
+                  }/>
+                  <button>save</button>
+
               {eventQuestions.map(question => (
                 <div key = {question.id}>
                   {question.question}
@@ -219,7 +231,8 @@ function EventDetails() {
                       payload: registrationAnswer
                     })} 
                   }>save</button>
-             </div>
+              </div>
+            
               ))}
 
               </DialogContentText>

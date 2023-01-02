@@ -70,25 +70,23 @@ function App() {
             <AboutPage />
           </Route> */}
 
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the ProfilePage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
-            // logged in shows ProfilePage else shows LoginPage
-            exact
-            path="/home"
-          >
-            <ProfilePage />
+          {/* if the usertype is 5 (admin??) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
+          <ProtectedRoute exact path="/home">
+            {user.userType == 5 ?
+            <Redirect to="/allEventsList" />
+            :
+            <ProfilePage />}           
           </ProtectedRoute>
+
           {/* Chris moved these two up here */}
             <ProtectedRoute exact path='/alleventslist/:id/details'>
               <AllEventsDetails/>
             </ProtectedRoute>
+
             <ProtectedRoute exact path='/AllEventsList'>
               <AllEventsList/>
             </ProtectedRoute>
-          {/*  */}
+     
           <ProtectedRoute exact path='/allusers/:id/edit'>
               <EditUser/>
           </ProtectedRoute>
@@ -97,18 +95,11 @@ function App() {
               <Feedback/>
           </ProtectedRoute>
 
-          <ProtectedRoute
-            // logged in shows Resources else shows LoginPage
-            exact
-            path="/info"
-          >
+          <ProtectedRoute exact path = "/info">
             <Resources />
           </ProtectedRoute>
 
-          <Route
-            exact
-            path="/login"
-          >
+          <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
@@ -126,7 +117,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/home" />
+              <Redirect to="/home"/>
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -171,9 +162,9 @@ function App() {
               <AllUsersList/>
               </ProtectedRoute>
 
-              <ProtectedRoute exact path='/AllUsersDetails/:id'>
-              <AllUsersDetails/>
-              </ProtectedRoute>
+          <ProtectedRoute exact path='/AllUsersDetails/:id'>
+            <AllUsersDetails/>
+          </ProtectedRoute>
               
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
@@ -186,10 +177,8 @@ function App() {
 {/* IMPORTING ALL COMPONENTS TO TEST */}
             
             
-            <Route exact path='/ProfilePage'>
-              <ProfilePage/>
-            </Route>
-            <Route exact path='/profilepage/:id/edit'>
+
+            <Route exact path='/home/:id/edit'>
               <EditProfilePage/>
             </Route>
             <Route exact path='/AddResourceForm'>

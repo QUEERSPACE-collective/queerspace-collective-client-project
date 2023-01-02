@@ -37,7 +37,7 @@ const onSubmit = (evt) => {
     dispatch({
         type: 'FETCH_USER'
     });
-    history.push('/profilepage')
+    // history.push('/home')
 }
 
 const deleteUser = (id) => {
@@ -46,7 +46,7 @@ const deleteUser = (id) => {
           type: "DELETE_USER",
           payload: id,
         });
-    history.push('/profilepage')
+    // history.push('/home')
     }
 
     return (
@@ -122,9 +122,9 @@ const deleteUser = (id) => {
                     />
                     <div className="editUserBottom">
                     <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
-                    <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete Your Profile</Button>
-                    <Link to="/profilepage" className="backToUserList">
-                    <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To Profile</Button>
+                    <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete Profile</Button>
+                    <Link to="/home" className="backToUserList">
+                        <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To Profile</Button>
                     </Link>
                     </div>             
                 </form>

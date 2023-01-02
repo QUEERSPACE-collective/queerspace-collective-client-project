@@ -17,10 +17,27 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         await pool.query(sqlText, sqlParams);
         res.sendStatus(204)
     } catch (error) {
-        console.error('error posting answers to answer tagble', error)
+        console.error('error posting answers to answer table', error)
+        res.sendStatus(500)
+    }  
+})
+
+router.put('/guests', rejectUnauthenticated, async (req, res) => {
+    console.log('in answers router trying to add guests')
+    try {
+        sqlParams = [req.body.guests, req.body.eventId]
+        console.log('sql params', sqlParams)
+        sqlText = 
+        `
+        
+        `;
+        await pool.query (sqlText, sqlParams);
+        res.sendStatus(204)
+    }
+    catch (error) {
+        console.error('error upserting guest count', error)
         res.sendStatus(500)
     }
-    
 })
 
 

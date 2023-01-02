@@ -93,7 +93,7 @@ function ProfilePage() {
      that <select> was present where we will use it */}
 
       <article>Bio: {user.bio}</article>
-      <Link to={`/profilepage/${user.id}/edit`}>
+      <Link to={`/home/${user.id}/edit`}>
       <button>Edit Profile</button>
       </Link>
 

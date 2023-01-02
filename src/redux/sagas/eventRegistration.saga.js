@@ -35,11 +35,21 @@ function* fetchEventRegisteredUsers(action){
     }
 }
 
+function* addGuests (action) {
+    console.log('how many guests', action.payload)
+    try{
+      yield axios.put(`/api/answers/guests`, action.payload, config)
+      yield put ({type: 'SET_GUESTS'})
+    } catch (error) {
+      console.log('error adding guests in saga', error)
+    }
+  }
 
 function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
     yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
-    yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers)
+    yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers);
+    yield takeLatest ('ADD_GUESTS', addGuests);
 }
 
 export default eventRegistrationSaga;

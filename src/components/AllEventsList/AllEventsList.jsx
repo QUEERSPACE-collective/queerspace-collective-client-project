@@ -87,13 +87,10 @@ function AllEventsList() {
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Description</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Location</TableCell>
             {/* <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell> */}
-
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Event Type</TableCell>
             <TableCell align="right" sx = {{fontWeight: 'bold'}}>Attendees</TableCell>
             <TableCell align='right'>Attendee Max</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell>
-
-{/* Clicking on attendees should take to a page displaying all attendees and their answers */}
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Edit Event</TableCell>
             <TableCell align="right" sx={{fontWeight: 'bold'}}>Delete</TableCell>
 

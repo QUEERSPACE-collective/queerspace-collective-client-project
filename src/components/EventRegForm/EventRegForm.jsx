@@ -7,7 +7,6 @@ import './EventRegForm.css';
 function EventRegForm() {
   
 function handleSubmit() {
-  console.log('yo');
 }
   return (
 <>
