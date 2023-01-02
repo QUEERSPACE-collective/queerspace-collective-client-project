@@ -43,6 +43,8 @@ import EventAttendees from '../EventAttendees/EventAttendees';
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
+import PasswordReset from '../PasswordReset/PasswordReset';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
 function App() {
   const dispatch = useDispatch();
@@ -133,9 +135,9 @@ function App() {
             }
           </Route>
 
-          {/* <Route
+          <Route
             exact
-            path="/home"
+            path="/reset/:token"
           >
             {user.id ?
               // If the user is already logged in, 
@@ -143,9 +145,9 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <PasswordReset/>
             }
-          </Route> */}
+          </Route>
 
           <ProtectedRoute exact path='/EventList'>
               <EventList/>
@@ -231,6 +233,9 @@ function App() {
 
               <Route exact path='/Resources'>
                 <Resources/>
+              </Route>
+              <Route exact path='/forgot'>
+                <ForgotPassword/>
               </Route>
 {/* END NEW COMPONENTS */}
     </Router>

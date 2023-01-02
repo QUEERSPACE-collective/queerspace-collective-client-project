@@ -25,10 +25,19 @@ function Nav() {
         </span>
 
         <header className='myHeader'>
+        
+        
+          <Link to="./home">
+            <QSClogo />
+          </Link>
+        
 
-        <Link to="/profilepage">
-          <QSClogo />
-        </Link>
+        {!user.id && (
+          <Link to="./login">
+            <QSClogo />
+          </Link>
+        )}
+
 
         {/* show login if not logged in*/}
          {!user.id && (

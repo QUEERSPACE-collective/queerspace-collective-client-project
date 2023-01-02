@@ -8,7 +8,8 @@ CREATE TABLE "user" (
 	"pronouns" VARCHAR,
 	"profilePic" VARCHAR,
 	"bio" VARCHAR,
-	"mentorPair" VARCHAR
+	"mentorPair" VARCHAR,
+	"token" VARCHAR
 );
 CREATE TABLE "programLocations" (
 	"id" SERIAL PRIMARY KEY,

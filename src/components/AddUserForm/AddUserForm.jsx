@@ -1,36 +1,84 @@
-import {useState} from "react";
-import {useDispatch} from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './AddUserForm.css';
 
-// CUSTOM COMPONENTS
-
 function AddUserForm() {
+  const [username, setUsername] = useState('');
+  const [userType, setUserType] = useState(0);
+  const errors = useSelector((store) => store.errors);
+  const allUsers = useSelector((store) => store.allUsers)
   const dispatch = useDispatch();
-  const history = useHistory();
-  const [newUser, setNewUser] = useState({
-    username: "",
-  });
 
-  function addUser(evt) {
-    evt.preventDefault();
-    setNewUser({
-      ...newUser,
-      username: evt.target.value,
-    });
-  };
+  useEffect(() => {
+    dispatch({ type: "FETCH_ALL_USERS" })
+  }, [])
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-
-    dispatch({
-      type: "ADD_USER",
-      payload: newUser
-    })
-    history.push('/allusers');
+  const isDisabled = () => {
+    {allUsers.map(user => {
+      (username == user.username)
+    })}
   }
 
+  
+  const registerUser = (event) => {
+    event.preventDefault();
+
+    dispatch({
+      type: 'REGISTER',
+      payload: {
+        username: username,
+        userType: userType,
+      },
+    });
+  }; // end registerUser
+
   return (
+    <form onSubmit={registerUser}>
+      <h2>Register User</h2>
+      {errors.registrationMessage && (
+        <h3 className="alert" role="alert">
+          {errors.registrationMessage}
+        </h3>
+      )}
+      <div>
+        <label htmlFor="username">
+          *Email:
+          <input
+            type="text"
+            name="username"
+            value={username}
+            required
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor='userType'>
+          *Access Level: 
+        </label>
+        <select onChange={(event) => setUserType(event.target.value)} value={userType}>
+          <option>Select One</option>
+          <option value="1">
+            Mentee/Youth
+          </option>
+          <option value="2">
+            Mentor
+          </option>
+          <option value="3">
+            Volunteer
+          </option>
+          <option value="4">
+            Caregiver
+          </option>
+          <option value="5">
+            Admin
+          </option>
+        </select>
+      </div>
+      <div>
+        <input type="submit" name="submit" value="Register" disabled={isDisabled()}/>
+      </div>
+
     <div>
     <h1 className='bannerTop'>Add New User</h1>
     <form onSubmit={handleSubmit}>
@@ -42,8 +90,6 @@ function AddUserForm() {
       />
       <button type="submit">Submit</button>
     </form>
-    </div>
-
   );
 }
 
