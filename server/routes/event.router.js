@@ -53,7 +53,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
             console.log('result of event details is', dbResult.rows)
-            res.send(dbResult.rows)
+            res.send(dbResult.rows[0])
 
         })
         .catch(error => {

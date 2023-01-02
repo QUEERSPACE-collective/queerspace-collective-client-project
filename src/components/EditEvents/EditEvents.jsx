@@ -19,6 +19,12 @@ function EditEvents(){
             type: "FETCH_EDIT_EVENT",
             payload: params.id
         });
+
+        return () => {
+            dispatch({
+                type: "CLEAR_EDIT_EVENT"
+            })
+        }
     }, [params.id]);
 //Fade effect
 function animater() {
@@ -29,19 +35,23 @@ function animater() {
   }
 //Fade effect
     const editEvent = useSelector(store => store.editEvent);
+    console.log(editEvent);
 
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
             type: "SAVE_EVENT",
             payload: editEvent
+        }),
+        dispatch({
+            type: 'FETCH_EVENTS'
         });
         history.push('/AllEventsList')
     }
     return(
         <>
             <div>
-                <h2 className='bannerTop'>  Edit Event</h2>
+                <h2 className='bannerTop'>Edit Event</h2>
             </div>
             <form onSubmit={onSubmit}>
                  {/* edit event name */}
