@@ -38,11 +38,14 @@ import EventRegForm from '../EventRegForm/EventRegForm';
 import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
+import EditEvents from '../EditEvents/EditEvents';
 // import QSClogo from '../QSClogo/QSClogo';
 //END OF NEW COMPONENTS
 import './App.css';
 import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
+import PasswordReset from '../PasswordReset/PasswordReset';
+import ForgotPassword from '../ForgotPassword/ForgotPassword';
 
 function App() {
   const dispatch = useDispatch();
@@ -60,7 +63,7 @@ function App() {
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
- 
+
           {/* Visiting localhost:3000/about will show the about page. */}
           {/* <Route
             // shows AboutPage at all times (logged in or not)
@@ -86,13 +89,17 @@ function App() {
             <ProtectedRoute exact path='/AllEventsList'>
               <AllEventsList/>
             </ProtectedRoute>
-     
+
           <ProtectedRoute exact path='/allusers/:id/edit'>
-              <EditUser/>
+            <EditUser />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/feedback'>
-              <Feedback/>
+            <Feedback />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/AddUserForm'>
+              <AddUserForm/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path = "/info">
@@ -124,9 +131,9 @@ function App() {
             }
           </Route>
 
-          {/* <Route
+          <Route
             exact
-            path="/home"
+            path="/reset/:token"
           >
             {user.id ?
               // If the user is already logged in, 
@@ -134,38 +141,42 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
-              <LandingPage />
+              <PasswordReset/>
             }
-          </Route> */}
+          </Route>
 
           <ProtectedRoute exact path='/EventList'>
-              <EventList/>
+            <EventList />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/EventDetails/event/:id'>
-              <EventDetails/>
+            <EventDetails />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/NewEventForm'>
-              <NewEventForm/>
+            <NewEventForm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path = '/AllEventsList/attendees/event/:id'>
-              <EventAttendees/>
+          <ProtectedRoute exact path='/AllEventsList/attendees/event/:id'>
+            <EventAttendees />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEventsList'>
-              <AllEventsList/>
+            <AllEventsList />
+          </ProtectedRoute>
+          
+          <ProtectedRoute exact path='/AllEventsList/:id/edit'>
+            <EditEvents />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers'>
-              <AllUsersList/>
-              </ProtectedRoute>
+            <AllUsersList />
+          </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllUsersDetails/:id'>
-            <AllUsersDetails/>
+            <AllUsersDetails />
           </ProtectedRoute>
-              
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -173,6 +184,8 @@ function App() {
         </Switch>
         <Footer />
       </div>
+
+
 
 {/* IMPORTING ALL COMPONENTS TO TEST */}
             
@@ -184,14 +197,11 @@ function App() {
             <Route exact path='/AddResourceForm'>
               <AddResourceForm/>
             </Route>
-            <Route exact path='/AddUserForm'>
-              <AddUserForm/>
-              </Route>
 
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
               </Route>
-
+            
 
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>
@@ -220,6 +230,9 @@ function App() {
 
               <Route exact path='/Resources'>
                 <Resources/>
+              </Route>
+              <Route exact path='/forgot'>
+                <ForgotPassword/>
               </Route>
 {/* END NEW COMPONENTS */}
     </Router>

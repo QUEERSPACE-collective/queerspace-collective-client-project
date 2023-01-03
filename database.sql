@@ -28,6 +28,7 @@ CREATE TABLE "programLocations" (
 
 INSERT INTO "programLocations" ("locationName")
 VALUES  ('Twin Cities'), ('St. Cloud');
+
 CREATE TABLE "eventTypes" (
     "id" SERIAL PRIMARY KEY,
     "eventType" VARCHAR NOT NULL
@@ -48,8 +49,9 @@ CREATE TABLE "events" (
     "description" VARCHAR
 );
 
+
 INSERT INTO "eventTypes" ("eventType")
-VALUES
+VALUES 
 ('Group Hangout'),
 ('Family Event'),
 ('Training Event'),
@@ -80,12 +82,14 @@ VALUES ('BBQ', '04/22/2022', 'Prime Digital Academy', '1', '2', 'we out here'),
         ('Picnic', '04/22/2022', 'alleyway somehwere', '2','1','no plus ones'),
         ('Snowboarding', '04/22/2022', 'Wild Mountain',  '1','4', 'dress warm!');
 
+
 CREATE TABLE "resources" (
     "id" SERIAL PRIMARY KEY,
     "resourceName" VARCHAR,
     "resourceDescription" VARCHAR,
     "resourceLink" VARCHAR
 );
+      
 
 --DROP TABLE "userEvents";
 --DROP TABLE "answers";

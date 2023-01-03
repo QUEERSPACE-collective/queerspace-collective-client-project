@@ -25,10 +25,23 @@ function Nav() {
         </span>
 
         <header className='myHeader'>
+        
+        
+          <Link to="./home">
+            <QSClogo />
+          </Link>
+        
+
+        {!user.id && (
+          <Link to="./login">
+            <QSClogo />
+          </Link>
+        )}
 
         <Link to="/home">
           <QSClogo />
         </Link>
+
 
         {/* show login if not logged in*/}
          {!user.id && (
@@ -45,18 +58,24 @@ function Nav() {
             <Link to='/eventlist'><p>Calendar</p></Link>
             <Link to='/resources'><p>Resources</p></Link>
             <Link to='/feedback'><p>Feedback Form</p> </Link>
-            <Link to='/allusers'><p>Find members</p></Link>
+            <Link to='/allusers'><p>Find Users</p></Link>
+            {user.userType == 5 && (
+            <>
+            <Link to='/adduserform'><p>Register Users</p></Link>
             <Link to='/alleventslist'><p>Events List</p></Link>
+            </>
+            )}    
             <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
           </div>
           )} 
+          
 
           {/* show if NOT admin or mentor */}
           {user.userType < 4 && (
             <div className='webNavbar'>        
               <Link to='/home'><p>Home</p></Link>
               <Link to='/eventlist'><p>Calendar</p></Link>
-              <Link to='/allusers'><p>Find members</p></Link>
+              <Link to='/allusers'><p>Find Users</p></Link>
               <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
             </div> 
           )} 
