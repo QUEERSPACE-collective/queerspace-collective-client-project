@@ -22,6 +22,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     }  
 })
 
+// update into 'events' table the number of guests  
 router.put('/guests', rejectUnauthenticated, async (req, res) => {
     console.log('in answers router trying to add guests')
     try {
