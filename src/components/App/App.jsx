@@ -39,6 +39,7 @@ import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
 import EditEvents from '../EditEvents/EditEvents';
+import EditProfilePicture from '../EditProfilePicture/EditProfilePicture';
 // import QSClogo from '../QSClogo/QSClogo';
 //END OF NEW COMPONENTS
 import './App.css';
@@ -187,9 +188,9 @@ function App() {
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
-          <Route>
+          {/* <Route>
             <h1>404</h1>
-          </Route>
+          </Route> */}
         </Switch>
         <Footer />
       </div>
@@ -212,7 +213,9 @@ function App() {
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
               </Route>
-            
+              <Route exact path='/ProfilePicture/edit'>
+                <EditProfilePicture />
+              </Route>
 
               <Route exact path='/AllEventsListItems'>
               <AllEventsListItems/>

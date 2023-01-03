@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import Upload from '../Multer/Multer';
+
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -43,11 +43,14 @@ function ProfilePage() {
     <div className="container">
       <h2>Welcome, {user.fname} {user.lname}!</h2>
       <div>
-     <Upload/>
+      <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px', width:'200px'}}/>
+      <Link to='/ProfilePicture/edit' >
+      <button>Edit Picture</button>
+      </Link>
       </div>
       <p> Name: {user.fname} {user.lname}</p>
       <p> Pronouns: {user.pronouns}</p>
-      <p> Email: {user.username}</p>
+      {/* <p> Email: {user.username}</p> */}
 
       <form>
       <label>
@@ -73,7 +76,7 @@ function ProfilePage() {
        
       </form>
 {/* For some reason, <select> was messing with my fade-in feature I'm messing with */}
-       <FormControl  >
+       {/* <FormControl  >
         <InputLabel id="demo-simple-select-label">user type</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -87,7 +90,7 @@ function ProfilePage() {
           <MenuItem value={3}>Volunteer</MenuItem>
           <MenuItem value={4}>Caregiver</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
    {/* ..so I changed it to this- we probably don't even need this here, but I also changed it in other places
      that <select> was present where we will use it */}
 
@@ -117,7 +120,7 @@ function ProfilePage() {
         )}
       </div>
 
-      <LogOutButton className="btn" />
+      {/* <LogOutButton className="btn" /> */}
     </div>
   );
 }
