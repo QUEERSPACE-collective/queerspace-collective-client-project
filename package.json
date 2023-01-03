@@ -41,9 +41,9 @@
     "styled-components": "^5.3.6"
   },
   "scripts": {
-    "start": "node server/server.js",
+    "start": "TZ=utc node server/server.js",
     "client": "react-scripts start",
-    "server": "nodemon --watch server server/server.js",
+    "server": "TZ=utc nodemon --watch server server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
