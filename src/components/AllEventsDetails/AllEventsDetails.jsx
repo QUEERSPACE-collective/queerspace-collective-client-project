@@ -120,6 +120,7 @@ function AllEventsDetails() {
         </>             
     )} */}
     <h1>total attendee count: {count}</h1>
+   
     </>   
     );
   }
