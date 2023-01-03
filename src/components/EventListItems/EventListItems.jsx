@@ -7,10 +7,8 @@ import './EventListItems.css';
 
 import { atcb_action, atcb_init } from 'add-to-calendar-button';
 import 'add-to-calendar-button/assets/css/atcb.css';
-
+import { DateTime } from "luxon"
 import moment from 'moment-timezone';
-
-import DateTime from 'luxon';
 
 
 function EventListItems() {
@@ -51,6 +49,7 @@ function EventListItems() {
               let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
               let eventStartTime = moment(event.dateTime).format("HH:mm");
               let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
+              let luxonDate = DateTime(event.dateTime).toFormat("YYYY-MM-DD");
 
             //   console.log('event year', eventDate.toLocaleString('en-US', {
             //     weekday: 'short', // long, short, narrow
@@ -61,6 +60,7 @@ function EventListItems() {
             //     minute: 'numeric', // numeric, 2-digit
             //     second: 'numeric', // numeric, 2-digit
             // }));
+            console.log('luxon', luxonDate);
             console.log('event date start', eventDateStart);
             // console.log('event date start', moment(eventDateStart).format("dddd, MMMM Do YYYY, h:mm:ss a"));
             console.log('event date end', eventDateEnd);
