@@ -38,6 +38,10 @@ function Nav() {
           </Link>
         )}
 
+        <Link to="/home">
+          <QSClogo />
+        </Link>
+
 
         {/* show login if not logged in*/}
          {!user.id && (
@@ -50,7 +54,7 @@ function Nav() {
           {/* may still need to add more (more socials?) */}
           {user.userType > 3 && (
           <div className='webNavbar'>
-            <Link to='/profilepage'><p>Home</p></Link>
+            <Link to='/home'><p>Home</p></Link>
             <Link to='/eventlist'><p>Calendar</p></Link>
             <Link to='/resources'><p>Resources</p></Link>
             <Link to='/feedback'><p>Feedback Form</p> </Link>
@@ -69,7 +73,7 @@ function Nav() {
           {/* show if NOT admin or mentor */}
           {user.userType < 4 && (
             <div className='webNavbar'>        
-              <Link to='/profilepage'><p>Home</p></Link>
+              <Link to='/home'><p>Home</p></Link>
               <Link to='/eventlist'><p>Calendar</p></Link>
               <Link to='/allusers'><p>Find Users</p></Link>
               <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>

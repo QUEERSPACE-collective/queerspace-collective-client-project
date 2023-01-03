@@ -1,11 +1,11 @@
-const eventReducerSpecific = (state = [], action) => {
+// const eventReducerSpecific = (state = [], action) => {
 
-    switch (action.type) {
-        case 'SET_SPECIFIC':
-            return action.payload;
-        default: 
-            return state
-    }
-}
+//     switch (action.type) {
+//         case 'SET_SPECIFIC':
+//             return action.payload;
+//         default: 
+//             return state
+//     }
+// }
 
-export default eventReducerSpecific;
+// export default eventReducerSpecific;

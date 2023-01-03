@@ -19,26 +19,24 @@ function EventListItems() {
 
   return (
     <>
-          <ul>
+      <ul>
         {eventList && eventList.map(event => (
           <div key = {event.id}>
             {event.name}<br/>
             Date: {event.dateTime}<br/>
             Location: {event.location}<br/>
-            {/* Type: {event.type}<br/> */}
-            {/* Description: {event.description}<br/> */}
             <Link to = {`/EventDetails/event/${event.id}`}>
-            <Button 
-              variant="contained"
-              sx = {{mt: 5,
-              backgroundColor: '#1793e1',
-                '&:hover': {
-                  backgroundColor: '#30a0be',
-                  opacity: [0.9, 0.8, 0.7],
-                },
-              }}>
-                Details
-            </Button>
+              <Button 
+                variant="contained"
+                sx = {{mt: 5,
+                backgroundColor: '#1793e1',
+                  '&:hover': {
+                    backgroundColor: '#30a0be',
+                    opacity: [0.9, 0.8, 0.7],
+                  },
+                }}>
+                  Details
+              </Button>
             </Link>
             <br/>
             <br/>
