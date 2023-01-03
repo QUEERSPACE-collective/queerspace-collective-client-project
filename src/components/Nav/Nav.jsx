@@ -38,11 +38,6 @@ function Nav() {
           </Link>
         )}
 
-        <Link to="/home">
-          <QSClogo />
-        </Link>
-
-
         {/* show login if not logged in*/}
          {!user.id && (
           <div className='webNavbar'>
@@ -67,7 +62,7 @@ function Nav() {
             )}    
             <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
           </div>
-          )} 
+          )}  
           
 
           {/* show if NOT admin or mentor */}
