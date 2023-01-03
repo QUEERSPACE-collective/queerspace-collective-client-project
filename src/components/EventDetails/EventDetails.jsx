@@ -31,10 +31,10 @@ function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
-  const eventDetails = useSelector(store => store.event)
+  const eventDetails = useSelector(store => store.currentEvent);
   const userEvents = useSelector(store => store.userEventsReducer);
-  const eventQuestions = useSelector(store => store.eventQuestions)
-  const registrationAnswer = useSelector(store => store.registrationAnswers)
+  const eventQuestions = useSelector(store => store.eventQuestions);
+  const registrationAnswer = useSelector(store => store.registrationAnswers);
   console.log('registration answers are', registrationAnswer)
   console.log('the event DETAILS are', eventDetails)
   console.log('user events are', userEvents)
@@ -88,13 +88,13 @@ function EventDetails() {
   // .some() returns a bool
   let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
   
-  let isEventFull = false;
-  if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
-    isEventFull = true
-    console.log('is this event full', isEventFull)
-  } else {
-    console.log('is this event full', isEventFull)
-  }
+  // let isEventFull = false;
+  // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
+  //   isEventFull = true
+  //   console.log('is this event full', isEventFull)
+  // } else {
+  //   console.log('is this event full', isEventFull)
+  // }
 
   const eventRegistration = () => {
     console.log('in event registartion function with id', params.id)
@@ -142,17 +142,17 @@ function EventDetails() {
             boxShadow: 2,
           }}>
           <h2>
-            {eventDetails.length > 0 && eventDetails[0].name}
+            { eventDetails.name}
           </h2>
           <h4>
-            {eventDetails.length > 0 && eventDetails[0].location}
+            {eventDetails.location}
           </h4>
           <p>
-            {eventDetails.length > 0 && eventDetails[0].description}
+            {eventDetails.description}
           </p>
           <p>
-            Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br>
-            Max attendees: {eventDetails.length > 0 && eventDetails[0].attendeeMax}
+            {/* Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br> */}
+            Max attendees: {eventDetails.length > 0 && eventDetails.attendeeMax}
           </p>
 
         </Box>
