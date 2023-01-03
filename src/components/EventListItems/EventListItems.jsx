@@ -61,9 +61,9 @@ function EventListItems() {
             //     minute: 'numeric', // numeric, 2-digit
             //     second: 'numeric', // numeric, 2-digit
             // }));
-            console.log('event date time', event.dateTime)
+            console.log('event date start', eventDateStart);
             // console.log('event date start', moment(eventDateStart).format("dddd, MMMM Do YYYY, h:mm:ss a"));
-            console.log('event date end', eventDateStart);
+            console.log('event date end', eventDateEnd);
             
 
               atcb_action({

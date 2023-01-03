@@ -41,6 +41,7 @@ function NewEventForm() {
   
   function onSubmit(){
     let dateTime = `${newEventDate} ${newEventTime}`;
+    let dateTimeEnd = `${newEventDate} ${newEventTimeEnd}`;
     dispatch({
       type: 'SUBMIT_NEW_EVENT',
       payload: {
