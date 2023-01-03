@@ -26,7 +26,7 @@ import newResourceDescription from './newResourceDescription.reducer';
 import newResourceLink from './newResourceLink.reducer';
 import viewResources from './viewResources.reducer';
 import registrationAnswers from './registrationAnswers.reducer';
-
+import currentEvent from './currentEvent.reducer';
 // import eventReducerSpecific from './specificEvent.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -64,6 +64,7 @@ const rootReducer = combineReducers({
   registrationAnswers,
   eventRegisteredUsers,
   multerReducer,
+  currentEvent,
   // eventReducerSpecific,
 });
 
