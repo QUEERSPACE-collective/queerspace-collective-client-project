@@ -79,10 +79,10 @@ function AllUsersList() {
           className='allusersSelect'
         >
           <MenuItem value={0}>All Users</MenuItem>
-          <MenuItem value={1}>Mentees/Youth</MenuItem>
-          <MenuItem value={2}>Mentors</MenuItem>
-          <MenuItem value={3}>Volunteers</MenuItem>
-          <MenuItem value={4}>Caregivers</MenuItem>
+          <MenuItem value={1}>Volunteers</MenuItem>
+          <MenuItem value={2}>Caregivers</MenuItem>
+          <MenuItem value={3}>Mentees/Youth</MenuItem>
+          <MenuItem value={4}>Mentors</MenuItem>
           <MenuItem value={5}>Admin</MenuItem>
         </Select>
       </FormControl>

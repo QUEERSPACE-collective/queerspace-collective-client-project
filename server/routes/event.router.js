@@ -8,7 +8,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = 
     `SELECT "events"."name", "events".id, "events"."dateTime", 
     "events"."location", "events".description, "events"."type", "userEvents"."eventId",
-    "events"."attendeeMax", "events"."programLocationID",
+    "events"."attendeeMax", "events"."programLocationID", "events"."hasVolunteers",
     count ("userEvents"."userId") as total_attendees
     FROM "events"
     FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id

@@ -14,6 +14,7 @@ import './EventList.css';
 function EventList() {
   const dispatch = useDispatch();
   const eventList = useSelector(store => store.event)
+  const user = useSelector(store => store.user)
   console.log('event list', eventList)
   
   useEffect(() => {
@@ -36,7 +37,12 @@ function animater() {
         <button>Home</button>
       </Link>
       <div className='upcoming-events-container'>
-      <h2>Upcoming Events!</h2>
+        {user.userType !== 1 && (
+           <h2>Upcoming Events!</h2>
+        )}
+        {user.userType == 1  && (
+           <h2>Volunteer Events!</h2>
+        )}
       <Box        
         sx={{
         display: 'flex',
