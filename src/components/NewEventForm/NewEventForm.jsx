@@ -26,7 +26,7 @@ function NewEventForm() {
   const newEventName = useSelector(store=>store.newEventName);
   const newEventDate = useSelector(store=>store.newEventDate);
   const newEventTime = useSelector(store=>store.newEventTime);
-  const newEventTimeEnd = useSelector(store=> store.newEventTimeEnd);
+  const newEventTimeEnd = useSelector(store => store.newEventTimeEnd)
   const newEventAddress = useSelector(store=>store.newEventAddress);
   const newEventQuestion = useSelector(store=> store.newEventQuestion);
   const newEventStoredQuestions = useSelector(store=> store.newEventStoredQuestions);
