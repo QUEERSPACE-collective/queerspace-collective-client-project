@@ -7,18 +7,12 @@ import './EventListItems.css';
 
 import { atcb_action, atcb_init } from 'add-to-calendar-button';
 import 'add-to-calendar-button/assets/css/atcb.css';
-import { DateTime } from "luxon"
 import moment from 'moment-timezone';
 
 
 function EventListItems() {
   const history = useHistory()
   const eventList = useSelector(store => store.event)
-
-  // const eventDetails = (id) => {
-  //   console.log('in event details function with event id:', id)
-  //   history.push('/EventDetails/')
-  // }
 
   return (
     <>
@@ -49,23 +43,10 @@ function EventListItems() {
               let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
               let eventStartTime = moment(event.dateTime).format("HH:mm");
               let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
-              let luxonDate = DateTime(event.dateTime).toFormat("YYYY-MM-DD");
 
-            //   console.log('event year', eventDate.toLocaleString('en-US', {
-            //     weekday: 'short', // long, short, narrow
-            //     day: 'numeric', // numeric, 2-digit
-            //     year: 'numeric', // numeric, 2-digit
-            //     month: 'long', // numeric, 2-digit, long, short, narrow
-            //     hour: 'numeric', // numeric, 2-digit
-            //     minute: 'numeric', // numeric, 2-digit
-            //     second: 'numeric', // numeric, 2-digit
-            // }));
-            console.log('luxon', luxonDate);
-            console.log('event date start', eventDateStart);
-            // console.log('event date start', moment(eventDateStart).format("dddd, MMMM Do YYYY, h:mm:ss a"));
-            console.log('event date end', eventDateEnd);
+              console.log('event date start', eventDateStart);
+              console.log('event date end', eventDateEnd);
             
-
               atcb_action({
                 name: `${event.name}`,
                 startDate: `${eventDateStart}`,
