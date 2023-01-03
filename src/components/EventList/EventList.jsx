@@ -32,9 +32,9 @@ function animater() {
 //Fade effect
   return (
     <>
-      <Link to = "/home">
+      {/* <Link to = "/home">
         <button>Home</button>
-      </Link>
+      </Link> */}
       <div className='upcoming-events-container'>
       <h2>Upcoming Events!</h2>
       <Box        
