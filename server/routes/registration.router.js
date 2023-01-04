@@ -3,8 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
-router.post('/', rejectUnauthenticated, (req, res) => {
+// registering for an event
+router.post('/', rejectUnauthenticated, async (req, res) => {
+    try {
     const sqlParams = [req.user.id, req.body.data.eventId, req.body.data.attendees]
     const sqlText = 
     `
@@ -14,7 +15,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     `;
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
-            console.log('dbresult!!!!!!!!!!!!!!!!!', dbResult)
             const sqlParams = [dbResult.rows[0].attendees, dbResult.rows[0].eventId]
             const sqlText = 
             `
@@ -24,17 +24,66 @@ router.post('/', rejectUnauthenticated, (req, res) => {
             `;
             pool.query(sqlText, sqlParams)
                 .then(dbResult => {
+                    for (let answer of req.body.data.answer) {
+                        const sqlParams = [answer.id, req.user.id, answer.answer]
+                        const sqlText = `
+                        INSERT INTO "answers" ("questionId", "userId", "answer")
+                        VALUES ($1, $2, $3);`;
+                        pool.query(sqlText, sqlParams)
+                    }
                     res.sendStatus(200)
                 })
         })
-        
-        .catch(error => {
+    }
+        catch (error){
             console.log('error posting user event registration', error)
             res.sendStatus(500)
-        })
+        }
+    }  
+)
+
+
+//unregistering from an event
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  const sqlParams = [req.params.id, req.user.id]
+  const sqlText = 
+  `
+  SELECT "attendees", "eventId" 
+  FROM "userEvents"
+  WHERE "eventId" = $1 AND "userId" = $2;
+  `;
+  pool.query(sqlText, sqlParams)
+    .then(dbResult => {
+      const sqlParams = [dbResult.rows[0].attendees, dbResult.rows[0].eventId]
+      const sqlText = 
+      `
+      UPDATE "events" 
+      SET "totalAttendees" = "totalAttendees" - $1
+      WHERE "id" = $2
+      `;
+    pool.query(sqlText,sqlParams)
+      .then(dbResult => {
+        const sqlParams = [req.params.id, req.user.id]
+        const sqlText = 
+        `
+        DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2
+        `;
+      pool.query(sqlText, sqlParams)
+        .then(dbResult => {
+            const sqlParams = [req.params.id, req.user.id]
+            const sqlText = 
+            `
+            
+            `;
+        //   res.sendStatus(204)
+        }) 
+      })
+  })
+  .catch(error => {
+    console.log('error deleting user event in router', error)
+    res.sendStatus(500)
+  })
 })
-
-
 
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     console.log('in registration router to get all event registered users')

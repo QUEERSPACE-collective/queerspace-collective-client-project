@@ -15,15 +15,25 @@ function* registerForEvent (action) {
     }
 }
 
-function* addUserAnswer(action) {
+function* unregisterForEvent(action){
     try{
-        yield axios.post(`/api/answers`, action.payload)
-
-    } catch (error){
-        console.log('error adding user answers on registration form in saga', error)
+      yield axios.delete(`/api/registration/${action.payload}`, config)
+      yield put({type: 'FETCH_USER_EVENTS'})
+    } catch (error) {
+      console.log('error deleting user event in saga', error)
     }
+  }
 
-}
+
+// function* addUserAnswer(action) {
+//     try{
+//         yield axios.post(`/api/answers`, action.payload)
+
+//     } catch (error){
+//         console.log('error adding user answers on registration form in saga', error)
+//     }
+
+// }
 
 function* fetchEventRegisteredUsers(action){
     try{
@@ -46,7 +56,8 @@ function* addGuests (action) {
 
 function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
-    yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
+    yield takeLatest ('UNREGISTER_FOR_EVENT', unregisterForEvent);
+    // yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
     yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers);
     yield takeLatest ('ADD_ATTENDEES', addGuests);
 }

@@ -36,7 +36,7 @@ function EventDetails() {
   const registrationAnswer = useSelector(store => store.registrationAnswers);
 
   const [attendeeCount, setAttendeeCount] = useState(0)
-  const [userAnswer, setUserAnswer] = useState({})
+
 
 
   // handling confirmation modal open and close
@@ -100,19 +100,15 @@ function EventDetails() {
     console.log('in event registartion function with id', params.id)
     dispatch({
       type: 'REGISTER_FOR_EVENT',
-      payload: {eventId: params.id, attendees: attendeeCount}
+      payload: {eventId: params.id, attendees: attendeeCount, answer: eventQuestions}
     })
-    // dispatch({
-    //   type: 'ADD_USER_ANSWER', 
-    //   payload: {questionId: question.id, answer: e.target.value}
-    // })
     setOpen(false);
     history.push('/home')
   }
 
   const eventUnregistration = () => {
     dispatch({
-      type: 'DELETE_USER_EVENT',
+      type: 'UNREGISTER_FOR_EVENT',
       payload: params.id
     })
     history.push('/EventList')
@@ -194,22 +190,15 @@ function EventDetails() {
               <DialogContentText>
                 Including yourself, how many will be attending?
                 <input type = "number" onChange={(e)=>{setAttendeeCount(e.target.value)}}/>
-                    {/* <button onClick = {()=>{
-                      // dispatch({
-                      //   type: 'ADD_ATTENDEES',
-                      //   payload: {attendees: attendeeCount, eventId: params.id}
-                      })
-                    } 
-                  }>Confirm</button> */}
 
               {eventQuestions.map(question => (
                 <div key = {question.id}>
                   {question.question}
-                  <input type = "text" onChange={(e)=>{setUserAnswer({questionId: question.id, answer: e.target.value})
-                    // dispatch({
-                    //   type: 'ADD_USER_ANSWER', 
-                    //   payload: {questionId: question.id, answer: e.target.value}
-                    // })
+                  <input type = "text" onChange={(e) => {
+                    dispatch({
+                      type: 'STORE_USER_ANSWER', 
+                      payload: {questionId: question.id, answer: e.target.value}
+                    })
                   } 
                   } /> 
               </div>
