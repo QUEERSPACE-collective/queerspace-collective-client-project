@@ -89,6 +89,20 @@ const deleteUser = (id) => {
                       <Button variant='contained'>Edit User</Button>
                     </Link>                  
                   </li>
+                  {allUsers.userType == 3 && (
+                  <li>
+                  <Link to={'/addmentorPair'} className='editUserBtn'>
+                    <Button variant='contained'>Add Mentor</Button>
+                  </Link>
+                  </li>
+                  )}
+                  {allUsers.userType == 4 && (
+                  <li>
+                  <Link to={'/addmentorPair'} className='editUserBtn'>
+                    <Button variant='contained'>Add Mentee</Button>
+                  </Link>
+                  </li>
+                  )}
                   <Button
                     variant="contained"
                     color="error"
