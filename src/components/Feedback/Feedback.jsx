@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
+import { useEffect } from 'react';
 import './Feedback.css';
 
 function Feedback() {
@@ -17,6 +14,7 @@ function Feedback() {
         setTimeout(() => document.body.classList.add("noSalmon"), 100);
       }
       //Fade effect
+      
     return (
         <>
         <h1 className='bannerTop'>Feedback Form</h1>

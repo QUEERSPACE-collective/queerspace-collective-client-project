@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
+// Register user for event
 router.post('/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.user.id, req.params.id]
     const sqlText = 
@@ -22,7 +22,7 @@ router.post('/:id', rejectUnauthenticated, (req, res) => {
 })
 
 
-
+// GET all users registered for an event
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     console.log('in registration router to get all event registered users')
     const sqlParams = [req.params.id]

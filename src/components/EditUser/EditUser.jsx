@@ -29,6 +29,7 @@ function EditUser() {
           })
         }
     }, [params.id]);
+
 //Fade effect
 function animater() {
     document.body.classList.remove("noSalmon");
@@ -37,6 +38,7 @@ function animater() {
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
 }
 //Fade effect
+
 const user = useSelector(store => store.editUser);
 console.log(user);
 const onSubmit = (evt) => {
@@ -143,7 +145,7 @@ const deleteUser = (id) => {
                         payload: { profilePic: evt.target.value }
                     })}
                 />
-                {/* If the user is a mentee; for mentors it will say Mentee */}
+                {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
                 <label for="mentor">
                     Mentor:
                 </label>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import FormData from 'form-data';
-import { takeEvery, put,takeLatest } from "redux-saga/effects";
+import { put,takeLatest } from "redux-saga/effects";
 
 function* uploadImage(action) {
     console.log('in uploadImage saga Multer');

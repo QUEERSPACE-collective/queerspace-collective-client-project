@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
 import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
 
-// CUSTOM COMPONENTS
 
 function NewEventForm() {
 

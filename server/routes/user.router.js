@@ -20,15 +20,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 function generatePW() {
   var pass = '';
   var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
-          'abcdefghijklmnopqrstuvwxyz0123456789@$';
-    
+          'abcdefghijklmnopqrstuvwxyz0123456789@$';  
   for (let i = 1; i <= 8; i++) {
       var char = Math.floor(Math.random()
                   * str.length + 1);
         
       pass += str.charAt(char)
   }
-    
   return pass;
 };
 
@@ -38,8 +36,8 @@ let transporter = nodemailer.createTransport({
   port: 587,
   secureConnection: false, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_USERNAME, // generated ethereal user
-    pass: process.env.EMAIL_PASSWORD, // generated ethereal password
+    user: process.env.EMAIL_USERNAME, // sender username
+    pass: process.env.EMAIL_PASSWORD, // sender password
   },
     tls: {
       ciphers: 'SSLv3'
@@ -68,8 +66,7 @@ router.post('/register', async (req, res) => {
               username: ${username}
               password: ${pw}
               Please follow the link to sign up:
-              http://localhost:3000/login`, // plain text body
-      // html: "<b>Hello world?</b>", // html body
+              http://localhost:3000/#/login`, // plain text body
   });
   
   console.log("Message sent: %s", info.messageId);
@@ -221,8 +218,7 @@ router.post("/reset", async (req, res) => {
       to: username, // list of receivers
       subject: "Forgot Password?", // Subject line
       html: `<p>Follow this link to reset password:</p>
-              <a href=http://localhost:3000/#/reset/${token}>Click Here</a>`, // plain text body
-      // html: "<b>Hello world?</b>", // html body
+              <a href=http://localhost:3000/#/reset/${token}>Click Here</a>`, // html text body
     });
   
     console.log("Message sent: %s", info.messageId);
@@ -239,6 +235,7 @@ router.post("/reset", async (req, res) => {
 
 })
 
+// UPDATE new password
 router.put('/reset/:token', (req, res) => {
   const password = encryptLib.encryptPassword(req.body.password);
   const sqlText = `

@@ -6,8 +6,6 @@ import Button from '@mui/material/Button';
 import './EventListItems.css';
 
 
-// CUSTOM COMPONENTS
-
 function EventListItems() {
   const history = useHistory()
   const eventList = useSelector(store => store.event)

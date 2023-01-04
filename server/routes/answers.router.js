@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-
+// POST new answers to question for event
 router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('in registration answers router', req.body)
     try{

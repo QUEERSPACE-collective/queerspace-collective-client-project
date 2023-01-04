@@ -3,13 +3,11 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 
-
 function EventAttendees(){
     const params = useParams();
     const dispatch = useDispatch();
     const registeredAttendees = useSelector(store => store.eventRegisteredUsers)
     console.log('this events registered attendees are', registeredAttendees)
-
 
     useEffect(() => {
         dispatch({
