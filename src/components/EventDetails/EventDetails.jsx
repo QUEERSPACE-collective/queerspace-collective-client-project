@@ -100,16 +100,12 @@ function EventDetails() {
     console.log('in event registartion function with id', params.id)
     dispatch({
       type: 'REGISTER_FOR_EVENT',
-      payload: params.id
+      payload: {eventId: params.id, attendees: attendeeCount}
     })
-    dispatch({
-      type: 'ADD_ATTENDEES',
-      payload: {attendees: attendeeCount, eventId: params.id}
-    })
-    dispatch({
-      type: 'ADD_USER_ANSWER', 
-      payload: {questionId: question.id, answer: e.target.value}
-    })
+    // dispatch({
+    //   type: 'ADD_USER_ANSWER', 
+    //   payload: {questionId: question.id, answer: e.target.value}
+    // })
     setOpen(false);
     history.push('/home')
   }

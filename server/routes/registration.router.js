@@ -4,12 +4,12 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-router.post('/:id', rejectUnauthenticated, (req, res) => {
-    const sqlParams = [req.user.id, req.params.id]
+router.post('/', rejectUnauthenticated, (req, res) => {
+    const sqlParams = [req.user.id, req.body.data.eventId, req.body.data.attendees]
     const sqlText = 
     `
-    INSERT INTO "userEvents" ("userId", "eventId")
-    VALUES ($1, $2)
+    INSERT INTO "userEvents" ("userId", "eventId", "attendees")
+    VALUES ($1, $2, $3)
     `;
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
@@ -47,7 +47,6 @@ router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
         pool.query(sqlText, sqlParams)
             .then(dbResult => {
                 console.log('what am i getting back from the db for event registered users???', dbResult.rows)
-
                 res.send(dbResult.rows)
             })
             .catch(error => {

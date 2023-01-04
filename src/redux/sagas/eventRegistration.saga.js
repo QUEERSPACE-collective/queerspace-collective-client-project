@@ -9,8 +9,7 @@ const config = {
 
 function* registerForEvent (action) {
     try {
-        yield axios.post(`/api/registration/${action.payload}`, config)
-        yield put({})
+        yield axios.post(`/api/registration`, {data: action.payload}, config)
     } catch (error) {
         console.log('error registering user for event', error)
     }
