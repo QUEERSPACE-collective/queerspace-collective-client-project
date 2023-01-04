@@ -25,10 +25,10 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
             pool.query(sqlText, sqlParams)
                 .then(dbResult => {
                     for (let answer of req.body.data.answer) {
-                        const sqlParams = [answer.id, req.user.id, answer.answer]
+                        const sqlParams = [answer.id, req.user.id, answer.answer, req.body.data.eventId]
                         const sqlText = `
-                        INSERT INTO "answers" ("questionId", "userId", "answer")
-                        VALUES ($1, $2, $3);`;
+                        INSERT INTO "answers" ("questionId", "userId", "answer", "eventId" )
+                        VALUES ($1, $2, $3, $4);`;
                         pool.query(sqlText, sqlParams)
                     }
                     res.sendStatus(200)
@@ -66,16 +66,21 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         const sqlParams = [req.params.id, req.user.id]
         const sqlText = 
         `
-        DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2
+        DELETE FROM "userEvents" 
+        WHERE "eventId" = $1 AND "userId" = $2
         `;
       pool.query(sqlText, sqlParams)
         .then(dbResult => {
             const sqlParams = [req.params.id, req.user.id]
             const sqlText = 
             `
-            
+            DELETE FROM "answers" 
+            WHERE "eventId" = $1 AND "userId" = $2
             `;
-        //   res.sendStatus(204)
+            pool.query(sqlText, sqlParams)
+                .then(dbResult => {
+                    res.sendStatus(204)
+                })
         }) 
       })
   })
