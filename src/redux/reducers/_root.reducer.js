@@ -4,6 +4,7 @@ import user from './user.reducer';
 import newEventName from './newEventName.reducer';
 import newEventDate from './newEventDate.reducer';
 import newEventTime from './newEventTime.reducer';
+import newEventTimeEnd from './newEventTimeEnd.reducer';
 import newEventAddress from './newEventAddress.reducer';
 import newEventQuestion from './newEventQuestion.reducer';
 import newEventStoredQuestions from './newEventStoredQuestions.reducer';
@@ -41,7 +42,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in'
   newEventName, 
   newEventDate,
-  newEventTime, 
+  newEventTime,
+  newEventTimeEnd, 
   newEventAddress,
   newEventQuestion, 
   newEventStoredQuestions,

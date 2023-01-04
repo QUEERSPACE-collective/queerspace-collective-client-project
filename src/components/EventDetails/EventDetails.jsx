@@ -86,7 +86,7 @@ function EventDetails() {
   // looking through users registered events, if they are register for an event
   // with the same id as the currently displayed event, set isRegistered to "true"
   // .some() returns a bool
-  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
+  let isRegistered = userEvents.some(event => event.id === eventDetails?.id);
   
   // let isEventFull = false;
   // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
