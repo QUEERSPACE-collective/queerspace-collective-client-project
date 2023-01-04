@@ -26,25 +26,15 @@ function Nav() {
 
         <header className='myHeader'>
         
-        
+        {user.id ?
           <Link to="./home">
             <QSClogo />
           </Link>
-        
-
-        {!user.id && (
+          :
           <Link to="./login">
             <QSClogo />
           </Link>
-        )}
-
-
-        {/* show login if not logged in*/}
-         {!user.id && (
-          <div className='webNavbar'>
-            <Link to='./login'><p>Login</p></Link>
-          </div>
-          )}  
+        }
 
           {/* show if mentor or admin */}
           {/* may still need to add more (more socials?) */}
