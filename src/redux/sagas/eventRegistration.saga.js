@@ -39,7 +39,7 @@ function* addGuests (action) {
     console.log('how many guests', action.payload)
     try{
       yield axios.put(`/api/answers/guests`, action.payload, config)
-      yield put ({type: 'SET_GUESTS'})
+      yield put ({type: 'SET_ATTENDEES'})
     } catch (error) {
       console.log('error adding guests in saga', error)
     }
@@ -49,7 +49,7 @@ function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
     yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
     yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers);
-    yield takeLatest ('ADD_GUESTS', addGuests);
+    yield takeLatest ('ADD_ATTENDEES', addGuests);
 }
 
 export default eventRegistrationSaga;
