@@ -6,13 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = 
-    `SELECT "events"."name", "events".id, "events"."dateTime", 
-    "events"."location", "events".description, "events"."type", "userEvents"."eventId",
-    "events"."attendeeMax", "events"."programLocationID",
-    count ("userEvents"."userId") as total_attendees
-    FROM "events"
-    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
-    GROUP BY "events"."name", "events".id, "userEvents"."eventId";
+    `SELECT * FROM "events";
     `;
     pool.query(sqlText)
         .then(dbResult => {

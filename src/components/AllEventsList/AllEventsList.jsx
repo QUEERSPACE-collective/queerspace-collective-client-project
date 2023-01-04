@@ -111,8 +111,8 @@ function AllEventsList() {
             <TableCell align="right"> {thisEvent.location}</TableCell>
             <TableCell align="right"> {thisEvent.type} </TableCell>
             <TableCell align="right">
-              <Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}> {}
-                {thisEvent.total_attendees}
+              <Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}>
+                {thisEvent.totalAttendees}
               </Link>
             </TableCell>
             <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
