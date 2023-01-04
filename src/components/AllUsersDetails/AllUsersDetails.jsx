@@ -74,9 +74,16 @@ const deleteUser = (id) => {
                   <li>
                     Bio: {allUsers.bio}
                   </li>
+                  {allUsers.userType == 3 && (
                   <li>
-                    Mentor: {allUsers.mentor}
+                  Mentor: {allUsers.mentorPair}
                   </li>
+                  )}
+                  {allUsers.userType == 4 && (
+                  <li>
+                  Mentee: {allUsers.mentorPair}
+                  </li>
+                  )}
                   <li>
                     <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
                       <Button variant='contained'>Edit User</Button>
@@ -100,9 +107,6 @@ const deleteUser = (id) => {
                   </li>
                   <li>
                     Bio: {allUsers.bio}
-                  </li>
-                  <li>
-                    Mentor: {allUsers.mentor}
                   </li>
                 </div>
               )}

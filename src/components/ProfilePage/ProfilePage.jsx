@@ -17,8 +17,17 @@ function ProfilePage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const allUsers = useSelector((store) => store.allUsers)
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('userEvents are', userEvents)
+  console.log('the users are', allUsers)
+  console.log('the user is:', user)
+
+  for (let userPair of allUsers) {
+    if (userPair.id === user.mentorPair) {
+      console.log('this is the mentor/mentee', userPair.fname, userPair.lname)
+    }
+  }
 
   const handleChange = (event) => {
     console.log(event.target.value,'is evt.target.value')
@@ -53,15 +62,15 @@ function ProfilePage() {
       <label>
           Your access level is:
         </label>
-        <p >
+        < >
           {user.userType == 1 && (
             <p>Volunteer</p>
           )}
           {user.userType == 2 && (
-            <p>Mentee/Youth</p>
+            <p>Caregiver</p>
           )}
           {user.userType == 3 && (
-            <p>Caregiver</p>
+            <p>Mentee/Youth</p>
           )}
           {user.userType == 4 && (
             <p>Mentor</p>
@@ -69,9 +78,16 @@ function ProfilePage() {
           {user.userType == 5 && (
             <p>Admin</p>
           )}
-        </p>
+        </>
        
       </form>
+      {user.userType == 3 && (
+        <p>Mentor: {user.mentorPair}</p>
+      )}
+
+      {user.userType == 4 && (
+        <p>Mentee: {user.mentorPair}</p>
+      )}
 {/* For some reason, <select> was messing with my fade-in feature I'm messing with */}
        <FormControl  >
         <InputLabel id="demo-simple-select-label">user type</InputLabel>
