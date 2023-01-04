@@ -79,10 +79,10 @@ function AllUsersList() {
           className='allusersSelect'
         >
           <MenuItem value={0}>All Users</MenuItem>
-          <MenuItem value={1}>Mentees/Youth</MenuItem>
-          <MenuItem value={2}>Mentors</MenuItem>
-          <MenuItem value={3}>Volunteers</MenuItem>
-          <MenuItem value={4}>Caregivers</MenuItem>
+          <MenuItem value={1}>Volunteers</MenuItem>
+          <MenuItem value={2}>Caregivers</MenuItem>
+          <MenuItem value={3}>Mentees/Youth</MenuItem>
+          <MenuItem value={4}>Mentors</MenuItem>
           <MenuItem value={5}>Admin</MenuItem>
         </Select>
       </FormControl>
@@ -99,6 +99,11 @@ function AllUsersList() {
         >
         </input>
       
+    {user.userType == 5 && (
+        <Link to={'/adduserform'}>
+        <button>Add New User</button>
+        </Link>
+    )}
       </form>
       
     {/* Fuse.js conditional rendering  ⬇️ */}
@@ -191,14 +196,6 @@ function AllUsersList() {
           ))}
         </div>
       )}
-
-    {user.userType == 5 && (
-      <div>
-        <Link to={'/adduserform'}>
-        <button>Add New User</button>
-        </Link>
-      </div> 
-    )}
    
     </>
   );

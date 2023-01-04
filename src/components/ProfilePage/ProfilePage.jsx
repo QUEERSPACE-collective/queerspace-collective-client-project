@@ -76,7 +76,7 @@ function ProfilePage() {
        
       </form>
 {/* For some reason, <select> was messing with my fade-in feature I'm messing with */}
-       {/* <FormControl  >
+       <FormControl  >
         <InputLabel id="demo-simple-select-label">user type</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -90,7 +90,7 @@ function ProfilePage() {
           <MenuItem value={3}>Volunteer</MenuItem>
           <MenuItem value={4}>Caregiver</MenuItem>
         </Select>
-      </FormControl> */}
+      </FormControl>
    {/* ..so I changed it to this- we probably don't even need this here, but I also changed it in other places
      that <select> was present where we will use it */}
 
