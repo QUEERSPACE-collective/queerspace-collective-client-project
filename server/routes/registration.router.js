@@ -10,11 +10,24 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     `
     INSERT INTO "userEvents" ("userId", "eventId", "attendees")
     VALUES ($1, $2, $3)
+    RETURNING "attendees","eventId"
     `;
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
-            res.sendStatus(200)
+            console.log('dbresult!!!!!!!!!!!!!!!!!', dbResult)
+            const sqlParams = [dbResult.rows[0].attendees, dbResult.rows[0].eventId]
+            const sqlText = 
+            `
+            UPDATE "events"
+            SET "totalAttendees" = "totalAttendees" + $1
+            WHERE "id" = $2;
+            `;
+            pool.query(sqlText, sqlParams)
+                .then(dbResult => {
+                    res.sendStatus(200)
+                })
         })
+        
         .catch(error => {
             console.log('error posting user event registration', error)
             res.sendStatus(500)

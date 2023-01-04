@@ -138,11 +138,31 @@ router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
   const sqlParams = [req.params.id, req.user.id]
   const sqlText = 
   `
-  DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2;
+  SELECT "attendees", "eventId" 
+  FROM "userEvents"
+  WHERE "eventId" = $1 AND "userId" = $2;
   `;
   pool.query(sqlText, sqlParams)
-  .then(dbResult => {
-    res.sendStatus(204)
+    .then(dbResult => {
+      const sqlParams = [dbResult.rows[0].attendees, dbResult.rows[0].eventId]
+      const sqlText = 
+      `
+      UPDATE "events" 
+      SET "totalAttendees" = "totalAttendees" - $1
+      WHERE "id" = $2
+      `;
+    pool.query(sqlText,sqlParams)
+      .then(dbResult => {
+        const sqlParams = [req.params.id, req.user.id]
+        const sqlText = 
+        `
+        DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2
+        `;
+      pool.query(sqlText, sqlParams)
+        .then(dbResult => {
+          res.sendStatus(204)
+        }) 
+      })
   })
   .catch(error => {
     console.log('error deleting user event in router', error)
