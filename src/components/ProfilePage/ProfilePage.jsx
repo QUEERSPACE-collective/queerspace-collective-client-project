@@ -17,17 +17,10 @@ function ProfilePage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const allUsers = useSelector((store) => store.allUsers)
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('userEvents are', userEvents)
-  console.log('the users are', allUsers)
-  console.log('the user is:', user)
 
-  for (let userPair of allUsers) {
-    if (userPair.id === user.mentorPair) {
-      console.log('this is the mentor/mentee', userPair.fname, userPair.lname)
-    }
-  }
+
 
   const handleChange = (event) => {
     console.log(event.target.value,'is evt.target.value')
@@ -82,11 +75,11 @@ function ProfilePage() {
        
       </form>
       {user.userType == 3 && (
-        <p>Mentor: {user.mentorPair}</p>
+        <p>Mentor: {user.mentor_firstname} {user.mentor_lastname}</p>
       )}
 
       {user.userType == 4 && (
-        <p>Mentee: {user.mentorPair}</p>
+        <p>Mentee: {user.mentor_firstname} {user.mentor_lastname}</p>
       )}
 {/* For some reason, <select> was messing with my fade-in feature I'm messing with */}
        <FormControl  >

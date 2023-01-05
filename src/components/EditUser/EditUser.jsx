@@ -1,16 +1,22 @@
 import { useParams, useHistory, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './EditUser.css';
 import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Autocomplete from '@mui/material/Autocomplete';
 
 function EditUser() {
     const dispatch = useDispatch();
     const params = useParams();
     console.log(params.id);
     const history = useHistory();
+    const [userType, setUserType] = useState(0);
+    const allUsers = useSelector(store => store.allUsers);
 
     useEffect(() => {
         animater(),
@@ -23,7 +29,8 @@ function EditUser() {
           dispatch({
             type: "CLEAR_EDIT_USER"
           })
-        }
+        },
+        dispatch({ type: "FETCH_ALL_USERS" })
     }, [params.id]);
 //Fade effect
 function animater() {
@@ -55,6 +62,15 @@ const deleteUser = (id) => {
     });
     history.push('/allusers')
 }
+
+let mentorOptions = allUsers.map(user => {
+        return {
+            label: `${user.fname} ${user.lname}`,
+            id: user.id,
+            type: user.userType
+        }
+    })
+console.log(mentorOptions);
 
     return (
         <div className='editUserContainer'>
@@ -136,16 +152,35 @@ const deleteUser = (id) => {
                 />
                 {/* If the user is a mentee; for mentors it will say Mentee */}
                 <label for="mentor">
-                    Mentor:
+                    Mentor/Mentee:
                 </label>
-                <TextField
-                    id="mentor"
+                <form>
+                <FormControl className='formControl'>
+                    <Select
+                        sx={{height:'20px',marginTop:'3px',marginRight:'25px',outline:'none',border:'1px solid black'}}
+                        id="demo-simple-select" 
+                        value={userType}
+                        onChange={(evt) => setUserType(evt.target.value)}
+                        className='allusersSelect'
+                    >
+                        <MenuItem value={0}>All Users</MenuItem>
+                        <MenuItem value={3}>Mentees/Youth</MenuItem>
+                        <MenuItem value={4}>Mentors</MenuItem>
+                    </Select>
+                </FormControl>
+                <Autocomplete 
+                    disablePortal
+                    id="combo-box-demo"
+                    options={mentorOptions}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="Pick One" />}
                     value={user && user.mentorPair}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_USER',
+                    onSelect={(evt) => dispatch({
+                        type: "UPDATE_EDIT_USER",
                         payload: { mentorPair: evt.target.value }
                     })}
                 />
+                </form>
                 <div className="editUserBottom">
                 <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
                 <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
