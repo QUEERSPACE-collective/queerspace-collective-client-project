@@ -8,6 +8,7 @@ const config = {
 
 
 function* registerForEvent (action) {
+  console.log('in event registration saga', action.payload)
     try {
         yield axios.post(`/api/registration`, {data: action.payload}, config)
     } catch (error) {
