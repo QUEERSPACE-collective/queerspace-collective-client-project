@@ -135,7 +135,7 @@ function EventDetails() {
             boxShadow: 2,
           }}>
           <h2>
-            { eventDetails.name}
+            {eventDetails.name}
           </h2>
           <h4>
             {eventDetails.location}
@@ -145,7 +145,7 @@ function EventDetails() {
           </p>
           <p>
             {/* Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br> */}
-            Max attendees: {eventDetails.length > 0 && eventDetails.attendeeMax}
+            Max attendees: {eventDetails.attendeeMax}
           </p>
 
         </Box>

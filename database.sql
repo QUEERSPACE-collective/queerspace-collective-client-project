@@ -21,7 +21,7 @@ CREATE TABLE "user" (
     "pronouns" VARCHAR,
     "profilePic" VARCHAR,
     "bio" VARCHAR,
-    "mentorPair" VARCHAR,
+    "mentorPair" INT,
     "token" VARCHAR
 );
 CREATE TABLE "programLocations" (
@@ -53,7 +53,7 @@ CREATE TABLE "events" (
     "location" VARCHAR,
     "programLocationID" INT REFERENCES "programLocations",
     "type" INT REFERENCES "eventTypes",
-    "registeredAttendees" INT,
+    "totalAttendees" INT DEFAULT 0,
     "attendeeMax" INT,
     "hasVolunteers" BOOLEAN,
     "registeredVolunteers" INT,
@@ -70,12 +70,15 @@ CREATE TABLE "answers" (
     "id" SERIAL PRIMARY KEY,
     "questionId" INT REFERENCES "questions" ON DELETE CASCADE,
     "userId" INT REFERENCES "user" ON DELETE CASCADE,
-    "answer" VARCHAR
+    "answer" VARCHAR,
+    "eventId" INT REFERENCES "events" ON DELETE CASCADE
+
 );
 CREATE TABLE "userEvents" (
     "id" SERIAL PRIMARY KEY,
     "userId" INT REFERENCES "user" ON DELETE CASCADE,
-    "eventId" INT REFERENCES "events" ON DELETE CASCADE
+    "eventId" INT REFERENCES "events" ON DELETE CASCADE,
+    "userAttendees" INT DEFAULT 0
 );
 CREATE TABLE "resources" (
     "id" SERIAL PRIMARY KEY,
