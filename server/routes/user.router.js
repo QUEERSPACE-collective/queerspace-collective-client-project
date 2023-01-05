@@ -100,9 +100,6 @@ router.post('/logout', (req, res) => {
 });
 
 // getting all events that the user is registered for
-// want to use async await to do multiple queries - 
-// also get the name of the event back from "events" table
-// so that the event name is rendered on 'your upcoming events..'
 router.get('/events', rejectUnauthenticated, (req, res) => {
   const sqlParams = [req.user.id]
   const sqlText = 
@@ -112,8 +109,6 @@ router.get('/events', rejectUnauthenticated, (req, res) => {
   JOIN "events" ON "events".id = "userEvents"."eventId"
   WHERE "userId" = $1;
   `;
-
-
   pool.query(sqlText, sqlParams)
     .then(dbResult => {
       res.send(dbResult.rows)
@@ -122,6 +117,7 @@ router.get('/events', rejectUnauthenticated, (req, res) => {
       console.log('error getting users registered events in router', error)
     })
 })
+
 
 // Delete event for user
 router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
