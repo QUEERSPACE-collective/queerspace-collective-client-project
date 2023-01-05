@@ -121,12 +121,6 @@ function EventDetails() {
   <>
 
       <h2 className='bannerTop'>EventDetails</h2>
-      {/* <Link to="/EventList">
-        <button>Back to Calendar</button>
-      </Link>
-      <Link to="/home">
-        <button>Home</button>
-      </Link> */}
       <div className='event-details-container'>
         <Box
           sx={{
@@ -179,7 +173,9 @@ function EventDetails() {
             )
           }
 
-          {}
+      <Link to="/EventList">
+        <button>Back to Calendar</button>
+      </Link>
 
           {/* {isEventFull == true && 
             <>

@@ -9,7 +9,6 @@ import { atcb_action, atcb_init } from 'add-to-calendar-button';
 import 'add-to-calendar-button/assets/css/atcb.css';
 import moment from 'moment-timezone';
 
-
 function EventListItems() {
   const history = useHistory()
   const eventList = useSelector(store => store.event)
