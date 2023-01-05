@@ -29,6 +29,8 @@ function* deleteUserEvent(action){
   }
 }
 
+
+
 function* userEvents () {
     yield takeLatest ('FETCH_USER_EVENTS', fetchUserEvents);
     yield takeLatest ('DELETE_USER_EVENT', deleteUserEvent);

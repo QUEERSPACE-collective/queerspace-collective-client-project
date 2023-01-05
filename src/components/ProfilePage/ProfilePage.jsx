@@ -73,7 +73,7 @@ function ProfilePage() {
         </p>
       </form>
       <article>Bio: {user.bio}</article>
-      <Link to={`/profilepage/${user.id}/edit`}>
+      <Link to={`/home/${user.id}/edit`}>
       <button>Edit Profile</button>
       </Link>
       <div>

@@ -14,21 +14,21 @@ function AllEventsDetails() {
     const params = useParams();
     const dispatch = useDispatch();
     const event = useSelector((store) => store.event);
-    const singleEventsList = useSelector(store => store.eventReducerSpecific); 
-    console.log('the single event list: ',singleEventsList); 
+    // const singleEventsList = useSelector(store => store.eventReducerSpecific); 
+    // console.log('the single event list: ',singleEventsList); 
     let count = 0;
 // This filter is used to loop thru singleEventsList and filter out duplicate Ids
-    const uniqueIds = [];
-    const uniqueUser = singleEventsList.filter(element => {
-    const isDuplicate = uniqueIds.includes(element.id);
-    if(!isDuplicate) {
-        uniqueIds.push(element.id);
-        return true;
-    }
-    return false;
-});
-    console.log('What the uniqueUser filter returns: ',uniqueUser);
-    console.log('the Ids that were found as duplicates: ',uniqueIds);
+//     const uniqueIds = [];
+//     const uniqueUser = singleEventsList.filter(element => {
+//     const isDuplicate = uniqueIds.includes(element.id);
+//     if(!isDuplicate) {
+//         uniqueIds.push(element.id);
+//         return true;
+//     }
+//     return false;
+// });
+    // console.log('What the uniqueUser filter returns: ',uniqueUser);
+    // console.log('the Ids that were found as duplicates: ',uniqueIds);
 //
   useEffect(()=> {
     animater(), // call fade effect
@@ -99,7 +99,7 @@ function AllEventsDetails() {
       </Table>
     </TableContainer>
     
-     {uniqueUser.map(employee => 
+     {/* {uniqueUser.map(employee => 
         <>              
             <div key={employee.id} >
                 <span style={{display:'none'}}>{count++}</span>
@@ -117,7 +117,7 @@ function AllEventsDetails() {
                 <hr></hr>
             </div> 
         </>             
-    )}
+    )} */}
     <h1>total attendee count: {count}</h1>
     </>   
     );

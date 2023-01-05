@@ -21,15 +21,15 @@ function EventAttendees(){
             <h3>List of event registered attendees</h3>
             {registeredAttendees.map(attendee => (
                 <>
-                <h3>{attendee.name}</h3>
-                <h4>{attendee.username}</h4>
-                <h4>Answers:</h4>
-                <ul>
-                    {attendee.question_answer.map(answer => (
-                        <li>{answer[0]} {answer[1]}</li>
-                    ))}
-                </ul>
-                <br/>
+                    <h3>{attendee.name}</h3>
+                    <h4>{attendee.username}</h4>
+                    <h4>Answers:</h4>
+                    <ul>
+                        {attendee.question_answer.map(answer => (
+                            <li>{answer[0]} {answer[1]}</li>
+                        ))}
+                    </ul>
+                    <br/>
                 </>            
             ))}
         </>

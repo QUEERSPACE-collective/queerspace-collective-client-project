@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = 
-    `SELECT "events"."name", "events".id, "events"."dateTime", 
+    `SELECT "events"."name", "events".id, "events"."dateTime", "events"."dateTimeEnd",
     "events"."location", "events".description, "events"."type", "userEvents"."eventId",
     "events"."attendeeMax", "events"."programLocationID",
     count ("userEvents"."userId") as total_attendees
@@ -25,24 +25,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 })
 
 // getting event details with count of total attendees
-router.get('/specificEvent/:id', rejectUnauthenticated, (req,res) => {
-    const sqlParams = [req.params.id]
-    const sqlText = `SELECT "questions"."eventId", "questionId", "question", "answer", "name", "location", "description", "user"."username","fname","lname","userType", "user"."id" 
-    FROM "questions"
-       RIGHT JOIN "answers" ON "answers"."questionId" = "questions"."id"
-       LEFT JOIN "events" ON "events"."id" = "questions"."eventId" 
-       LEFT JOIN "user" ON "user"."id" = "answers"."userId"
-       LEFT JOIN "userEvents" ON "userEvents"."eventId" = "events"."id" and "events"."id" = "answers"."questionId"
-       LEFT JOIN "eventTypes" ON "eventTypes"."id" = "events"."id" WHERE "events"."id" = $1;`;
-    pool.query(sqlText, sqlParams)
-        .then(dbResult => {
-            res.send(dbResult.rows)
-        })
-        .catch(error => {
-            console.error('error getting specific event data',error)
-            res.sendStatus(500);
-        })
-});
+// router.get('/specificEvent/:id', rejectUnauthenticated, (req,res) => {
+//     const sqlParams = [req.params.id]
+//     const sqlText = `SELECT "questions"."eventId", "questionId", "question", "answer", "name", "location", "description", "user"."username","fname","lname","userType", "user"."id" 
+//     FROM "questions"
+//        RIGHT JOIN "answers" ON "answers"."questionId" = "questions"."id"
+//        LEFT JOIN "events" ON "events"."id" = "questions"."eventId" 
+//        LEFT JOIN "user" ON "user"."id" = "answers"."userId"
+//        LEFT JOIN "userEvents" ON "userEvents"."eventId" = "events"."id" and "events"."id" = "answers"."questionId"
+//        LEFT JOIN "eventTypes" ON "eventTypes"."id" = "events"."id" WHERE "events"."id" = $1;`;
+//     pool.query(sqlText, sqlParams)
+//         .then(dbResult => {
+//             res.send(dbResult.rows)
+//         })
+//         .catch(error => {
+//             console.error('error getting specific event data',error)
+//             res.sendStatus(500);
+//         })
+// });
 
 // GET specific event details
 router.get('/:id', rejectUnauthenticated, (req, res) => {
@@ -135,11 +135,11 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
 // POST new event
 router.post('/', (req, res) => {
     console.log('reqbody is', req.body);
-    let sqlText = 
-    `INSERT INTO "events" ("name","dateTime","location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
+    let sqlText = `INSERT INTO "events" ("name","dateTime", "dateTimeEnd", "location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
     RETURNING "id";`;
-    let sqlParams = [req.body.data.name, req.body.data.dateTime, req.body.data.location, req.body.data.programLocationID, req.body.data.type, req.body.data.attendeeMax, req.body.data.hasVolunteers, req.body.data.volunteerMax, req.body.data.description];
+    
+    let sqlParams = [req.body.data.name, req.body.data.dateTime, req.body.data.dateTimeEnd, req.body.data.location, req.body.data.programLocationID, req.body.data.type, req.body.data.attendeeMax, req.body.data.hasVolunteers, req.body.data.volunteerMax, req.body.data.description];
     pool.query(sqlText, sqlParams)
         .then(dbRes=>{
             const eventId = dbRes.rows[0].id;

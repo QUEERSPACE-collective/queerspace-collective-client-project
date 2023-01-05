@@ -31,15 +31,13 @@ function EventDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
-  const eventDetails = useSelector(store => store.event)
+  const eventDetails = useSelector(store => store.currentEvent);
   const userEvents = useSelector(store => store.userEventsReducer);
-  const eventQuestions = useSelector(store => store.eventQuestions)
-  const registrationAnswer = useSelector(store => store.registrationAnswers)
+  const eventQuestions = useSelector(store => store.eventQuestions);
+  const registrationAnswer = useSelector(store => store.registrationAnswers);
+  console.log('registration answers are', registrationAnswer)
   console.log('the event DETAILS are', eventDetails)
   console.log('user events are', userEvents)
-
-
-
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -88,7 +86,7 @@ function EventDetails() {
   // looking through users registered events, if they are register for an event
   // with the same id as the currently displayed event, set isRegistered to "true"
   // .some() returns a bool
-  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
+  let isRegistered = userEvents.some(event => event.id === eventDetails?.id);
   
   // let isEventFull = false;
   // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
@@ -138,17 +136,17 @@ function EventDetails() {
             boxShadow: 2,
           }}>
           <h2>
-            {eventDetails.length > 0 && eventDetails[0].name}
+            { eventDetails.name}
           </h2>
           <h4>
-            {eventDetails.length > 0 && eventDetails[0].location}
+            {eventDetails.location}
           </h4>
           <p>
-            {eventDetails.length > 0 && eventDetails[0].description}
+            {eventDetails.description}
           </p>
           <p>
-            Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br>
-            Max attendees: {eventDetails.length > 0 && eventDetails[0].attendeeMax}
+            {/* Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br> */}
+            Max attendees: {eventDetails.length > 0 && eventDetails.attendeeMax}
           </p>
 
         </Box>
@@ -168,8 +166,9 @@ function EventDetails() {
                   opacity: [0.9, 0.8, 0.7],
                 },
               }}
-              onClick={handleClickOpen}>
-              Register
+              onClick={handleClickOpen}
+              >
+                Register
             </Button>
             )
           }
@@ -201,7 +200,18 @@ function EventDetails() {
               <DialogContentText id="alert-dialog-slide-description">
                 Please answer the following questions:
               </DialogContentText>
+              <br></br>
               <DialogContentText>
+                Including yourself, how many will be attending?
+                <input type = "number" onChange={(e)=>{
+                    dispatch({
+                      type: 'ADD_GUESTS', 
+                      payload: {guests: e.target.value, eventId: params.id}
+                    })
+                  } 
+                  }/>
+                  <button>save</button>
+
               {eventQuestions.map(question => (
                 <div key = {question.id}>
                   {question.question}
@@ -217,7 +227,8 @@ function EventDetails() {
                       payload: registrationAnswer
                     })} 
                   }>save</button>
-             </div>
+              </div>
+            
               ))}
 
               </DialogContentText>
