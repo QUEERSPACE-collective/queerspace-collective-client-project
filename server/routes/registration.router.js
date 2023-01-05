@@ -7,6 +7,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
     const sqlParams = [req.user.id, req.body.data.eventId, req.body.data.attendees]
+
     const sqlText = 
     `
     INSERT INTO "userEvents" ("userId", "eventId", "attendees")
@@ -90,6 +91,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   })
 })
 
+// GET all users registered for an event
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     console.log('in registration router to get all event registered users')
     const sqlParams = [req.params.id]

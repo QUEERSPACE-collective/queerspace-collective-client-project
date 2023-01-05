@@ -2,7 +2,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 
-
 function* fetchEditEvent(action) {
     console.log('fetch edit event ', action.payload);
     try {

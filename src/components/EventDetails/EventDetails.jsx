@@ -173,6 +173,20 @@ function EventDetails() {
           }
 
 
+      <Link to="/EventList">
+        <button>Back to Calendar</button>
+      </Link>
+
+          {/* {isEventFull == true && 
+            <>
+              <p>Sorry ,this event is full!</p>
+              <Button disabled >
+                Register
+              </Button>
+            </>
+            } */}
+            
+
 
           <Dialog
             open={open}

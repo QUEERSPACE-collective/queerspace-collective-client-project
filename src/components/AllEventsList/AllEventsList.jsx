@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import './AllEventsList.css';
@@ -9,10 +9,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Select,
-  MenuItem,
-  InputLabel
+  TableRow
 } from '@mui/material';
 
 // CUSTOM COMPONENTS
@@ -28,6 +25,7 @@ function AllEventsList() {
     dispatch({type: "FETCH_EVENTS"})
     dispatch({type: 'FETCH_TOTAL_ATTENDEES'})
   },[])
+
 //Fade effect
   function animater() {
     document.body.classList.remove("noSalmon");
@@ -36,6 +34,7 @@ function AllEventsList() {
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
   }
 //Fade effect
+
   const handleDeleteEvent = (eventId) => {
     dispatch({
       type: 'DELETE_EVENT',
@@ -58,13 +57,13 @@ function AllEventsList() {
     <h1>AllEventsList</h1>
     <caption>Filter:</caption>
     <select>
-      <option disabled>Event Type</option>
-      {/* TODO we're not using the 1:1 on any calendars, are we? */}
-    <option disabled> 1 : 1 hangout</option>
-    <option>Training</option>
-    <option>Family</option>
-    <option>Youth Only</option>
-     
+      <optgroup label='Event Type'>
+      {/* TODO: connect filters to data and add search capability */}
+        <option value={1}>Group Hangout</option>
+        <option value={2}>Family Event</option>
+        <option value={3}>Training Event</option>
+        <option value={4}>Mentor Only</option>
+    </optgroup>
     </select>
 
     <input type='text' placeholder='Search'/>
@@ -109,6 +108,7 @@ function AllEventsList() {
             <TableCell align="right">{thisEvent.dateTime}</TableCell>
             <TableCell align="right"> {thisEvent.description}</TableCell>
             <TableCell align="right"> {thisEvent.location}</TableCell>
+            {/* TODO: convert event type from number value to text*/}
             <TableCell align="right"> {thisEvent.type} </TableCell>
             <TableCell align="right">
               <Link onClick = {() => {history.push(`/AllEventsList/attendees/event/${thisEvent.id}`)}}>

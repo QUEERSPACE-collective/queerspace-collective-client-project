@@ -13,12 +13,12 @@ function AddUserForm() {
     dispatch({ type: "FETCH_ALL_USERS" })
   }, [])
 
+  // Disable add user button if username is already in system
   const isDisabled = () => {
     {allUsers.map(user => {
       (username == user.username)
     })}
   }
-
   
   const registerUser = (event) => {
     event.preventDefault();
@@ -59,16 +59,16 @@ function AddUserForm() {
         <select onChange={(event) => setUserType(event.target.value)} value={userType}>
           <option>Select One</option>
           <option value="1">
-            Mentee/Youth
-          </option>
-          <option value="2">
-            Mentor
-          </option>
-          <option value="3">
             Volunteer
           </option>
-          <option value="4">
+          <option value="2">
             Caregiver
+          </option>
+          <option value="3">
+            Mentee/Youth
+          </option>
+          <option value="4">
+            Mentor
           </option>
           <option value="5">
             Admin

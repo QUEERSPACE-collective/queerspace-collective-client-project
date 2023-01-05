@@ -39,6 +39,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //         })
 // });
 
+// GET specific event details
 router.get('/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
     const sqlText = 
@@ -74,7 +75,7 @@ router.get('/:id/edit', rejectUnauthenticated, async (req, res)=>{
     }
 });
 
-// edit the user
+// edit the event
 router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     console.log('req params id', req.params.id)
 
@@ -108,6 +109,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     }
 })
 
+// DELETE specific event
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     try{
         const sqlText = `
@@ -123,6 +125,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     }
 });
 
+// POST new event
 router.post('/', (req, res) => {
     console.log('reqbody is', req.body);
     let sqlText = `INSERT INTO "events" ("name","dateTime", "dateTimeEnd", "location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
@@ -150,6 +153,7 @@ router.post('/', (req, res) => {
         });      
 });
 
+// GET questions for specific event
 router.get('/questions/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
     const sqlText = 

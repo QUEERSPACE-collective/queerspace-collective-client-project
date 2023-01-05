@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function Upload() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [selectedFile, setSelectedFile] = useState('');
     const user = useSelector((store) => store.user);
     const multerReducer = useSelector((store) => store.multerReducer);
@@ -14,7 +16,8 @@ function Upload() {
         dispatch({
             type: `UPLOAD_IMAGE`,
             payload: selectedFile,
-        })
+        });
+        history.push('/profilepage')
     }
 
     const changeHandler = (event) => {
@@ -32,12 +35,12 @@ function Upload() {
                 name="uploaded_file"
                 onChange={changeHandler}
             />
-            <input 
+            {/* <input 
                 type="text"
                 className="form-control" 
                 placeholder="description"
                 name="description"
-            />
+            /> */}
             <input
                 type="submit"
                 value="Upload"

@@ -19,7 +19,6 @@ function* saveUser(action) {
     if (action.payload.id) {
         yield axios.put(`/api/allusers/${action.payload.id}`, action.payload);
     }
-    // yield put ({ type: 'FETCH_ALL_USERS'});
 }
 
 function* deleteUser(action) {

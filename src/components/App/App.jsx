@@ -5,47 +5,37 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 
+// Imported Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import Feedback from '../Feedback/Feedback';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
-import AboutPage from '../AboutPage/AboutPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import Resources from '../Resources/Resources';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-//IMPORTING ALL COMPONENTS HERE TO TEST THEY WORK CORRECTLY
 import AddResourceForm from '../AddResourceForm/AddResourceForm';
 import AddUserForm from '../AddUserForm/AddUserForm';
 import AllEventsDetails from '../AllEventsDetails/AllEventsDetails';
 import AllEventsList from '../AllEventsList/AllEventsList';
-import AllEventsListItems from '../AllEventsListItems/AllEventsListItems';
-import AllUserListItems from '../AllUserListItems/AllUserListItems';
 import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
 import AllUsersList from '../AllUsersList/AllUsersList';
-import Calendar from '../Calendar/Calendar';
 import Drawers from '../Drawer/Drawer';
 import EditUser from '../EditUser/EditUser';
 import EventDetails from '../EventDetails/EventDetails';
 import EventList from '../EventList/EventList';
 import EventListItems from '../EventListItems/EventListItems';
 import EventRegForm from '../EventRegForm/EventRegForm';
-import MyEventsList from '../MyEventsList/MyEventsList';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
 import EditEvents from '../EditEvents/EditEvents';
-// import QSClogo from '../QSClogo/QSClogo';
-//END OF NEW COMPONENTS
+import EditProfilePicture from '../EditProfilePicture/EditProfilePicture';
 import './App.css';
-import MyEventsListItems from '../MyEventsListItems/MyEventsListItems';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
 import PasswordReset from '../PasswordReset/PasswordReset';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
+//END OF NEW COMPONENTS
 
 function App() {
   const dispatch = useDispatch();
@@ -64,14 +54,6 @@ function App() {
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-          {/* <Route
-            // shows AboutPage at all times (logged in or not)
-            exact
-            path="/AboutPage"
-          >
-            <AboutPage />
-          </Route> */}
 
           {/* if the usertype is 5 (admin??) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
           <ProtectedRoute exact path="/home">
@@ -79,6 +61,7 @@ function App() {
             <Redirect to="/allEventsList" />
             :
             <ProfilePage />}           
+
           </ProtectedRoute>
 
           {/* Chris moved these two up here */}
@@ -114,20 +97,6 @@ function App() {
               :
               // Otherwise, show the login page
               <LoginPage />
-            }
-          </Route>
-
-          <Route
-            exact
-            path="/registration/:pw"
-          >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/home"/>
-              :
-              // Otherwise, show the registration page
-              <RegisterPage />
             }
           </Route>
 
@@ -178,9 +147,9 @@ function App() {
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
-          <Route>
+          {/* <Route>
             <h1>404</h1>
-          </Route>
+          </Route> */}
         </Switch>
         <Footer />
       </div>
@@ -201,17 +170,9 @@ function App() {
               <Route exact path='/AllEventsDetails'>
               <AllEventsDetails/>
               </Route>
-            
-
-              <Route exact path='/AllEventsListItems'>
-              <AllEventsListItems/>
-              </Route>
-              <Route exact path='/AllUserListItems'>
-              <AllUserListItems/>
-              </Route>    
-              <Route exact path='/Calendar'>
-              <Calendar/>
-              </Route>
+              <Route exact path='/ProfilePicture/edit'>
+                <EditProfilePicture />
+              </Route>   
               <Route exact path='/Drawers'>
               <Drawers/>
               </Route>
@@ -221,13 +182,6 @@ function App() {
               <Route exact path='/EventRegForm'>
               <EventRegForm/>
               </Route>
-              <Route exact path='/MyEventsList'>
-              <MyEventsList/>
-              </Route>
-              <Route exact path='/MyEventsListItems'>
-              <MyEventsListItems/>
-              </Route>
-
               <Route exact path='/Resources'>
                 <Resources/>
               </Route>
