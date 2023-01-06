@@ -199,7 +199,7 @@ function AllEventsList() {
                   </TableCell>
                 </TableRow>
               ))}
-{/* 
+
             {allEventsList.map(thisEvent =>
               ((eventType == thisEvent.type && results.length <= 0)) && (
 
@@ -235,7 +235,7 @@ function AllEventsList() {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))} */}
+              ))}
 
             {results.length > 0 && (
               (eventResults.map(allEvents => (
@@ -244,7 +244,7 @@ function AllEventsList() {
                     {allEvents.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{allEvents.dateTime}</TableCell>
+                  <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {allEvents.description}</TableCell>
                   <TableCell align="right"> {allEvents.location}</TableCell>
                   {/* TODO: convert event type from number value to text*/}
