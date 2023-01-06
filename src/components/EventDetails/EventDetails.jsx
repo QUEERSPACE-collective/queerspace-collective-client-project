@@ -13,10 +13,8 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
-import {IconButton} from '@mui/material'
 import MuiAlert from '@mui/material/Alert';
-import GoogleIcon from '@mui/icons-material/Google';
-import AppleIcon from '@mui/icons-material/Apple';
+
 
 import './EventDetails.css';
 import { atcb_action, atcb_init } from 'add-to-calendar-button';
