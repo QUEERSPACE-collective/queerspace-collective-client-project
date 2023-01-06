@@ -87,10 +87,10 @@ function NewEventForm() {
       <input type='radio' id='isNotVolunteer' name="volunteers" onClick={()=>{dispatch({type: 'SET_VOLUNTEERS_FALSE'})}}></input>
       </div>
       <br/>
-      {newEventVolunteer && newEventVolunteer === true (<div>
+      <div>
       <label for='newEventVolunteerMax'>If yes, how many volunteers are needed? </label>
       <input type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value})}}></input>
-      </div>)}
+      </div>
       <br/>
       <br/>
       <label for="newEventDate">Date: </label>
