@@ -131,7 +131,7 @@ function NewEventForm() {
       <br/>
       <ul>
         {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(question=>(
-          <li key={question}>{question}</li>
+          <li key={question}>{question}<button onClick={()=>{dispatch({type: 'TARGET_QUETION_REMOVE', payload: question})}}>Remove</button></li>
         ))}
       </ul>
       <button onClick={onSubmit}>Create New Event</button>
