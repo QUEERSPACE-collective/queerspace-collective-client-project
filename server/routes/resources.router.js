@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
+// GET resources from database
 router.get('/', (req, res) => {
     if(req.isAuthenticated()){
         const sqlText = `SELECT * FROM "resources" ORDER BY "resourceName" ASC;`
@@ -17,6 +17,7 @@ router.get('/', (req, res) => {
     }
 });
 
+// POST new resource
 router.post('/', (req, res) => {
   if(req.isAuthenticated()){
     const sqlText = `INSERT INTO "resources" ("resourceName", "resourceDescription", "resourceLink")

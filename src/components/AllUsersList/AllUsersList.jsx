@@ -99,6 +99,11 @@ function AllUsersList() {
         >
         </input>
       
+    {user.userType == 5 && (
+        <Link to={'/adduserform'}>
+        <button>Add New User</button>
+        </Link>
+    )}
       </form>
       
     {/* Fuse.js conditional rendering  ⬇️ */}
@@ -191,14 +196,6 @@ function AllUsersList() {
           ))}
         </div>
       )}
-
-    {user.userType == 5 && (
-      <div>
-        <Link to={'/adduserform'}>
-        <button>Add New User</button>
-        </Link>
-      </div> 
-    )}
    
     </>
   );

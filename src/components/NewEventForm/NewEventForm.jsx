@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
 import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
 
-// CUSTOM COMPONENTS
 
 function NewEventForm() {
 
@@ -26,6 +25,7 @@ function NewEventForm() {
   const newEventName = useSelector(store=>store.newEventName);
   const newEventDate = useSelector(store=>store.newEventDate);
   const newEventTime = useSelector(store=>store.newEventTime);
+  const newEventTimeEnd = useSelector(store => store.newEventTimeEnd)
   const newEventAddress = useSelector(store=>store.newEventAddress);
   const newEventQuestion = useSelector(store=> store.newEventQuestion);
   const newEventStoredQuestions = useSelector(store=> store.newEventStoredQuestions);
@@ -40,11 +40,13 @@ function NewEventForm() {
   
   function onSubmit(){
     let dateTime = `${newEventDate} ${newEventTime}`;
+    let dateTimeEnd = `${newEventDate} ${newEventTimeEnd}`;
     dispatch({
       type: 'SUBMIT_NEW_EVENT',
       payload: {
         name: newEventName,
         dateTime: new Date(dateTime),
+        dateTimeEnd: new Date(dateTimeEnd),
         location: newEventAddress,
         programLocationID: newEventProgramArea,
         type: newEventType,
@@ -95,6 +97,10 @@ function NewEventForm() {
       <br/>
       <label for='newEventTime'>Time: </label>
       <input type="time" id="newEventTime" value={newEventTime} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_TIME', payload: e.target.value})}}></input>
+      <br/>
+      <br/>
+      <label for='newEventTimeEnd'>End Time: </label>
+      <input type="time" id="newEventTimeEnd" value={newEventTimeEnd} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_TIME_END', payload: e.target.value})}}></input>
       <br/>
       <br/>
       <label for='programArea'>Event Area: </label>

@@ -26,20 +26,22 @@ function Nav() {
 
         <header className='myHeader'>
 
+        
+        {user.id ?
           <Link to="./home">
             <QSClogo />
           </Link>
+          :
+          <Link to="./login">
+            <QSClogo />
+          </Link>
+        }
 
-          {/* show login if not logged in*/}
-          {!user.id && (
-            <div className='webNavbar'>
-              <Link to='./login'><p>Login</p></Link>
-            </div>
-          )}
 
           {/* show if mentor or admin */}
           {/* may still need to add more (more socials?) */}
           {user.userType > 3 && (
+
             <div className='webNavbar'>
               <Link to='/home'><p>Home</p></Link>
               <Link to='/eventlist'><p>Calendar</p></Link>
@@ -55,7 +57,6 @@ function Nav() {
               <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
             </div>
           )}
-
 
           {/* show if NOT admin or mentor */}
           {user.userType < 4 && (

@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useEffect } from 'react';
 import EventListItems from '../EventListItems/EventListItems';
-import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
-
 import './EventList.css';
 
-// CUSTOM COMPONENTS
 
 function EventList() {
   const dispatch = useDispatch();
@@ -23,6 +18,7 @@ function EventList() {
         type: 'FETCH_EVENTS'
     })
 }, [])
+
 //Fade effect
 function animater() {
   document.body.classList.remove("noSalmon");
@@ -31,11 +27,9 @@ function animater() {
   setTimeout(() => document.body.classList.add("noSalmon"), 100);
 }
 //Fade effect
+
   return (
     <>
-      <Link to = "/home">
-        <button>Home</button>
-      </Link>
       <div className='upcoming-events-container'>
         {user.userType !== 1 && (
            <h2>Upcoming Events!</h2>

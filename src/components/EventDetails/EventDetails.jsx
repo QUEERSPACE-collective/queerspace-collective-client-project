@@ -25,7 +25,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 function EventDetails() {
 
-
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
@@ -33,13 +32,11 @@ function EventDetails() {
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions);
   const registrationAnswer = useSelector(store => store.registrationAnswers);
-  console.log('registration answers are', registrationAnswer)
-  console.log('the event DETAILS are', eventDetails)
-  console.log('user events are', userEvents)
+
+
   let [attendeeCount, setAttendeeCount] = useState(0);
   let [volunteerCount, setVolunteerCount] = useState(0);
 
-  
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -90,7 +87,7 @@ function EventDetails() {
   // looking through users registered events, if they are register for an event
   // with the same id as the currently displayed event, set isRegistered to "true"
   // .some() returns a bool
-  let isRegistered = userEvents.some(event => event.id === eventDetails[0]?.id);
+  let isRegistered = userEvents.some(event => event.id === eventDetails?.id);
   
   // let isEventFull = false;
   // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
@@ -104,7 +101,7 @@ function EventDetails() {
     console.log('in event registartion function with id', params.id)
     dispatch({
       type: 'REGISTER_FOR_EVENT',
-      payload: params.id
+      payload: {eventId: params.id, attendees: attendeeCount, answer: eventQuestions}
     })
     setOpen(false);
     history.push('/home')
@@ -113,12 +110,11 @@ function EventDetails() {
 
   const eventUnregistration = () => {
     dispatch({
-      type: 'DELETE_USER_EVENT',
+      type: 'UNREGISTER_FOR_EVENT',
       payload: params.id
     })
     history.push('/EventList')
   }
-
 
 
   console.log('is this user registered for this event', isRegistered)
@@ -134,12 +130,6 @@ function EventDetails() {
       )}
       
       <h2 className='bannerTop'>EventDetails</h2>
-      {/* <Link to="/EventList">
-        <button>Back to Calendar</button>
-      </Link>
-      <Link to="/home">
-        <button>Home</button>
-      </Link> */}
       <div className='event-details-container'>
         <Box
           sx={{
@@ -155,7 +145,7 @@ function EventDetails() {
             boxShadow: 2,
           }}>
           <h2>
-            { eventDetails.name}
+            {eventDetails.name}
           </h2>
           <h4>
             {eventDetails.location}
@@ -165,7 +155,7 @@ function EventDetails() {
           </p>
           <p>
             {/* Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br> */}
-            Max attendees: {eventDetails.length > 0 && eventDetails.attendeeMax}
+            Max attendees: {eventDetails.attendeeMax}
           </p>
           <p>Registered Attendees: {attendeeCount}  </p>
           <p>Registered Volunteers: {volunteerCount}</p>
@@ -196,7 +186,10 @@ function EventDetails() {
 
           }
 
-          {}
+
+      <Link to="/EventList">
+        <button>Back to Calendar</button>
+      </Link>
 
           {/* {isEventFull == true && 
             <>
@@ -216,7 +209,7 @@ function EventDetails() {
             onClose={handleClose}
             aria-describedby="alert-dialog-slide-description"
           >
-            <DialogTitle>{"Event Registration"}</DialogTitle>
+            <DialogTitle>{`Event Registration: ${eventDetails.name}`}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
                 Please answer the following questions:
@@ -224,30 +217,18 @@ function EventDetails() {
               <br></br>
               <DialogContentText>
                 Including yourself, how many will be attending?
-                <input type = "number" onChange={(e)=>{
-                    dispatch({
-                      type: 'ADD_GUESTS', 
-                      payload: {guests: e.target.value, eventId: params.id}
-                    })
-                  } 
-                  }/>
-                  <button>save</button>
+                <input type = "number" onChange={(e)=>{setAttendeeCount(e.target.value)}}/>
 
               {eventQuestions.map(question => (
                 <div key = {question.id}>
                   {question.question}
-                  <input type = "text" onChange={(e)=>{
+                  <input type = "text" onChange={(e) => {
                     dispatch({
                       type: 'STORE_USER_ANSWER', 
-                      payload: { questionId: question.id, answer: e.target.value }
-                    })} 
+                      payload: {questionId: question.id, answer: e.target.value}
+                    })
+                  } 
                   } /> 
-                  <button onClick = {()=>{
-                    dispatch({
-                      type: 'ADD_USER_ANSWER', 
-                      payload: registrationAnswer
-                    })} 
-                  }>save</button>
               </div>
             
               ))}

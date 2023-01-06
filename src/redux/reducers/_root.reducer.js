@@ -4,6 +4,7 @@ import user from './user.reducer';
 import newEventName from './newEventName.reducer';
 import newEventDate from './newEventDate.reducer';
 import newEventTime from './newEventTime.reducer';
+import newEventTimeEnd from './newEventTimeEnd.reducer';
 import newEventAddress from './newEventAddress.reducer';
 import newEventQuestion from './newEventQuestion.reducer';
 import newEventStoredQuestions from './newEventStoredQuestions.reducer';
@@ -26,8 +27,8 @@ import newResourceDescription from './newResourceDescription.reducer';
 import newResourceLink from './newResourceLink.reducer';
 import viewResources from './viewResources.reducer';
 import registrationAnswers from './registrationAnswers.reducer';
+import eventReducerSpecific from './specificEvent.reducer';
 import currentEvent from './currentEvent.reducer';
-// import eventReducerSpecific from './specificEvent.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -37,11 +38,11 @@ import currentEvent from './currentEvent.reducer';
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
-
   user, // will have an id and username if someone is logged in'
   newEventName, 
   newEventDate,
-  newEventTime, 
+  newEventTime,
+  newEventTimeEnd, 
   newEventAddress,
   newEventQuestion, 
   newEventStoredQuestions,

@@ -8,23 +8,33 @@ const config = {
 
 
 function* registerForEvent (action) {
+  console.log('in event registration saga', action.payload)
     try {
-        yield axios.post(`/api/registration/${action.payload}`, config)
-        yield put({})
+        yield axios.post(`/api/registration`, {data: action.payload}, config)
     } catch (error) {
         console.log('error registering user for event', error)
     }
 }
 
-function* addUserAnswer(action) {
+function* unregisterForEvent(action){
     try{
-        yield axios.post(`/api/answers`, action.payload)
-
-    } catch (error){
-        console.log('error adding user answers on registration form in saga', error)
+      yield axios.delete(`/api/registration/${action.payload}`, config)
+      yield put({type: 'FETCH_USER_EVENTS'})
+    } catch (error) {
+      console.log('error deleting user event in saga', error)
     }
+  }
 
-}
+
+// function* addUserAnswer(action) {
+//     try{
+//         yield axios.post(`/api/answers`, action.payload)
+
+//     } catch (error){
+//         console.log('error adding user answers on registration form in saga', error)
+//     }
+
+// }
 
 function* fetchEventRegisteredUsers(action){
     try{
@@ -39,7 +49,7 @@ function* addGuests (action) {
     console.log('how many guests', action.payload)
     try{
       yield axios.put(`/api/answers/guests`, action.payload, config)
-      yield put ({type: 'SET_GUESTS'})
+      yield put ({type: 'SET_ATTENDEES'})
     } catch (error) {
       console.log('error adding guests in saga', error)
     }
@@ -47,9 +57,10 @@ function* addGuests (action) {
 
 function* eventRegistrationSaga () {
     yield takeLatest ('REGISTER_FOR_EVENT', registerForEvent);
-    yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
+    yield takeLatest ('UNREGISTER_FOR_EVENT', unregisterForEvent);
+    // yield takeLatest('ADD_USER_ANSWER', addUserAnswer);
     yield takeLatest('FETCH_EVENT_REGISTERED_USERS', fetchEventRegisteredUsers);
-    yield takeLatest ('ADD_GUESTS', addGuests);
+    yield takeLatest ('ADD_ATTENDEES', addGuests);
 }
 
 export default eventRegistrationSaga;

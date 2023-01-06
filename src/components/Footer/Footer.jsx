@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import {useSelector} from 'react-redux';
 
