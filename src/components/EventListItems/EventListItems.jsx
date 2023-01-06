@@ -39,33 +39,7 @@ function EventListItems() {
                   Details
               </Button>
             </Link>
-            {/* add to calendar button */}
-            <Button 
-            onClick={e => {
-              e.preventDefault();
-              let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
-              let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
-              let eventStartTime = moment(event.dateTime).format("HH:mm");
-              let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
-
-              console.log('event date start', eventDateStart);
-              console.log('event date end', eventDateEnd);
             
-              atcb_action({
-                name: `${event.name}`,
-                startDate: `${eventDateStart}`,
-                endDate: `${eventDateEnd}`,
-                startTime:`${eventStartTime}`,
-                endTime: `${eventEndTime}`,
-                location: `${event.location}`,
-                options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
-                timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
-                iCalFileName: `${event.name}-QSC-Event`,
-              });
-            }}>
-               add to cal
-            </Button>
-
             <br/>
             <br/>
           </li>

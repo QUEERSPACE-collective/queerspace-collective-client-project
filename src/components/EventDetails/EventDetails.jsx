@@ -14,7 +14,14 @@ import { TransitionProps } from '@mui/material/transitions';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+
+
 import './EventDetails.css';
+import { atcb_action, atcb_init } from 'add-to-calendar-button';
+import 'add-to-calendar-button/assets/css/atcb.css';
+import moment from 'moment-timezone';
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -168,6 +175,7 @@ function EventDetails() {
             )
             :
             (<Button
+              color='primary'
               variant="contained"
               sx={{
                 mt: 5,
@@ -185,7 +193,34 @@ function EventDetails() {
             
 
           }
+          {/* add to calendar button */}
+          <Button 
+            variant='contained'
+            onClick={e => {
+              e.preventDefault();
+              let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
+              let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
+              let eventStartTime = moment(event.dateTime).format("HH:mm");
+              let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
 
+              console.log('event date start', eventDateStart);
+              console.log('event date end', eventDateEnd);
+            
+              atcb_action({
+                name: `${event.name}`,
+                startDate: `${eventDateStart}`,
+                endDate: `${eventDateEnd}`,
+                startTime:`${eventStartTime}`,
+                endTime: `${eventEndTime}`,
+                location: `${event.location}`,
+                options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
+                timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
+                iCalFileName: `${event.name}-QSC-Event`,
+              });
+            }}>
+               add to calendar app
+               </Button>
+            {/* end add to calendar button */}
 
       <Link to="/EventList">
         <button>Back to Calendar</button>
@@ -199,8 +234,6 @@ function EventDetails() {
               </Button>
             </>
             } */}
-            
-
 
           <Dialog
             open={open}
