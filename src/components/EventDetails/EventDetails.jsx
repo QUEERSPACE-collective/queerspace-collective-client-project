@@ -14,7 +14,14 @@ import { TransitionProps } from '@mui/material/transitions';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+
+
 import './EventDetails.css';
+import { atcb_action, atcb_init } from 'add-to-calendar-button';
+import 'add-to-calendar-button/assets/css/atcb.css';
+import moment from 'moment-timezone';
+
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -22,9 +29,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-// CUSTOM COMPONENTS
 
-// CUSTOM COMPONENTS
 function EventDetails() {
 
   const dispatch = useDispatch();
@@ -35,9 +40,9 @@ function EventDetails() {
   const eventQuestions = useSelector(store => store.eventQuestions);
   const registrationAnswer = useSelector(store => store.registrationAnswers);
 
-  const [attendeeCount, setAttendeeCount] = useState(0)
 
-
+  let [attendeeCount, setAttendeeCount] = useState(0);
+  let [volunteerCount, setVolunteerCount] = useState(0);
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -56,6 +61,7 @@ function EventDetails() {
   };
   const handleUnregisterClose = () => {
     setUnregisterOpen(false)
+
   }
   // end unregister confirmation
 
@@ -70,7 +76,9 @@ function EventDetails() {
     dispatch({
       type: 'FETCH_EVENT_QUESTIONS',
       payload: params.id
-    })
+    }),
+    dispatch({ type: 'FETCH_USER_EVENTS' })
+
   }, [params.id])
 
 
@@ -104,6 +112,7 @@ function EventDetails() {
     })
     setOpen(false);
     history.push('/home')
+
   }
 
   const eventUnregistration = () => {
@@ -119,6 +128,14 @@ function EventDetails() {
   return (
   <>
 
+      {userEvents.map(allUserEvents => 
+        {(allUserEvents.id == eventDetails.id) && (
+        <>
+          {Number(attendeeCount++)}
+        </>
+        )}
+      )}
+      
       <h2 className='bannerTop'>EventDetails</h2>
       <div className='event-details-container'>
         <Box
@@ -147,15 +164,18 @@ function EventDetails() {
             {/* Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br> */}
             Max attendees: {eventDetails.attendeeMax}
           </p>
-
+          <p>Registered Attendees: {attendeeCount}  </p>
+          <p>Registered Volunteers: {volunteerCount}</p>
         </Box>
 
           {isRegistered == true ?
+
             (
               <Button sx={{ mt: 2 }} variant='contained' color='error' onClick={handleUnregisterOpen}>Unregister</Button>
             )
             :
             (<Button
+              color='primary'
               variant="contained"
               sx={{
                 mt: 5,
@@ -170,8 +190,37 @@ function EventDetails() {
                 Register
             </Button>
             )
-          }
+            
 
+          }
+          {/* add to calendar button */}
+          <Button 
+            variant='contained'
+            onClick={e => {
+              e.preventDefault();
+              let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
+              let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
+              let eventStartTime = moment(event.dateTime).format("HH:mm");
+              let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
+
+              console.log('event date start', eventDateStart);
+              console.log('event date end', eventDateEnd);
+            
+              atcb_action({
+                name: `${event.name}`,
+                startDate: `${eventDateStart}`,
+                endDate: `${eventDateEnd}`,
+                startTime:`${eventStartTime}`,
+                endTime: `${eventEndTime}`,
+                location: `${event.location}`,
+                options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
+                timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
+                iCalFileName: `${event.name}-QSC-Event`,
+              });
+            }}>
+               add to calendar app
+               </Button>
+            {/* end add to calendar button */}
 
       <Link to="/EventList">
         <button>Back to Calendar</button>
@@ -185,8 +234,6 @@ function EventDetails() {
               </Button>
             </>
             } */}
-            
-
 
           <Dialog
             open={open}

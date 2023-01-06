@@ -88,7 +88,7 @@ function NewEventForm() {
       </div>
       <br/>
       {newEventVolunteer && newEventVolunteer == true ? (<div>
-      <label for='newEventVolunteerMax'>If yes, how many volunteers are needed? </label>
+      <label for='newEventVolunteerMax'>How many volunteers are needed? </label>
       <input type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value})}}></input>
       </div>): (<div></div>)}
       <br/>

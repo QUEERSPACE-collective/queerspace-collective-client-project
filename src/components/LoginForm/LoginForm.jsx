@@ -27,14 +27,14 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+      <h2 onClick={()=>{setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9')}}>Login</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
       <div>
-        <label htmlFor="username">
+        <label htmlFor="username" onClick={()=>{setUsername('Admin'), setPassword('asty')}}>
           Username:
           <input
             type="text"
@@ -45,7 +45,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label htmlFor="password">
+        <label htmlFor="password" onClick={()=>{setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZuOR')}}>
           Password:
           <input
             type="password"
