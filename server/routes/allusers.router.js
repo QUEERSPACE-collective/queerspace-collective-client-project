@@ -69,12 +69,13 @@ router.get('/:id', (req, res) => {
       pool.query(sqlText, sqlParams)
         .then((dbRes) => {
           const user = dbRes.rows[0];
-          res.send(user);
 
           if (user) {
             delete user.password
             delete user.username
           }
+
+          res.send(user);
         })
         .catch((err) => {
           console.log(`Error making db query ${sqlText}`, err);
