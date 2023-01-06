@@ -4,8 +4,9 @@ const router = express.Router();
 
 // GET all users
 router.get('/', (req, res) => {
-  const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
-
+  const SqlText = `SELECT * FROM "user" ORDER BY "user"."fname" ASC;`
+  // TODO: Update SQL query to show mentor/mentee names like below
+  // (currently only works with people who have a mentor/mentee)
   pool.query(SqlText)
     .then((dbRes) => {
         res.send(dbRes.rows);
@@ -20,16 +21,17 @@ router.get('/:id', (req, res) => {
     console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `
-        SELECT * FROM "user"
-        WHERE id = $1
-        ORDER BY id ASC;
+    SELECT * FROM "user"
+    WHERE "user"."id" = $1;
     `;
     const sqlParams = [id]; // $1 = req.params.id
-  
+    
     console.log(sqlParams);
     pool.query(sqlText, sqlParams)
       .then((dbRes) => {
-        res.send(dbRes.rows[0]);
+        let user = dbRes.rows[0]
+        delete user.password; // remove password so it doesn't get sent
+        res.send(user)
       })
       .catch((err) => {
         console.log(`Error making db query ${sqlText}`, err);
@@ -66,6 +68,7 @@ router.put('/:id', (req, res) => {
   })
   
 // DELETE user
+
 router.delete('/:id', (req, res) => { 
     const sqlText = `DELETE FROM "user" 
                       WHERE id = $1;`;

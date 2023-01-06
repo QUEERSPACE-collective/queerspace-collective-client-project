@@ -14,6 +14,8 @@ function AllUsersDetails() {
   const params = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
+  console.log("the user is", user);
+  console.log("all the users are", allUsersList);
 
 useEffect(() => {
   animater(), // Call fade effect, yes I know this is spelled wrong
@@ -75,9 +77,16 @@ const deleteUser = (id) => {
                   <li>
                     Bio: {allUsers.bio}
                   </li>
+                  {allUsers.userType == 3 && (
                   <li>
-                    Mentor: {allUsers.mentorPair}
+                  Mentor: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
                   </li>
+                  )}
+                  {allUsers.userType == 4 && (
+                  <li>
+                  Mentee: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
+                  </li>
+                  )}
                   <li>
                     <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
                       <Button variant='contained'>Edit User</Button>
@@ -102,9 +111,16 @@ const deleteUser = (id) => {
                   <li>
                     Bio: {allUsers.bio}
                   </li>
+                  {allUsers.userType == 3 && (
                   <li>
-                    Mentor: {allUsers.mentorPair}
+                  Mentor: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
                   </li>
+                  )}
+                  {allUsers.userType == 4 && (
+                  <li>
+                  Mentee: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
+                  </li>
+                  )}
                 </div>
               )}
             </ul>

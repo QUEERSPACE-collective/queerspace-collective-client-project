@@ -17,6 +17,8 @@ function ProfilePage() {
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('userEvents are', userEvents)
 
+
+
   const handleChange = (event) => {
     console.log(event.target.value,'is evt.target.value')
   };
@@ -54,15 +56,15 @@ function ProfilePage() {
       <label>
           Your access level is:
         </label>
-        <p >
+        < >
           {user.userType == 1 && (
             <p>Volunteer</p>
           )}
           {user.userType == 2 && (
-            <p>Mentee/Youth</p>
+            <p>Caregiver</p>
           )}
           {user.userType == 3 && (
-            <p>Caregiver</p>
+            <p>Mentee/Youth</p>
           )}
           {user.userType == 4 && (
             <p>Mentor</p>
@@ -70,8 +72,17 @@ function ProfilePage() {
           {user.userType == 5 && (
             <p>Admin</p>
           )}
-        </p>
+        </>
       </form>
+      
+      {user.userType == 3 && (
+        <p>Mentor: {user.mentor_firstname} {user.mentor_lastname}</p>
+      )}
+
+      {user.userType == 4 && (
+        <p>Mentee: {user.mentor_firstname} {user.mentor_lastname}</p>
+      )}
+
       <article>Bio: {user.bio}</article>
       <Link to={`/home/${user.id}/edit`}>
       <button>Edit Profile</button>
