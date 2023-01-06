@@ -14,6 +14,7 @@ const upload = multer({
     storage: storage,
 });
 
+// PUT updated profile picture
 router.put('/', rejectUnauthenticated, upload.single("uploaded_file"), function(req,res) {
     console.log('in post router for multer');
     console.log('what is current users ID?: ',req.user.id)

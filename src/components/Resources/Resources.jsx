@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function Resources() {
@@ -15,6 +15,7 @@ function Resources() {
       type: 'GET_RESOURCES'
     });
   },[])
+
 //Fade effect
 function animater() {
   document.body.classList.remove("noSalmon");
@@ -23,6 +24,7 @@ function animater() {
   setTimeout(() => document.body.classList.add("noSalmon"), 100);
 }
 //Fade effect
+
   return (
     <>
     <div className="container">

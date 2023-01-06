@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 
-
+// POST new answers to question for event
 router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('in registration answers router', req.body)
     try{
@@ -24,13 +24,14 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 // update into 'events' table the number of guests  
 router.put('/guests', rejectUnauthenticated, async (req, res) => {
-    console.log('in answers router trying to add guests')
     try {
-        sqlParams = [req.body.guests, req.body.eventId]
+        sqlParams = [req.body.attendees, req.body.eventId]
         console.log('sql params', sqlParams)
         sqlText = 
         `
-        
+        UPDATE "events"
+        SET "totalAttendees" = "totalAttendees" + $1
+        WHERE "id" = $2;
         `;
         await pool.query (sqlText, sqlParams);
         res.sendStatus(204)

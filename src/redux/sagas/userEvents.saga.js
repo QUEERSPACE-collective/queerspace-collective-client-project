@@ -20,20 +20,19 @@ function* fetchUserEvents(){
   }
 
 
-function* deleteUserEvent(action){
-  try{
-    yield axios.delete(`/api/user/events/${action.payload}`, config)
-    yield put({type: 'FETCH_USER_EVENTS'})
-  } catch (error) {
-    console.log('error deleting user event in saga', error)
-  }
-}
+// function* unregisterForEvent(action){
+//   try{
+//     yield axios.delete(`/api/user/events/${action.payload}`, config)
+//     yield put({type: 'FETCH_USER_EVENTS'})
+//   } catch (error) {
+//     console.log('error deleting user event in saga', error)
+//   }
+// }
 
 
 
 function* userEvents () {
     yield takeLatest ('FETCH_USER_EVENTS', fetchUserEvents);
-    yield takeLatest ('DELETE_USER_EVENT', deleteUserEvent);
 }
 
 export default userEvents;

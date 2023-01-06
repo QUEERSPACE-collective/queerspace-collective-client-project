@@ -7,6 +7,7 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
+
 function EditUser() {
     const dispatch = useDispatch();
     const params = useParams();
@@ -28,6 +29,7 @@ function EditUser() {
         },
         dispatch({ type: "FETCH_ALL_USERS" })
     }, [params.id]);
+
 //Fade effect
 function animater() {
     document.body.classList.remove("noSalmon");
@@ -36,6 +38,7 @@ function animater() {
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
 }
 //Fade effect
+
 const user = useSelector(store => store.editUser);
 console.log(user);
 const onSubmit = (evt) => {
@@ -107,19 +110,24 @@ let mentorOptions = allUsers.map(user => {
                 <label for="uType">
                     User Type:
                 </label>
-                {/* min/max didn't work in a TextField. I could conditional it, but here's a simple fix for now */}
-                {/* mobile doesn't work with #, might have to conditional render after all  */}
-                <input
-                    id="uType"
-                    type="number"
-                    max='5'
-                    min='1'
-                    value={user && user.userType}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_USER',
-                        payload: { userType: evt.target.value }
-                    })}
-                />
+                <FormControl  >
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={user && user.userType}
+                        displayEmpty
+                        onChange={(evt) => dispatch({
+                            type: 'UPDATE_EDIT_USER',
+                            payload: { userType: evt.target.value }
+                        })}
+                    >
+                        <MenuItem value={1}>Volunteer</MenuItem>
+                        <MenuItem value={2}>Caregiver</MenuItem>
+                        <MenuItem value={3}>Mentee/Youth</MenuItem>
+                        <MenuItem value={4}>Mentor</MenuItem>
+                        <MenuItem value={5}>Admin</MenuItem>
+                    </Select>
+                </FormControl>
                 <label for="pronouns">
                     Pronouns:
                 </label>
@@ -153,7 +161,7 @@ let mentorOptions = allUsers.map(user => {
                         payload: { profilePic: evt.target.value }
                     })}
                 />
-                {/* If the user is a mentee; for mentors it will say Mentee */}
+                {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
                 <label for="mentor">
                     Mentor/Mentee:
                 </label>

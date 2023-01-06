@@ -1,13 +1,10 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import Upload from '../Multer/Multer';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -33,6 +30,7 @@ function ProfilePage() {
       type: 'FETCH_USER_EVENTS'
     })
   }, [])
+
 // Fade effect
   function animater() {
     document.body.classList.remove("noSalmon");
@@ -41,16 +39,19 @@ function ProfilePage() {
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
   }
 // end Fade effect
+
   return (
     <div className="container">
       <h2>Welcome, {user.fname} {user.lname}!</h2>
       <div>
-     <Upload/>
+      <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px', width:'200px'}}/>
+      <Link to='/ProfilePicture/edit' >
+      <button>Edit Picture</button>
+      </Link>
       </div>
       <p> Name: {user.fname} {user.lname}</p>
       <p> Pronouns: {user.pronouns}</p>
-      <p> Email: {user.username}</p>
-
+      {/* <p> Email: {user.username}</p> */}
       <form>
       <label>
           Your access level is:
@@ -72,8 +73,8 @@ function ProfilePage() {
             <p>Admin</p>
           )}
         </>
-       
       </form>
+      
       {user.userType == 3 && (
         <p>Mentor: {user.mentor_firstname} {user.mentor_lastname}</p>
       )}
@@ -81,30 +82,11 @@ function ProfilePage() {
       {user.userType == 4 && (
         <p>Mentee: {user.mentor_firstname} {user.mentor_lastname}</p>
       )}
-{/* For some reason, <select> was messing with my fade-in feature I'm messing with */}
-       <FormControl  >
-        <InputLabel id="demo-simple-select-label">user type</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={0}>Admin</MenuItem>
-          <MenuItem value={1}>Mentee/Youth</MenuItem>
-          <MenuItem value={2}>Mentor</MenuItem>
-          <MenuItem value={3}>Volunteer</MenuItem>
-          <MenuItem value={4}>Caregiver</MenuItem>
-        </Select>
-      </FormControl>
-   {/* ..so I changed it to this- we probably don't even need this here, but I also changed it in other places
-     that <select> was present where we will use it */}
 
       <article>Bio: {user.bio}</article>
       <Link to={`/home/${user.id}/edit`}>
       <button>Edit Profile</button>
       </Link>
-
       <div>
         {(user.userType < 5) && (
           <div>
@@ -120,13 +102,10 @@ function ProfilePage() {
             </div>
           ))}
         </div>
-
         <Button variant={'outlined'}>Delete</Button>
         </div>
         )}
       </div>
-
-      <LogOutButton className="btn" />
     </div>
   );
 }

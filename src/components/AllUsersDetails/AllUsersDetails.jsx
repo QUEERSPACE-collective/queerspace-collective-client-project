@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
-
 import './AllUsersDetails.css';
 import {
   HashRouter as Router,
@@ -22,6 +21,7 @@ useEffect(() => {
   animater(), // Call fade effect, yes I know this is spelled wrong
   dispatch({ type: "FETCH_ALL_USERS" })
 }, []);
+
 //Fade effect
 function animater() {
   document.body.classList.remove("noSalmon");
@@ -30,6 +30,7 @@ function animater() {
   setTimeout(() => document.body.classList.add("noSalmon"), 100);
 };
 //Fade effect
+
 const deleteUser = (id) => {
   console.log('in allUsersDetails deleteUser, the users id is', id)
   dispatch({

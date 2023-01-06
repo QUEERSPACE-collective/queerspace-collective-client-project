@@ -38,10 +38,7 @@ router.get('/:id', (req, res) => {
       });
 })
 
-// Might make GET requests to filter the results, otherwise if I can do it in the componenents to conditional render I would rather do it that way.
-
-
-// PUT route
+// PUT route to update user
 router.put('/:id', (req, res) => {
     const sqlText = `
       UPDATE "user"
@@ -69,8 +66,9 @@ router.put('/:id', (req, res) => {
           res.sendStatus(500);
         })
   })
+  
+// DELETE user
 
-// DELETE route
 router.delete('/:id', (req, res) => { 
     const sqlText = `DELETE FROM "user" 
                       WHERE id = $1;`;

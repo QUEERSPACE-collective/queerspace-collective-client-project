@@ -6,13 +6,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = 
-    `SELECT "events"."name", "events".id, "events"."dateTime", "events"."dateTimeEnd",
-    "events"."location", "events".description, "events"."type", "userEvents"."eventId",
-    "events"."attendeeMax", "events"."programLocationID",
-    count ("userEvents"."userId") as total_attendees
-    FROM "events"
-    FULL JOIN "userEvents" ON "userEvents"."eventId" = "events".id
-    GROUP BY "events"."name", "events".id, "userEvents"."eventId";
+    `SELECT * FROM "events";
+
     `;
     pool.query(sqlText)
         .then(dbResult => {
@@ -44,15 +39,14 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //         })
 // });
 
+// GET specific event details
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    console.log('in router tyingn to get event details', req.params.id)
     const sqlParams = [req.params.id]
     const sqlText = 
     `SELECT * FROM "events" WHERE "id" = $1;`
 
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
-            console.log('result of event details is', dbResult.rows)
             res.send(dbResult.rows[0])
 
         })
@@ -81,7 +75,7 @@ router.get('/:id/edit', rejectUnauthenticated, async (req, res)=>{
     }
 });
 
-// edit the user
+// edit the event
 router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     console.log('req params id', req.params.id)
 
@@ -115,6 +109,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     }
 })
 
+// DELETE specific event
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     try{
         const sqlText = `
@@ -130,6 +125,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     }
 });
 
+// POST new event
 router.post('/', (req, res) => {
     console.log('reqbody is', req.body);
     let sqlText = `INSERT INTO "events" ("name","dateTime", "dateTimeEnd", "location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
@@ -157,6 +153,7 @@ router.post('/', (req, res) => {
         });      
 });
 
+// GET questions for specific event
 router.get('/questions/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
     const sqlText = 

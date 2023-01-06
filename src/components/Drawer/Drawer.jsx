@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import './Drawer.css';
 import {
   HashRouter as Router,
-  Redirect,
-  Route,
-  Switch,
   Link,
 } from 'react-router-dom';
-
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -47,7 +42,7 @@ function Drawers() {
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <List className='drawerText' sx={{ p: 0 }}>
-          <Link to='/user'>
+          <Link to='/profilepage'>
             <p><CottageIcon className='iconAlign'/>Home</p>
           </Link>
           <Link to='/eventlist'>

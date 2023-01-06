@@ -1,11 +1,7 @@
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    Button,
-    Select
-} from '@mui/material';
-
+import { Button } from '@mui/material';
 
 function EditEvents(){
     const dispatch = useDispatch();
@@ -26,6 +22,7 @@ function EditEvents(){
             })
         }
     }, [params.id]);
+
 //Fade effect
 function animater() {
     document.body.classList.remove("noSalmon");
@@ -34,6 +31,7 @@ function animater() {
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
   }
 //Fade effect
+
     const editEvent = useSelector(store => store.editEvent);
     console.log(editEvent);
 
