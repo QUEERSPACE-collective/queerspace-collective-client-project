@@ -4,19 +4,43 @@ const router = express.Router();
 
 // GET all users
 router.get('/', (req, res) => {
-  const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
+  if (req.user.userType > 3) {
+    const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
 
-  pool.query(SqlText)
-    .then((dbRes) => {
-        res.send(dbRes.rows);
-    })
-    .catch((err) => {
-        console.log("error getting user list", err);
-    })
+    pool.query(SqlText)
+      .then((dbRes) => {
+        const user = dbRes.rows
+        res.send(user)
+
+        if (user) {
+          delete user.password
+        }
+      })
+      .catch((err) => {
+          console.log("error getting user list", err);
+      })
+  } else if (req.user.userType < 4) {
+    const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
+
+    pool.query(SqlText)
+      .then((dbRes) => {
+        const user = dbRes.rows
+        res.send(user)
+
+        if (user) {
+        delete user.password
+        delete user.username
+        }
+      })
+      .catch((err) => {
+          console.log("error getting user list", err);
+      })
+  }
 });
 
 // GET specific user
 router.get('/:id', (req, res) => {
+  if (req.user.userType > 3) {
     console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `
@@ -29,15 +53,46 @@ router.get('/:id', (req, res) => {
     console.log(sqlParams);
     pool.query(sqlText, sqlParams)
       .then((dbRes) => {
-        res.send(dbRes.rows[0]);
+        const user = dbRes.rows[0];
+        res.send(user);
+
+        if (user) {
+          delete user.password
+        }
       })
       .catch((err) => {
         console.log(`Error making db query ${sqlText}`, err);
       });
+  } else if (req.user.userType < 4) {
+      console.log(req.params.id, 'what is req params id huh');
+      const id = req.params.id;
+      const sqlText = `
+          SELECT * FROM "user"
+          WHERE id = $1
+          ORDER BY id ASC;
+      `;
+      const sqlParams = [id]; // $1 = req.params.id
+    
+      console.log(sqlParams);
+      pool.query(sqlText, sqlParams)
+        .then((dbRes) => {
+          const user = dbRes.rows[0];
+          res.send(user);
+
+          if (user) {
+            delete user.password
+            delete user.username
+          }
+        })
+        .catch((err) => {
+          console.log(`Error making db query ${sqlText}`, err);
+        });
+    }
 })
 
 // PUT route to update user
 router.put('/:id', (req, res) => {
+  if (req.user.userType == 5) {
     const sqlText = `
       UPDATE "user"
       SET "fname" = $1, "lname" = $2, "userType" = $3, "pronouns" = $4, "bio" = $5, "profilePic" = $6, "mentorPair" = $7
@@ -63,10 +118,12 @@ router.put('/:id', (req, res) => {
           console.log(`Error making database query ${sqlText}`, err);
           res.sendStatus(500);
         })
-  })
+  }
+})
   
 // DELETE user
 router.delete('/:id', (req, res) => { 
+  if (req.user.userType == 5) {
     const sqlText = `DELETE FROM "user" 
                       WHERE id = $1;`;
     const sqlParams = [req.params.id]
@@ -78,6 +135,7 @@ router.delete('/:id', (req, res) => {
       .catch((err) => {
         console.log('error deleting user', err);
       })
-  });
+  }
+});
 
 module.exports = router;
