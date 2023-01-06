@@ -63,7 +63,7 @@ function NewEventForm() {
   }
   return (
     <>
-    <h1 className='bannerTop'>New Event Form</h1>
+    <h1 className='bannerTop' onClick={()=>{dispatch({type: 'EVENT_FORM_FILLER'})}}>New Event Form</h1>
 
       <label for="newEventName">Event Name: </label>
       <input type='text' id="newEventName" value={newEventName} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_NAME', payload: e.target.value})}}></input>
@@ -80,15 +80,17 @@ function NewEventForm() {
       <br/>
       <label for="volunteerPicker">Does this event need volunteers?</label>
       <div id="volunteerPicker">
-      <label for="isVolunteer">Yes</label>
+      <label for="isVolunteer">Yes </label>
       <input type="radio" id="isVolunteer" name="volunteers" onClick={()=>{dispatch({type: 'SET_VOLUNTEERS_TRUE'})}}></input>
       <br/>
-      <label for="isNotVolunteer">No</label>
+      <label for="isNotVolunteer">No </label>
       <input type='radio' id='isNotVolunteer' name="volunteers" onClick={()=>{dispatch({type: 'SET_VOLUNTEERS_FALSE'})}}></input>
       </div>
       <br/>
-      <label for='newEventVolunteerMax'>If yes, how many volunteers are needed? </label>
+      {newEventVolunteer && newEventVolunteer == true ? (<div>
+      <label for='newEventVolunteerMax'>How many volunteers are needed? </label>
       <input type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value})}}></input>
+      </div>): (<div></div>)}
       <br/>
       <br/>
       <label for="newEventDate">Date: </label>
@@ -129,7 +131,7 @@ function NewEventForm() {
       <br/>
       <ul>
         {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(question=>(
-          <li key={question}>{question}</li>
+          <li key={question}>{question}<button onClick={()=>{dispatch({type: 'TARGET_QUETION_REMOVE', payload: question})}}>Remove</button></li>
         ))}
       </ul>
       <button onClick={onSubmit}>Create New Event</button>
