@@ -94,6 +94,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 // GET all users registered for an event
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     console.log('in registration router to get all event registered users')
+    if (req.user.userType == 5) {
     const sqlParams = [req.params.id]
         const sqlText = 
         `
@@ -122,6 +123,7 @@ router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
                 console.error('error getting event registered users from db', error)
                 res.sendStatus(500)
             })
+    }
 })
 
 
