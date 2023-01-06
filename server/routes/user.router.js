@@ -56,32 +56,90 @@ router.post('/register', async (req, res) => {
   // Restrict to admin?? only admin can see page by client side code
   // Need something here as well?
 
-  try {
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: process.env.EMAIL_USERNAME, // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
-    to: username, // list of receivers
-    subject: "Thank you for signing up!", // Subject line
-    text: `When you sign in, here are your credentials:
-              username: ${username}
-              password: ${pw}
-              Please follow the link to sign up:
-              http://localhost:3000/#/login`, // plain text body
-  });
-  
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  if (req.user.userType == 5) {
+    try {
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: process.env.EMAIL_USERNAME, // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
+      to: username, // list of receivers
+      subject: "Login Credentials", // Subject line
+      html: `
+                <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+                <html xmlns="http://www.w3.org/1999/xhtml" 
+                 xmlns:v="urn:schemas-microsoft-com:vml"
+                 xmlns:o="urn:schemas-microsoft-com:office:office">
+                <head>
+                  <!--[if gte mso 9]><xml>
+                   <o:OfficeDocumentSettings>
+                    <o:AllowPNG/>
+                    <o:PixelsPerInch>96</o:PixelsPerInch>
+                   </o:OfficeDocumentSettings>
+                  </xml><![endif]-->
+                  <!-- fix outlook zooming on 120 DPI windows devices -->
+                  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- So that mobile will display zoomed in -->
+                  <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- enable media queries for windows phone 8 -->
+                  <meta name="format-detection" content="date=no"> <!-- disable auto date linking in iOS 7-9 -->
+                  <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS 7-9 -->
+                </head>
+                <body style="margin:0; padding:0;" bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+                
+                <table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0" class="container">
+                        <tr>
+                          <td class="container-padding header" align="center">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="container-padding content" align="left">
+                            <br>
+                
+                <div class="title" align="center" style="font-size:2em">
+                  <b>Welcome to QUEERSPACE Collective</b>
+                </div>
+                <br>
+                <div class="body-text" align="center">
+                Now that you are a member of QUEERSPACE, you can join our app! In there you will be able to
+                customize your account, register for QUEERSPACE events, and find other users. Use the credentials below to login
+                for the first time. After that, you will need to reset your password to get back in.
+                <br><br>
+                Username: ${username}
+                <br><br>
+                Password: ${pw}
+                <br><br>
+                Please follow the link to sign up:
+                http://localhost:3000/#/login
+                <br><br> 
+                </div> 
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="container-padding footer-text" align="center">
+                            &copy; QUEERSPACE COLLECTIVE
+                            Contact us at info@queerspacecollective.org
+                            Or visit us at our <a href="http://www.queerspacecollective.org">website</a><br>
+                            <br><br>
+                          </td>
+                        </tr>
+                      </table><!--/600px container -->
+                
+                </body>
+                </html>         
+    `, // TODO: Update login link
+    });
+    
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  const queryText = `INSERT INTO "user" (username, password, "userType")
-    VALUES ($1, $2, $3) RETURNING id`;
-  await pool.query(queryText, [username, password, userType])
-  res.sendStatus(201);
-} 
-catch (err) {
-  console.log('User registration failed: ', err);
-  res.sendStatus(500);
-}
-
+    const queryText = `INSERT INTO "user" (username, password, "userType")
+      VALUES ($1, $2, $3) RETURNING id`;
+    await pool.query(queryText, [username, password, userType])
+    res.sendStatus(201);
+  } 
+  catch (err) {
+    console.log('User registration failed: ', err);
+    res.sendStatus(500);
+  }
+  }
 });
 
 // Handles login form authenticate/login POST
@@ -139,6 +197,7 @@ router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
 // GET specific user
 router.get('/:id', (req, res) => {
   console.log(req.params.id, 'what is req params id huh');
+  if (req.user.userType > 3) {
   const id = req.params.id;
   const sqlText = `
       SELECT * FROM "user"
@@ -146,19 +205,49 @@ router.get('/:id', (req, res) => {
       ORDER BY id ASC;
   `;
   const sqlParams = [id]; // $1 = req.params.id
-
+  
   console.log(sqlParams);
   pool.query(sqlText, sqlParams)
     .then((dbRes) => {
-      res.send(dbRes.rows[0]);
+      const user = dbRes.rows[0];
+      res.send(user);
+
+      if (user) {
+        delete user.password
+      }
     })
     .catch((err) => {
       console.log(`Error making db query ${sqlText}`, err);
     });
+  } else if (req.user.userType < 4) {
+    const id = req.params.id;
+    const sqlText = `
+        SELECT * FROM "user"
+        WHERE id = $1
+        ORDER BY id ASC;
+    `;
+    const sqlParams = [id]; // $1 = req.params.id
+    
+    console.log(sqlParams);
+    pool.query(sqlText, sqlParams)
+      .then((dbRes) => {
+        const user = dbRes.rows[0];
+        res.send(user);
+  
+        if (user) {
+          delete user.password
+          delete user.username
+        }
+      })
+      .catch((err) => {
+        console.log(`Error making db query ${sqlText}`, err);
+      });
+  }
 })
 
 // Edit user information
 router.put('/:id', (req, res) => {
+  if (req.user.userType == 5) {
   const sqlText = `
       UPDATE "user"
       SET "fname" = $1, "lname" = $2, "userType" = $3, "pronouns" = $4, "bio" = $5, "profilePic" = $6, "mentorPair" = $7
@@ -184,6 +273,7 @@ router.put('/:id', (req, res) => {
           console.log(`Error making database query ${sqlText}`, err);
           res.sendStatus(500);
         })
+  }
 })
 
 // send email for password reset
@@ -215,7 +305,7 @@ router.post("/reset", async (req, res) => {
       subject: "Forgot Password?", // Subject line
       html: `<p>Follow this link to reset password:</p>
               <a href=http://localhost:3000/#/reset/${token}>Click Here</a>`, // html text body
-    });
+    }); // TODO: Update reset link
   
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
