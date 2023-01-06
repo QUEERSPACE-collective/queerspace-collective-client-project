@@ -22,9 +22,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-// CUSTOM COMPONENTS
 
-// CUSTOM COMPONENTS
 function EventDetails() {
 
   const dispatch = useDispatch();
@@ -35,9 +33,9 @@ function EventDetails() {
   const eventQuestions = useSelector(store => store.eventQuestions);
   const registrationAnswer = useSelector(store => store.registrationAnswers);
 
-  const [attendeeCount, setAttendeeCount] = useState(0)
 
-
+  let [attendeeCount, setAttendeeCount] = useState(0);
+  let [volunteerCount, setVolunteerCount] = useState(0);
 
   // handling confirmation modal open and close
   const [open, setOpen] = useState(false);
@@ -56,6 +54,7 @@ function EventDetails() {
   };
   const handleUnregisterClose = () => {
     setUnregisterOpen(false)
+
   }
   // end unregister confirmation
 
@@ -70,7 +69,9 @@ function EventDetails() {
     dispatch({
       type: 'FETCH_EVENT_QUESTIONS',
       payload: params.id
-    })
+    }),
+    dispatch({ type: 'FETCH_USER_EVENTS' })
+
   }, [params.id])
 
 
@@ -104,6 +105,7 @@ function EventDetails() {
     })
     setOpen(false);
     history.push('/home')
+
   }
 
   const eventUnregistration = () => {
@@ -119,6 +121,14 @@ function EventDetails() {
   return (
   <>
 
+      {userEvents.map(allUserEvents => 
+        {(allUserEvents.id == eventDetails.id) && (
+        <>
+          {Number(attendeeCount++)}
+        </>
+        )}
+      )}
+      
       <h2 className='bannerTop'>EventDetails</h2>
       <div className='event-details-container'>
         <Box
@@ -147,10 +157,12 @@ function EventDetails() {
             {/* Attendees: {eventDetails.length > 0 && eventDetails[0].total_attendees}<br></br> */}
             Max attendees: {eventDetails.attendeeMax}
           </p>
-
+          <p>Registered Attendees: {attendeeCount}  </p>
+          <p>Registered Volunteers: {volunteerCount}</p>
         </Box>
 
           {isRegistered == true ?
+
             (
               <Button sx={{ mt: 2 }} variant='contained' color='error' onClick={handleUnregisterOpen}>Unregister</Button>
             )
@@ -170,6 +182,8 @@ function EventDetails() {
                 Register
             </Button>
             )
+            
+
           }
 
 
