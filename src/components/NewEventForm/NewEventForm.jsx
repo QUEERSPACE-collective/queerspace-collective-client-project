@@ -63,7 +63,7 @@ function NewEventForm() {
   }
   return (
     <>
-    <h1 className='bannerTop'>New Event Form</h1>
+    <h1 className='bannerTop' onClick={()=>{dispatch({type: 'EVENT_FORM_FILLER'})}}>New Event Form</h1>
 
       <label for="newEventName">Event Name: </label>
       <input type='text' id="newEventName" value={newEventName} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_NAME', payload: e.target.value})}}></input>
@@ -87,8 +87,10 @@ function NewEventForm() {
       <input type='radio' id='isNotVolunteer' name="volunteers" onClick={()=>{dispatch({type: 'SET_VOLUNTEERS_FALSE'})}}></input>
       </div>
       <br/>
+      {newEventVolunteer && newEventVolunteer === true (<div>
       <label for='newEventVolunteerMax'>If yes, how many volunteers are needed? </label>
       <input type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e)=>{dispatch({type:'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value})}}></input>
+      </div>)}
       <br/>
       <br/>
       <label for="newEventDate">Date: </label>
