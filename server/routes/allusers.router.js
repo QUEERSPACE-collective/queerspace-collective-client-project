@@ -69,29 +69,6 @@ router.put('/:id', (req, res) => {
           res.sendStatus(500);
         })
   })
-  
-// PUT mentorPair
-router.put('/mentor/:id', (req, res) => {
-  const sqlText = `
-    UPDATE "user"
-    SET "mentorPair" = $1
-    WHERE id = $2`;
-
-  const sqlParams = [
-    req.body.mentorPair,
-    req.params.id
-  ]
-
-    console.log(sqlText, sqlParams);
-    pool.query(sqlText, sqlParams)
-      .then((dbRes) => {
-        res.sendStatus(200);
-      })
-      .catch((err) => {
-        console.log(`Error making database query ${sqlText}`, err);
-        res.sendStatus(500);
-      })
-})
 
 // DELETE route
 router.delete('/:id', (req, res) => { 

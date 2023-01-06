@@ -5,9 +5,6 @@ import './EditUser.css';
 import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
 
 function EditUser() {
@@ -15,9 +12,7 @@ function EditUser() {
     const params = useParams();
     console.log(params.id);
     const history = useHistory();
-    const [userType, setUserType] = useState(0);
     const allUsers = useSelector(store => store.allUsers);
-    const [mentor, setMentor] = useState(0);
 
     useEffect(() => {
         animater(),
@@ -72,20 +67,11 @@ let mentorOptions = allUsers.map(user => {
             type: user.userType
         }
     })
-console.log(mentorOptions);
 
-const mentorPair = useSelector(store => store.editUser.mentorPair)
-const updateMentor = () => {
-    console.log('in update mentor function onclick')
-    dispatch({
-        type: "SAVE_MENTOR",
-        payload: mentorPair
-    });
-}
     const pickMentor = (evt, mentor) => {
         evt.preventDefault();
         dispatch({
-            type: "UPDATE_MENTOR",
+            type: "UPDATE_EDIT_USER",
             payload: { mentorPair: mentor }
         })
     }
@@ -172,29 +158,14 @@ const updateMentor = () => {
                     Mentor/Mentee:
                 </label>
                 <form>
-                <FormControl className='formControl'>
-                    <Select
-                        sx={{height:'20px',marginTop:'3px',marginRight:'25px',outline:'none',border:'1px solid black'}}
-                        id="demo-simple-select" 
-                        value={userType}
-                        onChange={(evt) => setUserType(evt.target.value)}
-                        className='allusersSelect'
-                    >
-                        <MenuItem value={0}>All Users</MenuItem>
-                        <MenuItem value={3}>Mentees/Youth</MenuItem>
-                        <MenuItem value={4}>Mentors</MenuItem>
-                    </Select>
-                </FormControl>
                 <Autocomplete 
                     disablePortal
                     id="combo-box-demo"
                     options={mentorOptions}
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Pick One" />}
-                    onChange={(evt, mentor) => pickMentor(evt, mentor.id)}
-                        
+                    onChange={(evt, mentor) => pickMentor(evt, mentor.id)}      
                 />
-                <Button onClick={updateMentor}>Confirm Mentor</Button>
                 </form>
                 <div className="editUserBottom">
                 <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>

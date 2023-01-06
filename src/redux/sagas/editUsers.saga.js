@@ -22,13 +22,6 @@ function* saveUser(action) {
     // yield put ({ type: 'FETCH_ALL_USERS'});
 }
 
-function* saveMentor(action) {
-    console.log('in save mentor function', action.payload.id);
-    if (action.payload.id) {
-        yield axios.put(`/api/allusers/mentor/${action.payload.id}`, action.payload);
-    }
-}
-
 function* deleteUser(action) {
     console.log('in delete user fn');
     try {
@@ -77,7 +70,6 @@ function* editUsersSaga() {
     yield takeLatest('SAVE_PROFILE', saveProfile);
     yield takeLatest("SEND_RESET_EMAIL", resetEmail);
     yield takeLatest("RESET_PASSWORD", resetPassword);
-    yield takeLatest('SAVE_MENTOR', saveMentor)
 }
 
 export default editUsersSaga;
