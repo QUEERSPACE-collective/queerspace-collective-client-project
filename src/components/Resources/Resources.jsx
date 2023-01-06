@@ -31,7 +31,7 @@ function animater() {
       <h1 className='bannerTop'>Resources</h1>
     </div>
     <br/>
-    {user && user.userType == 5 ? (<button onClick={()=>{history.push}}>Add a resource</button>): (<div></div>)}
+    {user && user.userType == 5 ? (<button onClick={()=>{history.push('/addresourceform')}}>Add a resource</button>): (<div></div>)}
     <br/>
     <br/>
     <div>
