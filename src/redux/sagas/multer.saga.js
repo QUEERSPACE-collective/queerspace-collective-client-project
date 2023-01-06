@@ -16,6 +16,8 @@ function* uploadImage(action) {
             }
         });
         yield put({type: 'FETCH_ALL_IMAGES' });
+        yield put({type: 'FETCH_USER'});
+
     }
     catch(error) {
         console.log('error in Multer Saga', error);

@@ -17,7 +17,7 @@ function Upload() {
             type: `UPLOAD_IMAGE`,
             payload: selectedFile,
         });
-        history.push('/profilepage')
+        history.push('/home')
     }
 
     const changeHandler = (event) => {
