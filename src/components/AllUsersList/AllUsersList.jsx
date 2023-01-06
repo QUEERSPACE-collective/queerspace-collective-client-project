@@ -14,7 +14,9 @@ function AllUsersList() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+
   const [theUser, setTheUser] = useState([]); // For fuse.js search
+  
   const allUsersList = useSelector(store => store.allUsers);
   const [userType, setUserType] = useState(0); // !* NOTE: userType is DIFFERENT than user.userType *!
 

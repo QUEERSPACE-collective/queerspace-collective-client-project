@@ -5,7 +5,7 @@ const router = express.Router();
 // GET all users
 router.get('/', (req, res) => {
   if (req.user.userType > 3) {
-    const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
+    const SqlText = `SELECT * FROM "user" ORDER BY "user"."fname" ASC;`
 
     pool.query(SqlText)
       .then((dbRes) => {
@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
           console.log("error getting user list", err);
       })
   } else if (req.user.userType < 4) {
-    const SqlText = `SELECT * FROM "user" ORDER BY id ASC;`
+    const SqlText = `SELECT * FROM "user" ORDER BY "user"."fname" ASC;`
 
     pool.query(SqlText)
       .then((dbRes) => {
@@ -44,12 +44,11 @@ router.get('/:id', (req, res) => {
     console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `
-        SELECT * FROM "user"
-        WHERE id = $1
-        ORDER BY id ASC;
+    SELECT * FROM "user"
+    WHERE "user"."id" = $1;
     `;
     const sqlParams = [id]; // $1 = req.params.id
-  
+    
     console.log(sqlParams);
     pool.query(sqlText, sqlParams)
       .then((dbRes) => {
@@ -122,6 +121,7 @@ router.put('/:id', (req, res) => {
 })
   
 // DELETE user
+
 router.delete('/:id', (req, res) => { 
   if (req.user.userType == 5) {
     const sqlText = `DELETE FROM "user" 

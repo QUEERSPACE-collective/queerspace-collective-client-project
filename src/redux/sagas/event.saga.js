@@ -63,12 +63,20 @@ function* fetchEventQuestions (action) {
     }
 }
 
-
+function* changeEventOrder(action) {
+    try{
+        const response = yield axios.get(`/api/event/order/${action.payload}`, config)
+        yield put ({type: 'SET_ORDER', payload: response.data})
+    } catch(error) {
+        console.log("error in fetching event order in saga",error)
+    }
+}
 function* eventSaga () {
     yield takeLatest('FETCH_EVENTS', fetchEvents);
     yield takeLatest('DELETE_EVENT', deleteEvent);
     yield takeLatest('FETCH_EVENT_DETAILS', fetchEventDetails);
     yield takeLatest('FETCH_EVENT_QUESTIONS', fetchEventQuestions);
+    yield takeLatest('CHANGE_EVENT_ORDER', changeEventOrder);
 }
 
 export default eventSaga;

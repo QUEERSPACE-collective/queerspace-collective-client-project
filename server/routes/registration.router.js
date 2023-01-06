@@ -10,13 +10,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     const sqlText = 
     `
-    INSERT INTO "userEvents" ("userId", "eventId", "attendees")
+    INSERT INTO "userEvents" ("userId", "eventId", "userAttendees")
     VALUES ($1, $2, $3)
-    RETURNING "attendees","eventId"
+    RETURNING "userAttendees","eventId"
     `;
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
-            const sqlParams = [dbResult.rows[0].attendees, dbResult.rows[0].eventId]
+            const sqlParams = [dbResult.rows[0].userAttendees, dbResult.rows[0].eventId]
             const sqlText = 
             `
             UPDATE "events"
@@ -49,13 +49,13 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const sqlParams = [req.params.id, req.user.id]
   const sqlText = 
   `
-  SELECT "attendees", "eventId" 
+  SELECT "userAttendees", "eventId" 
   FROM "userEvents"
   WHERE "eventId" = $1 AND "userId" = $2;
   `;
   pool.query(sqlText, sqlParams)
     .then(dbResult => {
-      const sqlParams = [dbResult.rows[0].attendees, dbResult.rows[0].eventId]
+      const sqlParams = [dbResult.rows[0].userAttendees, dbResult.rows[0].eventId]
       const sqlText = 
       `
       UPDATE "events" 
