@@ -16,19 +16,6 @@ function* fetchAllUsers() {
     }
 }
 
-// function* showOneUser(action) {
-//     console.log('in showOneUser',action.payload);
-//     try {
-//         const response = yield axios.get(`/api/allusers/${action.payload}`);
-//         yield put ({
-//             type: "SET_ALL_USERS",
-//             payload: response.data
-//         })
-//     } catch (error) {
-//         console.error('get showOneUser request failed', error);
-//     }
-// }
-
 function* allUsersSaga() {
     yield takeLatest('FETCH_ALL_USERS', fetchAllUsers);
     // yield takeLatest('SHOW_ONE_USER', showOneUser);

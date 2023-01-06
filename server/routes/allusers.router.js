@@ -5,32 +5,25 @@ const router = express.Router();
 // GET all users
 router.get('/', (req, res) => {
   if (req.user.userType > 3) {
-    const SqlText = `SELECT * FROM "user" ORDER BY "user"."fname" ASC;`
+    const SqlText = `SELECT "id", "username", "fname", "lname", "userType", "pronouns", "profilePic", "bio", "mentorPair" FROM "user" ORDER BY "user"."fname" ASC;`
 
     pool.query(SqlText)
       .then((dbRes) => {
         const user = dbRes.rows
         res.send(user)
 
-        if (user) {
-          delete user.password
-        }
       })
       .catch((err) => {
           console.log("error getting user list", err);
       })
   } else if (req.user.userType < 4) {
-    const SqlText = `SELECT * FROM "user" ORDER BY "user"."fname" ASC;`
+    const SqlText = `SELECT "id", "fname", "lname", "userType", "pronouns", "profilePic", "bio", "mentorPair" FROM "user" ORDER BY "user"."fname" ASC;`
 
     pool.query(SqlText)
       .then((dbRes) => {
         const user = dbRes.rows
         res.send(user)
 
-        if (user) {
-        delete user.password
-        delete user.username
-        }
       })
       .catch((err) => {
           console.log("error getting user list", err);
@@ -43,21 +36,21 @@ router.get('/:id', (req, res) => {
   if (req.user.userType > 3) {
     console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
-    const sqlText = `
-    SELECT * FROM "user"
-    WHERE "user"."id" = $1;
-    `;
+    const sqlText = `SELECT "user".*, "mentor"."fname" AS mentor_firstname, "mentor"."lname" AS mentor_lastname FROM "user"
+            LEFT JOIN "user" "mentor"
+            ON "user"."mentorPair" = "mentor"."id"
+            WHERE "user"."id" = $1;`;
     const sqlParams = [id]; // $1 = req.params.id
     
     console.log(sqlParams);
     pool.query(sqlText, sqlParams)
       .then((dbRes) => {
         const user = dbRes.rows[0];
-        res.send(user);
 
         if (user) {
           delete user.password
         }
+        res.send(user);
       })
       .catch((err) => {
         console.log(`Error making db query ${sqlText}`, err);

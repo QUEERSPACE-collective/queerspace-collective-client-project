@@ -163,7 +163,6 @@ let mentorOptions = allUsers.map(user => {
                         payload: { profilePic: evt.target.value }
                     })}
                 />
-                {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
                 <label for="mentor">
                     Mentor/Mentee:
                 </label>
