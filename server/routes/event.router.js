@@ -6,9 +6,46 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // also getting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = 
-    `SELECT * FROM "events";
+    `SELECT * FROM "events" ORDER BY "id" ASC;
 
     `;
+    pool.query(sqlText)
+        .then(dbResult => {
+            res.send(dbResult.rows)
+        })
+        .catch(error => {
+            console.error('error getting events back from db', error)
+            res.sendStatus(500);
+        })
+})
+router.get('/order/:order', rejectUnauthenticated, (req, res) => {
+    console.log('what is req.params.order',req.params.order);
+    const order = req.params.order;
+    
+
+    let date = Date.now();
+
+    console.log('what is date',date)
+    var sqlText = "";
+    if(order == 1) {
+        sqlText = 
+        `SELECT * FROM "events" ORDER BY "id" ASC;
+        `;
+    } else if(order == 2) {
+        sqlText = 
+        `SELECT * FROM "events" ORDER BY "id" DESC;
+        `;
+    } else if(order == 3) {
+        sqlText = 
+        `SELECT * FROM "events" 
+        WHERE "dateTime" > clock_timestamp();`
+    }
+    else {
+        sqlText = 
+        `SELECT * FROM "events" 
+        WHERE "dateTime" < clock_timestamp();`
+    }
+    // WHERE ${sql} < ${date}
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)

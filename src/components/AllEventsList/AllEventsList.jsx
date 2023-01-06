@@ -77,7 +77,18 @@ function AllEventsList() {
       payload: eventId
     })
   }
+  const whichOrder = (evt) => {
+    evt.preventDefault();
+    console.log(evt.target.value,'is the option value');
+     
+      dispatch({
+        type:'CHANGE_EVENT_ORDER',
+        payload: evt.target.value
+      }) 
+    
+   
 
+  }
 
   // let isEventfull;
   // event.forEach(event => {
@@ -115,11 +126,22 @@ function AllEventsList() {
 
       <input type='text' placeholder='Search' />
 
+
+{/* So for this, I can either client side sort by ID
+    and sort by upcoming by displaying only those with dates that
+    are >= than the current date 
+    Otherwise, I can make a dispatch call when either of these 3 values
+    is changed and send a value of 1,2,or 3 in a dispatch, and write
+    an sql query to return it depending on the way I'm calling the data. 
+    I think if I do it that way, then it might mess up the existing 
+    FETCH_TOTAL_ATTENDEES. Maybe not actually if it's initially set to newest */}
       <caption>Sort</caption>
-      <select>
-        <option>Newest</option>
-        <option>Oldest</option>
-        <option>Upcoming</option>
+      <select onChange={(evt) => whichOrder(evt)}>
+        <option value={1}>Newest</option>
+        <option value={2}>Oldest</option>
+        <option value={3}>Upcoming</option>
+        <option value={4}>Past Events</option>
+
       </select>
 
       {/*  */}
