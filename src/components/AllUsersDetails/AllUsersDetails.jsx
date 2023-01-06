@@ -94,16 +94,27 @@ const deleteUser = (id) => {
                 </div>
               )}
               
-              {user.userType < 5 && (
+              {user.userType == 4 && (
+                <div>
+                  <li>
+                    Pronouns: {allUsers.pronouns}
+                  </li>
+                  <li>
+                    Email: {allUsers.username}
+                  </li>
+                  <li>
+                    Bio: {allUsers.bio}
+                  </li>
+                </div>
+              )}
+
+              {user.userType < 4 && (
                 <div>
                   <li>
                     Pronouns: {allUsers.pronouns}
                   </li>
                   <li>
                     Bio: {allUsers.bio}
-                  </li>
-                  <li>
-                    Mentor: {allUsers.mentorPair}
                   </li>
                 </div>
               )}
