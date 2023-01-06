@@ -6,7 +6,9 @@ import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 function EditUser() {
     const dispatch = useDispatch();
