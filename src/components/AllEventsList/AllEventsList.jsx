@@ -19,21 +19,21 @@ import Select from '@mui/material/Select';
 
 
 function AllEventsList() {
+  const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
-  const [query, setQuery] = useState(''); // For fuse.js search
   const user = useSelector((store) => store.user);
+
   const [theEvent, setTheEvent] = useState([]); // For fuse.js search
-  console.log("what is store event", allEventsList)
+
   const allEventsList = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
 
   const event = useSelector((store) => store.event);
-  console.log('the events are', event)
 
-  const fuse = new Fuse(theEvent, {
+  const fuse = new Fuse(event, {
     keys: [
-      'id'
+      'name'
     ],
     includeScore: true
   })
@@ -41,7 +41,6 @@ function AllEventsList() {
   console.log(results, 'results are');
   console.log('fuse', fuse);
   const eventResults = results.map(result => result.item);
-
 
   useEffect(() => {
     animater(), //fade effect call
@@ -79,15 +78,12 @@ function AllEventsList() {
   }
   const whichOrder = (evt) => {
     evt.preventDefault();
-    console.log(evt.target.value,'is the option value');
-     
-      dispatch({
-        type:'CHANGE_EVENT_ORDER',
-        payload: evt.target.value
-      }) 
-    
-   
+    console.log(evt.target.value, 'is the option value');
 
+    dispatch({
+      type: 'CHANGE_EVENT_ORDER',
+      payload: evt.target.value
+    })
   }
 
   // let isEventfull;
@@ -122,19 +118,20 @@ function AllEventsList() {
       </FormControl>
       {/*  */}
 
+      {/* input for fuse.js */}
+      <form className='allusersForm'>
+        <input
+          type="text"
+          autoComplete='off'
+          id="myInput"
+          value={query}
+          onChange={handleOnSearch}
+          className='searchInput'
+          placeholder="Search All"
+        >
+        </input>
+      </form>
 
-
-      <input type='text' placeholder='Search' />
-
-
-{/* So for this, I can either client side sort by ID
-    and sort by upcoming by displaying only those with dates that
-    are >= than the current date 
-    Otherwise, I can make a dispatch call when either of these 3 values
-    is changed and send a value of 1,2,or 3 in a dispatch, and write
-    an sql query to return it depending on the way I'm calling the data. 
-    I think if I do it that way, then it might mess up the existing 
-    FETCH_TOTAL_ATTENDEES. Maybe not actually if it's initially set to newest */}
       <caption>Sort</caption>
       <select onChange={(evt) => whichOrder(evt)}>
         <option value={1}>Newest</option>
@@ -160,93 +157,126 @@ function AllEventsList() {
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Program Location</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Edit Event</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Delete</TableCell>
-
-
-
             </TableRow>
           </TableHead>
-          
+
           <TableBody>
-            
+
             {allEventsList.map(thisEvent =>
-              (eventType == 0) && (
+              ((eventType == 0 && results.length <= 0)) && (
 
-              <TableRow key={thisEvent.id}>
-                <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
-                  {thisEvent.name}
-                </Link>
-                </TableCell>
-                <TableCell align="right">{thisEvent.dateTime}</TableCell>
-                <TableCell align="right"> {thisEvent.description}</TableCell>
-                <TableCell align="right"> {thisEvent.location}</TableCell>
-                {/* TODO: convert event type from number value to text*/}
-                <TableCell align="right"> {thisEvent.type} </TableCell>
-                <TableCell align="right">
-                  <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
-                    {thisEvent.totalAttendees}
+                <TableRow key={thisEvent.id}>
+                  <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+                    {thisEvent.name}
                   </Link>
-                </TableCell>
-                <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                <TableCell align="right">{thisEvent.programLocation} </TableCell>
-                <TableCell align="right">
-                  <Link to={`/alleventslist/${thisEvent.id}/edit`}>
-                    <Button>Edit Event</Button>
-                  </Link>
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="error"
-                    value={thisEvent.id}
-                    onClick={(evt) => handleDeleteEvent(evt.target.value)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell align="right">{thisEvent.dateTime}</TableCell>
+                  <TableCell align="right"> {thisEvent.description}</TableCell>
+                  <TableCell align="right"> {thisEvent.location}</TableCell>
+                  {/* TODO: convert event type from number value to text*/}
+                  <TableCell align="right"> {thisEvent.type} </TableCell>
+                  <TableCell align="right">
+                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
+                      {thisEvent.totalAttendees}
+                    </Link>
+                  </TableCell>
+                  <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
+                  <TableCell align="right">{thisEvent.programLocation} </TableCell>
+                  <TableCell align="right">
+                    <Link to={`/alleventslist/${thisEvent.id}/edit`}>
+                      <Button>Edit Event</Button>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      value={thisEvent.id}
+                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
 
-{allEventsList.map(thisEvent =>
-              (eventType == thisEvent.type) && (
+            {allEventsList.map(thisEvent =>
+              ((eventType == thisEvent.type && results.length <= 0)) && (
 
-              <TableRow key={thisEvent.id}>
-                <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
-                  {thisEvent.name}
-                </Link>
-                </TableCell>
-                <TableCell align="right">{thisEvent.dateTime}</TableCell>
-                <TableCell align="right"> {thisEvent.description}</TableCell>
-                <TableCell align="right"> {thisEvent.location}</TableCell>
-                {/* TODO: convert event type from number value to text*/}
-                <TableCell align="right"> {thisEvent.type} </TableCell>
-                <TableCell align="right">
-                  <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
-                    {thisEvent.totalAttendees}
+                <TableRow key={thisEvent.id}>
+                  <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+                    {thisEvent.name}
                   </Link>
-                </TableCell>
-                <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                <TableCell align="right">{thisEvent.programLocation} </TableCell>
-                <TableCell align="right">
-                  <Link to={`/alleventslist/${thisEvent.id}/edit`}>
-                    <Button>Edit Event</Button>
+                  </TableCell>
+                  <TableCell align="right">{thisEvent.dateTime}</TableCell>
+                  <TableCell align="right"> {thisEvent.description}</TableCell>
+                  <TableCell align="right"> {thisEvent.location}</TableCell>
+                  {/* TODO: convert event type from number value to text*/}
+                  <TableCell align="right"> {thisEvent.type} </TableCell>
+                  <TableCell align="right">
+                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
+                      {thisEvent.totalAttendees}
+                    </Link>
+                  </TableCell>
+                  <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
+                  <TableCell align="right">{thisEvent.programLocation} </TableCell>
+                  <TableCell align="right">
+                    <Link to={`/alleventslist/${thisEvent.id}/edit`}>
+                      <Button>Edit Event</Button>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      value={thisEvent.id}
+                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+            {results.length > 0 && (
+              (eventResults.map(allEvents => (
+                <TableRow key={allEvents.id}>
+                  <TableCell><Link to={`/alleventslist/${allEvents.id}/details`}>
+                    {allEvents.name}
                   </Link>
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="error"
-                    value={thisEvent.id}
-                    onClick={(evt) => handleDeleteEvent(evt.target.value)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                  </TableCell>
+                  <TableCell align="right">{allEvents.dateTime}</TableCell>
+                  <TableCell align="right"> {allEvents.description}</TableCell>
+                  <TableCell align="right"> {allEvents.location}</TableCell>
+                  {/* TODO: convert event type from number value to text*/}
+                  <TableCell align="right"> {allEvents.type} </TableCell>
+                  <TableCell align="right">
+                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${allEvents.id}`) }}>
+                      {allEvents.totalAttendees}
+                    </Link>
+                  </TableCell>
+                  <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
+                  <TableCell align="right">{allEvents.programLocation} </TableCell>
+                  <TableCell align="right">
+                    <Link to={`/alleventslist/${allEvents.id}/edit`}>
+                      <Button>Edit Event</Button>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      value={allEvents.id}
+                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              )))
+            )} </TableBody>
         </Table>
       </TableContainer>
-
 
       <Link to="/neweventform"><Button variant='contained'>Add New Event</Button></Link>
     </>
