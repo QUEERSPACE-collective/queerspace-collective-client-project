@@ -21,9 +21,7 @@ router.get('/:id', (req, res) => {
     console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `
-    SELECT "user".*, "mentor"."fname" AS mentor_firstname, "mentor"."lname" AS mentor_lastname FROM "user"
-    JOIN "user" "mentor"
-      ON "user"."mentorPair" = "mentor"."id"
+    SELECT * FROM "user"
     WHERE "user"."id" = $1;
     `;
     const sqlParams = [id]; // $1 = req.params.id
@@ -72,6 +70,29 @@ router.put('/:id', (req, res) => {
         })
   })
   
+// PUT mentorPair
+router.put('/mentor/:id', (req, res) => {
+  const sqlText = `
+    UPDATE "user"
+    SET "mentorPair" = $1
+    WHERE id = $2`;
+
+  const sqlParams = [
+    req.body.mentorPair,
+    req.params.id
+  ]
+
+    console.log(sqlText, sqlParams);
+    pool.query(sqlText, sqlParams)
+      .then((dbRes) => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log(`Error making database query ${sqlText}`, err);
+        res.sendStatus(500);
+      })
+})
+
 // DELETE route
 router.delete('/:id', (req, res) => { 
     const sqlText = `DELETE FROM "user" 

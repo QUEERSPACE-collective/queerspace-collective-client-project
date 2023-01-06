@@ -10,7 +10,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   pool
     .query(`SELECT "user".*, "mentor"."fname" AS mentor_firstname, "mentor"."lname" AS mentor_lastname FROM "user"
-            JOIN "user" "mentor"
+            LEFT JOIN "user" "mentor"
             ON "user"."mentorPair" = "mentor"."id"
             WHERE "user"."id" = $1;`, [id])
     .then((result) => {

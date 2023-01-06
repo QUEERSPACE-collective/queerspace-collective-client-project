@@ -17,6 +17,7 @@ function EditUser() {
     const history = useHistory();
     const [userType, setUserType] = useState(0);
     const allUsers = useSelector(store => store.allUsers);
+    const [mentor, setMentor] = useState(0);
 
     useEffect(() => {
         animater(),
@@ -64,6 +65,7 @@ const deleteUser = (id) => {
 }
 
 let mentorOptions = allUsers.map(user => {
+    console.log(user)
         return {
             label: `${user.fname} ${user.lname}`,
             id: user.id,
@@ -72,6 +74,21 @@ let mentorOptions = allUsers.map(user => {
     })
 console.log(mentorOptions);
 
+const mentorPair = useSelector(store => store.editUser.mentorPair)
+const updateMentor = () => {
+    console.log('in update mentor function onclick')
+    dispatch({
+        type: "SAVE_MENTOR",
+        payload: mentorPair
+    });
+}
+    const pickMentor = (evt, mentor) => {
+        evt.preventDefault();
+        dispatch({
+            type: "UPDATE_MENTOR",
+            payload: { mentorPair: mentor }
+        })
+    }
     return (
         <div className='editUserContainer'>
             <div>
@@ -174,12 +191,10 @@ console.log(mentorOptions);
                     options={mentorOptions}
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Pick One" />}
-                    value={user && user.mentorPair}
-                    onSelect={(evt) => dispatch({
-                        type: "UPDATE_EDIT_USER",
-                        payload: { mentorPair: evt.target.value }
-                    })}
+                    onChange={(evt, mentor) => pickMentor(evt, mentor.id)}
+                        
                 />
+                <Button onClick={updateMentor}>Confirm Mentor</Button>
                 </form>
                 <div className="editUserBottom">
                 <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>

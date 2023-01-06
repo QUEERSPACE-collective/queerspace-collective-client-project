@@ -16,6 +16,11 @@ const editUserReducer = (state = {}, action) => {
                 ...state,
                 ...action.payload,
             };
+        case "UPDATE_MENTOR":
+            return {
+                ...state,
+                ...action.payload,
+            };
     };
     return state;
 }
