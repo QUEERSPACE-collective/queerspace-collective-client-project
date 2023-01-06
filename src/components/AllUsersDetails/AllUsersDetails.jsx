@@ -124,7 +124,7 @@ const deleteUser = (id) => {
                   </li>
                   <li>
                     Bio: {allUsers.bio}
-                  )}
+                  </li>
                 </div>
               )}
             </ul>
