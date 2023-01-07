@@ -1,6 +1,7 @@
 import { useParams, useHistory} from "react-router-dom";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import Button from '@mui/material/Button';
 
 
 function PasswordReset() {
@@ -35,7 +36,15 @@ function PasswordReset() {
               onChange={(evt) => setPassword(evt.target.value)}
             />
           </label>
-          <button type="submit">Reset password</button>
+          <Button type="submit"
+            sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+            '&:hover': {
+            backgroundColor: '#357590',
+            boxShadow: '6px 6px 0px #90c5bf'
+            },}}
+          >
+            Reset password
+          </Button>
         </form>
       </div>
     );

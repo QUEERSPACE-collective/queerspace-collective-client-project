@@ -22,27 +22,27 @@ function EventListItems() {
 
         {eventList && eventList.map(event => (
           (user.userType > 1 && (
-            <li key = {event.id}>
+            <div key = {event.id}>
             {event.name}<br/>
             Date: {moment(event.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}<br/>
             Location: {event.location}<br/>
-            <Link to = {`/EventDetails/event/${event.id}`}>
               <Button 
-                variant="contained"
-                sx = {{mt: 5,
-                backgroundColor: '#1793e1',
-                  '&:hover': {
-                    backgroundColor: '#30a0be',
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                }}>
+                onClick={() => history.push(`/EventDetails/event/${event.id}`)}
+                sx={{
+                mt: 2, fontWeight: 'bold', color: 'white', letterSpacing: 1,
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+                >
                   Details
               </Button>
-            </Link>
             
             <br/>
             <br/>
-          </li>
+          </div>
 
           ))  
         ))}
@@ -59,14 +59,15 @@ function EventListItems() {
     Location: {event.location}<br/>
     <Link to = {`/EventDetails/event/${event.id}`}>
       <Button 
-        variant="contained"
-        sx = {{mt: 5,
-        backgroundColor: '#1793e1',
+        sx={{
+          mt: 2, fontWeight: 'bold', color: 'white', letterSpacing: 1,
+          backgroundColor: '#aa87c0',
           '&:hover': {
-            backgroundColor: '#30a0be',
-            opacity: [0.9, 0.8, 0.7],
+            backgroundColor: '#aa87c0',
+            boxShadow: '6px 6px 0px #d069b1'
           },
-        }}>
+        }}
+        >
           Details
       </Button>
     </Link>

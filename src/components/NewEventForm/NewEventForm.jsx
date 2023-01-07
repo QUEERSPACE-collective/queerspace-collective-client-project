@@ -158,7 +158,15 @@ function NewEventForm() {
           </li>
         ))}
       </ul>
-      <button onClick={onSubmit}>Create New Event</button>
+      <Button onClick={onSubmit}
+        sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+        '&:hover': {
+        backgroundColor: '#46a452e6',
+        boxShadow: '6px 6px 0px #82bc27e0'
+        },}}
+      >
+        Create Event
+      </Button>
 
     </>
   );

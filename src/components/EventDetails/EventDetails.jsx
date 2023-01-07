@@ -181,18 +181,27 @@ function EventDetails() {
           {isRegistered == true ?
 
             (
-              <Button sx={{ mt: 2 }} variant='contained' color='error' onClick={handleUnregisterOpen}>Unregister</Button>
+              <Button 
+              variant='contained' 
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              onClick={handleUnregisterOpen}
+              >
+                Unregister
+              </Button>
             )
             :
             (<Button
-              color='primary'
               variant="contained"
               sx={{
-                mt: 5,
-                backgroundColor: '#1793E1',
+                mt: 5, fontWeight: 'bold',
+                backgroundColor: '#aa87c0',
                 '&:hover': {
-                  backgroundColor: '#30A0BE',
-                  opacity: [0.9, 0.8, 0.7],
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
                 },
               }}
               onClick={handleClickOpen}
@@ -281,8 +290,32 @@ function EventDetails() {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button variant="contained" onClick={eventRegistration}>Register</Button>
-              <Button variant="contained" onClick={handleClose}>Cancel</Button>
+              <Button variant="contained" 
+              onClick={eventRegistration}
+              sx={{
+                mb: 1, fontWeight: 'bold',
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+              >
+                Register
+              </Button>
+              <Button variant="contained" 
+              onClick={handleClose}
+              sx={{
+                mb: 1, fontWeight: 'bold',
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+              >
+                Cancel
+              </Button>
             </DialogActions>
           </Dialog>
           <Dialog
@@ -294,8 +327,21 @@ function EventDetails() {
           >
             <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
             <DialogActions>
-              <Button variant="contained" onClick={eventUnregistration}>Unregister</Button>
-              <Button variant="contained" onClick={handleUnregisterClose}>Cancel</Button>
+              <Button variant="contained" 
+              onClick={eventUnregistration}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Unregister
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleUnregisterClose}>
+                Cancel
+              </Button>
             </DialogActions>
           </Dialog>
         </div>

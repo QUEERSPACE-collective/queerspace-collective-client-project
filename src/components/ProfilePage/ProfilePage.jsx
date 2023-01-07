@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -45,9 +46,18 @@ function ProfilePage() {
       <h2>Welcome, {user.fname} {user.lname}!</h2>
       <div>
       <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px', width:'200px'}}/>
-      <Link to='/ProfilePicture/edit' >
-      <button>Edit Picture</button>
-      </Link>
+      <Button
+        onClick={() => history.push('/ProfilePicture/edit')}
+        variant='contained'
+        size = "small"
+        sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+        '&:hover': {
+        backgroundColor: '#357590',
+        boxShadow: '6px 6px 0px #90c5bf'
+        },}}
+      >
+        Picture<EditIcon/>
+      </Button>
       </div>
       <p> Name: {user.fname} {user.lname}</p>
       <p> Pronouns: {user.pronouns}</p>
@@ -84,9 +94,18 @@ function ProfilePage() {
       )}
 
       <article>Bio: {user.bio}</article>
-      <Link to={`/home/${user.id}/edit`}>
-      <button>Edit Profile</button>
-      </Link>
+      <Button
+        onClick={() => history.push(`/home/${user.id}/edit`)}
+        variant='contained'
+        size = "small"
+        sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+        '&:hover': {
+        backgroundColor: '#357590',
+        boxShadow: '6px 6px 0px #90c5bf'
+        },}}
+        >
+          Profile<EditIcon/>
+      </Button>
       <div>
         {(user.userType < 5) && (
           <div>

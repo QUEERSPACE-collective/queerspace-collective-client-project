@@ -1,13 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import EventListItems from '../EventListItems/EventListItems';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import './EventList.css';
 
 
 function EventList() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const eventList = useSelector(store => store.event)
   const user = useSelector(store => store.user)
   console.log('event list', eventList)
@@ -30,13 +34,25 @@ function animater() {
 
   return (
     <>
+    <br/>
+
       <div className='upcoming-events-container'>
+      <Button 
+        onClick={() => history.push('/home')} 
+        sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
+        '&:hover': {
+        fontSize: 16
+        },}}
+        >
+        <ArrowCircleLeftIcon/> Back to Profile
+      </Button>
         {user.userType !== 1 && (
-           <h2>Upcoming Events!</h2>
+           <h2>Upcoming Events</h2>
         )}
         {user.userType == 1  && (
-           <h2>Volunteer Events!</h2>
+           <h2>Volunteer Events</h2>
         )}
+        <br/>
       <Box        
         sx={{
         display: 'flex',

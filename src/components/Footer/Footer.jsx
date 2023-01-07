@@ -13,12 +13,12 @@ function Footer() {
   return (
     <footer className='myFooter'>
       <div className="allusersBackBtn">
-        {user.id &&(
+        {/* {user.id &&(
           <Button 
             variant='contained'
             size='small'
             onClick={()=>{window.history.back(-1); {animater()}} }> ← Back</Button>
-        )}
+        )} */}
       </div>
       <div className="trademark">
         &copy; QUEERSPACE collective
