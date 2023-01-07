@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
-import './Feedback.css';
+import './MentorFeedbackForm.css';
 
-function Feedback() {
+function MentorFeedbackForm() {
     useEffect(() => {
-        animater() 
+        pageFadeIn() 
     }, [])
 
     //Fade effect
-    function animater() {
-        document.body.classList.remove("noSalmon");
-        document.body.classList.add("salmon");
-        setTimeout(() => document.body.classList.remove("salmon"), 100);
-        setTimeout(() => document.body.classList.add("noSalmon"), 100);
+    function pageFadeIn() {
+        document.body.classList.remove("withOpacity");
+        document.body.classList.add("noOpacity");
+        setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+        setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
     return (
@@ -26,4 +26,4 @@ function Feedback() {
         </>
     );
 };
-export default Feedback;
+export default MentorFeedbackForm;

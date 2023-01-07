@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Drawer.css';
+import './MobileNavBar.css';
 import {
   HashRouter as Router,
   Link,
@@ -18,7 +18,7 @@ import MoodIcon from '@mui/icons-material/Mood';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Drawers() {
+function MobileNavBar() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [state, setState] = React.useState({
@@ -42,10 +42,10 @@ function Drawers() {
           onKeyDown={toggleDrawer(anchor, false)}
         >
           <List className='drawerText' sx={{ p: 0 }}>
-            <Link to='/profilepage'>
+            <Link to='/homepage'>
               <p><CottageIcon className='iconAlign' />Home</p>
             </Link>
-            <Link to='/eventlist'>
+            <Link to='/eventcalendar'>
               <p><CalendarMonthIcon className='iconAlign' />Calendar</p>
             </Link>
             {user.userType > 3 && (
@@ -53,7 +53,7 @@ function Drawers() {
                 <Link to='/resources'>
                   <p><HomeRepairServiceIcon className='iconAlign' />Resources</p>
                 </Link>
-                <Link to='/feedback'>
+                <Link to='/mentorfeedbackform'>
                   <p><MoodIcon className='iconAlign' />Feedback Form</p>
                 </Link>
               </>
@@ -63,8 +63,8 @@ function Drawers() {
             </Link>
             {user.userType == 5 && (
               <>
-                <Link to='/allEventsList'>
-                  <p><CalendarMonthIcon className='allEventsList' />Events List</p>
+                <Link to='/allEvents'>
+                  <p><CalendarMonthIcon className='allEvents' />Events List</p>
                 </Link>
                 <Link to='/adduserform'>
                   <p><PersonSearchIcon className='iconAlign' />Register Users</p>
@@ -114,4 +114,4 @@ function Drawers() {
   );
 }
 
-export default Drawers;
+export default MobileNavBar;

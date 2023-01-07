@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-function Upload() {
+function ImageUpload() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [selectedFile, setSelectedFile] = useState('');
@@ -11,19 +11,19 @@ function Upload() {
 
     const handleUpload = (event) => {
         event.preventDefault();
-        console.log('in handleUpload Multer', selectedFile);
+        console.log('in handleUpload ImageUpload', selectedFile);
         dispatch({
             type: `UPLOAD_IMAGE`,
             payload: selectedFile,
         });
-        history.push('/home')
+        history.push('/homepage')
     }
 
     const changeHandler = (event) => {
-        console.log('in changeHandler Multer', event.target.files);
+        console.log('in changeHandler ImageUpload', event.target.files);
         setSelectedFile(event.target.files);
     }
-    console.log('in upload Multer');
+    console.log('in ImageUpload ');
     return (
         <>
             <img
@@ -58,4 +58,4 @@ function Upload() {
     )
 }
 
-export default Upload;
+export default ImageUpload;

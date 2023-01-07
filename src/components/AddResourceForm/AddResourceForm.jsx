@@ -9,15 +9,15 @@ function AddResourceForm() {
   const newResourceLink = useSelector(store => store.newResourceLink);
 
   useEffect(() => {
-    animater()
+    pageFadeIn()
   }, [])
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
   function onSubmit(e) {

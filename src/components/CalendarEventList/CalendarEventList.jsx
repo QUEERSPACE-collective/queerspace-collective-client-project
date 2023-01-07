@@ -3,11 +3,11 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Button from '@mui/material/Button';
-import './EventListItems.css';
+import './CalendarEventList.css';
 import 'add-to-calendar-button/assets/css/atcb.css';
 import moment from 'moment-timezone';
 
-function EventListItems() {
+function CalendarEventList() {
   const eventList = useSelector(store => store.event);
   const user = useSelector(store => store.user);
 
@@ -72,4 +72,4 @@ function EventListItems() {
   );
 }
 
-export default EventListItems;
+export default CalendarEventList;

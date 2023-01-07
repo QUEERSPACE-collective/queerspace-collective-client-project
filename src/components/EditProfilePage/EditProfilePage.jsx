@@ -12,7 +12,7 @@ function EditProfilePage() {
     const user = useSelector((store) => store.editUser);
 
     useEffect(() => {
-        animater(),
+        pageFadeIn(),
             dispatch({
                 type: "FETCH_EDIT_PROFILE",
                 payload: params.id
@@ -21,11 +21,11 @@ function EditProfilePage() {
     }, [params.id]);
 
     //Fade effect
-    function animater() {
-        document.body.classList.remove("noSalmon");
-        document.body.classList.add("salmon");
-        setTimeout(() => document.body.classList.remove("salmon"), 100);
-        setTimeout(() => document.body.classList.add("noSalmon"), 100);
+    function pageFadeIn() {
+        document.body.classList.remove("withOpacity");
+        document.body.classList.add("noOpacity");
+        setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+        setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
     const onSubmit = (evt) => {
@@ -37,7 +37,7 @@ function EditProfilePage() {
             dispatch({
                 type: 'FETCH_USER'
             });
-        history.push('/profilepage')
+        history.push('/homepage')
     }
 
     const deleteUser = (id) => {
@@ -46,7 +46,7 @@ function EditProfilePage() {
             type: "DELETE_USER",
             payload: id,
         });
-        history.push('/profilepage')
+        history.push('/homepage')
     }
 
     return (
@@ -112,7 +112,7 @@ function EditProfilePage() {
                     <div className="editUserBottom">
                         <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
                         <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete Your Profile</Button>
-                        <Link to="/profilepage" className="backToUserList">
+                        <Link to="/homepage" className="backToUserList">
                             <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To Profile</Button>
                         </Link>
                     </div>

@@ -31,12 +31,12 @@
     font-size: 20px;
 }
 
-.salmon {
+.noOpacity {
     opacity: 0;
     /* transition:1s; */
 }
 
-.noSalmon {
+.withOpacity {
     transition: opacity .3s;
     opacity: 1;
 }

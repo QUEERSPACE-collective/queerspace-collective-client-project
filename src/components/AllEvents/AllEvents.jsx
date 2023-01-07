@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './AllEventsList.css';
+import './AllEvents.css';
 import {
   Button,
   Table,
@@ -17,11 +17,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function AllEventsList() {
+function AllEvents() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
-  const allEventsList = useSelector(store => store.event);
+  const allEvents = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
   const event = useSelector((store) => store.event);
 
@@ -37,7 +37,7 @@ function AllEventsList() {
   const eventResults = results.map(result => result.item);
 
   useEffect(() => {
-    animater(), 
+    pageFadeIn(), 
       dispatch({ type: "FETCH_EVENTS" })
     dispatch({ type: 'FETCH_TOTAL_ATTENDEES' }),
       axios({
@@ -51,11 +51,11 @@ function AllEventsList() {
   }, [])
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
   // Fuse.js search ⬇
@@ -91,7 +91,7 @@ function AllEventsList() {
 
   return (
     <>
-      <h1>AllEventsList</h1>
+      <h1>AllEvents</h1>
       <caption>Filter:</caption>
 
       {/*  */}
@@ -156,12 +156,12 @@ function AllEventsList() {
 
           <TableBody>
 
-            {allEventsList.map(thisEvent =>
+            {allEvents.map(thisEvent =>
               ((eventType == 0 && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                  <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>               
+                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>               
                     {thisEvent.name}
                   </Link>
                   </TableCell>
@@ -176,7 +176,7 @@ function AllEventsList() {
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
-                    <Link to={`/alleventslist/${thisEvent.id}/edit`}>
+                    <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button>Edit Event</Button>
                     </Link>
                   </TableCell>
@@ -193,11 +193,11 @@ function AllEventsList() {
                 </TableRow>
               ))}
 
-            {allEventsList.map(thisEvent =>
+            {allEvents.map(thisEvent =>
               ((eventType == thisEvent.type && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
-                  <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+                  <TableCell><Link to={`/allevents/${thisEvent.id}/details`}>
                     {thisEvent.name}
                   </Link>
                   </TableCell>
@@ -207,14 +207,14 @@ function AllEventsList() {
                   {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
+                    <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
-                    <Link to={`/alleventslist/${thisEvent.id}/edit`}>
+                    <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button>Edit Event</Button>
                     </Link>
                   </TableCell>
@@ -234,7 +234,7 @@ function AllEventsList() {
             {results.length > 0 && (
               (eventResults.map(allEvents => (
                 <TableRow key={allEvents.id}>
-                  <TableCell><Link to={`/alleventslist/${allEvents.id}/details`}>
+                  <TableCell><Link to={`/allevents/${allEvents.id}/details`}>
                     {allEvents.name}
                   </Link>
                   </TableCell>
@@ -244,14 +244,14 @@ function AllEventsList() {
                   {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {allEvents.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${allEvents.id}`) }}>
+                    <Link onClick={() => { history.push(`/AllEvents/attendees/event/${allEvents.id}`) }}>
                       {allEvents.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
                   <TableCell align="right">{allEvents.programLocation} </TableCell>
                   <TableCell align="right">
-                    <Link to={`/alleventslist/${allEvents.id}/edit`}>
+                    <Link to={`/allevents/${allEvents.id}/edit`}>
                       <Button>Edit Event</Button>
                     </Link>
                   </TableCell>
@@ -277,4 +277,4 @@ function AllEventsList() {
 }
 
 
-export default AllEventsList;
+export default AllEvents;

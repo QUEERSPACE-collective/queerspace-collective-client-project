@@ -55,7 +55,7 @@ function EventDetails() {
   // end unregister confirmation
 
   useEffect(() => {
-    animater(),
+    pageFadeIn(),
       dispatch({
         type: 'FETCH_EVENT_DETAILS',
         payload: params.id
@@ -69,11 +69,11 @@ function EventDetails() {
 
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
   // looking through users registered events, if they are register for an event
@@ -96,7 +96,7 @@ function EventDetails() {
       payload: { eventId: params.id, attendees: attendeeCount, answer: eventQuestions }
     })
     setOpen(false);
-    history.push('/home')
+    history.push('/homepage')
   }
 
   const eventUnregistration = () => {
@@ -104,7 +104,7 @@ function EventDetails() {
       type: 'UNREGISTER_FOR_EVENT',
       payload: params.id
     })
-    history.push('/EventList')
+    history.push('/EventCalendar')
   }
 
   console.log('is this user registered for this event?', isRegistered)
@@ -205,7 +205,7 @@ function EventDetails() {
         </Button>
         {/* end add to calendar button */}
 
-        <Link to="/EventList">
+        <Link to="/EventCalendar">
           <button>Back to Calendar</button>
         </Link>
 

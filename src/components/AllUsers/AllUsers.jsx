@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './AllUsersList.css';
+import './AllUsers.css';
 import Button from '@mui/material/Button';
 import Fuse from 'fuse.js'
 import axios from 'axios';
@@ -9,13 +9,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function AllUsersList() {
+function AllUsers() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [theUser, setTheUser] = useState([]); // For fuse.js search
-  const allUsersList = useSelector(store => store.allUsers);
+  const allUsers = useSelector(store => store.allUsers);
   const [userType, setUserType] = useState(0); // !* NOTE: userType is DIFFERENT than user.userType *!
 
   // For Fuse.js search
@@ -31,7 +31,7 @@ function AllUsersList() {
   const userResults = results.map(result => result.item);
 
   useEffect(() => {
-    animater(),
+    pageFadeIn(),
       dispatch({ type: "FETCH_ALL_USERS" }),
 
       // axios used for fuse.js search functionality
@@ -46,11 +46,11 @@ function AllUsersList() {
   }, [])
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   };
 
   // Fuse.js search
@@ -60,7 +60,7 @@ function AllUsersList() {
   }
 
   function goToProfile(evt) {
-    history.push(`/AllUsersDetails/${evt.id}`)
+    history.push(`/UserDetails/${evt.id}`)
   }
 
   return (
@@ -134,7 +134,7 @@ function AllUsersList() {
       {/* Render user list based off the filter value: 
       (0,1,2,3,4,5 : 'All Users,Mentees,Mentors,Volunteers,Caregivers,Admin' )) ⬇️ */}
       <div className='allusersContainer'>
-        {allUsersList.map(allUsers => (
+        {allUsers.map(allUsers => (
           (userType > 0 && userType == allUsers.userType && results.length < 1) && (
             // This says- "if the filter is not set to 'All Users (0)', map through every user and find 
             // the ones where their TYPE value is the same as the 
@@ -169,7 +169,7 @@ function AllUsersList() {
         as long as fuzzy search isn't being used ⬇️ */}
       {(userType == 0 && results.length < 1) && (
         <div className='allusersHover'>
-          {allUsersList.map(allUsers => (
+          {allUsers.map(allUsers => (
             <ul key={allUsers.username} className='allusersContainer'>
               <p onClick={() => { goToProfile(allUsers) }} className='allusersP'>
                 <Button
@@ -197,4 +197,4 @@ function AllUsersList() {
   );
 }
 
-export default AllUsersList;
+export default AllUsers;

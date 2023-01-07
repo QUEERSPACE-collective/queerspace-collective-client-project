@@ -18,7 +18,7 @@ function EditUser() {
     const allUsers = useSelector(store => store.allUsers);
 
     useEffect(() => {
-        animater(),
+        pageFadeIn(),
             dispatch({
                 type: "FETCH_EDIT_USER",
                 payload: params.id
@@ -33,11 +33,11 @@ function EditUser() {
     }, [params.id]);
 
     //Fade effect
-    function animater() {
-        document.body.classList.remove("noSalmon");
-        document.body.classList.add("salmon");
-        setTimeout(() => document.body.classList.remove("salmon"), 100);
-        setTimeout(() => document.body.classList.add("noSalmon"), 100);
+    function pageFadeIn() {
+        document.body.classList.remove("withOpacity");
+        document.body.classList.add("noOpacity");
+        setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+        setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
     const user = useSelector(store => store.editUser);

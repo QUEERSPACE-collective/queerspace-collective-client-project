@@ -10,9 +10,17 @@ function AddUserForm() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    pageFadeIn(),
     dispatch({ type: "FETCH_ALL_USERS" })
   }, [])
 
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
+  };
+ 
   // Disable add user button if username is already in system
   const isDisabled = () => {
     {
@@ -34,6 +42,7 @@ function AddUserForm() {
     });
   }; // end registerUser
 
+ 
   return (
     <form onSubmit={registerUser}>
       <h2>Register User</h2>

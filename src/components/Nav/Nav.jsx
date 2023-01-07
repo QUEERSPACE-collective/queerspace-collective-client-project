@@ -2,7 +2,7 @@ import React from 'react';
 import './Nav.css';
 import { useSelector, useDispatch } from 'react-redux';
 import QSClogo from '../QSClogo/QSClogo';
-import Drawers from '../Drawer/Drawer';
+import MobileNavBar from '../MobileNavBar/MobileNavBar';
 
 import {
   HashRouter as Router,
@@ -17,11 +17,11 @@ function Nav() {
     <>
       <div className="nav">
         <span className='drawersContainer'>
-          <Drawers />
+          <MobileNavBar />
         </span>
         <header className='myHeader'>
           {user.id ?
-            <Link to="./home">
+            <Link to="/homepage">
               <QSClogo />
             </Link>
             :
@@ -32,15 +32,15 @@ function Nav() {
 
           {user.userType > 3 && (
             <div className='webNavbar'>
-              <Link to='/home'><p>Home</p></Link>
-              <Link to='/eventlist'><p>Calendar</p></Link>
+              <Link to='/homepage'><p>Home</p></Link>
+              <Link to='/eventcalendar'><p>Calendar</p></Link>
               <Link to='/resources'><p>Resources</p></Link>
-              <Link to='/feedback'><p>Feedback Form</p> </Link>
+              <Link to='/mentorfeedbackform'><p>Feedback Form</p> </Link>
               <Link to='/allusers'><p>Find Users</p></Link>
               {user.userType == 5 && (
                 <>
                   <Link to='/adduserform'><p>Register Users</p></Link>
-                  <Link to='/alleventslist'><p>Events List</p></Link>
+                  <Link to='/allevents'><p>Events List</p></Link>
                 </>
               )}
               <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p> Logout</p></Link>
@@ -50,8 +50,8 @@ function Nav() {
           {/* show if NOT admin or mentor */}
           {user.userType < 4 && (
             <div className='webNavbar'>
-              <Link to='/home'><p>Home</p></Link>
-              <Link to='/eventlist'><p>Calendar</p></Link>
+              <Link to='/homepage'><p>Home</p></Link>
+              <Link to='/eventcalendar'><p>Calendar</p></Link>
               <Link to='/allusers'><p>Find Users</p></Link>
               <Link to='/login' onClick={() => dispatch({ type: 'LOGOUT' })}><p>Logout</p></Link>
             </div>

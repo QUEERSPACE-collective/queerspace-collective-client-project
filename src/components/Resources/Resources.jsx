@@ -9,18 +9,18 @@ function Resources() {
   const viewResources = useSelector(store => store.viewResources);
   const user = useSelector(store => store.user);
   useEffect(() => {
-    animater(),
+    pageFadeIn(),
       dispatch({
         type: 'GET_RESOURCES'
       });
   }, [])
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
   return (

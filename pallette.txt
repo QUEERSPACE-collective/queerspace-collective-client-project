@@ -32,5 +32,3 @@ Font: poppins
 Make sure we know what components we need.
 Make sure everyone can log in. 
 
-WHAT WE CAN DELETE PROBABLY: 
-1. EventListItems.jsx

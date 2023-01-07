@@ -1,29 +1,29 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import EventListItems from '../EventListItems/EventListItems';
+import CalendarEventList from '../CalendarEventList/CalendarEventList';
 import Box from '@mui/material/Box';
-import './EventList.css';
+import './EventCalendar.css';
 
-function EventList() {
+function EventCalendar() {
   const dispatch = useDispatch();
   const eventList = useSelector(store => store.event)
   const user = useSelector(store => store.user)
   console.log('event list', eventList)
 
   useEffect(() => {
-    animater(),
+    pageFadeIn(),
       dispatch({
         type: 'FETCH_EVENTS'
       })
   }, [])
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
   return (
@@ -48,10 +48,10 @@ function EventList() {
             borderRadius: 3,
             boxShadow: 2,
           }}>
-          <EventListItems />
+          <CalendarEventList />
         </Box>
       </div>
     </>
   );
 }
-export default EventList;
+export default EventCalendar;

@@ -9,21 +9,21 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-import Feedback from '../Feedback/Feedback';
+import MentorFeedbackForm from '../MentorFeedbackForm/MentorFeedbackForm';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ProfilePage from '../ProfilePage/ProfilePage';
+import HomePage from '../HomePage/HomePage';
 import Resources from '../Resources/Resources';
 import LoginPage from '../LoginPage/LoginPage';
 import AddResourceForm from '../AddResourceForm/AddResourceForm';
 import AddUserForm from '../AddUserForm/AddUserForm';
-import AllEventsList from '../AllEventsList/AllEventsList';
-import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
-import AllUsersList from '../AllUsersList/AllUsersList';
-import Drawers from '../Drawer/Drawer';
+import AllEvents from '../AllEvents/AllEvents';
+import UserDetails from '../UserDetails/UserDetails';
+import AllUsers from '../AllUsers/AllUsers';
+import MobileNavBar from '../MobileNavBar/MobileNavBar';
 import EditUser from '../EditUser/EditUser';
 import EventDetails from '../EventDetails/EventDetails';
-import EventList from '../EventList/EventList';
-import EventListItems from '../EventListItems/EventListItems';
+import EventCalendar from '../EventCalendar/EventCalendar';
+import CalendarEventList from '../CalendarEventList/CalendarEventList';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
 import EditEvents from '../EditEvents/EditEvents';
@@ -50,23 +50,23 @@ function App() {
           {/* <Redirect exact from="/" to="/home" /> */}
 
           {/* if the usertype is 5 (admin??) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
-          <ProtectedRoute exact path="/home">
+          <ProtectedRoute exact path="/homepage">
             {user.userType == 5 ?
-              <Redirect to="/allEventsList" />
+              <Redirect to="/allEvents" />
               :
-              <ProfilePage />}
+              <HomePage />}
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllEventsList'>
-            <AllEventsList />
+          <ProtectedRoute exact path='/AllEvents'>
+            <AllEvents />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers/:id/edit'>
             <EditUser />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/feedback'>
-            <Feedback />
+          <ProtectedRoute exact path='/mentorfeedbackform'>
+            <MentorFeedbackForm />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AddUserForm'>
@@ -86,7 +86,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/home" />
+              <Redirect to="/homepage" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -107,8 +107,8 @@ function App() {
             }
           </Route>
 
-          <ProtectedRoute exact path='/EventList'>
-            <EventList />
+          <ProtectedRoute exact path='/EventCalendar'>
+            <EventCalendar />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/EventDetails/event/:id'>
@@ -119,23 +119,23 @@ function App() {
             <NewEventForm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllEventsList/attendees/event/:id'>
+          <ProtectedRoute exact path='/AllEvents/attendees/event/:id'>
             <EventAttendees />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllEventsList/:id/edit'>
+          <ProtectedRoute exact path='/AllEvents/:id/edit'>
             <EditEvents />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers'>
-            <AllUsersList />
+            <AllUsers />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllUsersDetails/:id'>
-            <AllUsersDetails />
+          <ProtectedRoute exact path='/UserDetails/:id'>
+            <UserDetails />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/home/:id/edit'>
+          <ProtectedRoute exact path='/homepage/:id/edit'>
             <EditProfilePage />
           </ProtectedRoute>
 
@@ -147,12 +147,12 @@ function App() {
             <ForgotPassword />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/Drawers'>
-            <Drawers />
+          <ProtectedRoute exact path='/MobileNavBar'>
+            <MobileNavBar />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/EventListItems'>
-            <EventListItems />
+          <ProtectedRoute exact path='/CalendarEventList'>
+            <CalendarEventList />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a default message. */}

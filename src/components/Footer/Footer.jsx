@@ -17,7 +17,7 @@ function Footer() {
           <Button
             variant='contained'
             size='small'
-            onClick={() => { window.history.back(-1); { animater() } }}> ← Back</Button>
+            onClick={() => { window.history.back(-1); { pageFadeIn() } }}> ← Back</Button>
         )}
       </div>
       <div className="trademark">

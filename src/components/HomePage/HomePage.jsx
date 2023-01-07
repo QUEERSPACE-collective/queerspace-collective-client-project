@@ -6,25 +6,25 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
-function ProfilePage() {
+function HomePage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const userEvents = useSelector(store => store.userEventsReducer);
 
   useEffect(() => {
-    animater(),
+    pageFadeIn(),
       dispatch({
         type: 'FETCH_USER_EVENTS'
       })
   }, [])
 
   // Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
   return (
@@ -70,7 +70,7 @@ function ProfilePage() {
       )}
 
       <article>Bio: {user.bio}</article>
-      <Link to={`/home/${user.id}/edit`}>
+      <Link to={`/homepage/${user.id}/edit`}>
         <button>Edit Profile</button>
       </Link>
       <div>
@@ -79,7 +79,7 @@ function ProfilePage() {
             <h2 className='bannerTop'>
               Your Upcoming Events...
             </h2>
-            <Link to="/EventList">Go to Calendar </Link>
+            <Link to="/EventCalendar">Go to Calendar </Link>
             <div>
               {userEvents.map(event => (
                 <div className='user-events'
@@ -97,4 +97,4 @@ function ProfilePage() {
 }
 
 // this allows us to use <App /> in index.js
-export default ProfilePage;
+export default HomePage;
