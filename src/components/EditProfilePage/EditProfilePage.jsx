@@ -38,7 +38,7 @@ const onSubmit = (evt) => {
     dispatch({
         type: 'FETCH_USER'
     });
-    history.push('/profilepage')
+    history.push('/home')
 }
 
 const deleteUser = (id) => {
@@ -47,7 +47,7 @@ const deleteUser = (id) => {
           type: "DELETE_USER",
           payload: id,
         });
-    history.push('/profilepage')
+    history.push('/home')
 }
 
 return (
@@ -124,7 +124,7 @@ return (
                     >
                     Delete Your Profile
                 </Button>
-                <Link to="/profilepage" className="backToUserList">
+                <Link to="/home" className="backToUserList">
                 <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To Profile</Button>
                 </Link>
                 </div>             

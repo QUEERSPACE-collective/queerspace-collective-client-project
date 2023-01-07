@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { 
   Button,
   Table,
@@ -9,6 +11,7 @@ import {
   TableContainer,
   TableRow,
 } from '@mui/material';
+import { Edit } from '@mui/icons-material';
 
 function AllEventsDetails() {
     const params = useParams();
@@ -81,13 +84,13 @@ function AllEventsDetails() {
             <TableCell align="right">
               <Link to={`/AllEventsList/${thisEvent.id}/edit`} style = {{textDecoration: 'none'}}>
                 <Button
-                sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                 '&:hover': {
-                backgroundColor: '#f39536',
-                boxShadow: '6px 6px 0px #e2bf05'
+                backgroundColor: '#357590',
+                boxShadow: '6px 6px 0px #90c5bf'
                 },}}
                 >
-                  Edit Event
+                 <EditIcon/>
                 </Button>
               </Link>
             </TableCell>
@@ -101,7 +104,7 @@ function AllEventsDetails() {
                 boxShadow: '6px 6px 0px #fe6d0e'
                 },}}
               > 
-                Delete
+                <DeleteIcon/>
               </Button>
             </TableCell>
           </TableRow>

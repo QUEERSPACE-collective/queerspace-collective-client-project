@@ -16,6 +16,8 @@ import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 function AllEventsList() {
@@ -184,7 +186,14 @@ function AllEventsList() {
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
                     <Link to={`/alleventslist/${thisEvent.id}/edit`}>
-                      <Button>Edit Event</Button>
+                      <Button
+                      sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                      '&:hover': {
+                      backgroundColor: '#357590',
+                      boxShadow: '6px 6px 0px #90c5bf'
+                      },}}>
+                    <EditIcon/>
+                  </Button>
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -193,8 +202,13 @@ function AllEventsList() {
                       color="error"
                       value={thisEvent.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                      sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                      '&:hover': {
+                      backgroundColor: '#cf2317',
+                      boxShadow: '6px 6px 0px #fe6d0e'
+                      },}}
                     >
-                      Delete
+                      <DeleteIcon/>
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -222,7 +236,7 @@ function AllEventsList() {
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
                     <Link to={`/alleventslist/${thisEvent.id}/edit`}>
-                      <Button>Edit Event</Button>
+                      <Button variant='contained'><EditIcon/></Button>
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -232,7 +246,7 @@ function AllEventsList() {
                       value={thisEvent.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
                     >
-                      Delete
+                      <DeleteIcon/>
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -259,7 +273,7 @@ function AllEventsList() {
                   <TableCell align="right">{allEvents.programLocation} </TableCell>
                   <TableCell align="right">
                     <Link to={`/alleventslist/${allEvents.id}/edit`}>
-                      <Button>Edit Event</Button>
+                      <Button variant='contained'><EditIcon/></Button>
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -269,7 +283,7 @@ function AllEventsList() {
                       value={allEvents.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
                     >
-                      Delete
+                      <DeleteIcon/>
                     </Button>
                   </TableCell>
                 </TableRow>
