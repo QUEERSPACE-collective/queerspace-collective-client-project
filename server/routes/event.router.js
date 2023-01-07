@@ -120,17 +120,19 @@ router.put('/:id', rejectUnauthenticated, async (req, res)=>{
         const sqlText=`
             UPDATE "events"
             SET "name" = $1, 
-                "dateTime" = $2, 
-                "location" = $3, 
-                "programLocationID" = $4, 
-                "type" = $5, 
-                "description" = $6
-            WHERE "id" = $7;
+                "dateTime" = $2,
+                "dateTimeEnd" = $3, 
+                "location" = $4, 
+                "programLocationID" = $5, 
+                "type" = $6, 
+                "description" = $7
+            WHERE "id" = $8;
             `;
 
         const sqlParams = [
             req.body.name,
             req.body.dateTime,
+            req.body.dateTimeEnd,
             req.body.location,
             req.body.programLocationID,
             req.body.type,
