@@ -1,5 +1,5 @@
-const viewResources = (state=[], action)=>{
-    switch(action.type){
+const viewResources = (state = [], action) => {
+    switch (action.type) {
         case 'STORE_RESOURCES':
             return [
                 ...state,

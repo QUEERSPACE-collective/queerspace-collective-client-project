@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,7 +7,7 @@ function QSClogo() {
 
     return (
         <>
-            <img src='../images/QSClogo.svg'  />
+            <img src='../images/QSClogo.svg' />
         </>
     );
 }

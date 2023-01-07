@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-// Imported Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import Feedback from '../Feedback/Feedback';
@@ -17,7 +16,6 @@ import Resources from '../Resources/Resources';
 import LoginPage from '../LoginPage/LoginPage';
 import AddResourceForm from '../AddResourceForm/AddResourceForm';
 import AddUserForm from '../AddUserForm/AddUserForm';
-import AllEventsDetails from '../AllEventsDetails/AllEventsDetails';
 import AllEventsList from '../AllEventsList/AllEventsList';
 import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
 import AllUsersList from '../AllUsersList/AllUsersList';
@@ -26,7 +24,6 @@ import EditUser from '../EditUser/EditUser';
 import EventDetails from '../EventDetails/EventDetails';
 import EventList from '../EventList/EventList';
 import EventListItems from '../EventListItems/EventListItems';
-import EventRegForm from '../EventRegForm/EventRegForm';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
 import EditEvents from '../EditEvents/EditEvents';
@@ -35,11 +32,9 @@ import './App.css';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
 import PasswordReset from '../PasswordReset/PasswordReset';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
-//END OF NEW COMPONENTS
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -54,24 +49,17 @@ function App() {
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
 
-
           {/* if the usertype is 5 (admin??) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
           <ProtectedRoute exact path="/home">
             {user.userType == 5 ?
-            <Redirect to="/allEventsList" />
-            :
-            <ProfilePage />}           
-
+              <Redirect to="/allEventsList" />
+              :
+              <ProfilePage />}
           </ProtectedRoute>
 
-          {/* Chris moved these two up here */}
-            <ProtectedRoute exact path='/alleventslist/:id/details'>
-              <AllEventsDetails/>
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path='/AllEventsList'>
-              <AllEventsList/>
-            </ProtectedRoute>
+          <ProtectedRoute exact path='/AllEventsList'>
+            <AllEventsList />
+          </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers/:id/edit'>
             <EditUser />
@@ -82,13 +70,18 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AddUserForm'>
-              <AddUserForm/>
+            <AddUserForm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path = "/info">
+          <ProtectedRoute exact path="/resources">
             <Resources />
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/AddResourceForm'>
+            <AddResourceForm />
+          </ProtectedRoute>
+
+          {/* Does this need to be a protected route? */}
           <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
@@ -110,7 +103,7 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
-              <PasswordReset/>
+              <PasswordReset />
             }
           </Route>
 
@@ -130,10 +123,6 @@ function App() {
             <EventAttendees />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllEventsList'>
-            <AllEventsList />
-          </ProtectedRoute>
-          
           <ProtectedRoute exact path='/AllEventsList/:id/edit'>
             <EditEvents />
           </ProtectedRoute>
@@ -146,49 +135,34 @@ function App() {
             <AllUsersDetails />
           </ProtectedRoute>
 
-          {/* If none of the other routes matched, we will show a 404. */}
-          {/* <Route>
-            <h1>404</h1>
-          </Route> */}
+          <ProtectedRoute exact path='/home/:id/edit'>
+            <EditProfilePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/ProfilePicture/edit'>
+            <EditProfilePicture />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/forgot'>
+            <ForgotPassword />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/Drawers'>
+            <Drawers />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/EventListItems'>
+            <EventListItems />
+          </ProtectedRoute>
+
+          {/* If none of the other routes matched, we will show a default message. */}
+          <Route>
+            <h1>Yo, this page doesn't exist.</h1>
+          </Route>
         </Switch>
         <Footer />
       </div>
 
-
-
-{/* IMPORTING ALL COMPONENTS TO TEST */}
-            
-            
-
-            <Route exact path='/home/:id/edit'>
-              <EditProfilePage/>
-            </Route>
-            <Route exact path='/AddResourceForm'>
-              <AddResourceForm/>
-            </Route>
-
-              <Route exact path='/AllEventsDetails'>
-              <AllEventsDetails/>
-              </Route>
-              <Route exact path='/ProfilePicture/edit'>
-                <EditProfilePicture />
-              </Route>   
-              <Route exact path='/Drawers'>
-              <Drawers/>
-              </Route>
-              <Route exact path='/EventListItems'>
-              <EventListItems/>
-              </Route>
-              <Route exact path='/EventRegForm'>
-              <EventRegForm/>
-              </Route>
-              <Route exact path='/Resources'>
-                <Resources/>
-              </Route>
-              <Route exact path='/forgot'>
-                <ForgotPassword/>
-              </Route>
-{/* END NEW COMPONENTS */}
     </Router>
   );
 }

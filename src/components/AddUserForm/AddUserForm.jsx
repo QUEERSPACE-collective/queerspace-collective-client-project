@@ -15,11 +15,13 @@ function AddUserForm() {
 
   // Disable add user button if username is already in system
   const isDisabled = () => {
-    {allUsers.map(user => {
-      (username == user.username)
-    })}
+    {
+      allUsers.map(user => {
+        (username == user.username)
+      })
+    }
   }
-  
+
   const registerUser = (event) => {
     event.preventDefault();
 
@@ -54,7 +56,7 @@ function AddUserForm() {
       </div>
       <div>
         <label htmlFor='userType'>
-          *Access Level: 
+          *Access Level:
         </label>
         <select onChange={(event) => setUserType(event.target.value)} value={userType}>
           <option>Select One</option>
@@ -76,7 +78,7 @@ function AddUserForm() {
         </select>
       </div>
       <div>
-        <input type="submit" name="submit" value="Register" disabled={isDisabled()}/>
+        <input type="submit" name="submit" value="Register" disabled={isDisabled()} />
       </div>
     </form>
   );

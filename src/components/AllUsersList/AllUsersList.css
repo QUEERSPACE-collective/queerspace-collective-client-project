@@ -1,154 +1,164 @@
 h1 {
-    text-align: center;
+  text-align: center;
 }
+
 .allusersContainer {
-    border-bottom: 1px solid black;
-    align-items: center;
-    flex-direction: column;
-    list-style-type: none;
-    text-align: center;    
-    font-size: 13px;
+  border-bottom: 1px solid black;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
+  text-align: center;
+  font-size: 13px;
 }
+
 .allusersContainerAdmin {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    list-style-type: none;
-    
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
 }
-.allusersHover ul:hover, .allusersContainer:hover .allusersP:hover {
-    background-color: #dae343;
+
+.allusersHover ul:hover,
+.allusersContainer:hover .allusersP:hover {
+  background-color: #dae343;
 }
+
 .allusersHover ul:hover .allusersP:hover .clickableName {
-    background-color: lightgray;
+  background-color: lightgray;
 }
+
 .allusersP {
-    width:100%;
-    padding-top: 15px;
+  width: 100%;
+  padding-top: 15px;
 }
+
 .allusersP:hover p button {
-    background-color: lightgray;
+  background-color: lightgray;
 }
-.editUserBtn  {
-    text-decoration: none;
+
+.editUserBtn {
+  text-decoration: none;
 }
+
 .editUserBtn button {
-    padding: 5px 10px;
-    font-size: 10px;
-    margin-bottom:20px;
-    margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
+
 .allusersForm {
-    text-align: center;
-    border-bottom:1px solid black;
-    padding-bottom:20px;
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 20px;
 }
+
 .clickableName {
-    padding:2px 5px;
+  padding: 2px 5px;
 }
+
 .clickableName:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 @media screen and (min-width: 480px) {
-   .allusersP {
-    width:100%;
-   }
+  .allusersP {
+    width: 100%;
+  }
 }
+
 .allUsersFuzzyInput {
-    margin-left:5px;
+  margin-left: 5px;
 }
+
 .allusersForm select {
-    margin-right:5px;
+  margin-right: 5px;
 }
+
 .fuseContainer {
-    margin: auto;
-    background-color: rgba(20, 20, 20, .8);
-    color: white;
-    width: 75%;
-    margin-top: 20px;
-    position: absolute;
-    right: 0;
-    left: 0;
-    z-index: 2;
+  margin: auto;
+  background-color: rgba(20, 20, 20, .8);
+  color: white;
+  width: 75%;
+  margin-top: 20px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 2;
 }
+
 .searchMainContainer {
-    border: 1px solid black;
-    color: rgb(204, 199, 199);
-    text-shadow: 0px 0px 5px black;
-    font-size: 20px;
-    line-height: 1.6;
-    width: 75%;
-    margin: auto;
-    outline: 2px solid black;
-    outline-offset: 4px;
-    box-shadow: 0px 0px 15px black;
-    background-color: rgba(20, 20, 20, .8);
-  } 
-  .searchMainContainer p {
-    padding: 20px;
-    margin-top: 25px; 
-  } 
-  .searchForm {
-    border-top: 1px solid white;
-    text-align: center;
-    margin-top: 25px;
-    padding-top: 20px; 
-  }
-  .searchForm td {
-    color: rgb(204, 199, 199);
-    padding: 5px;
-    font-size: 20px; 
-  }
-  .searchForm td:hover {
-    cursor: pointer;
-    background-color: #224e43;
-    color: white;
-  }
-  .searchForm button {
-    padding: 10px 30px;
-    border-radius: 5px;
-    border: 1px solid black;
-  }
-  .searchForm input {
-    padding: 10px 30px;
-    border: 1px solid black;
-    border-radius: 5px;
-  }
-  .searchInput {
-    border: 0px solid black;
-    outline: 1px solid black;
-    margin: 0;
-    padding-left:5px;
-    border-radius: 5px;
-    width:200px;
-  }
-  .allusersSelect {
-    border: 0px solid black;
-    outline: 1px solid black;
-    margin: 0;
-    padding-left:5px;
-    border-radius: 5px;
-    width:200px;
-    color: #757575;
-  }
+  border: 1px solid black;
+  color: rgb(204, 199, 199);
+  text-shadow: 0px 0px 5px black;
+  font-size: 20px;
+  line-height: 1.6;
+  width: 75%;
+  margin: auto;
+  outline: 2px solid black;
+  outline-offset: 4px;
+  box-shadow: 0px 0px 15px black;
+  background-color: rgba(20, 20, 20, .8);
+}
 
- 
-  .allusersSelect fieldset {
-    border:none ;
-    outline:none ;
-    box-shadow:none ;
-    text-shadow: none ;
-  }
-/*   
-  .allusersBackBtn { 
-    text-align: left;
-  }
+.searchMainContainer p {
+  padding: 20px;
+  margin-top: 25px;
+}
 
-  .allusersFooter {
-    position:absolute;
-    bottom:0;
-    left:0;
-    width:100%;
-    border-top:1px solid black;
-    background-color: red;
-  } */
+.searchForm {
+  border-top: 1px solid white;
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+}
+
+.searchForm td {
+  color: rgb(204, 199, 199);
+  padding: 5px;
+  font-size: 20px;
+}
+
+.searchForm td:hover {
+  cursor: pointer;
+  background-color: #224e43;
+  color: white;
+}
+
+.searchForm button {
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.searchForm input {
+  padding: 10px 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.searchInput {
+  border: 0px solid black;
+  outline: 1px solid black;
+  margin: 0;
+  padding-left: 5px;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.allusersSelect {
+  border: 0px solid black;
+  outline: 1px solid black;
+  margin: 0;
+  padding-left: 5px;
+  border-radius: 5px;
+  width: 200px;
+  color: #757575;
+}
+
+.allusersSelect fieldset {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  text-shadow: none;
+}

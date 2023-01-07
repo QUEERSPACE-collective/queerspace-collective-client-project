@@ -11,40 +11,41 @@
 }
 
 .editUserContainer input {
-    width:400px;
-    padding:2px;
-    box-shadow:0px 2px 5px grey;
- }
- .editUserContainer label {
-    font-style: italic;
- }
- .editUserContainer label:not(:first-child) {
-    margin-top:10px;
+    width: 400px;
+    padding: 2px;
+    box-shadow: 0px 2px 5px grey;
+}
 
- }
+.editUserContainer label {
+    font-style: italic;
+}
+
+.editUserContainer label:not(:first-child) {
+    margin-top: 10px;
+}
+
 .editUserBottom {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    margin-top:5px;
-
+    margin-top: 5px;
 }
+
 .editUserSubmit {
-    width:100%;
+    width: 100%;
     cursor: pointer;
-
-    
 }
+
 .editUserDelete {
-    width:75%;
+    width: 75%;
     cursor: pointer;
-
 }
+
 .backToUserList {
     text-decoration: none;
 }
 
 .editUserBottom button {
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }

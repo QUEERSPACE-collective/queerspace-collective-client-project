@@ -1,27 +1,26 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-
 function* fetchEditEvent(action) {
-    console.log('fetch edit event ', action.payload);
+    console.log('fetchEditEvent action.payload is: ', action.payload);
     try {
         const response = yield axios.get(`/api/event/${action.payload}`);
-        console.log('response data for the fetch edit event', response.data );
+        console.log('FetchEditEvent response.data is: ', response.data);
         yield put({
             type: "SET_EDIT_EVENT",
             payload: response.data
         });
     } catch (err) {
-        console.error('get editing event error', err);
+        console.error('fetchEditEvent GET editing event error', err);
     }
 }
 
 function* saveEvent(action) {
-    console.log('this is the id', action.payload.id);
+    console.log('saveEvent id(action.payload.id) is: ', action.payload.id);
     if (action.payload.id) {
         yield axios.put(`/api/event/${action.payload.id}`, action.payload);
     }
-    yield put ({ type: 'FETCH_ALL_USERS'});
+    yield put({ type: 'FETCH_ALL_USERS' });
 }
 
 function* editEventSaga() {

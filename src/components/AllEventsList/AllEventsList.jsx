@@ -17,18 +17,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-
 function AllEventsList() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-
-  const [theEvent, setTheEvent] = useState([]); // For fuse.js search
-
   const allEventsList = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
-
   const event = useSelector((store) => store.event);
 
   const fuse = new Fuse(event, {
@@ -38,12 +32,12 @@ function AllEventsList() {
     includeScore: true
   })
   const results = fuse.search(query);
-  console.log(results, 'results are');
+  console.log('fuse.js results are: ', results);
   console.log('fuse', fuse);
   const eventResults = results.map(result => result.item);
 
   useEffect(() => {
-    animater(), //fade effect call
+    animater(), 
       dispatch({ type: "FETCH_EVENTS" })
     dispatch({ type: 'FETCH_TOTAL_ATTENDEES' }),
       axios({
@@ -52,7 +46,7 @@ function AllEventsList() {
       }).then((response) => {
         setTheUser(response.data);
       }).catch((err) => {
-        console.log('Error in getting events');
+        console.log('Error in getting events',err);
       })
   }, [])
 
@@ -63,13 +57,13 @@ function AllEventsList() {
     setTimeout(() => document.body.classList.remove("salmon"), 100);
     setTimeout(() => document.body.classList.add("noSalmon"), 100);
   }
-  //Fade effect
-  // Fuse.js search ⬇️
+
+  // Fuse.js search ⬇
   function handleOnSearch({ currentTarget = {} }) {
     const { value } = currentTarget;
     setQuery(value);
   }
-  // Fuse.js search ⬆️
+
   const handleDeleteEvent = (eventId) => {
     dispatch({
       type: 'DELETE_EVENT',
@@ -166,7 +160,8 @@ function AllEventsList() {
               ((eventType == 0 && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
-                  <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+                  <TableCell>
+                  <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>               
                     {thisEvent.name}
                   </Link>
                   </TableCell>
@@ -176,9 +171,7 @@ function AllEventsList() {
                   {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
-                      {thisEvent.totalAttendees}
-                    </Link>
+                  {thisEvent.totalAttendees}
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>

@@ -13,7 +13,7 @@ function ForgotPassword() {
         dispatch({
             type: "SEND_RESET_EMAIL",
             payload: {
-            username: username
+                username: username
             }
         });
         history.push("/login");

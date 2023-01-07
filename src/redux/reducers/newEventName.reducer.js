@@ -1,5 +1,5 @@
-const newEventName = (state='', action) => {
-    switch(action.type){
+const newEventName = (state = '', action) => {
+    switch (action.type) {
         case 'SAVE_NEW_EVENT_NAME':
             return action.payload;
         case 'EVENT_FORM_FILLER':
