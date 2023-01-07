@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Fuse from 'fuse.js'
 import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
@@ -103,7 +104,7 @@ function AllUsersList() {
         <br/>
     {user.userType == 5 && (
         <Button
-        variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
+        variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, mt: 2,                
         '&:hover': {
         backgroundColor: '#f39536',
         boxShadow: '6px 6px 0px #e2bf05'
@@ -123,17 +124,24 @@ function AllUsersList() {
             <p onClick={(evt) => { goToProfile(allUsers) }} >
               <Button 
                 className='clickableName' 
-                variant='outlined' 
                 size="small" 
-                sx={{ borderRadius: '10px' }}
+                sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
               >
                 {allUsers.fname} {allUsers.lname}
               </Button>
             </p>
               {user.userType == 5 && (
-                <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                  <Button variant='contained'>Edit User</Button>
-                </Link>
+                  <Button 
+                  onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                  variant='contained'
+                  sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                  '&:hover': {
+                  backgroundColor: '#357590',
+                  boxShadow: '6px 6px 0px #90c5bf'
+                  },}}
+                  >
+                    <EditIcon/>
+                  </Button>
               )}
               {user.userType < 5 && (
                 <br></br>
@@ -155,9 +163,8 @@ function AllUsersList() {
             <p onClick={(evt) => { goToProfile(allUsers) }}>
               <Button 
                 className='clickableName' 
-                variant='outlined' 
                 size="small" 
-                sx={{ borderRadius: '10px' }}
+                sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
               >
                 {allUsers.fname} {allUsers.lname}
               </Button>
@@ -168,9 +175,17 @@ function AllUsersList() {
               {/* if the above conditional is true, AND the current logged in user is an admin, 
                   then also show the "Edit User" Button/Link */}
               {user.userType == 5 && (
-                <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                  <Button variant='contained'>Edit User</Button>
-                </Link>
+                  <Button 
+                      onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                      variant='contained'
+                      sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                      '&:hover': {
+                      backgroundColor: '#357590',
+                      boxShadow: '6px 6px 0px #90c5bf'
+                      },}}
+                      >
+                        <EditIcon/>
+                      </Button>
               )}
           </ul>
         )
@@ -186,9 +201,8 @@ function AllUsersList() {
               <p onClick={() => { goToProfile(allUsers) }} className='allusersP'>
                 <Button 
                   className='clickableName' 
-                  variant='outlined' 
                   size="small" 
-                  sx={{ borderRadius: '10px' }}
+                  sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
                 >
                   {allUsers.fname} {allUsers.lname}
                 </Button>
@@ -196,9 +210,16 @@ function AllUsersList() {
               {/* Same as above, if the latest conditions are true AND the currently logged in 
                   user is an admin, show the link */}
               {user.userType == 5 && (
-                <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                  <Button variant='contained'>Edit User</Button>
-                </Link>
+                  <Button variant='contained' size = "small"
+                  onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                  sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#357590',
+                boxShadow: '6px 6px 0px #90c5bf'
+                },}}
+                  >
+                    <EditIcon/>
+                  </Button>
               )}
               <br></br>
             </ul>

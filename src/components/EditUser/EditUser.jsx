@@ -89,7 +89,7 @@ let mentorOptions = allUsers.map(user => {
                         fontSize: 16
                         },}}
                         size="small">
-                            Back To User List
+                           <ArrowCircleLeftIcon/> Back To User List
                     </Button>
                 </Link>
             <div>
@@ -188,7 +188,16 @@ let mentorOptions = allUsers.map(user => {
                 />
                 </form>
                 <div className="editUserBottom">
-                <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
+                <Button type="submit" className="editUserSubmit" 
+                 size="small"
+                 sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+                 '&:hover': {
+                 backgroundColor: '#46a452e6',
+                 boxShadow: '6px 6px 0px #82bc27e0'
+                 },}}
+                 >
+                    Submit Changes
+                    </Button>
                 <Button onClick={() => deleteUser(user.id)} className="editUserDelete" 
                 size="small"
                 sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, color: 'white',              

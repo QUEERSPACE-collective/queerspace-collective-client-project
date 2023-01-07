@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
+import EditIcon from '@mui/icons-material/Edit';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import './AllUsersDetails.css';
 import {
   HashRouter as Router,
@@ -45,6 +47,13 @@ const deleteUser = (id) => {
       {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
       <div className='bannerTop'></div> 
       <section className='alluserDetailsContainer'>
+      <Button
+            onClick={() => history.push('/allusers')}
+            sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
+            '&:hover': {
+            fontSize: 16
+            },}}
+          ><ArrowCircleLeftIcon/>Back To User List</Button>
         {allUsersList.map(allUsers => (
           (params.id == allUsers.id && (
             <ul key={allUsers.username} >
@@ -75,7 +84,7 @@ const deleteUser = (id) => {
                     Email: {allUsers.username}
                   </li>
                   <li>
-                    Bio: {allUsers.bio}
+                    Bio: <br/>{allUsers.bio}
                   </li>
                   {allUsers.userType == 3 && (
                   <li>
@@ -88,9 +97,18 @@ const deleteUser = (id) => {
                   </li>
                   )}
                   <li>
-                    <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                      <Button variant='contained'>Edit User</Button>
-                    </Link>                  
+                      <Button 
+                        onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                        variant='contained'
+                        size = "small"
+                        sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                        '&:hover': {
+                        backgroundColor: '#357590',
+                        boxShadow: '6px 6px 0px #90c5bf'
+                        },}}
+                      >
+                       <EditIcon/>
+                      </Button>
                   </li>
                   <Button
                     sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
@@ -134,9 +152,7 @@ const deleteUser = (id) => {
             </ul>
           ))
         ))}
-        <Link to="/allusers">
-          <Button>Back To Events List</Button>
-        </Link>
+
       </section>
     </>
   );

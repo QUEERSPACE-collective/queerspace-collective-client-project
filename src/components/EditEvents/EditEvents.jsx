@@ -2,6 +2,8 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from '@mui/material';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+
 
 function EditEvents(){
     const dispatch = useDispatch();
@@ -48,9 +50,19 @@ function animater() {
     }
     return(
         <>
+            <Button
+                onClick={() => history.push('/AllEventsList')}
+                sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
+                '&:hover': {
+                fontSize: 16
+                },}}
+                >
+                <ArrowCircleLeftIcon/>Back To Events List
+            </Button>
             <div>
                 <h2 className='bannerTop'>Edit Event</h2>
             </div>
+            
             <form onSubmit={onSubmit}>
                  {/* edit event name */}
                 <label>
@@ -126,12 +138,14 @@ function animater() {
                 {/* end edit event program location */}
                 <Button 
                     type="submit"
-                    variant="contained"
+                    sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+                    '&:hover': {
+                    backgroundColor: '#46a452e6',
+                    boxShadow: '6px 6px 0px #82bc27e0'
+                    },}}
                 >Submit</Button>
             </form>
-            <Link to="/AllEventsList">
-                <Button>Back To Events List</Button>
-            </Link>
+
         </>
     )
 }

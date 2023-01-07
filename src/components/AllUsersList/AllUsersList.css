@@ -4,7 +4,8 @@ h1 {
 .allusersContainer {
     border-bottom: 1px solid black;
     align-items: center;
-    flex-direction: column;
+    display:flex;
+    flex-direction: row;
     list-style-type: none;
     text-align: center;    
     font-size: 13px;
@@ -17,7 +18,7 @@ h1 {
     
 }
 .allusersHover ul:hover, .allusersContainer:hover .allusersP:hover {
-    background-color: #dae343;
+    background-color: #73c5903b;
 }
 .allusersHover ul:hover .allusersP:hover .clickableName {
     background-color: lightgray;

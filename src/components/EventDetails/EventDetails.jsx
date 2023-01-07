@@ -9,6 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import Stack from '@mui/material/Stack';
@@ -134,7 +135,7 @@ function EventDetails() {
         fontSize: 16
         },}}
         >
-        Back to Calendar
+        <ArrowCircleLeftIcon/>Back to Calendar
       </Button>
 
       {userEvents.map(allUserEvents => 
