@@ -8,7 +8,7 @@ function Resources() {
   const history = useHistory();
   const dispatch = useDispatch();
   const viewResources = useSelector(store=>store.viewResources);
-
+  const user = useSelector(store=>store.user);
   useEffect(()=>{
     animater(),
     dispatch({
@@ -30,6 +30,10 @@ function animater() {
     <div className="container">
       <h1 className='bannerTop'>Resources</h1>
     </div>
+    <br/>
+    {user && user.userType == 5 ? (<button onClick={()=>{history.push('/addresourceform')}}>Add a resource</button>): (<div></div>)}
+    <br/>
+    <br/>
     <div>
       <ul>
         {viewResources.length > 0 && viewResources[0].map((resource)=>

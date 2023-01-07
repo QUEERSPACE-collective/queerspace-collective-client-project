@@ -103,7 +103,21 @@ const deleteUser = (id) => {
                 </div>
               )}
               
-              {user.userType < 5 && (
+              {user.userType == 4 && (
+                <div>
+                  <li>
+                    Pronouns: {allUsers.pronouns}
+                  </li>
+                  <li>
+                    Email: {allUsers.username}
+                  </li>
+                  <li>
+                    Bio: {allUsers.bio}
+                  </li>
+                </div>
+              )}
+
+              {user.userType < 4 && (
                 <div>
                   <li>
                     Pronouns: {allUsers.pronouns}
@@ -111,16 +125,6 @@ const deleteUser = (id) => {
                   <li>
                     Bio: {allUsers.bio}
                   </li>
-                  {allUsers.userType == 3 && (
-                  <li>
-                  Mentor: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
-                  </li>
-                  )}
-                  {allUsers.userType == 4 && (
-                  <li>
-                  Mentee: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
-                  </li>
-                  )}
                 </div>
               )}
             </ul>
