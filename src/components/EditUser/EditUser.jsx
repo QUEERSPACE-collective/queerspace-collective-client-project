@@ -82,6 +82,16 @@ let mentorOptions = allUsers.map(user => {
     }
     return (
         <div className='editUserContainer'>
+                <Link to="/allusers" className="backToUserList">
+                    <Button 
+                        sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
+                        '&:hover': {
+                        fontSize: 16
+                        },}}
+                        size="small">
+                            Back To User List
+                    </Button>
+                </Link>
             <div>
                 <h1 className='bannerTop'>Edit User</h1>   
             </div>
@@ -179,10 +189,18 @@ let mentorOptions = allUsers.map(user => {
                 </form>
                 <div className="editUserBottom">
                 <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
-                <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
-                <Link to="/allusers" className="backToUserList">
-                <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
-                </Link>
+                <Button onClick={() => deleteUser(user.id)} className="editUserDelete" 
+                size="small"
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, color: 'white',              
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                variant="contained"
+                >
+                    Delete User
+                </Button>
+
                 </div>               
             </form>
             </div>          

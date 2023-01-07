@@ -112,7 +112,18 @@ return (
                 />
                 <div className="editUserBottom">
                 <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
-                <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete Your Profile</Button>
+                <Button 
+                    onClick={() => deleteUser(user.id)} className="editUserDelete" 
+                    size="small"
+                    sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                    '&:hover': {
+                    backgroundColor: '#cf2317',
+                    boxShadow: '6px 6px 0px #fe6d0e'
+                    },}}
+                    variant="contained"
+                    >
+                    Delete Your Profile
+                </Button>
                 <Link to="/profilepage" className="backToUserList">
                 <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To Profile</Button>
                 </Link>

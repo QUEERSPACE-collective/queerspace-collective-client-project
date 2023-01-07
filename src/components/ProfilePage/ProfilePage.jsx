@@ -102,7 +102,6 @@ function ProfilePage() {
             </div>
           ))}
         </div>
-        <Button variant={'outlined'}>Delete</Button>
         </div>
         )}
       </div>
@@ -110,5 +109,4 @@ function ProfilePage() {
   );
 }
 
-// this allows us to use <App /> in index.js
 export default ProfilePage;

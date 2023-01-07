@@ -100,11 +100,18 @@ function AllUsersList() {
           placeholder="Search Specific User"
         >
         </input>
-      
+        <br/>
     {user.userType == 5 && (
-        <Link to={'/adduserform'}>
-        <button>Add New User</button>
-        </Link>
+        <Button
+        variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
+        '&:hover': {
+        backgroundColor: '#f39536',
+        boxShadow: '6px 6px 0px #e2bf05'
+        },}}
+        onClick = {() => history.push('/adduserform')}
+        >
+          Add New User
+        </Button>
     )}
       </form>
       

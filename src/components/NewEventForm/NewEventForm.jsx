@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Button from '@mui/material/Button';
 import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
 import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
@@ -126,12 +127,34 @@ function NewEventForm() {
       <br/>
       <label for="newEventQuestions">Questions: </label>
       <input type="text" id="newEventQuestions" value={newEventQuestion} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_QUESTION', payload: e.target.value})}}></input>
-      <button onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}> Add question </button>
+      <Button size = "small"
+      onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}
+      sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+        '&:hover': {
+        backgroundColor: '#f39536',
+        boxShadow: '6px 6px 0px #e2bf05'
+        },}}
+      > 
+        Add question 
+      </Button>
       <br/> 
       <br/>
       <ul>
         {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(question=>(
-          <li key={question}>{question}<button onClick={()=>{dispatch({type: 'TARGET_QUETION_REMOVE', payload: question})}}>Remove</button></li>
+          <li key={question}>{question}
+            <Button 
+              size = "small"
+              onClick={()=>{dispatch({type: 'TARGET_QUETION_REMOVE', payload: question})}}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, color: 'white',              
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              variant="contained"
+              >
+                Remove    
+            </Button>
+          </li>
         ))}
       </ul>
       <button onClick={onSubmit}>Create New Event</button>

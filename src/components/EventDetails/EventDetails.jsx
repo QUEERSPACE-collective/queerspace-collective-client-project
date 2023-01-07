@@ -127,6 +127,15 @@ function EventDetails() {
   console.log('is this user registered for this event', isRegistered)
   return (
   <>
+      <Button 
+        onClick={() => history.push('/EventList')} 
+        sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
+        '&:hover': {
+        fontSize: 16
+        },}}
+        >
+        Back to Calendar
+      </Button>
 
       {userEvents.map(allUserEvents => 
         {(allUserEvents.id == eventDetails.id) && (
@@ -136,7 +145,7 @@ function EventDetails() {
         )}
       )}
       
-      <h2 className='bannerTop'>EventDetails</h2>
+      <h2 className='bannerTop'>Details</h2>
       <div className='event-details-container'>
         <Box
           sx={{
@@ -217,14 +226,16 @@ function EventDetails() {
                 timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
                 iCalFileName: `${event.name}-QSC-Event`,
               });
-            }}>
-               add to calendar app
+            }}
+              sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2,                
+              '&:hover': {
+              backgroundColor: '#f39536',
+              boxShadow: '6px 6px 0px #e2bf05'
+              },}}>
+               add to calendar
                </Button>
             {/* end add to calendar button */}
 
-      <Link to="/EventList">
-        <button>Back to Calendar</button>
-      </Link>
 
           {/* {isEventFull == true && 
             <>

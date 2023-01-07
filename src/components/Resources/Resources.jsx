@@ -2,6 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Button from '@mui/material/Button';
+
 
 
 function Resources() {
@@ -31,7 +33,17 @@ function animater() {
       <h1 className='bannerTop'>Resources</h1>
     </div>
     <br/>
-    {user && user.userType == 5 ? (<button onClick={()=>{history.push('/addresourceform')}}>Add a resource</button>): (<div></div>)}
+
+    {user && user.userType == 5 ? (<Button 
+    variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
+    '&:hover': {
+      backgroundColor: '#f39536',
+      boxShadow: '6px 6px 0px #e2bf05'
+    },}}
+    onClick={()=>{history.push('/addresourceform')}}>
+      Add a resource
+      </Button>): 
+      (<div></div>)}
     <br/>
     <br/>
     <div>

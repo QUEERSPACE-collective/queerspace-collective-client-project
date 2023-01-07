@@ -278,7 +278,16 @@ function AllEventsList() {
         </Table>
       </TableContainer>
 
-      <Link to="/neweventform"><Button variant='contained'>Add New Event</Button></Link>
+        <Button     
+          variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
+          '&:hover': {
+          backgroundColor: '#f39536',
+          boxShadow: '6px 6px 0px #e2bf05'
+          },}}
+          onClick = {() => history.push('/neweventform')}
+          >
+            Add New Event
+        </Button>
     </>
   );
 }

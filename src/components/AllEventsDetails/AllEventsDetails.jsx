@@ -79,16 +79,27 @@ function AllEventsDetails() {
             <TableCell align="right"> {thisEvent.type} </TableCell>
             <TableCell align="right">{thisEvent.programLocation} </TableCell> 
             <TableCell align="right">
-              <Link to={`/AllEventsList/${thisEvent.id}/edit`}>
-                <Button>Edit Event</Button>
+              <Link to={`/AllEventsList/${thisEvent.id}/edit`} style = {{textDecoration: 'none'}}>
+                <Button
+                sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#f39536',
+                boxShadow: '6px 6px 0px #e2bf05'
+                },}}
+                >
+                  Edit Event
+                </Button>
               </Link>
             </TableCell>
             <TableCell align="right">
               <Button 
-                variant="contained"
-                color="error"
                 value={thisEvent.id}
                 onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
               > 
                 Delete
               </Button>
