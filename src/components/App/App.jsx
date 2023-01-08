@@ -55,10 +55,13 @@ function App() {
               <Redirect to="/allEvents" />
               :
               <HomePage />}
+            
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEvents'>
-            <AllEvents />
+            {user.userType < 5 ? 
+            <Redirect to='/homepage'/> :
+            <AllEvents />}
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers/:id/edit'>
