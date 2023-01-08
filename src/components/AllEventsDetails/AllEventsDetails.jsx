@@ -133,20 +133,5 @@ function AllEventsDetails() {
     </>   
     );
   }
-// Code explained: singleEventsList is the array of objects which contain all users
-// who are registered for the event in question, called from database. Above, 
-// uniqueUser is the result of filtering through singleEventsList and finding
-// any IDs that are duplicates. uniqueIds gets the values that are unique and those
-// unique values get pushed into a new array. uniqueUser is the result of this process.
-// Now that our array is limited to unique Ids, we loop through it in the return.
-// We increase the {count} for every array index to know how many registered users
-// for this event there are. Because we need to search through all of the questions
-// and answers for this event, we map through the singleEventsList again, with a 
-// different key (theEvent). We add a conditional which compares the theEvent.id,
-// (which is just the user id), against the employee id (which is also the user id,
-// but for the shortened array). If the user of the singleEventsList array match
-// the id of the uniqueUser array id, then we will display the question/answer pair
-// for that user, for this event. Since we already filtered out duplicate IDs with 
-// uniqueIds and uniqueUser, it will appropriately show the data grouped as we want.
 
 export default AllEventsDetails;

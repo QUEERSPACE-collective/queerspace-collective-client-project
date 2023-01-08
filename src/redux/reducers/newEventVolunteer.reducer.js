@@ -1,5 +1,5 @@
-const newEventVolunteer = (state=false, action)=>{
-    switch(action.type){
+const newEventVolunteer = (state = false, action) => {
+    switch (action.type) {
         case 'SET_VOLUNTEERS_TRUE':
             return true;
         case 'EVENT_FORM_FILLER':

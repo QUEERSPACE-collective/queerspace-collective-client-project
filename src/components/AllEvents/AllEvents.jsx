@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './AllEventsList.css';
+import './AllEvents.css';
 import {
   Button,
   Table,
@@ -16,6 +16,7 @@ import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
@@ -23,20 +24,25 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+=======
+import moment from 'moment-timezone';
+>>>>>>> main:src/components/AllEvents/AllEvents.jsx
 
-
-function AllEventsList() {
+function AllEvents() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
+<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
   const user = useSelector((store) => store.user);
   const [eventToBeDeleted, setEventToBeDeleted] = useState()
   console.log('event to be deleted', eventToBeDeleted)
   // const [theEvent, setTheEvent] = useState([]); // For fuse.js search
 
   const allEventsList = useSelector(store => store.event);
+=======
+  const allEvents = useSelector(store => store.event);
+>>>>>>> main:src/components/AllEvents/AllEvents.jsx
   const [eventType, setEventType] = useState(0);
-
   const event = useSelector((store) => store.event);
 
   const fuse = new Fuse(event, {
@@ -46,38 +52,38 @@ function AllEventsList() {
     includeScore: true
   })
   const results = fuse.search(query);
-  console.log(results, 'results are');
+  console.log('fuse.js results are: ', results);
   console.log('fuse', fuse);
   const eventResults = results.map(result => result.item);
 
   useEffect(() => {
-    animater(), //fade effect call
+    pageFadeIn(), 
       dispatch({ type: "FETCH_EVENTS" })
     dispatch({ type: 'FETCH_TOTAL_ATTENDEES' }),
       axios({
         method: 'GET',
-        url: '/api/events'
+        url: '/api/event'
       }).then((response) => {
         setTheUser(response.data);
       }).catch((err) => {
-        console.log('Error in getting events');
+        console.log('Error in getting events',err);
       })
   }, [])
 
   //Fade effect
-  function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
-  //Fade effect
-  // Fuse.js search ⬇️
+
+  // Fuse.js search ⬇
   function handleOnSearch({ currentTarget = {} }) {
     const { value } = currentTarget;
     setQuery(value);
   }
-  // Fuse.js search ⬆️
+
   const handleDeleteEvent = (eventId) => {
     dispatch({
       type: 'DELETE_EVENT',
@@ -113,7 +119,7 @@ function AllEventsList() {
 
   return (
     <>
-      <h1>AllEventsList</h1>
+      <h1>AllEvents</h1>
       <caption>Filter:</caption>
 
       {/*  */}
@@ -166,7 +172,6 @@ function AllEventsList() {
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Date and Time</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Description</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Location</TableCell>
-              {/* <TableCell align="right" sx={{fontWeight: 'bold'}}>Program Location</TableCell> */}
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Event Type</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Attendees</TableCell>
               <TableCell align='right'>Attendee Max</TableCell>
@@ -178,27 +183,26 @@ function AllEventsList() {
 
           <TableBody>
 
-            {allEventsList.map(thisEvent =>
+            {allEvents.map(thisEvent =>
               ((eventType == 0 && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
-                  <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+                  <TableCell>
+                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>               
                     {thisEvent.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{thisEvent.dateTime}</TableCell>
+                  <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {thisEvent.description}</TableCell>
                   <TableCell align="right"> {thisEvent.location}</TableCell>
-                  {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
-                      {thisEvent.totalAttendees}
-                    </Link>
+                  {thisEvent.totalAttendees}
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
+<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
                     <Link to={`/alleventslist/${thisEvent.id}/edit`}>
                       <Button
                       sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
@@ -208,6 +212,10 @@ function AllEventsList() {
                       },}}>
                     <EditIcon/>
                   </Button>
+=======
+                    <Link to={`/allevents/${thisEvent.id}/edit`}>
+                      <Button>Edit Event</Button>
+>>>>>>> main:src/components/AllEvents/AllEvents.jsx
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -234,6 +242,7 @@ function AllEventsList() {
                 </TableRow>
               ))}
 
+<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
 {/* 
             <Dialog
             open={confirmationOpen}
@@ -273,28 +282,35 @@ function AllEventsList() {
 
 
             {allEventsList.map(thisEvent =>
+=======
+            {allEvents.map(thisEvent =>
+>>>>>>> main:src/components/AllEvents/AllEvents.jsx
               ((eventType == thisEvent.type && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
-                  <TableCell><Link to={`/alleventslist/${thisEvent.id}/details`}>
+                  <TableCell><Link to={`/allevents/${thisEvent.id}/details`}>
                     {thisEvent.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{thisEvent.dateTime}</TableCell>
+                  <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {thisEvent.description}</TableCell>
                   <TableCell align="right"> {thisEvent.location}</TableCell>
-                  {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
+                    <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
+<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
                     <Link to={`/alleventslist/${thisEvent.id}/edit`}>
                       <Button variant='contained'><EditIcon/></Button>
+=======
+                    <Link to={`/allevents/${thisEvent.id}/edit`}>
+                      <Button>Edit Event</Button>
+>>>>>>> main:src/components/AllEvents/AllEvents.jsx
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -313,25 +329,30 @@ function AllEventsList() {
             {results.length > 0 && (
               (eventResults.map(allEvents => (
                 <TableRow key={allEvents.id}>
-                  <TableCell><Link to={`/alleventslist/${allEvents.id}/details`}>
+                  <TableCell><Link to={`/allevents/${allEvents.id}/details`}>
                     {allEvents.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{allEvents.dateTime}</TableCell>
+                  <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {allEvents.description}</TableCell>
                   <TableCell align="right"> {allEvents.location}</TableCell>
                   {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {allEvents.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${allEvents.id}`) }}>
+                    <Link onClick={() => { history.push(`/AllEvents/attendees/event/${allEvents.id}`) }}>
                       {allEvents.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
                   <TableCell align="right">{allEvents.programLocation} </TableCell>
                   <TableCell align="right">
+<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
                     <Link to={`/alleventslist/${allEvents.id}/edit`}>
                       <Button variant='contained'><EditIcon/></Button>
+=======
+                    <Link to={`/allevents/${allEvents.id}/edit`}>
+                      <Button>Edit Event</Button>
+>>>>>>> main:src/components/AllEvents/AllEvents.jsx
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -365,4 +386,4 @@ function AllEventsList() {
 }
 
 
-export default AllEventsList;
+export default AllEvents;

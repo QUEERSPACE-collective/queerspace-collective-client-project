@@ -2,10 +2,10 @@ import React from 'react';
 import './Footer.css';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // Add Social Media links?
- 
+
 function Footer() {
   const history = useHistory();
   const user = useSelector((store) => store.user);
@@ -13,17 +13,26 @@ function Footer() {
   return (
     <footer className='myFooter'>
       <div className="allusersBackBtn">
+<<<<<<< HEAD
         {/* {user.id &&(
           <Button 
             variant='contained'
             size='small'
             onClick={()=>{window.history.back(-1); {animater()}} }> ← Back</Button>
         )} */}
+=======
+        {user.id && (
+          <Button
+            variant='contained'
+            size='small'
+            onClick={() => { window.history.back(-1); { pageFadeIn() } }}> ← Back</Button>
+        )}
+>>>>>>> main
       </div>
       <div className="trademark">
         &copy; QUEERSPACE collective
-      </div>  
-  </footer>
+      </div>
+    </footer>
   );
 };
 

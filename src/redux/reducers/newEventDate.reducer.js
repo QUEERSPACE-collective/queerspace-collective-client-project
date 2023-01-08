@@ -1,5 +1,5 @@
-const newEventDate = (state='', action) => {
-    switch(action.type){
+const newEventDate = (state = '', action) => {
+    switch (action.type) {
         case 'SAVE_NEW_EVENT_DATE':
             return action.payload;
         case 'EVENT_FORM_FILLER':
@@ -7,7 +7,7 @@ const newEventDate = (state='', action) => {
         case 'CLEAR_NEW_EVENT_FORM':
             return '';
     }
-    return state; 
+    return state;
 }
 
 export default newEventDate;

@@ -18,11 +18,6 @@ function ProfilePage() {
   const userEvents = useSelector(store => store.userEventsReducer);
   console.log('userEvents are', userEvents)
 
-
-
-  const handleChange = (event) => {
-    console.log(event.target.value,'is evt.target.value')
-  };
   // on page load, fetching all the events 
   // that user is registered for
   useEffect(() => {

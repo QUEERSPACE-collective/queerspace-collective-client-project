@@ -1,6 +1,5 @@
-
-const newEventTimeEnd = (state='', action) => {
-    switch(action.type){
+const newEventTimeEnd = (state = '', action) => {
+    switch (action.type) {
         case 'SAVE_NEW_EVENT_TIME_END':
             return action.payload;
         case 'EVENT_FORM_FILLER':

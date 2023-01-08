@@ -9,7 +9,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import moment from 'moment-timezone';
 
 function EditEvents(){
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function EditEvents(){
     const history = useHistory();
 
     useEffect(() => {
-        animater(),
+        pageFadeIn(),
         dispatch({
             type: "FETCH_EDIT_EVENT",
             payload: params.id
@@ -50,11 +50,11 @@ function EditEvents(){
     }
 
 //Fade effect
-function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 //Fade effect
 
@@ -70,7 +70,7 @@ function animater() {
         dispatch({
             type: 'FETCH_EVENTS'
         });
-        history.push('/AllEventsList')
+        history.push('/AllEvents')
     }
     return(
         <>
@@ -102,20 +102,40 @@ function animater() {
                 {/* end edit event name */}
                 {/* edit event date time */}
                 <label>
-                    Date and Time:
+                    Start Date and Time:
                 </label>
+                
+
+
                 <input
-                    value={editEvent && editEvent.dateTime}
+                    type="datetime-local"
+                    value={editEvent && moment(editEvent.dateTime).format("YYYY-MM-DD HH:mm")}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
-                        payload: {dateTime: evt.target.value}
+                        payload: {dateTime: new Date(evt.target.value)}
                     })}
                 />
+                <label>
+                    End Date and Time:
+                </label>
+                
+
+
+                <input
+                    type="datetime-local"
+                    value={editEvent && moment(editEvent.dateTimeEnd).format("YYYY-MM-DD HH:mm")}
+                    onChange={(evt) => dispatch({
+                        type: 'UPDATE_EDIT_EVENT',
+                        payload: {dateTimeEnd: new Date(evt.target.value)}
+                    })}
+                />
+
                 {/* end edit event date time */}
                 {/* edit description */}
                 <label>
                     Edit Description:
                 </label>
+                
                 <input
                     value={editEvent && editEvent.description}
                     onChange={(evt) => dispatch({
@@ -216,6 +236,7 @@ function animater() {
               </Button>
             </DialogActions>
           </Dialog>
+
 
         </>
     )

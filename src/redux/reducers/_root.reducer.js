@@ -27,7 +27,6 @@ import newResourceDescription from './newResourceDescription.reducer';
 import newResourceLink from './newResourceLink.reducer';
 import viewResources from './viewResources.reducer';
 import registrationAnswers from './registrationAnswers.reducer';
-import eventReducerSpecific from './specificEvent.reducer';
 import currentEvent from './currentEvent.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -39,12 +38,12 @@ import currentEvent from './currentEvent.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in'
-  newEventName, 
+  newEventName,
   newEventDate,
   newEventTime,
-  newEventTimeEnd, 
+  newEventTimeEnd,
   newEventAddress,
-  newEventQuestion, 
+  newEventQuestion,
   newEventStoredQuestions,
   newEventVolunteer,
   newEventVolunteerMax,
@@ -66,8 +65,6 @@ const rootReducer = combineReducers({
   eventRegisteredUsers,
   multerReducer,
   currentEvent,
-  // eventReducerSpecific,
 });
-
 
 export default rootReducer;

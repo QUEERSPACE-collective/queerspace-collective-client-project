@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-
-function EventAttendees(){
+function EventAttendees() {
     const params = useParams();
     const dispatch = useDispatch();
     const registeredAttendees = useSelector(store => store.eventRegisteredUsers)
@@ -29,12 +28,11 @@ function EventAttendees(){
                             <li>{answer[0]} {answer[1]}</li>
                         ))}
                     </ul>
-                    <br/>
-                </>            
+                    <br />
+                </>
             ))}
         </>
     )
 }
-
 
 export default EventAttendees;

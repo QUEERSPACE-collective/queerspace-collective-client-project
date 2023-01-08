@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Dialog from '@mui/material/Dialog';
@@ -11,39 +12,55 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import './AllUsersDetails.css';
+=======
+import './UserDetails.css';
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
 import {
   HashRouter as Router,
   Link,
 } from 'react-router-dom';
 
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 
 function AllUsersDetails() {
   const allUsersList = useSelector(store => store.allUsers);
+=======
+function UserDetails() {
+  const activeUser = useSelector(store => store.editUser);
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
   const user = useSelector((store) => store.user);
   const params = useParams();
+  console.log(params.id)
   const history = useHistory();
   const dispatch = useDispatch();
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
 
+=======
+  console.log("the user is", user);
+  console.log("all the users are", activeUser);
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
 
 useEffect(() => {
-  animater(), // Call fade effect, yes I know this is spelled wrong
-  dispatch({ type: "FETCH_ALL_USERS" })
-}, []);
+  pageFadeIn(), // Call fade effect, yes I know this is spelled wrong
+  dispatch({ 
+    type: "FETCH_EDIT_USER",
+    payload: params.id
+ })
+}, [params.id]);
 
 //Fade effect
-function animater() {
-  document.body.classList.remove("noSalmon");
-  document.body.classList.add("salmon");
-  setTimeout(() => document.body.classList.remove("salmon"), 100);
-  setTimeout(() => document.body.classList.add("noSalmon"), 100);
+function pageFadeIn() {
+  document.body.classList.remove("withOpacity");
+  document.body.classList.add("noOpacity");
+  setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+  setTimeout(() => document.body.classList.add("withOpacity"), 100);
 };
-//Fade effect
 
 const deleteUser = (id) => {
-  console.log('in allUsersDetails deleteUser, the users id is', id)
+  console.log('in AllUsers deleteUser, the users id is', id)
   dispatch({
     type: "DELETE_USER",
     payload: params.id,
@@ -67,6 +84,7 @@ const handleConfirmationClose = () => {
       {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
       <div className='bannerTop'></div> 
       <section className='alluserDetailsContainer'>
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
       <Button
             onClick={() => history.push('/allusers')}
             sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
@@ -78,45 +96,55 @@ const handleConfirmationClose = () => {
           (params.id == allUsers.id && (
             <ul key={allUsers.username} >
               <h2> {allUsers.fname} {allUsers.lname}</h2>
+=======
+       
+            <ul>
+              <h2> {activeUser.fname} {activeUser.lname}</h2>
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
               {user.userType == 5 && (
                 <div>
-                  <li>
-                    {allUsers.userType == 5 && (
+                  <li>            
+                    {activeUser.userType == 5 && (
                       <span>Admin</span>
                     )}
-                    {allUsers.userType == 4 && (
+                    {activeUser.userType == 4 && (
                       <span>Mentor</span>
                     )}
-                    {allUsers.userType == 3 && (
+                    {activeUser.userType == 3 && (
                       <span>Youth/Mentee</span>
                     )}
-                    {allUsers.userType == 2 && (
+                    {activeUser.userType == 2 && (
                       <span>Caregiver</span>
                     )}
-                    {allUsers.userType == 1 && (
+                    {activeUser.userType == 1 && (
                       <span>Volunteer</span>
                     )}
                   </li>
                   <li>
-                    Pronouns: {allUsers.pronouns}
+                    Pronouns: {activeUser.pronouns}
                   </li>
                   <li>
-                    Email: {allUsers.username}
+                    Email: {activeUser.username}
                   </li>
                   <li>
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
                     Bio: <br/>{allUsers.bio}
+=======
+                    Bio: {activeUser.bio}
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
                   </li>
-                  {allUsers.userType == 3 && (
+                  {activeUser.userType == 3 && (
                   <li>
-                  Mentor: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
-                  </li>
-                  )}
-                  {allUsers.userType == 4 && (
-                  <li>
-                  Mentee: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
+                  Mentor: {activeUser.mentor_firstname} {activeUser.mentor_lastname}
                   </li>
                   )}
+                  {activeUser.userType == 4 && (
                   <li>
+                  Mentee: {activeUser.mentor_firstname} {activeUser.mentor_lastname}
+                  </li>
+                  )}
+                  <li>
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
                       <Button 
                         onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
                         variant='contained'
@@ -129,6 +157,11 @@ const handleConfirmationClose = () => {
                       >
                        <EditIcon/>
                       </Button>
+=======
+                    <Link to={`/allusers/${activeUser.id}/edit`} className='editUserBtn'>
+                      <Button variant='contained'>Edit User</Button>
+                    </Link>                  
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
                   </li>
                   {/* <Button
                     sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
@@ -137,9 +170,15 @@ const handleConfirmationClose = () => {
                     boxShadow: '6px 6px 0px #fe6d0e'
                     },}}
                     variant="contained"
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
                     value={allUsers.id}
                     // onClick={(evt) => deleteUser(evt.target.value)}
                     onClick = {handleConfirmationOpen}
+=======
+                    color="error"
+                    value={activeUser.id}
+                    onClick={(evt) => deleteUser(evt.target.value)}
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
                   >
                     Delete User
                   </Button>
@@ -213,13 +252,13 @@ const handleConfirmationClose = () => {
               {user.userType == 4 && (
                 <div>
                   <li>
-                    Pronouns: {allUsers.pronouns}
+                    Pronouns: {activeUser.pronouns}
                   </li>
                   <li>
-                    Email: {allUsers.username}
+                    Email: {activeUser.username}
                   </li>
                   <li>
-                    Bio: {allUsers.bio}
+                    Bio: {activeUser.bio}
                   </li>
                 </div>
               )}
@@ -227,20 +266,26 @@ const handleConfirmationClose = () => {
               {user.userType < 4 && (
                 <div>
                   <li>
-                    Pronouns: {allUsers.pronouns}
+                    Pronouns: {activeUser.pronouns}
                   </li>
                   <li>
-                    Bio: {allUsers.bio}
+                    Bio: {activeUser.bio}
                   </li>
                 </div>
               )}
             </ul>
+<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
           ))
         ))}
 
+=======
+        <Link to="/allusers">
+          <Button>Back To Events List</Button>
+        </Link>
+>>>>>>> main:src/components/UserDetails/UserDetails.jsx
       </section>
     </>
   );
 }
 
-export default AllUsersDetails;
+export default UserDetails;
