@@ -17,6 +17,8 @@ function AllEventsDetails() {
     const params = useParams();
     const dispatch = useDispatch();
     const event = useSelector((store) => store.event);
+    const currentEvent = useSelector(store => store.currentEvent)
+    console.log('current event', currentEvent)
     // const singleEventsList = useSelector(store => store.eventReducerSpecific); 
     // console.log('the single event list: ',singleEventsList); 
     let count = 0;
@@ -63,26 +65,20 @@ function AllEventsDetails() {
   
   return (
   <>
-       {event.map(employee => 
-        <h1>{employee.name}</h1>
-       )}
-       
-    {/* displays all events from database */}
-    {/* I just duplicated this code from another componenent, it's probably overkill lol */}
+        <h1>{currentEvent.name}</h1>
 
     <TableContainer>
       <Table stickyHeader>     
         <TableBody>
-        {event.map(thisEvent =>
-          <TableRow key={thisEvent.id}>
-            <TableCell>{thisEvent.id}</TableCell>
-            <TableCell>{thisEvent.name}</TableCell> 
-            <TableCell align="right"> {thisEvent.description}</TableCell>
-            <TableCell align="right"> {thisEvent.location}</TableCell>
-            <TableCell align="right"> {thisEvent.type} </TableCell>
-            <TableCell align="right">{thisEvent.programLocation} </TableCell> 
+          <TableRow key={currentEvent.id}>
+            <TableCell>{currentEvent.id}</TableCell>
+            <TableCell>{currentEvent.name}</TableCell> 
+            <TableCell align="right"> {currentEvent.description}</TableCell>
+            <TableCell align="right"> {currentEvent.location}</TableCell>
+            <TableCell align="right"> {currentEvent.type} </TableCell>
+            <TableCell align="right">{currentEvent.programLocation} </TableCell> 
             <TableCell align="right">
-              <Link to={`/AllEventsList/${thisEvent.id}/edit`} style = {{textDecoration: 'none'}}>
+              <Link to={`/AllEventsList/${currentEvent.id}/edit`} style = {{textDecoration: 'none'}}>
                 <Button
                 sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                 '&:hover': {
@@ -95,7 +91,7 @@ function AllEventsDetails() {
               </Link>
             </TableCell>
             <TableCell align="right">
-              <Button 
+              {/* <Button 
                 value={thisEvent.id}
                 onClick={(evt) => handleDeleteEvent(evt.target.value)}
                 sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
@@ -105,10 +101,10 @@ function AllEventsDetails() {
                 },}}
               > 
                 <DeleteIcon/>
-              </Button>
+              </Button> */}
             </TableCell>
           </TableRow>
-        )}
+        {/* )} */}
         </TableBody>
       </Table>
     </TableContainer>

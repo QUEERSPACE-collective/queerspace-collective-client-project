@@ -251,8 +251,6 @@ let mentorOptions = allUsers.map(user => {
 
 
                 <Button 
-                // onClick={() => deleteUser(user.id)} className="editUserDelete" 
-                // onClick = {handleAlertClick}
                 sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                 '&:hover': {
                 backgroundColor: '#cf2317',
@@ -260,43 +258,39 @@ let mentorOptions = allUsers.map(user => {
                 },}}
                 variant="contained"
                 value={allUsers.id}
-                // onClick={(evt) => deleteUser(evt.target.value)}
                 onClick = {handleConfirmationOpen}
                 >
                     Delete User
                 </Button>
 
-
                 <Dialog
-            open={confirmationOpen}
-            // TransitionComponent={Transition}
-            keepMounted
-            onClose={handleConfirmationClose}
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
-            <DialogActions>
-              <Button variant="contained" 
-                onClick={() => deleteUser(user.id)}
-
-              // onClick={eventUnregistration}
-              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-              '&:hover': {
-              backgroundColor: '#cf2317',
-              boxShadow: '6px 6px 0px #fe6d0e'
-              },}}
-              >
-                Delete
-              </Button>
-              <Button 
-              variant="contained" 
-              onClick={handleConfirmationClose}
-              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-              '&:hover': {
-              backgroundColor: '#cf2317',
-              boxShadow: '6px 6px 0px #fe6d0e'
-              },}}
-              >
+                open={confirmationOpen}
+                keepMounted
+                onClose={handleConfirmationClose}
+                aria-describedby="alert-dialog-slide-description"
+                >
+                <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
+                <DialogActions>
+                <Button variant="contained" 
+                    onClick={() => deleteUser(user.id)}
+                // onClick={eventUnregistration}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
+                    Delete
+                </Button>
+                <Button 
+                variant="contained" 
+                onClick={handleConfirmationClose}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
                 Cancel
               </Button>
             </DialogActions>

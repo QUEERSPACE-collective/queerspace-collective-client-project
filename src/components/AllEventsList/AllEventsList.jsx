@@ -18,6 +18,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 function AllEventsList() {
@@ -25,8 +30,9 @@ function AllEventsList() {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-
-  const [theEvent, setTheEvent] = useState([]); // For fuse.js search
+  const [eventToBeDeleted, setEventToBeDeleted] = useState()
+  console.log('event to be deleted', eventToBeDeleted)
+  // const [theEvent, setTheEvent] = useState([]); // For fuse.js search
 
   const allEventsList = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
@@ -97,6 +103,14 @@ function AllEventsList() {
   //   }
   // })
 
+  const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+  const handleConfirmationOpen = (id) => {
+    setConfirmatinoOpen(true);
+  };
+  const handleConfirmationClose = () => {
+    setConfirmatinoOpen(false)
+  }
+
   return (
     <>
       <h1>AllEventsList</h1>
@@ -158,7 +172,7 @@ function AllEventsList() {
               <TableCell align='right'>Attendee Max</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Program Location</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Edit Event</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Delete</TableCell>
+              {/* <TableCell align="right" sx={{ fontWeight: 'bold' }}>Delete</TableCell> */}
             </TableRow>
           </TableHead>
 
@@ -197,11 +211,16 @@ function AllEventsList() {
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="error"
                       value={thisEvent.id}
-                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                      // onclic, open confirmation 
+                      // onClick = {"handleConfirmationOpen; setEventToBeDeleted(evt.target.value)"}
+                      
+                      // onClick={(evt) => handleDeleteEvent(evt.target.value), }
+                      onClick={(evt) => "setEventToBeDeleted(evt.target.value); handleConfirmationOpen"}
+
                       sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                       '&:hover': {
                       backgroundColor: '#cf2317',
@@ -209,10 +228,49 @@ function AllEventsList() {
                       },}}
                     >
                       <DeleteIcon/>
-                    </Button>
+                    </Button> */}
                   </TableCell>
+                  
                 </TableRow>
               ))}
+
+{/* 
+            <Dialog
+            open={confirmationOpen}
+            keepMounted
+            onClose={handleConfirmationClose}
+            aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this event?"}</DialogTitle>
+              <DialogActions>
+              <Button variant="contained" 
+              onClick={(evt) => handleDeleteEvent(evt.target.value)}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Delete
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleConfirmationClose}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog> */}
+
+
+
+
+
 
             {allEventsList.map(thisEvent =>
               ((eventType == thisEvent.type && results.length <= 0)) && (
@@ -240,14 +298,14 @@ function AllEventsList() {
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="error"
                       value={thisEvent.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
                     >
                       <DeleteIcon/>
-                    </Button>
+                    </Button> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -277,14 +335,14 @@ function AllEventsList() {
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="error"
                       value={allEvents.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
                     >
                       <DeleteIcon/>
-                    </Button>
+                    </Button> */}
                   </TableCell>
                 </TableRow>
               )))

@@ -1,14 +1,19 @@
+import * as React from 'react';
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 function EditEvents(){
     const dispatch = useDispatch();
     const params = useParams();
-    console.log(params.id);
     const history = useHistory();
 
     useEffect(() => {
@@ -24,6 +29,25 @@ function EditEvents(){
             })
         }
     }, [params.id]);
+
+    const handleDeleteEvent = (id) => {
+        dispatch({
+          type: 'DELETE_EVENT',
+          payload: id
+        })
+        setTimeout(() => {
+            history.push('/alleventslist')
+          }, 1500); 
+      };
+
+
+    const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+    const handleConfirmationOpen = () => {
+      setConfirmatinoOpen(true);
+    };
+    const handleConfirmationClose = () => {
+      setConfirmatinoOpen(false)
+    }
 
 //Fade effect
 function animater() {
@@ -145,6 +169,53 @@ function animater() {
                     },}}
                 >Submit</Button>
             </form>
+
+
+            <Button 
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                variant="contained"
+                // value={allUsers.id}
+                onClick = {handleConfirmationOpen}
+                >
+                    Delete Event
+                </Button>
+
+                <Dialog
+                open={confirmationOpen}
+                keepMounted
+                onClose={handleConfirmationClose}
+                aria-describedby="alert-dialog-slide-description"
+                >
+                <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this event?"}</DialogTitle>
+                <DialogActions>
+                <Button variant="contained" 
+                    onClick={() => handleDeleteEvent(params.id)}
+                // onClick={eventUnregistration}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
+                    Delete
+                </Button>
+                <Button 
+                variant="contained" 
+                onClick={handleConfirmationClose}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
 
         </>
     )
