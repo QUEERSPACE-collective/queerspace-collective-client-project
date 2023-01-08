@@ -157,7 +157,7 @@ function App() {
 
           {/* If none of the other routes matched, we will show a default message. */}
           <Route>
-            <h1>Yo, this page doesn't exist.</h1>
+            <h1>This page doesn't exist.</h1>
           </Route>
         </Switch>
         <Footer />

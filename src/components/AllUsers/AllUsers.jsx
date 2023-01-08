@@ -97,7 +97,6 @@ function AllUsers() {
           placeholder="Search Specific User"
         >
         </input>
-<<<<<<< HEAD:src/components/AllUsersList/AllUsersList.jsx
         <br/>
     {user.userType == 5 && (
         <Button
@@ -127,31 +126,7 @@ function AllUsers() {
                 {allUsers.fname} {allUsers.lname}
               </Button>
             </p>
-=======
 
-        {user.userType == 5 && (
-          <Link to={'/adduserform'}>
-            <button>Add New User</button>
-          </Link>
-        )}
-      </form>
-
-      {/* Fuse.js conditional rendering  ⬇️ */}
-      {results.length > 0 && (
-        <div className='allusersContainer'>
-          {userResults.map(allUsers => (
-            <ul key={allUsers.username} className='allusersP allusersContainer'>
-              <p onClick={(evt) => { goToProfile(allUsers) }} >
-                <Button
-                  className='clickableName'
-                  variant='outlined'
-                  size="small"
-                  sx={{ borderRadius: '10px' }}
-                >
-                  {allUsers.fname} {allUsers.lname}
-                </Button>
-              </p>
->>>>>>> main:src/components/AllUsers/AllUsers.jsx
               {user.userType == 5 && (
                   <Button 
                   onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
@@ -173,11 +148,10 @@ function AllUsers() {
         </div>
       )}
 
-<<<<<<< HEAD:src/components/AllUsersList/AllUsersList.jsx
     {/* Conditional render based off what the filter value is: 
         (0,1,2,3,4,5 : 'All Users,Mentees,Mentors,Volunteers,Caregivers,Admin' )) ⬇️ */}
     <div className='allusersContainer'>
-      {allUsersList.map(allUsers => (
+      {allUsers.map(allUsers => (
         (userType > 0 && userType == allUsers.userType && results.length < 1) && (
           // This says- "if the filter is not set to 'All Users (0)', map through every user and find 
           // the ones where their TYPE value is the same as the 
@@ -192,27 +166,7 @@ function AllUsers() {
                 {allUsers.fname} {allUsers.lname}
               </Button>
             </p>
-=======
-      {/* Render user list based off the filter value: 
-      (0,1,2,3,4,5 : 'All Users,Mentees,Mentors,Volunteers,Caregivers,Admin' )) ⬇️ */}
-      <div className='allusersContainer'>
-        {allUsers.map(allUsers => (
-          (userType > 0 && userType == allUsers.userType && results.length < 1) && (
-            // This says- "if the filter is not set to 'All Users (0)', map through every user and find 
-            // the ones where their TYPE value is the same as the 
-            // current filter value, as long as fuzzy search isn't being used"
-            <ul key={allUsers.username} className='allusersP allusersContainer'>
-              <p onClick={(evt) => { goToProfile(allUsers) }}>
-                <Button
-                  className='clickableName'
-                  variant='outlined'
-                  size="small"
-                  sx={{ borderRadius: '10px' }}
-                >
-                  {allUsers.fname} {allUsers.lname}
-                </Button>
-              </p>
->>>>>>> main:src/components/AllUsers/AllUsers.jsx
+
               {user.userType < 5 && (
                 <br></br>
               )}
@@ -243,18 +197,10 @@ function AllUsers() {
           {allUsers.map(allUsers => (
             <ul key={allUsers.username} className='allusersContainer'>
               <p onClick={() => { goToProfile(allUsers) }} className='allusersP'>
-<<<<<<< HEAD:src/components/AllUsersList/AllUsersList.jsx
                 <Button 
                   className='clickableName' 
                   size="small" 
                   sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
-=======
-                <Button
-                  className='clickableName'
-                  variant='outlined'
-                  size="small"
-                  sx={{ borderRadius: '10px' }}
->>>>>>> main:src/components/AllUsers/AllUsers.jsx
                 >
                   {allUsers.fname} {allUsers.lname}
                 </Button>

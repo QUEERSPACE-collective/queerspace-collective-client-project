@@ -42,7 +42,7 @@ function Drawers() {
         onKeyDown={toggleDrawer(anchor, false)}
       >
         <List className='drawerText' sx={{ p: 0 }}>
-          <Link to='/home'>
+          <Link to='/homepage'>
             <p><CottageIcon className='iconAlign'/>Home</p>
           </Link>
           <Link to='/eventlist'>

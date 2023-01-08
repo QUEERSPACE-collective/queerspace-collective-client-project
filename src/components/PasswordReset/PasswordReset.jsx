@@ -10,7 +10,17 @@ function PasswordReset() {
   console.log(params.token);
   const [password, setPassword] = useState("");
 
-<<<<<<< HEAD
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch({
+      type: "RESET_PASSWORD",
+      payload: {
+        password: password,
+        token: params.token
+      }
+    });
+    history.push('/login');
+  }
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -36,37 +46,7 @@ function PasswordReset() {
         </form>
       </div>
     );
-=======
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch({
-      type: "RESET_PASSWORD",
-      payload: {
-        password: password,
-        token: params.token
-      }
-    });
-    history.push('/login');
-  }
->>>>>>> main
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Password
-          <input
-            name="password"
-            type="password"
-            value={password}
-            required
-            onChange={(evt) => setPassword(evt.target.value)}
-          />
-        </label>
-        <button type="submit">Reset password</button>
-      </form>
-    </div>
-  );
 }
 
 export default PasswordReset;

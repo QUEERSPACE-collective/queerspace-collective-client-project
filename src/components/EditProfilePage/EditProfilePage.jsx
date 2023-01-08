@@ -28,19 +28,7 @@ function EditProfilePage() {
         setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
-<<<<<<< HEAD
-const onSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch({
-        type: "SAVE_USER",
-        payload: user
-    }),
-    dispatch({
-        type: 'FETCH_USER'
-    });
-    history.push('/home')
-}
-=======
+
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
@@ -52,7 +40,6 @@ const onSubmit = (evt) => {
             });
         history.push('/homepage')
     }
->>>>>>> main
 
     const deleteUser = (id) => {
         console.log('in delete item function onclick')
@@ -60,13 +47,8 @@ const onSubmit = (evt) => {
             type: "DELETE_USER",
             payload: id,
         });
-<<<<<<< HEAD
-    history.push('/home')
-}
-=======
         history.push('/homepage')
     }
->>>>>>> main
 
     return (
         <div className='editUserContainer'>
@@ -137,8 +119,6 @@ const onSubmit = (evt) => {
                     </div>
                 </form>
             </div>
-        </div>
-<<<<<<< HEAD
         <div className="formContainer">
             <form onSubmit={onSubmit} className='editUserForm' >
                 <label for="fName">
@@ -217,7 +197,7 @@ const onSubmit = (evt) => {
                     Delete Your Profile
                 </Button>
                 <Button
-                    onClick={() => history.push('/home')}
+                    onClick={() => history.push('/homepage')}
                     sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
                     '&:hover': {
                     fontSize: 16
@@ -227,13 +207,9 @@ const onSubmit = (evt) => {
                 </Button>
                 </div>             
             </form>
-        </div>   
-    </div>
-);
-
-=======
+            </div>
+        </div>  
     );
->>>>>>> main
 }
 
 export default EditProfilePage;

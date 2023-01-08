@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import CalendarEventList from '../CalendarEventList/CalendarEventList';
+import EventListItems from '../EventListItems/EventListItems';
 import Box from '@mui/material/Box';
 import './EventCalendar.css';
 
@@ -48,7 +48,7 @@ function EventCalendar() {
             borderRadius: 3,
             boxShadow: 2,
           }}>
-          <CalendarEventList />
+          <EventListItems />
         </Box>
       </div>
     </>

@@ -90,7 +90,7 @@ function ProfilePage() {
 
       <article>Bio: {user.bio}</article>
       <Button
-        onClick={() => history.push(`/home/${user.id}/edit`)}
+        onClick={() => history.push(`/homepage/${user.id}/edit`)}
         variant='contained'
         size = "small"
         sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               

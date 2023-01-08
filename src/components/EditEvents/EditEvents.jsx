@@ -75,7 +75,7 @@ function pageFadeIn() {
     return(
         <>
             <Button
-                onClick={() => history.push('/AllEventsList')}
+                onClick={() => history.push('/allevents')}
                 sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
                 '&:hover': {
                 fontSize: 16

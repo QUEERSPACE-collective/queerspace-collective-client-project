@@ -27,7 +27,6 @@ function Resources() {
 
   return (
     <>
-<<<<<<< HEAD
     <div className="container">
       <h1 className='bannerTop'>Resources</h1>
     </div>
@@ -58,28 +57,7 @@ function Resources() {
         )}
       </ul>
     </div>
-=======
-      <div className="container">
-        <h1 className='bannerTop'>Resources</h1>
-      </div>
-      <br />
-      {user && user.userType == 5 ? (<button onClick={() => { history.push('/addresourceform') }}>Add a resource</button>) : (<div></div>)}
-      <br />
-      <br />
-      <div>
-        <ul>
-          {viewResources.length > 0 && viewResources[0].map((resource) =>
-            <li key={resource.id}>
-              <p>{resource.resourceName}</p>
-              <p>{resource.resourceDescription}</p>
-              <a href={resource.resourceLink}>View Resource</a>
-              <br />
-              <br />
-            </li>
-          )}
-        </ul>
-      </div>
->>>>>>> main
+
     </>
   );
 }

@@ -3,7 +3,6 @@ import * as React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Dialog from '@mui/material/Dialog';
@@ -11,37 +10,25 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import './AllUsersDetails.css';
-=======
 import './UserDetails.css';
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
 import {
   HashRouter as Router,
   Link,
 } from 'react-router-dom';
 
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 
-function AllUsersDetails() {
-  const allUsersList = useSelector(store => store.allUsers);
-=======
+
 function UserDetails() {
   const activeUser = useSelector(store => store.editUser);
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
   const user = useSelector((store) => store.user);
   const params = useParams();
   console.log(params.id)
   const history = useHistory();
   const dispatch = useDispatch();
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
 
-=======
-  console.log("the user is", user);
-  console.log("all the users are", activeUser);
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
 
 useEffect(() => {
   pageFadeIn(), // Call fade effect, yes I know this is spelled wrong
@@ -84,7 +71,6 @@ const handleConfirmationClose = () => {
       {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
       <div className='bannerTop'></div> 
       <section className='alluserDetailsContainer'>
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
       <Button
             onClick={() => history.push('/allusers')}
             sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
@@ -92,15 +78,9 @@ const handleConfirmationClose = () => {
             fontSize: 16
             },}}
           ><ArrowCircleLeftIcon/>Back To User List</Button>
-        {allUsersList.map(allUsers => (
-          (params.id == allUsers.id && (
-            <ul key={allUsers.username} >
-              <h2> {allUsers.fname} {allUsers.lname}</h2>
-=======
        
             <ul>
               <h2> {activeUser.fname} {activeUser.lname}</h2>
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
               {user.userType == 5 && (
                 <div>
                   <li>            
@@ -127,11 +107,8 @@ const handleConfirmationClose = () => {
                     Email: {activeUser.username}
                   </li>
                   <li>
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
-                    Bio: <br/>{allUsers.bio}
-=======
+
                     Bio: {activeUser.bio}
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
                   </li>
                   {activeUser.userType == 3 && (
                   <li>
@@ -144,9 +121,8 @@ const handleConfirmationClose = () => {
                   </li>
                   )}
                   <li>
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
                       <Button 
-                        onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                        onClick={() => history.push(`/allusers/${activeUser.id}/edit`)}
                         variant='contained'
                         size = "small"
                         sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
@@ -157,11 +133,7 @@ const handleConfirmationClose = () => {
                       >
                        <EditIcon/>
                       </Button>
-=======
-                    <Link to={`/allusers/${activeUser.id}/edit`} className='editUserBtn'>
-                      <Button variant='contained'>Edit User</Button>
-                    </Link>                  
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
+
                   </li>
                   {/* <Button
                     sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
@@ -274,15 +246,9 @@ const handleConfirmationClose = () => {
                 </div>
               )}
             </ul>
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
-          ))
-        ))}
 
-=======
-        <Link to="/allusers">
-          <Button>Back To Events List</Button>
-        </Link>
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
+
+
       </section>
     </>
   );

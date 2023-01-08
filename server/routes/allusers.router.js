@@ -34,7 +34,6 @@ router.get('/', (req, res) => {
 // GET specific user
 router.get('/:id', (req, res) => {
   if (req.user.userType > 3) {
-    console.log(req.params.id, 'what is req params id huh');
     const id = req.params.id;
     const sqlText = `SELECT "user".*, "mentor"."fname" AS mentor_firstname, "mentor"."lname" AS mentor_lastname FROM "user"
             LEFT JOIN "user" "mentor"
@@ -56,7 +55,6 @@ router.get('/:id', (req, res) => {
         console.log(`Error making db query ${sqlText}`, err);
       });
   } else if (req.user.userType < 4) {
-      console.log(req.params.id, 'what is req params id huh');
       const id = req.params.id;
       const sqlText = `
           SELECT * FROM "user"

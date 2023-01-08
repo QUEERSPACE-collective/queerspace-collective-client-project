@@ -16,7 +16,6 @@ import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Dialog from '@mui/material/Dialog';
@@ -24,24 +23,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-=======
 import moment from 'moment-timezone';
->>>>>>> main:src/components/AllEvents/AllEvents.jsx
 
 function AllEvents() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
-<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
-  const user = useSelector((store) => store.user);
-  const [eventToBeDeleted, setEventToBeDeleted] = useState()
-  console.log('event to be deleted', eventToBeDeleted)
-  // const [theEvent, setTheEvent] = useState([]); // For fuse.js search
 
-  const allEventsList = useSelector(store => store.event);
-=======
   const allEvents = useSelector(store => store.event);
->>>>>>> main:src/components/AllEvents/AllEvents.jsx
   const [eventType, setEventType] = useState(0);
   const event = useSelector((store) => store.event);
 
@@ -202,8 +191,7 @@ function AllEvents() {
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
-<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
-                    <Link to={`/alleventslist/${thisEvent.id}/edit`}>
+                    <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button
                       sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                       '&:hover': {
@@ -212,10 +200,7 @@ function AllEvents() {
                       },}}>
                     <EditIcon/>
                   </Button>
-=======
-                    <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button>Edit Event</Button>
->>>>>>> main:src/components/AllEvents/AllEvents.jsx
+
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -242,7 +227,6 @@ function AllEvents() {
                 </TableRow>
               ))}
 
-<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
 {/* 
             <Dialog
             open={confirmationOpen}
@@ -281,10 +265,7 @@ function AllEvents() {
 
 
 
-            {allEventsList.map(thisEvent =>
-=======
             {allEvents.map(thisEvent =>
->>>>>>> main:src/components/AllEvents/AllEvents.jsx
               ((eventType == thisEvent.type && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
@@ -304,13 +285,9 @@ function AllEvents() {
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
-<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
-                    <Link to={`/alleventslist/${thisEvent.id}/edit`}>
-                      <Button variant='contained'><EditIcon/></Button>
-=======
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button>Edit Event</Button>
->>>>>>> main:src/components/AllEvents/AllEvents.jsx
+                      <Button variant='contained'><EditIcon/></Button>
+
                     </Link>
                   </TableCell>
                   <TableCell align="right">
@@ -346,13 +323,8 @@ function AllEvents() {
                   <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
                   <TableCell align="right">{allEvents.programLocation} </TableCell>
                   <TableCell align="right">
-<<<<<<< HEAD:src/components/AllEventsList/AllEventsList.jsx
-                    <Link to={`/alleventslist/${allEvents.id}/edit`}>
-                      <Button variant='contained'><EditIcon/></Button>
-=======
                     <Link to={`/allevents/${allEvents.id}/edit`}>
-                      <Button>Edit Event</Button>
->>>>>>> main:src/components/AllEvents/AllEvents.jsx
+                      <Button variant='contained'><EditIcon/></Button>
                     </Link>
                   </TableCell>
                   <TableCell align="right">

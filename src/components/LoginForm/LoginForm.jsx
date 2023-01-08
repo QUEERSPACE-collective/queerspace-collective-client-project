@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-<<<<<<< HEAD
 import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-=======
-import { useSelector } from 'react-redux';
->>>>>>> main
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 

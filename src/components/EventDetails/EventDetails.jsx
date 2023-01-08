@@ -11,6 +11,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Slide from '@mui/material/Slide';
+import {Snackbar} from '@mui/material';
+import { Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import './EventDetails.css';
 import { atcb_action, atcb_init } from 'add-to-calendar-button';
@@ -31,10 +33,8 @@ function EventDetails() {
   const eventDetails = useSelector(store => store.currentEvent);
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions);
-<<<<<<< HEAD
   const registrationAnswer = useSelector(store => store.registrationAnswers);
-=======
->>>>>>> main
+
   let [attendeeCount, setAttendeeCount] = useState(0);
   let [volunteerCount, setVolunteerCount] = useState(0);
 
@@ -110,25 +110,17 @@ function EventDetails() {
   // }
 
   const eventRegistration = () => {
-<<<<<<< HEAD
-=======
-    console.log('in event registration function with id', params.id)
->>>>>>> main
     dispatch({
       type: 'REGISTER_FOR_EVENT',
       payload: { eventId: params.id, attendees: attendeeCount, answer: eventQuestions }
     })
     setOpen(false);
-<<<<<<< HEAD
     // open snack bar 
     handleAlertClick();
     setTimeout(() => {
-      history.push('/home')
+      history.push('/homepage')
     }, 1500); 
 
-=======
-    history.push('/homepage')
->>>>>>> main
   }
 
   const eventUnregistration = () => {
@@ -141,10 +133,9 @@ function EventDetails() {
 
   console.log('is this user registered for this event?', isRegistered)
   return (
-<<<<<<< HEAD
   <>
       <Button 
-        onClick={() => history.push('/EventList')} 
+        onClick={() => history.push('/eventcalendar')} 
         sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
         '&:hover': {
         fontSize: 16
@@ -153,26 +144,16 @@ function EventDetails() {
         <ArrowCircleLeftIcon/>Back to Calendar
       </Button>
 
-      {userEvents.map(allUserEvents => 
+      {/* {userEvents.map(allUserEvents => 
         {(allUserEvents.id == eventDetails.id) && (
         <>
           {Number(attendeeCount++)}
         </>
         )}
-      )}
+      )} */}
       
       <h2 className='bannerTop'>Details</h2>
-=======
-    <>
-      {userEvents.map(allUserEvents => {
-        (allUserEvents.id == eventDetails.id) && (
-          <>
-            {Number(attendeeCount++)}
-          </>
-        )
-      })}
-      <h2 className='bannerTop'>EventDetails</h2>
->>>>>>> main
+
       <div className='event-details-container'>
         <Box
           sx={{
@@ -203,7 +184,6 @@ function EventDetails() {
           <p>Registered Volunteers: {volunteerCount}</p>
         </Box>
 
-<<<<<<< HEAD
           {isRegistered == true ?
 
             (
@@ -309,37 +289,9 @@ function EventDetails() {
           )
         }
         {/* add to calendar button */}
-        <Button
-          variant='contained'
-          onClick={e => {
-            e.preventDefault();
-            let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
-            let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
-            let eventStartTime = moment(event.dateTime).format("HH:mm");
-            let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
 
-            console.log('event date start', eventDateStart);
-            console.log('event date end', eventDateEnd);
-
-            atcb_action({
-              name: `${event.name}`,
-              startDate: `${eventDateStart}`,
-              endDate: `${eventDateEnd}`,
-              startTime: `${eventStartTime}`,
-              endTime: `${eventEndTime}`,
-              location: `${event.location}`,
-              options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
-              timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
-              iCalFileName: `${event.name}-QSC-Event`,
-            });
-          }}>
-          add to calendar app
-        </Button>
         {/* end add to calendar button */}
 
-        <Link to="/EventCalendar">
-          <button>Back to Calendar</button>
-        </Link>
 
         <Dialog
           open={open}
@@ -371,7 +323,6 @@ function EventDetails() {
                 </div>
               ))}
 
-<<<<<<< HEAD
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -442,30 +393,6 @@ function EventDetails() {
         </div>
       </>
       );
-=======
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button variant="contained" onClick={eventRegistration}>Register</Button>
-            <Button variant="contained" onClick={handleClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={unregisterOpen}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleUnregisterClose}
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle sx={{ textAlign: 'center' }}>{"Are you sure you want to unregister?"}</DialogTitle>
-          <DialogActions>
-            <Button variant="contained" onClick={eventUnregistration}>Unregister</Button>
-            <Button variant="contained" onClick={handleUnregisterClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    </>
-  );
->>>>>>> main
+
 }
 export default EventDetails;

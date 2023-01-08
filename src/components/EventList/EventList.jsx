@@ -6,7 +6,6 @@ import EventListItems from '../EventListItems/EventListItems';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import './EventList.css';
 
 
 function EventList() {
@@ -38,7 +37,7 @@ function animater() {
 
       <div className='upcoming-events-container'>
       <Button 
-        onClick={() => history.push('/home')} 
+        onClick={() => history.push('/homepage')} 
         sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
         '&:hover': {
         fontSize: 16
