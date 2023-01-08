@@ -117,35 +117,39 @@ router.get('/:id/edit', rejectUnauthenticated, async (req, res)=>{
 // edit the event
 router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     console.log('req params id', req.params.id)
-    if (req.user.userType == 5) {
-        try{
-            const sqlText=`
-                UPDATE "events"
-                SET "name" = $1, 
-                    "dateTime" = $2, 
-                    "location" = $3, 
-                    "programLocationID" = $4, 
-                    "type" = $5, 
-                    "description" = $6
-                WHERE "id" = $7;
-                `;
 
-            const sqlParams = [
-                req.body.name,
-                req.body.dateTime,
-                req.body.location,
-                req.body.programLocationID,
-                req.body.type,
-                req.body.description,
-                req.params.id
-            ];
-            let dbRes = await pool.query(sqlText, sqlParams);
-            res.send(dbRes.rows);
-        }
-        catch (error) {
-            console.error('error in PUT event', error);
-            res.sendStatus(500);
-        }
+  if (req.user.userType == 5) {
+    try{
+        const sqlText=`
+            UPDATE "events"
+            SET "name" = $1, 
+                "dateTime" = $2,
+                "dateTimeEnd" = $3, 
+                "location" = $4, 
+                "programLocationID" = $5, 
+                "type" = $6, 
+                "description" = $7
+            WHERE "id" = $8;
+            `;
+
+        const sqlParams = [
+            req.body.name,
+            req.body.dateTime,
+            req.body.dateTimeEnd,
+            req.body.location,
+            req.body.programLocationID,
+            req.body.type,
+            req.body.description,
+            req.params.id
+        ];
+        let dbRes = await pool.query(sqlText, sqlParams);
+        res.send(dbRes.rows);
+    }
+    
+    catch (error) {
+        console.error('error in PUT event', error);
+        res.sendStatus(500);
+       }
     }
 })
 

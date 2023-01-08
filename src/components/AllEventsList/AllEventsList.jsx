@@ -16,6 +16,7 @@ import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import moment from 'moment-timezone';
 
 
 function AllEventsList() {
@@ -170,10 +171,9 @@ function AllEventsList() {
                     {thisEvent.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{thisEvent.dateTime}</TableCell>
+                  <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {thisEvent.description}</TableCell>
                   <TableCell align="right"> {thisEvent.location}</TableCell>
-                  {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
                     <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
@@ -208,10 +208,9 @@ function AllEventsList() {
                     {thisEvent.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{thisEvent.dateTime}</TableCell>
+                  <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {thisEvent.description}</TableCell>
                   <TableCell align="right"> {thisEvent.location}</TableCell>
-                  {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
                     <Link onClick={() => { history.push(`/AllEventsList/attendees/event/${thisEvent.id}`) }}>
@@ -245,7 +244,7 @@ function AllEventsList() {
                     {allEvents.name}
                   </Link>
                   </TableCell>
-                  <TableCell align="right">{allEvents.dateTime}</TableCell>
+                  <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {allEvents.description}</TableCell>
                   <TableCell align="right"> {allEvents.location}</TableCell>
                   {/* TODO: convert event type from number value to text*/}

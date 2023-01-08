@@ -198,24 +198,24 @@ function EventDetails() {
             variant='contained'
             onClick={e => {
               e.preventDefault();
-              let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
-              let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
-              let eventStartTime = moment(event.dateTime).format("HH:mm");
-              let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
+              let eventDateStart = moment(eventDetails.dateTime).format("YYYY-MM-DD");
+              let eventDateEnd = moment(eventDetails.dateTimeEnd).format("YYYY-MM-DD");
+              let eventStartTime = moment(eventDetails.dateTime).format("HH:mm");
+              let eventEndTime = moment(eventDetails.dateTimeEnd).format("HH:mm");
 
               console.log('event date start', eventDateStart);
               console.log('event date end', eventDateEnd);
             
               atcb_action({
-                name: `${event.name}`,
+                name: `${eventDetails.name}`,
                 startDate: `${eventDateStart}`,
                 endDate: `${eventDateEnd}`,
                 startTime:`${eventStartTime}`,
                 endTime: `${eventEndTime}`,
-                location: `${event.location}`,
+                location: `${eventDetails.location}`,
                 options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
                 timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
-                iCalFileName: `${event.name}-QSC-Event`,
+                iCalFileName: `${eventDetails.name}-QSC-Event`,
               });
             }}>
                add to calendar app
