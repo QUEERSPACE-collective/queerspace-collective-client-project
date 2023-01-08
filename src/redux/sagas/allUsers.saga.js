@@ -3,22 +3,20 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* fetchAllUsers() {
     console.log("in fetch allusers");
-
     try {
         const response = yield axios.get("/api/allusers");
-        console.log('what the heck is response.data',response.data)
-        yield put ({
+        console.log('fetchAllUsers response.data is: ', response.data)
+        yield put({
             type: "SET_ALL_USERS",
             payload: response.data
         })
-    } catch (error) {
-        console.error('get all users request failed', error);
+    } catch (err) {
+        console.error('GETting all users request failed', err);
     }
 }
 
 function* allUsersSaga() {
     yield takeLatest('FETCH_ALL_USERS', fetchAllUsers);
-    // yield takeLatest('SHOW_ONE_USER', showOneUser);
 }
 
 export default allUsersSaga;

@@ -3,12 +3,10 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// also getting the total number of attendees per event
+// GETting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const sqlText = 
-    `SELECT * FROM "events" ORDER BY "id" ASC;
-
-    `;
+    const sqlText =
+        `SELECT * FROM "events" ORDER BY "id" ASC;`;
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
@@ -18,97 +16,60 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         })
 })
+
+// GET the events by a certain order depending on the params value
 router.get('/order/:order', rejectUnauthenticated, (req, res) => {
-    console.log('what is req.params.order',req.params.order);
+    console.log('what is req.params.order', req.params.order);
     const order = req.params.order;
-    
-
-    let date = Date.now();
-
-    console.log('what is date',date)
     var sqlText = "";
-    if(order == 1) {
-        sqlText = 
-        `SELECT * FROM "events" ORDER BY "id" ASC;
-        `;
-    } else if(order == 2) {
-        sqlText = 
-        `SELECT * FROM "events" ORDER BY "id" DESC;
-        `;
-    } else if(order == 3) {
-        sqlText = 
-        `SELECT * FROM "events" 
-        WHERE "dateTime" > clock_timestamp();`
+
+    if (order == 1) {
+        sqlText = `SELECT * FROM "events" ORDER BY "id" ASC;`;
+    } else if (order == 2) {
+        sqlText = `SELECT * FROM "events" ORDER BY "id" DESC;`;
+    } else if (order == 3) {
+        sqlText = `SELECT * FROM "events" WHERE "dateTime" > clock_timestamp();`
+    } else {
+        sqlText = `SELECT * FROM "events" WHERE "dateTime" < clock_timestamp();`
     }
-    else {
-        sqlText = 
-        `SELECT * FROM "events" 
-        WHERE "dateTime" < clock_timestamp();`
-    }
-    // WHERE ${sql} < ${date}
+
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
         })
-        .catch(error => {
-            console.error('error getting events back from db', error)
+        .catch(err => {
+            console.error('error getting events back from db', err)
             res.sendStatus(500);
         })
 })
-
-// getting event details with count of total attendees
-// router.get('/specificEvent/:id', rejectUnauthenticated, (req,res) => {
-//     const sqlParams = [req.params.id]
-//     const sqlText = `SELECT "questions"."eventId", "questionId", "question", "answer", "name", "location", "description", "user"."username","fname","lname","userType", "user"."id" 
-//     FROM "questions"
-//        RIGHT JOIN "answers" ON "answers"."questionId" = "questions"."id"
-//        LEFT JOIN "events" ON "events"."id" = "questions"."eventId" 
-//        LEFT JOIN "user" ON "user"."id" = "answers"."userId"
-//        LEFT JOIN "userEvents" ON "userEvents"."eventId" = "events"."id" and "events"."id" = "answers"."questionId"
-//        LEFT JOIN "eventTypes" ON "eventTypes"."id" = "events"."id" WHERE "events"."id" = $1;`;
-//     pool.query(sqlText, sqlParams)
-//         .then(dbResult => {
-//             res.send(dbResult.rows)
-//         })
-//         .catch(error => {
-//             console.error('error getting specific event data',error)
-//             res.sendStatus(500);
-//         })
-// });
 
 // GET specific event details
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    const sqlParams = [req.params.id]
-    const sqlText = 
-    `SELECT * FROM "events" WHERE "id" = $1;`
+    const sqlParams = [req.params.id];
+    const sqlText = `SELECT * FROM "events" WHERE "id" = $1;`
 
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
             res.send(dbResult.rows[0])
-
         })
-        .catch(error => {
-            console.log('error getting event details from db', error)
+        .catch(err => {
+            console.log('error getting event details from db', err)
             res.sendStatus(500)
         })
 })
 
-
-// get a specific event for editing
-router.get('/:id/edit', rejectUnauthenticated, async (req, res)=>{
-    console.log('in router.get /:id', req.params)
+// GET a specific event for editing
+router.get('/:id/edit', rejectUnauthenticated, async (req, res) => {
+    console.log('in router.get /:id/edit, req.params are', req.params);
     if (req.user.userType == 5) {
-        try{
+        try {
             const id = req.params.id;
-            const sqlText=`
-                SELECT * FROM "events"
-                WHERE id = $1;
-                `;
+            const sqlText = `SELECT * FROM "events" WHERE id = $1;`;
             let dbRes = await pool.query(sqlText, [id]);
             res.send(dbRes.rows[0]);
         }
-        catch (error) {
-            console.error('error in edit event', error);
+        catch (err) {
+            console.error('error in edit event', err);
             res.sendStatus(500);
         }
     }
@@ -156,16 +117,13 @@ router.put('/:id', rejectUnauthenticated, async (req, res)=>{
 // DELETE specific event
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     if (req.user.userType == 5) {
-        try{
-            const sqlText = `
-                DELETE FROM "events"
-                WHERE "id" = $1;
-                `;
+        try {
+            const sqlText = `DELETE FROM "events" WHERE "id" = $1;`;
             await pool.query(sqlText, [req.params.id]);
             res.sendStatus(204);
         }
-        catch (error) {
-            console.error('error in delete event from db', error);
+        catch (err) {
+            console.error('error in delete event from db', err);
             res.sendStatus(500);
         }
     }
@@ -173,51 +131,62 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
 
 // POST new event
 router.post('/', (req, res) => {
-    console.log('reqbody is', req.body);
+    console.log('POST req.body is', req.body);
     if (req.user.userType == 5) {
-        let sqlText = `INSERT INTO "events" ("name","dateTime", "dateTimeEnd", "location","programLocationID","type","attendeeMax","hasVolunteers", "volunteerMax", "description")
+        let sqlText = `INSERT INTO "events" 
+            ( "name","dateTime", 
+            "dateTimeEnd","location",
+            "programLocationID","type",
+            "attendeeMax","hasVolunteers", 
+            "volunteerMax", "description" )
         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
         RETURNING "id";`;
-        
-        let sqlParams = [req.body.data.name, req.body.data.dateTime, req.body.data.dateTimeEnd, req.body.data.location, req.body.data.programLocationID, req.body.data.type, req.body.data.attendeeMax, req.body.data.hasVolunteers, req.body.data.volunteerMax, req.body.data.description];
+
+        let sqlParams = [
+            req.body.data.name,
+            req.body.data.dateTime,
+            req.body.data.dateTimeEnd,
+            req.body.data.location,
+            req.body.data.programLocationID,
+            req.body.data.type,
+            req.body.data.attendeeMax,
+            req.body.data.hasVolunteers,
+            req.body.data.volunteerMax,
+            req.body.data.description
+        ];
         pool.query(sqlText, sqlParams)
-            .then(dbRes=>{
+            .then(dbRes => {
                 const eventId = dbRes.rows[0].id;
                 sqlText = `INSERT INTO "questions" ("eventId", "question")
                 VALUES($1,$2);`;
-                req.body.data.questions.map(question=>{
+                req.body.data.questions.map(question => {
                     sqlParams = [eventId, question];
                     pool.query(sqlText, sqlParams)
-                        .catch(dbQuestionErr=>{
+                        .catch(dbQuestionErr => {
                             console.error(dbQuestionErr);
                         });
                 });
-            res.sendStatus(201);
+                res.sendStatus(201);
             })
-            .catch(dbErr=>{
+            .catch(dbErr => {
                 console.error(dbErr);
                 res.sendStatus(500);
-            }); 
-    }     
+            });
+    }
 });
 
 // GET questions for specific event
 router.get('/questions/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
-    const sqlText = 
-    `
-    SELECT * FROM "questions" WHERE "eventId" = $1;
-    `;
+    const sqlText = `SELECT * FROM "questions" WHERE "eventId" = $1;`;
     pool.query(sqlText, sqlParams)
         .then(dbResult => {
             res.send(dbResult.rows)
         })
-        .catch(error => {
-            console.log('error getting event questions from db', error)
+        .catch(err => {
+            console.log('error getting event questions from db', err)
             res.sendStatus(500)
         })
 })
-
-
 
 module.exports = router;

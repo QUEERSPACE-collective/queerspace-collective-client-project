@@ -19,13 +19,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Password generator function
 function generatePW() {
   var pass = '';
-  var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' + 
-          'abcdefghijklmnopqrstuvwxyz0123456789@$';  
+  var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+    'abcdefghijklmnopqrstuvwxyz0123456789@$';
   for (let i = 1; i <= 8; i++) {
-      var char = Math.floor(Math.random()
-                  * str.length + 1);
-        
-      pass += str.charAt(char)
+    var char = Math.floor(Math.random()
+      * str.length + 1);
+
+    pass += str.charAt(char)
   }
   return pass;
 };
@@ -39,8 +39,8 @@ let transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USERNAME, // sender username
     pass: process.env.EMAIL_PASSWORD, // sender password
   },
-    tls: {
-      ciphers: 'SSLv3'
+  tls: {
+    ciphers: 'SSLv3'
   }
 });
 
@@ -52,18 +52,18 @@ router.post('/register', async (req, res) => {
   const pw = generatePW();
   const password = encryptLib.encryptPassword(pw);
   const userType = req.body.userType;
-  
+
   // Restrict to admin?? only admin can see page by client side code
   // Need something here as well?
 
   if (req.user.userType == 5) {
     try {
-    // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: process.env.EMAIL_USERNAME, // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
-      to: username, // list of receivers
-      subject: "Login Credentials", // Subject line
-      html: `
+      // send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: process.env.EMAIL_USERNAME, // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
+        to: username, // list of receivers
+        subject: "Login Credentials", // Subject line
+        html: `
                 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml" 
                  xmlns:v="urn:schemas-microsoft-com:vml"
@@ -125,20 +125,20 @@ router.post('/register', async (req, res) => {
                 </body>
                 </html>         
     `, // TODO: Update login link
-    });
-    
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+      });
 
-    const queryText = `INSERT INTO "user" (username, password, "userType")
+      console.log("Message sent: %s", info.messageId);
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+      const queryText = `INSERT INTO "user" (username, password, "userType")
       VALUES ($1, $2, $3) RETURNING id`;
-    await pool.query(queryText, [username, password, userType])
-    res.sendStatus(201);
-  } 
-  catch (err) {
-    console.log('User registration failed: ', err);
-    res.sendStatus(500);
-  }
+      await pool.query(queryText, [username, password, userType])
+      res.sendStatus(201);
+    }
+    catch (err) {
+      console.log('User registration failed: ', err);
+      res.sendStatus(500);
+    }
   }
 });
 
@@ -160,8 +160,8 @@ router.post('/logout', (req, res) => {
 // getting all events that the user is registered for
 router.get('/events', rejectUnauthenticated, (req, res) => {
   const sqlParams = [req.user.id]
-  const sqlText = 
-  `
+  const sqlText =
+    `
   SELECT "events"."name", "events"."id" 
   FROM "userEvents"
   JOIN "events" ON "events".id = "userEvents"."eventId"
@@ -176,34 +176,31 @@ router.get('/events', rejectUnauthenticated, (req, res) => {
     })
 })
 
-
 // Delete event for user
 router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
-  const sqlParams = [req.params.id, req.user.id]
-  const sqlText = 
-  `
-  DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2;
-  `;
+  const sqlParams = [req.params.id, req.user.id];
+  const sqlText = `DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2;`;
   pool.query(sqlText, sqlParams)
-  .then(dbResult => {
-    res.sendStatus(204)
-  })
-  .catch(error => {
-    console.log('error deleting user event in router', error)
-    res.sendStatus(500)
-  })
+    .then(dbResult => {
+      res.sendStatus(204)
+    })
+    .catch(err => {
+      console.log('error deleting user event in router', err)
+      res.sendStatus(500)
+    })
 })
 
 // GET specific user
 router.get('/:id', (req, res) => {
-  console.log(req.params.id, 'what is req params id huh');
+  console.log('/user GET/:id req.params.id is: ', req.params.id);
   if (req.user.userType > 3) {
-  const id = req.params.id;
-  const sqlText = `
+    const id = req.params.id;
+    const sqlText = `
       SELECT * FROM "user"
       WHERE id = $1
       ORDER BY id ASC;
   `;
+
   const sqlParams = [id]; // $1 = req.params.id
   
   console.log(sqlParams);
@@ -227,12 +224,10 @@ router.get('/:id', (req, res) => {
         ORDER BY id ASC;
     `;
     const sqlParams = [id]; // $1 = req.params.id
-    
-    console.log(sqlParams);
+
     pool.query(sqlText, sqlParams)
       .then((dbRes) => {
         const user = dbRes.rows[0];
-  
         if (user) {
           delete user.password
           delete user.username
@@ -248,35 +243,37 @@ router.get('/:id', (req, res) => {
 // Edit user information
 router.put('/:id', (req, res) => {
   if (req.user.userType == 5) {
-  const sqlText = `
+    const sqlText = `
       UPDATE "user"
-      SET "fname" = $1, "lname" = $2, "userType" = $3, "pronouns" = $4, "bio" = $5, "profilePic" = $6, "mentorPair" = $7
-      WHERE id = $8`;
-  
-      const sqlParams = [
-        req.body.fname,
-        req.body.lname,
-        req.body.userType,
-        req.body.pronouns,
-        req.body.bio,
-        req.body.profilePic,
-        req.body.mentorPair,
-        req.params.id
-      ]
-  
-      console.log(sqlText, sqlParams);
-      pool.query(sqlText, sqlParams)
-        .then((dbRes) => {
-          res.sendStatus(200);
-        })
-        .catch((err) => {
-          console.log(`Error making database query ${sqlText}`, err);
-          res.sendStatus(500);
-        })
+      SET "fname" = $1, "lname" = $2, 
+      "userType" = $3, "pronouns" = $4, 
+      "bio" = $5, "profilePic" = $6, "mentorPair" = $7
+      WHERE id = $8;
+    `;
+
+    const sqlParams = [
+      req.body.fname,
+      req.body.lname,
+      req.body.userType,
+      req.body.pronouns,
+      req.body.bio,
+      req.body.profilePic,
+      req.body.mentorPair,
+      req.params.id
+    ]
+
+    pool.query(sqlText, sqlParams)
+      .then((dbRes) => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log(`Error making database query ${sqlText}`, err);
+        res.sendStatus(500);
+      })
   }
 })
 
-// send email for password reset
+// POST send email for password reset
 router.post("/reset", async (req, res) => {
   let token;
   try {
@@ -297,7 +294,7 @@ router.post("/reset", async (req, res) => {
 
   try {
     const username = req.body.username;
-  
+
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: process.env.EMAIL_USERNAME, // sender address TODO: SWITCH TO QSC's email (cannot be gmail!!)
@@ -306,30 +303,28 @@ router.post("/reset", async (req, res) => {
       html: `<p>Follow this link to reset password:</p>
               <a href=http://localhost:3000/#/reset/${token}>Click Here</a>`, // html text body
     }); // TODO: Update reset link
-  
+
     console.log("Message sent: %s", info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-  
+
     // Preview only available when sending through an Ethereal account
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-  
   }
   catch (err) {
     console.log(err);
   }
-
 })
 
-// UPDATE new password
+// PUT update new password
 router.put('/reset/:token', (req, res) => {
   const password = encryptLib.encryptPassword(req.body.password);
   const sqlText = `
     UPDATE "user"
     SET "password" = $1
-    WHERE "token" = $2`;
-
-  const sqlParams = [password, req.body.token]
+    WHERE "token" = $2;
+  `;
+  const sqlParams = [password, req.body.token];
 
   pool.query(sqlText, sqlParams)
     .then((dbRes) => {

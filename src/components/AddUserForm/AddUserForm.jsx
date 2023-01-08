@@ -10,16 +10,26 @@ function AddUserForm() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    pageFadeIn(),
     dispatch({ type: "FETCH_ALL_USERS" })
   }, [])
 
+  function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
+  };
+ 
   // Disable add user button if username is already in system
   const isDisabled = () => {
-    {allUsers.map(user => {
-      (username == user.username)
-    })}
+    {
+      allUsers.map(user => {
+        (username == user.username)
+      })
+    }
   }
-  
+
   const registerUser = (event) => {
     event.preventDefault();
 
@@ -32,6 +42,7 @@ function AddUserForm() {
     });
   }; // end registerUser
 
+ 
   return (
     <form onSubmit={registerUser}>
       <h2>Register User</h2>
@@ -54,7 +65,7 @@ function AddUserForm() {
       </div>
       <div>
         <label htmlFor='userType'>
-          *Access Level: 
+          *Access Level:
         </label>
         <select onChange={(event) => setUserType(event.target.value)} value={userType}>
           <option>Select One</option>
@@ -76,7 +87,7 @@ function AddUserForm() {
         </select>
       </div>
       <div>
-        <input type="submit" name="submit" value="Register" disabled={isDisabled()}/>
+        <input type="submit" name="submit" value="Register" disabled={isDisabled()} />
       </div>
     </form>
   );

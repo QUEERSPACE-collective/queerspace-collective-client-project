@@ -3,13 +3,11 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
 // POST new answers to question for event
 router.post('/', rejectUnauthenticated, async (req, res) => {
-    console.log('in registration answers router', req.body)
-    try{
-        const sqlText = 
-        `
+    try {
+        const sqlText =
+            `
         INSERT INTO "answers" ("questionId", "userId", "answer")
          VALUES ($1, $2, $3)
         `;
@@ -19,7 +17,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     } catch (error) {
         console.error('error posting answers to answer table', error)
         res.sendStatus(500)
-    }  
+    }
 })
 
 // update into 'events' table the number of guests  
@@ -27,13 +25,13 @@ router.put('/guests', rejectUnauthenticated, async (req, res) => {
     try {
         sqlParams = [req.body.attendees, req.body.eventId]
         console.log('sql params', sqlParams)
-        sqlText = 
-        `
+        sqlText =
+            `
         UPDATE "events"
         SET "totalAttendees" = "totalAttendees" + $1
         WHERE "id" = $2;
         `;
-        await pool.query (sqlText, sqlParams);
+        await pool.query(sqlText, sqlParams);
         res.sendStatus(204)
     }
     catch (error) {
@@ -41,7 +39,5 @@ router.put('/guests', rejectUnauthenticated, async (req, res) => {
         res.sendStatus(500)
     }
 })
-
-
 
 module.exports = router;

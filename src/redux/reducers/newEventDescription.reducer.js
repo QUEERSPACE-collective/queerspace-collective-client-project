@@ -1,5 +1,5 @@
-const newEventDescription = (state='', action)=>{
-    switch(action.type){
+const newEventDescription = (state = '', action) => {
+    switch (action.type) {
         case 'SET_NEW_EVENT_DESCRIPTION':
             return action.payload;
         case 'EVENT_FORM_FILLER':

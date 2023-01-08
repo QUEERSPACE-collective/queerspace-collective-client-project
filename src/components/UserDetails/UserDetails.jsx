@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
-import './AllUsersDetails.css';
+import './UserDetails.css';
 import {
   HashRouter as Router,
   Link,
 } from 'react-router-dom';
 
-function AllUsersDetails() {
+function UserDetails() {
   const activeUser = useSelector(store => store.editUser);
   const user = useSelector((store) => store.user);
   const params = useParams();
@@ -19,7 +19,7 @@ function AllUsersDetails() {
   console.log("all the users are", activeUser);
 
 useEffect(() => {
-  animater(), // Call fade effect, yes I know this is spelled wrong
+  pageFadeIn(), // Call fade effect, yes I know this is spelled wrong
   dispatch({ 
     type: "FETCH_EDIT_USER",
     payload: params.id
@@ -27,16 +27,15 @@ useEffect(() => {
 }, [params.id]);
 
 //Fade effect
-function animater() {
-  document.body.classList.remove("noSalmon");
-  document.body.classList.add("salmon");
-  setTimeout(() => document.body.classList.remove("salmon"), 100);
-  setTimeout(() => document.body.classList.add("noSalmon"), 100);
+function pageFadeIn() {
+  document.body.classList.remove("withOpacity");
+  document.body.classList.add("noOpacity");
+  setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+  setTimeout(() => document.body.classList.add("withOpacity"), 100);
 };
-//Fade effect
 
 const deleteUser = (id) => {
-  console.log('in allUsersDetails deleteUser, the users id is', id)
+  console.log('in AllUsers deleteUser, the users id is', id)
   dispatch({
     type: "DELETE_USER",
     payload: id,
@@ -49,11 +48,12 @@ const deleteUser = (id) => {
       {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
       <div className='bannerTop'></div> 
       <section className='alluserDetailsContainer'>
+       
             <ul>
               <h2> {activeUser.fname} {activeUser.lname}</h2>
               {user.userType == 5 && (
                 <div>
-                  <li>
+                  <li>            
                     {activeUser.userType == 5 && (
                       <span>Admin</span>
                     )}
@@ -138,4 +138,4 @@ const deleteUser = (id) => {
   );
 }
 
-export default AllUsersDetails;
+export default UserDetails;

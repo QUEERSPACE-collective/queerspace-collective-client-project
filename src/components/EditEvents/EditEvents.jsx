@@ -10,7 +10,7 @@ function EditEvents(){
     const history = useHistory();
 
     useEffect(() => {
-        animater(),
+        pageFadeIn(),
         dispatch({
             type: "FETCH_EDIT_EVENT",
             payload: params.id
@@ -24,11 +24,11 @@ function EditEvents(){
     }, [params.id]);
 
 //Fade effect
-function animater() {
-    document.body.classList.remove("noSalmon");
-    document.body.classList.add("salmon");
-    setTimeout(() => document.body.classList.remove("salmon"), 100);
-    setTimeout(() => document.body.classList.add("noSalmon"), 100);
+function pageFadeIn() {
+    document.body.classList.remove("withOpacity");
+    document.body.classList.add("noOpacity");
+    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+    setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 //Fade effect
 
@@ -44,7 +44,7 @@ function animater() {
         dispatch({
             type: 'FETCH_EVENTS'
         });
-        history.push('/AllEventsList')
+        history.push('/AllEvents')
     }
     return(
         <>
@@ -149,7 +149,7 @@ function animater() {
                     variant="contained"
                 >Submit</Button>
             </form>
-            <Link to="/AllEventsList">
+            <Link to="/AllEvents">
                 <Button>Back To Events List</Button>
             </Link>
         </>
