@@ -180,8 +180,14 @@ function EventDetails() {
           <p>
             Max attendees: {eventDetails.attendeeMax}
           </p>
-          <p>Registered Attendees: {attendeeCount}  </p>
-          <p>Registered Volunteers: {volunteerCount}</p>
+          <p>
+            Registered Attendees: {eventDetails.totalAttendees}  
+          </p>
+            {eventDetails.hasVolunteers && 
+              <p> 
+                Registered Volunteers: {eventDetails.registeredVolunteers}
+              </p>
+            }
         </Box>
 
           {isRegistered == true ?
