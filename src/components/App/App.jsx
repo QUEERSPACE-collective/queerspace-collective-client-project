@@ -7,26 +7,23 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-// Imported Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-import Feedback from '../Feedback/Feedback';
+import MentorFeedbackForm from '../MentorFeedbackForm/MentorFeedbackForm';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import ProfilePage from '../ProfilePage/ProfilePage';
+import HomePage from '../HomePage/HomePage';
 import Resources from '../Resources/Resources';
 import LoginPage from '../LoginPage/LoginPage';
 import AddResourceForm from '../AddResourceForm/AddResourceForm';
 import AddUserForm from '../AddUserForm/AddUserForm';
-import AllEventsDetails from '../AllEventsDetails/AllEventsDetails';
-import AllEventsList from '../AllEventsList/AllEventsList';
-import AllUsersDetails from '../AllUsersDetails/AllUsersDetails';
-import AllUsersList from '../AllUsersList/AllUsersList';
-import Drawers from '../Drawer/Drawer';
+import AllEvents from '../AllEvents/AllEvents';
+import UserDetails from '../UserDetails/UserDetails';
+import AllUsers from '../AllUsers/AllUsers';
+import MobileNavBar from '../MobileNavBar/MobileNavBar';
 import EditUser from '../EditUser/EditUser';
 import EventDetails from '../EventDetails/EventDetails';
-import EventList from '../EventList/EventList';
-import EventListItems from '../EventListItems/EventListItems';
-import EventRegForm from '../EventRegForm/EventRegForm';
+import EventCalendar from '../EventCalendar/EventCalendar';
+import CalendarEventList from '../CalendarEventList/CalendarEventList';
 import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
 import EditEvents from '../EditEvents/EditEvents';
@@ -35,11 +32,9 @@ import './App.css';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
 import PasswordReset from '../PasswordReset/PasswordReset';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
-//END OF NEW COMPONENTS
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
@@ -54,46 +49,44 @@ function App() {
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
 
-
           {/* if the usertype is 5 (admin??) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
-          <ProtectedRoute exact path="/home">
+          <ProtectedRoute exact path="/homepage">
             {user.userType == 5 ?
-            <Redirect to="/allEventsList" />
-            :
-            <ProfilePage />}           
-
+              <Redirect to="/allEvents" />
+              :
+              <HomePage />}
           </ProtectedRoute>
 
-          {/* Chris moved these two up here */}
-            <ProtectedRoute exact path='/alleventslist/:id/details'>
-              <AllEventsDetails/>
-            </ProtectedRoute>
-
-            <ProtectedRoute exact path='/AllEventsList'>
-              <AllEventsList/>
-            </ProtectedRoute>
+          <ProtectedRoute exact path='/AllEvents'>
+            <AllEvents />
+          </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers/:id/edit'>
             <EditUser />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/feedback'>
-            <Feedback />
+          <ProtectedRoute exact path='/mentorfeedbackform'>
+            <MentorFeedbackForm />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AddUserForm'>
-              <AddUserForm/>
+            <AddUserForm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path = "/info">
+          <ProtectedRoute exact path="/resources">
             <Resources />
           </ProtectedRoute>
 
+          <ProtectedRoute exact path='/AddResourceForm'>
+            <AddResourceForm />
+          </ProtectedRoute>
+
+          {/* Does this need to be a protected route? */}
           <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/home" />
+              <Redirect to="/homepage" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -110,12 +103,12 @@ function App() {
               <Redirect to="/user" />
               :
               // Otherwise, show the Landing page
-              <PasswordReset/>
+              <PasswordReset />
             }
           </Route>
 
-          <ProtectedRoute exact path='/EventList'>
-            <EventList />
+          <ProtectedRoute exact path='/EventCalendar'>
+            <EventCalendar />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/EventDetails/event/:id'>
@@ -126,69 +119,50 @@ function App() {
             <NewEventForm />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllEventsList/attendees/event/:id'>
+          <ProtectedRoute exact path='/AllEvents/attendees/event/:id'>
             <EventAttendees />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllEventsList'>
-            <AllEventsList />
-          </ProtectedRoute>
-          
-          <ProtectedRoute exact path='/AllEventsList/:id/edit'>
+          <ProtectedRoute exact path='/AllEvents/:id/edit'>
             <EditEvents />
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers'>
-            <AllUsersList />
+            <AllUsers />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/AllUsersDetails/:id'>
-            <AllUsersDetails />
+          <ProtectedRoute exact path='/UserDetails/:id'>
+            <UserDetails />
           </ProtectedRoute>
 
-          {/* If none of the other routes matched, we will show a 404. */}
-          {/* <Route>
-            <h1>404</h1>
-          </Route> */}
+          <ProtectedRoute exact path='/homepage/:id/edit'>
+            <EditProfilePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/ProfilePicture/edit'>
+            <EditProfilePicture />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/forgot'>
+            <ForgotPassword />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/MobileNavBar'>
+            <MobileNavBar />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path='/CalendarEventList'>
+            <CalendarEventList />
+          </ProtectedRoute>
+
+          {/* If none of the other routes matched, we will show a default message. */}
+          <Route>
+            <h1>Yo, this page doesn't exist.</h1>
+          </Route>
         </Switch>
         <Footer />
       </div>
 
-
-
-{/* IMPORTING ALL COMPONENTS TO TEST */}
-            
-            
-
-            <Route exact path='/home/:id/edit'>
-              <EditProfilePage/>
-            </Route>
-            <Route exact path='/AddResourceForm'>
-              <AddResourceForm/>
-            </Route>
-
-              <Route exact path='/AllEventsDetails'>
-              <AllEventsDetails/>
-              </Route>
-              <Route exact path='/ProfilePicture/edit'>
-                <EditProfilePicture />
-              </Route>   
-              <Route exact path='/Drawers'>
-              <Drawers/>
-              </Route>
-              <Route exact path='/EventListItems'>
-              <EventListItems/>
-              </Route>
-              <Route exact path='/EventRegForm'>
-              <EventRegForm/>
-              </Route>
-              <Route exact path='/Resources'>
-                <Resources/>
-              </Route>
-              <Route exact path='/forgot'>
-                <ForgotPassword/>
-              </Route>
-{/* END NEW COMPONENTS */}
     </Router>
   );
 }

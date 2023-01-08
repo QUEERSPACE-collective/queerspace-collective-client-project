@@ -3,11 +3,10 @@ const eventReducer = (state = [], action) => {
         case 'SET_EVENTS':
             return action.payload;
         case 'SET_ORDER':
-            return action.payload;      
-        default: 
+            return action.payload;
+        default:
             return state
     }
 }
-
 
 export default eventReducer;

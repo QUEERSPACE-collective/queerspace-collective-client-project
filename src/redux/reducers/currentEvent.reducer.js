@@ -8,6 +8,3 @@ const currentEvent = (state = [], action) => {
 }
 
 export default currentEvent;
-
-
-

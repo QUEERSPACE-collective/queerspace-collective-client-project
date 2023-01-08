@@ -1,7 +1,3 @@
-h1 {
-    /* color:red; */
-}
-
 .event-details-container{
     display: flex;
     flex-direction: column;

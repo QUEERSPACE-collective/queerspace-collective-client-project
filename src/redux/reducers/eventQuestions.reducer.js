@@ -6,18 +6,15 @@ const eventQuestions = (state = [], action) => {
         case 'STORE_USER_ANSWER':
             return state.map(question => {
                 if (question.id === action.payload.questionId) {
-                    return {...question, answer: action.payload.answer}
+                    return { ...question, answer: action.payload.answer }
                 }
                 else {
                     return question
                 }
-                
             })
-        default: 
+        default:
             return state
     }
-    
 }
-
 
 export default eventQuestions;
