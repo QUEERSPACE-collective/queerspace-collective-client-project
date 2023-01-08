@@ -5,7 +5,8 @@ h1 {
 .allusersContainer {
   border-bottom: 1px solid black;
   align-items: center;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   list-style-type: none;
   text-align: center;
   font-size: 13px;

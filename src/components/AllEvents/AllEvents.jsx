@@ -16,12 +16,20 @@ import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import moment from 'moment-timezone';
 
 function AllEvents() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
   const dispatch = useDispatch();
+
   const allEvents = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
   const event = useSelector((store) => store.event);
@@ -90,6 +98,14 @@ function AllEvents() {
   //   }
   // })
 
+  const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+  const handleConfirmationOpen = (id) => {
+    setConfirmatinoOpen(true);
+  };
+  const handleConfirmationClose = () => {
+    setConfirmatinoOpen(false)
+  }
+
   return (
     <>
       <h1>AllEvents</h1>
@@ -150,7 +166,7 @@ function AllEvents() {
               <TableCell align='right'>Attendee Max</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Program Location</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>Edit Event</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Delete</TableCell>
+              {/* <TableCell align="right" sx={{ fontWeight: 'bold' }}>Delete</TableCell> */}
             </TableRow>
           </TableHead>
 
@@ -176,21 +192,78 @@ function AllEvents() {
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button>Edit Event</Button>
+                      <Button
+                      sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                      '&:hover': {
+                      backgroundColor: '#357590',
+                      boxShadow: '6px 6px 0px #90c5bf'
+                      },}}>
+                    <EditIcon/>
+                  </Button>
+
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="error"
                       value={thisEvent.id}
-                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
+                      // onclic, open confirmation 
+                      // onClick = {"handleConfirmationOpen; setEventToBeDeleted(evt.target.value)"}
+                      
+                      // onClick={(evt) => handleDeleteEvent(evt.target.value), }
+                      onClick={(evt) => "setEventToBeDeleted(evt.target.value); handleConfirmationOpen"}
+
+                      sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                      '&:hover': {
+                      backgroundColor: '#cf2317',
+                      boxShadow: '6px 6px 0px #fe6d0e'
+                      },}}
                     >
-                      Delete
-                    </Button>
+                      <DeleteIcon/>
+                    </Button> */}
                   </TableCell>
+                  
                 </TableRow>
               ))}
+
+{/* 
+            <Dialog
+            open={confirmationOpen}
+            keepMounted
+            onClose={handleConfirmationClose}
+            aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this event?"}</DialogTitle>
+              <DialogActions>
+              <Button variant="contained" 
+              onClick={(evt) => handleDeleteEvent(evt.target.value)}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Delete
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleConfirmationClose}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog> */}
+
+
+
+
+
 
             {allEvents.map(thisEvent =>
               ((eventType == thisEvent.type && results.length <= 0)) && (
@@ -213,18 +286,19 @@ function AllEvents() {
                   <TableCell align="right">{thisEvent.programLocation} </TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button>Edit Event</Button>
+                      <Button variant='contained'><EditIcon/></Button>
+
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="error"
                       value={thisEvent.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
                     >
-                      Delete
-                    </Button>
+                      <DeleteIcon/>
+                    </Button> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -250,18 +324,18 @@ function AllEvents() {
                   <TableCell align="right">{allEvents.programLocation} </TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${allEvents.id}/edit`}>
-                      <Button>Edit Event</Button>
+                      <Button variant='contained'><EditIcon/></Button>
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    <Button
+                    {/* <Button
                       variant="contained"
                       color="error"
                       value={allEvents.id}
                       onClick={(evt) => handleDeleteEvent(evt.target.value)}
                     >
-                      Delete
-                    </Button>
+                      <DeleteIcon/>
+                    </Button> */}
                   </TableCell>
                 </TableRow>
               )))
@@ -269,7 +343,16 @@ function AllEvents() {
         </Table>
       </TableContainer>
 
-      <Link to="/neweventform"><Button variant='contained'>Add New Event</Button></Link>
+        <Button     
+          variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
+          '&:hover': {
+          backgroundColor: '#f39536',
+          boxShadow: '6px 6px 0px #e2bf05'
+          },}}
+          onClick = {() => history.push('/neweventform')}
+          >
+            Add New Event
+        </Button>
     </>
   );
 }

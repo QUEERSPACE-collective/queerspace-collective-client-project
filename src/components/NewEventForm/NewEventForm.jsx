@@ -1,7 +1,20 @@
+import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
+import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 function NewEventForm() {
   useEffect(() => {
@@ -21,16 +34,16 @@ function NewEventForm() {
   const newEventDate = useSelector(store => store.newEventDate);
   const newEventTime = useSelector(store => store.newEventTime);
   const newEventTimeEnd = useSelector(store => store.newEventTimeEnd)
-  const newEventAddress = useSelector(store => store.newEventAddress);
-  const newEventQuestion = useSelector(store => store.newEventQuestion);
-  const newEventStoredQuestions = useSelector(store => store.newEventStoredQuestions);
-  const newEventVolunteerMax = useSelector(store => store.newEventVolunteerMax);
-  const newEventDescription = useSelector(store => store.newEventDescription);
-  const newEventAttendeeMax = useSelector(store => store.newEventAttendeeMax);
-  const newEventProgramArea = useSelector(store => store.newEventProgramArea);
-  const newEventType = useSelector(store => store.newEventType);
-  const newEventVolunteer = useSelector(store => store.newEventVolunteer);
-
+  const newEventAddress = useSelector(store=>store.newEventAddress);
+  const newEventQuestion = useSelector(store=> store.newEventQuestion);
+  const newEventStoredQuestions = useSelector(store=> store.newEventStoredQuestions);
+  const newEventVolunteerMax = useSelector(store=>store.newEventVolunteerMax);
+  const newEventDescription = useSelector(store=>store.newEventDescription);
+  const newEventAttendeeMax = useSelector(store=>store.newEventAttendeeMax);
+  const newEventProgramArea = useSelector(store=>store.newEventProgramArea);
+  const newEventType = useSelector(store=>store.newEventType);
+  const newEventVolunteer = useSelector(store=>store.newEventVolunteer);
+  const [alertOpen, setAlertOpen] = React.useState(false);
   const history = useHistory();
 
   function onSubmit() {
@@ -55,7 +68,24 @@ function NewEventForm() {
     dispatch({
       type: 'CLEAR_NEW_EVENT_FORM'
     });
+    handleAlertClick();
+    setTimeout(() => {
+      history.push('/homepage')
+    }, 1500); 
   }
+
+
+  const handleAlertClick = () => {
+    setAlertOpen(true);
+  };
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertOpen(false);
+  };
+
+
   return (
     <>
       <h1 className='bannerTop' onClick={() => { dispatch({ type: 'EVENT_FORM_FILLER' }) }}>New Event Form</h1>
@@ -120,16 +150,54 @@ function NewEventForm() {
       <br />
       <br />
       <label for="newEventQuestions">Questions: </label>
-      <input type="text" id="newEventQuestions" value={newEventQuestion} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_QUESTION', payload: e.target.value }) }}></input>
-      <button onClick={() => { dispatch({ type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion }) }}> Add question </button>
-      <br />
-      <br />
+      <input type="text" id="newEventQuestions" value={newEventQuestion} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_QUESTION', payload: e.target.value})}}></input>
+      <Button size = "small"
+      onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}
+      sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+        '&:hover': {
+        backgroundColor: '#f39536',
+        boxShadow: '6px 6px 0px #e2bf05'
+        },}}
+      > 
+        Add question 
+      </Button>
+      <br/> 
+      <br/>
       <ul>
-        {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(question => (
-          <li key={question}>{question}<button onClick={() => { dispatch({ type: 'TARGET_QUETION_REMOVE', payload: question }) }}>Remove</button></li>
+        {newEventStoredQuestions.length > 0 && newEventStoredQuestions.map(question=>(
+          <li key={question}>{question}
+            <Button 
+              size = "small"
+              onClick={()=>{dispatch({type: 'TARGET_QUETION_REMOVE', payload: question})}}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, color: 'white',              
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              variant="contained"
+              >
+                <DeleteIcon/>    
+            </Button>
+          </li>
         ))}
       </ul>
-      <button onClick={onSubmit}>Create New Event</button>
+      <Button onClick={onSubmit}
+        sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+        '&:hover': {
+        backgroundColor: '#46a452e6',
+        boxShadow: '6px 6px 0px #82bc27e0'
+        },}}
+      >
+        Create Event
+      </Button>
+      <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={alertOpen} onClose={handleAlertClose}>
+          <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+            Event Created!
+          </Alert>
+        </Snackbar>
+      </Stack>
+
     </>
   );
 }

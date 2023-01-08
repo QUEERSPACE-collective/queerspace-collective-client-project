@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Fuse from 'fuse.js'
 import axios from 'axios';
 import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
@@ -65,7 +66,8 @@ function AllUsers() {
 
   return (
     <>
-      <h1 className='bannerTop'>List of All Users</h1>
+    <br/>
+      <h1 className='bannerTop'>All Users</h1>
       <form className='allusersForm'>
         <FormControl className='formControl'>
           <Select
@@ -95,33 +97,48 @@ function AllUsers() {
           placeholder="Search Specific User"
         >
         </input>
-
-        {user.userType == 5 && (
-          <Link to={'/adduserform'}>
-            <button>Add New User</button>
-          </Link>
-        )}
+        <br/>
+    {user.userType == 5 && (
+        <Button
+        variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, mt: 2,                
+        '&:hover': {
+        backgroundColor: '#f39536',
+        boxShadow: '6px 6px 0px #e2bf05'
+        },}}
+        onClick = {() => history.push('/adduserform')}
+        >
+          Add New User
+        </Button>
+    )}
       </form>
+      
+    {/* Fuse.js conditional rendering  ⬇️ */}
+    {results.length > 0 && (
+      <div className='allusersContainer'>
+        {userResults.map(allUsers => (
+          <ul key={allUsers.username} className='allusersP allusersContainer'>
+            <p onClick={(evt) => { goToProfile(allUsers) }} >
+              <Button 
+                className='clickableName' 
+                size="small" 
+                sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
+              >
+                {allUsers.fname} {allUsers.lname}
+              </Button>
+            </p>
 
-      {/* Fuse.js conditional rendering  ⬇️ */}
-      {results.length > 0 && (
-        <div className='allusersContainer'>
-          {userResults.map(allUsers => (
-            <ul key={allUsers.username} className='allusersP allusersContainer'>
-              <p onClick={(evt) => { goToProfile(allUsers) }} >
-                <Button
-                  className='clickableName'
-                  variant='outlined'
-                  size="small"
-                  sx={{ borderRadius: '10px' }}
-                >
-                  {allUsers.fname} {allUsers.lname}
-                </Button>
-              </p>
               {user.userType == 5 && (
-                <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                  <Button variant='contained'>Edit User</Button>
-                </Link>
+                  <Button 
+                  onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                  variant='contained'
+                  sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                  '&:hover': {
+                  backgroundColor: '#357590',
+                  boxShadow: '6px 6px 0px #90c5bf'
+                  },}}
+                  >
+                    <EditIcon/>
+                  </Button>
               )}
               {user.userType < 5 && (
                 <br></br>
@@ -131,34 +148,42 @@ function AllUsers() {
         </div>
       )}
 
-      {/* Render user list based off the filter value: 
-      (0,1,2,3,4,5 : 'All Users,Mentees,Mentors,Volunteers,Caregivers,Admin' )) ⬇️ */}
-      <div className='allusersContainer'>
-        {allUsers.map(allUsers => (
-          (userType > 0 && userType == allUsers.userType && results.length < 1) && (
-            // This says- "if the filter is not set to 'All Users (0)', map through every user and find 
-            // the ones where their TYPE value is the same as the 
-            // current filter value, as long as fuzzy search isn't being used"
-            <ul key={allUsers.username} className='allusersP allusersContainer'>
-              <p onClick={(evt) => { goToProfile(allUsers) }}>
-                <Button
-                  className='clickableName'
-                  variant='outlined'
-                  size="small"
-                  sx={{ borderRadius: '10px' }}
-                >
-                  {allUsers.fname} {allUsers.lname}
-                </Button>
-              </p>
+    {/* Conditional render based off what the filter value is: 
+        (0,1,2,3,4,5 : 'All Users,Mentees,Mentors,Volunteers,Caregivers,Admin' )) ⬇️ */}
+    <div className='allusersContainer'>
+      {allUsers.map(allUsers => (
+        (userType > 0 && userType == allUsers.userType && results.length < 1) && (
+          // This says- "if the filter is not set to 'All Users (0)', map through every user and find 
+          // the ones where their TYPE value is the same as the 
+          // current filter value, as long as fuzzy search isn't being used"
+          <ul key={allUsers.username} className='allusersP allusersContainer'>
+            <p onClick={(evt) => { goToProfile(allUsers) }}>
+              <Button 
+                className='clickableName' 
+                size="small" 
+                sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
+              >
+                {allUsers.fname} {allUsers.lname}
+              </Button>
+            </p>
+
               {user.userType < 5 && (
                 <br></br>
               )}
               {/* if the above conditional is true, AND the current logged in user is an admin, 
                   then also show the "Edit User" Button/Link */}
               {user.userType == 5 && (
-                <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                  <Button variant='contained'>Edit User</Button>
-                </Link>
+                  <Button 
+                      onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                      variant='contained'
+                      sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                      '&:hover': {
+                      backgroundColor: '#357590',
+                      boxShadow: '6px 6px 0px #90c5bf'
+                      },}}
+                      >
+                        <EditIcon/>
+                      </Button>
               )}
             </ul>
           )
@@ -172,11 +197,10 @@ function AllUsers() {
           {allUsers.map(allUsers => (
             <ul key={allUsers.username} className='allusersContainer'>
               <p onClick={() => { goToProfile(allUsers) }} className='allusersP'>
-                <Button
-                  className='clickableName'
-                  variant='outlined'
-                  size="small"
-                  sx={{ borderRadius: '10px' }}
+                <Button 
+                  className='clickableName' 
+                  size="small" 
+                  sx={{ borderRadius: '10px', fontSize: 16, fontWeight: 'bold'}}
                 >
                   {allUsers.fname} {allUsers.lname}
                 </Button>
@@ -184,9 +208,16 @@ function AllUsers() {
               {/* Same as above, if the latest conditions are true AND the currently logged in 
                   user is an admin, show the link */}
               {user.userType == 5 && (
-                <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
-                  <Button variant='contained'>Edit User</Button>
-                </Link>
+                  <Button variant='contained' size = "small"
+                  onClick={() => history.push(`/allusers/${allUsers.id}/edit`)}
+                  sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#357590',
+                boxShadow: '6px 6px 0px #90c5bf'
+                },}}
+                  >
+                    <EditIcon/>
+                  </Button>
               )}
               <br></br>
             </ul>

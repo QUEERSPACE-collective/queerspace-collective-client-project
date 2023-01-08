@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
@@ -59,9 +62,16 @@ function LoginForm() {
         <input className="btn" type="submit" name="submit" value="Log In" />
       </div>
       <div>
-        <Link to='/forgot'>
-          <button>Forgot Password?</button>
-        </Link>
+          <Button 
+          onClick={() => history.push('/forgot')}
+          sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+          '&:hover': {
+          backgroundColor: '#357590',
+          boxShadow: '6px 6px 0px #90c5bf'
+          },}}
+          >
+            Forgot Password?
+          </Button>
       </div>
     </form>
   );

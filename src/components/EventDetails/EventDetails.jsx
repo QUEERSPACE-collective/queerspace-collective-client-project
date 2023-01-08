@@ -9,7 +9,10 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Slide from '@mui/material/Slide';
+import {Snackbar} from '@mui/material';
+import { Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import './EventDetails.css';
 import { atcb_action, atcb_init } from 'add-to-calendar-button';
@@ -30,10 +33,15 @@ function EventDetails() {
   const eventDetails = useSelector(store => store.currentEvent);
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions);
+  const registrationAnswer = useSelector(store => store.registrationAnswers);
+
   let [attendeeCount, setAttendeeCount] = useState(0);
   let [volunteerCount, setVolunteerCount] = useState(0);
 
-  // handling confirmation modal open and close
+  const [alertOpen, setAlertOpen] = useState(false);
+
+
+  // handling confirmation modal 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,6 +50,18 @@ function EventDetails() {
     setOpen(false);
   };
   // end confirmation modal
+
+
+  // success message upon registration
+  const handleAlertClick = () => {
+    setAlertOpen(true);
+  };
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertOpen(false);
+  };
 
   // handling unregister confirmation modal open and close
   const [unregisterOpen, setUnregisterOpen] = useState(false);
@@ -90,13 +110,17 @@ function EventDetails() {
   // }
 
   const eventRegistration = () => {
-    console.log('in event registration function with id', params.id)
     dispatch({
       type: 'REGISTER_FOR_EVENT',
       payload: { eventId: params.id, attendees: attendeeCount, answer: eventQuestions }
     })
     setOpen(false);
-    history.push('/homepage')
+    // open snack bar 
+    handleAlertClick();
+    setTimeout(() => {
+      history.push('/homepage')
+    }, 1500); 
+
   }
 
   const eventUnregistration = () => {
@@ -109,15 +133,27 @@ function EventDetails() {
 
   console.log('is this user registered for this event?', isRegistered)
   return (
-    <>
-      {userEvents.map(allUserEvents => {
-        (allUserEvents.id == eventDetails.id) && (
-          <>
-            {Number(attendeeCount++)}
-          </>
-        )
-      })}
-      <h2 className='bannerTop'>EventDetails</h2>
+  <>
+      <Button 
+        onClick={() => history.push('/eventcalendar')} 
+        sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
+        '&:hover': {
+        fontSize: 16
+        },}}
+        >
+        <ArrowCircleLeftIcon/>Back to Calendar
+      </Button>
+
+      {/* {userEvents.map(allUserEvents => 
+        {(allUserEvents.id == eventDetails.id) && (
+        <>
+          {Number(attendeeCount++)}
+        </>
+        )}
+      )} */}
+      
+      <h2 className='bannerTop'>Details</h2>
+
       <div className='event-details-container'>
         <Box
           sx={{
@@ -148,6 +184,81 @@ function EventDetails() {
           <p>Registered Volunteers: {volunteerCount}</p>
         </Box>
 
+          {isRegistered == true ?
+
+            (
+              <Button 
+              variant='contained' 
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              onClick={handleUnregisterOpen}
+              >
+                Unregister
+              </Button>
+            )
+            :
+            (<Button
+              variant="contained"
+              sx={{
+                mt: 5, fontWeight: 'bold',
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+              onClick={handleClickOpen}
+              >
+                Register
+            </Button>
+            )
+            
+
+          }
+          {/* add to calendar button */}
+          <Button 
+            variant='contained'
+            onClick={e => {
+              e.preventDefault();
+              let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
+              let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
+              let eventStartTime = moment(event.dateTime).format("HH:mm");
+              let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
+
+              console.log('event date start', eventDateStart);
+              console.log('event date end', eventDateEnd);
+            
+              atcb_action({
+                name: `${event.name}`,
+                startDate: `${eventDateStart}`,
+                endDate: `${eventDateEnd}`,
+                startTime:`${eventStartTime}`,
+                endTime: `${eventEndTime}`,
+                location: `${event.location}`,
+                options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
+                timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
+                iCalFileName: `${event.name}-QSC-Event`,
+              });
+            }}
+              sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2,                
+              '&:hover': {
+              backgroundColor: '#f39536',
+              boxShadow: '6px 6px 0px #e2bf05'
+              },}}>
+               add to calendar
+               </Button>
+            {/* end add to calendar button */}
+
+
+          {/* {isEventFull == true && 
+            <>
+              <p>Sorry ,this event is full!</p>
+              <Button disabled >
+                Register
+=======
         {isRegistered == true ?
           (
             <Button 
@@ -156,6 +267,7 @@ function EventDetails() {
               color='error' 
               onClick={handleUnregisterOpen}>
                 Unregister
+>>>>>>> main
               </Button>
           )
           :
@@ -177,37 +289,9 @@ function EventDetails() {
           )
         }
         {/* add to calendar button */}
-        <Button
-          variant='contained'
-          onClick={e => {
-            e.preventDefault();
-            let eventDateStart = moment(event.dateTime).format("YYYY-MM-DD");
-            let eventDateEnd = moment(event.dateTimeEnd).format("YYYY-MM-DD");
-            let eventStartTime = moment(event.dateTime).format("HH:mm");
-            let eventEndTime = moment(event.dateTimeEnd).format("HH:mm");
 
-            console.log('event date start', eventDateStart);
-            console.log('event date end', eventDateEnd);
-
-            atcb_action({
-              name: `${event.name}`,
-              startDate: `${eventDateStart}`,
-              endDate: `${eventDateEnd}`,
-              startTime: `${eventStartTime}`,
-              endTime: `${eventEndTime}`,
-              location: `${event.location}`,
-              options: ['Apple', 'Google', 'Microsoft365', 'Outlook.com', 'Yahoo'],
-              timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
-              iCalFileName: `${event.name}-QSC-Event`,
-            });
-          }}>
-          add to calendar app
-        </Button>
         {/* end add to calendar button */}
 
-        <Link to="/EventCalendar">
-          <button>Back to Calendar</button>
-        </Link>
 
         <Dialog
           open={open}
@@ -239,28 +323,76 @@ function EventDetails() {
                 </div>
               ))}
 
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button variant="contained" onClick={eventRegistration}>Register</Button>
-            <Button variant="contained" onClick={handleClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={unregisterOpen}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleUnregisterClose}
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle sx={{ textAlign: 'center' }}>{"Are you sure you want to unregister?"}</DialogTitle>
-          <DialogActions>
-            <Button variant="contained" onClick={eventUnregistration}>Unregister</Button>
-            <Button variant="contained" onClick={handleUnregisterClose}>Cancel</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    </>
-  );
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button variant="contained" 
+              onClick={eventRegistration}
+              sx={{
+                mb: 1, fontWeight: 'bold',
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+              >
+                Register
+              </Button>
+              <Button variant="contained" 
+              onClick={handleClose}
+              sx={{
+                mb: 1, fontWeight: 'bold',
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Stack spacing={2} sx={{ width: '100%' }}>
+            <Snackbar open={alertOpen} onClose={handleAlertClose}>
+              <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+                Registration Successful!
+              </Alert>
+            </Snackbar>
+         </Stack>
+
+
+          <Dialog
+            open={unregisterOpen}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleUnregisterClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
+            <DialogActions>
+              <Button variant="contained" 
+              onClick={eventUnregistration}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Unregister
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleUnregisterClose}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      </>
+      );
+
 }
 export default EventDetails;

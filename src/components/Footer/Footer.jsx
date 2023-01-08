@@ -19,6 +19,7 @@ function Footer() {
             size='small'
             onClick={() => { window.history.back(-1); { pageFadeIn() } }}> ← Back</Button>
         )}
+
       </div>
       <div className="trademark">
         &copy; QUEERSPACE collective

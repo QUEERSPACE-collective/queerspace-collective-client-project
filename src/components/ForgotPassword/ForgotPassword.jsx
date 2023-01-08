@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 function ForgotPassword() {
     const dispatch = useDispatch();
@@ -34,7 +35,15 @@ function ForgotPassword() {
                         onChange={(evt) => setUsername(evt.target.value)}
                     />
                 </div>
-                <button type="submit">Send Reset Email</button>
+                <Button type="submit"
+                    sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                    '&:hover': {
+                    backgroundColor: '#357590',
+                    boxShadow: '6px 6px 0px #90c5bf'
+                    },}}
+                >
+                    Send Reset Email
+                </Button>
             </form>
         </div>
     )

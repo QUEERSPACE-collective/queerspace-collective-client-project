@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,13 +10,48 @@ import Autocomplete from '@mui/material/Autocomplete';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 function EditUser() {
     const dispatch = useDispatch();
     const params = useParams();
-    console.log(params.id);
     const history = useHistory();
     const allUsers = useSelector(store => store.allUsers);
+    const [alertOpen, setAlertOpen] = React.useState(false);
+
+
+    const handleAlertClick = () => {
+        setAlertOpen(true);
+      };
+      const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setAlertOpen(false);
+      };
+
+
+      const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+      const handleConfirmationOpen = () => {
+        setConfirmatinoOpen(true);
+      };
+      const handleConfirmationClose = () => {
+        setConfirmatinoOpen(false)
+      }
+    
 
     useEffect(() => {
         pageFadeIn(),
@@ -40,27 +76,34 @@ function EditUser() {
         setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
-    const user = useSelector(store => store.editUser);
-    const onSubmit = (evt) => {
-        evt.preventDefault();
-        dispatch({
-            type: "SAVE_USER",
-            payload: user
-        }),
-            dispatch({
-                type: 'FETCH_USER'
-            });
-        history.push('/allusers')
-    }
+const user = useSelector(store => store.editUser);
+console.log(user);
+const onSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch({
+        type: "SAVE_USER",
+        payload: user
+    }),
+    dispatch({
+        type: 'FETCH_USER'
+    });
+    handleAlertClick();
+    setTimeout(() => {
+      history.push('/allusers')
+    }, 1500); 
+}
 
-    const deleteUser = (id) => {
-        console.log('in delete item function onclick')
-        dispatch({
-            type: "DELETE_USER",
-            payload: id,
-        });
+const deleteUser = (id) => {
+    console.log('in delete item function onclick')
+    dispatch({
+        type: "DELETE_USER",
+        payload: id,
+    });
+    setTimeout(() => {
         history.push('/allusers')
-    }
+      }, 1500); 
+}
+
 
     let mentorOptions = allUsers.map(user => {
         console.log(user)
@@ -80,10 +123,22 @@ function EditUser() {
     }
     return (
         <div className='editUserContainer'>
+            
+                <Link to="/allusers" className="backToUserList">
+                    <Button 
+                        sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
+                        '&:hover': {
+                        fontSize: 16
+                        },}}
+                        size="small">
+                           <ArrowCircleLeftIcon/> Back To User List
+                    </Button>
+                </Link>
             <div>
                 <h1 className='bannerTop'>Edit User</h1>
             </div>
             <div className="formContainer">
+
                 <form onSubmit={onSubmit} className='editUserForm' >
                     <label htmlFor="fName">
                         First Name:
@@ -175,17 +230,90 @@ function EditUser() {
                             onChange={(evt, mentor) => pickMentor(evt, mentor.id)}
                         />
                     </form>
-                    <div className="editUserBottom">
+                    {/* <div className="editUserBottom">
                         <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
                         <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
                         <Link to="/allusers" className="backToUserList">
                             <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
                         </Link>
-                    </div>
+                    </div> */}
 
+                
+               
+                <div className="editUserBottom">
+             
+                <Button type="submit" className="editUserSubmit" 
+                 size="small"
+                 sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+                 '&:hover': {
+                 backgroundColor: '#46a452e6',
+                 boxShadow: '6px 6px 0px #82bc27e0'
+                 },}}
+                 >
+                    Submit Changes
+                </Button>
+                <Stack spacing={2} sx={{ width: '100%' }}>
+                    <Snackbar open={alertOpen} onClose={handleAlertClose}>
+                        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+                            Changes Submitted!
+                        </Alert>
+                    </Snackbar>
+                </Stack>
+
+
+
+
+                <Button 
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                variant="contained"
+                value={allUsers.id}
+                onClick = {handleConfirmationOpen}
+                >
+                    Delete User
+                </Button>
+
+                <Dialog
+                open={confirmationOpen}
+                keepMounted
+                onClose={handleConfirmationClose}
+                aria-describedby="alert-dialog-slide-description"
+                >
+                <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
+                <DialogActions>
+                <Button variant="contained" 
+                    onClick={() => deleteUser(user.id)}
+                // onClick={eventUnregistration}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
+                    Delete
+                </Button>
+                <Button 
+                variant="contained" 
+                onClick={handleConfirmationClose}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
+                Cancel
+              </Button>
+                </DialogActions>
+                </Dialog>
+                </div>   
                 </form>
+                </div>
             </div>
-        </div>
+                   
+
     )
 }
 
