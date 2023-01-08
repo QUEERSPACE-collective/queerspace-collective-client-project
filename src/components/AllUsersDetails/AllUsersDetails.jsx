@@ -9,18 +9,22 @@ import {
 } from 'react-router-dom';
 
 function AllUsersDetails() {
-  const allUsersList = useSelector(store => store.allUsers);
+  const activeUser = useSelector(store => store.editUser);
   const user = useSelector((store) => store.user);
   const params = useParams();
+  console.log(params.id)
   const history = useHistory();
   const dispatch = useDispatch();
   console.log("the user is", user);
-  console.log("all the users are", allUsersList);
+  console.log("all the users are", activeUser);
 
 useEffect(() => {
   animater(), // Call fade effect, yes I know this is spelled wrong
-  dispatch({ type: "FETCH_ALL_USERS" })
-}, []);
+  dispatch({ 
+    type: "FETCH_EDIT_USER",
+    payload: params.id
+ })
+}, [params.id]);
 
 //Fade effect
 function animater() {
@@ -45,57 +49,55 @@ const deleteUser = (id) => {
       {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
       <div className='bannerTop'></div> 
       <section className='alluserDetailsContainer'>
-        {allUsersList.map(allUsers => (
-          (params.id == allUsers.id && (
-            <ul key={allUsers.username} >
-              <h2> {allUsers.fname} {allUsers.lname}</h2>
+            <ul>
+              <h2> {activeUser.fname} {activeUser.lname}</h2>
               {user.userType == 5 && (
                 <div>
                   <li>
-                    {allUsers.userType == 5 && (
+                    {activeUser.userType == 5 && (
                       <span>Admin</span>
                     )}
-                    {allUsers.userType == 4 && (
+                    {activeUser.userType == 4 && (
                       <span>Mentor</span>
                     )}
-                    {allUsers.userType == 3 && (
+                    {activeUser.userType == 3 && (
                       <span>Youth/Mentee</span>
                     )}
-                    {allUsers.userType == 2 && (
+                    {activeUser.userType == 2 && (
                       <span>Caregiver</span>
                     )}
-                    {allUsers.userType == 1 && (
+                    {activeUser.userType == 1 && (
                       <span>Volunteer</span>
                     )}
                   </li>
                   <li>
-                    Pronouns: {allUsers.pronouns}
+                    Pronouns: {activeUser.pronouns}
                   </li>
                   <li>
-                    Email: {allUsers.username}
+                    Email: {activeUser.username}
                   </li>
                   <li>
-                    Bio: {allUsers.bio}
+                    Bio: {activeUser.bio}
                   </li>
-                  {allUsers.userType == 3 && (
+                  {activeUser.userType == 3 && (
                   <li>
-                  Mentor: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
-                  </li>
-                  )}
-                  {allUsers.userType == 4 && (
-                  <li>
-                  Mentee: {allUsers.mentor_firstname} {allUsers.mentor_lastname}
+                  Mentor: {activeUser.mentor_firstname} {activeUser.mentor_lastname}
                   </li>
                   )}
+                  {activeUser.userType == 4 && (
                   <li>
-                    <Link to={`/allusers/${allUsers.id}/edit`} className='editUserBtn'>
+                  Mentee: {activeUser.mentor_firstname} {activeUser.mentor_lastname}
+                  </li>
+                  )}
+                  <li>
+                    <Link to={`/allusers/${activeUser.id}/edit`} className='editUserBtn'>
                       <Button variant='contained'>Edit User</Button>
                     </Link>                  
                   </li>
                   <Button
                     variant="contained"
                     color="error"
-                    value={allUsers.id}
+                    value={activeUser.id}
                     onClick={(evt) => deleteUser(evt.target.value)}
                   >
                     Delete User
@@ -106,13 +108,13 @@ const deleteUser = (id) => {
               {user.userType == 4 && (
                 <div>
                   <li>
-                    Pronouns: {allUsers.pronouns}
+                    Pronouns: {activeUser.pronouns}
                   </li>
                   <li>
-                    Email: {allUsers.username}
+                    Email: {activeUser.username}
                   </li>
                   <li>
-                    Bio: {allUsers.bio}
+                    Bio: {activeUser.bio}
                   </li>
                 </div>
               )}
@@ -120,16 +122,14 @@ const deleteUser = (id) => {
               {user.userType < 4 && (
                 <div>
                   <li>
-                    Pronouns: {allUsers.pronouns}
+                    Pronouns: {activeUser.pronouns}
                   </li>
                   <li>
-                    Bio: {allUsers.bio}
+                    Bio: {activeUser.bio}
                   </li>
                 </div>
               )}
             </ul>
-          ))
-        ))}
         <Link to="/allusers">
           <Button>Back To Events List</Button>
         </Link>
