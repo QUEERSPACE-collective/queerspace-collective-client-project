@@ -3,10 +3,28 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// GETting the total number of attendees per event
+// getting all events and info. Joining program location and event types
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText =
-        `SELECT * FROM "events" ORDER BY "id" ASC;`;
+        `SELECT 
+            "events".id, 
+            "name", 
+            "dateTime", 
+            "dateTimeEnd", 
+            "location", 
+            "locationName", 
+            "eventType", 
+            "totalAttendees", 
+            "attendeeMax", 
+            "hasVolunteers", 
+            "registeredVolunteers", 
+            "volunteerMax", 
+            "description"
+        FROM "events" 
+        JOIN "programLocations" ON "events"."programLocationID" = "programLocations".id
+        JOIN "eventTypes" ON "events"."type" = "eventTypes".id
+        ORDER BY "events"."id" ASC;`
+    ;
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)
