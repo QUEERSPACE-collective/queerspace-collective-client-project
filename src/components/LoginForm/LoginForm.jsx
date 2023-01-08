@@ -37,7 +37,7 @@ function LoginForm() {
         </h3>
       )}
       <div>
-        <label htmlFor="username" onClick={() => { setUsername('Admin'), setPassword('asty') }}>
+        <label htmlFor="username" onClick={() => { setUsername('ADMIN'), setPassword('asty') }}>
           Username:
           <input
             type="text"
@@ -48,7 +48,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZuOR') }}>
+        <label htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZu0R') }}>
           Password:
           <input
             type="password"
