@@ -184,12 +184,12 @@ function AllEvents() {
                   <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {thisEvent.description}</TableCell>
                   <TableCell align="right"> {thisEvent.location}</TableCell>
-                  <TableCell align="right"> {thisEvent.type} </TableCell>
+                  <TableCell align="right"> {thisEvent.eventType} </TableCell>
                   <TableCell align="right">
                   {thisEvent.totalAttendees}
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right">{thisEvent.programLocation} </TableCell>
+                  <TableCell align="right">{thisEvent.locationName} </TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button
