@@ -46,9 +46,11 @@ const deleteUser = (id) => {
   console.log('in allUsersDetails deleteUser, the users id is', id)
   dispatch({
     type: "DELETE_USER",
-    payload: id,
+    payload: params.id,
   });
-  history.push('/allusers')
+  setTimeout(() => {
+    history.push('/allusers')
+  }, 1500); 
 }
 
 
@@ -128,7 +130,7 @@ const handleConfirmationClose = () => {
                        <EditIcon/>
                       </Button>
                   </li>
-                  <Button
+                  {/* <Button
                     sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                     '&:hover': {
                     backgroundColor: '#cf2317',
@@ -164,11 +166,17 @@ const handleConfirmationClose = () => {
               </Button>
               <Button 
               variant="contained" 
-              onClick={handleConfirmationClose}>
+              onClick={handleConfirmationClose}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
                 Cancel
               </Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
                 </div>
               )}
 

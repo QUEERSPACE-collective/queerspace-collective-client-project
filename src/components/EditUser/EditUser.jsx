@@ -13,6 +13,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 
@@ -39,13 +44,13 @@ function EditUser() {
       };
 
 
-    const [unregisterOpen, setUnregisterOpen] = useState(false);
-    const handleUnregisterOpen = () => {
-    setUnregisterOpen(true);
-    };
-    const handleUnregisterClose = () => {
-    setUnregisterOpen(false)
-    }
+      const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+      const handleConfirmationOpen = () => {
+        setConfirmatinoOpen(true);
+      };
+      const handleConfirmationClose = () => {
+        setConfirmatinoOpen(false)
+      }
     
 
     useEffect(() => {
@@ -95,7 +100,9 @@ const deleteUser = (id) => {
         type: "DELETE_USER",
         payload: id,
     });
-    history.push('/allusers')
+    setTimeout(() => {
+        history.push('/allusers')
+      }, 1500); 
 }
 
 let mentorOptions = allUsers.map(user => {
@@ -245,17 +252,55 @@ let mentorOptions = allUsers.map(user => {
 
                 <Button 
                 // onClick={() => deleteUser(user.id)} className="editUserDelete" 
-                onClick = {handleAlertClick}
-                size="small"
-                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, color: 'white',              
+                // onClick = {handleAlertClick}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                 '&:hover': {
                 backgroundColor: '#cf2317',
                 boxShadow: '6px 6px 0px #fe6d0e'
                 },}}
                 variant="contained"
+                value={allUsers.id}
+                // onClick={(evt) => deleteUser(evt.target.value)}
+                onClick = {handleConfirmationOpen}
                 >
                     Delete User
                 </Button>
+
+
+                <Dialog
+            open={confirmationOpen}
+            // TransitionComponent={Transition}
+            keepMounted
+            onClose={handleConfirmationClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
+            <DialogActions>
+              <Button variant="contained" 
+                onClick={() => deleteUser(user.id)}
+
+              // onClick={eventUnregistration}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Delete
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleConfirmationClose}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
 
                 </div>               
             </form>
