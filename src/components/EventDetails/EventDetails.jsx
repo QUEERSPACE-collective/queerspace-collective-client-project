@@ -40,12 +40,17 @@ function EventDetails() {
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions);
   const registrationAnswer = useSelector(store => store.registrationAnswers);
-
-
   let [attendeeCount, setAttendeeCount] = useState(0);
   let [volunteerCount, setVolunteerCount] = useState(0);
 
-  // handling confirmation modal open and close
+  const [alertOpen, setAlertOpen] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+
+  // handling confirmation modal 
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,6 +59,18 @@ function EventDetails() {
     setOpen(false);
   };
   // end confirmation modal
+
+
+  // success message upon registration
+  const handleAlertClick = () => {
+    setAlertOpen(true);
+  };
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertOpen(false);
+  };
 
   // handling unregister confirmation modal open and close
   const [unregisterOpen, setUnregisterOpen] = useState(false);
@@ -106,13 +123,16 @@ function EventDetails() {
   // }
 
   const eventRegistration = () => {
-    console.log('in event registartion function with id', params.id)
     dispatch({
       type: 'REGISTER_FOR_EVENT',
       payload: {eventId: params.id, attendees: attendeeCount, answer: eventQuestions}
     })
     setOpen(false);
-    history.push('/home')
+    // open snack bar 
+    handleAlertClick();
+    setTimeout(() => {
+      history.push('/home')
+    }, 1500); 
 
   }
 
@@ -137,6 +157,18 @@ function EventDetails() {
         >
         <ArrowCircleLeftIcon/>Back to Calendar
       </Button>
+
+      <Stack spacing={2} sx={{ width: '100%' }}>
+      <Button variant="outlined" onClick={handleAlertClick}>
+        Open success snackbar
+      </Button>
+      <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
+        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+          Registration Successful!
+        </Alert>
+      </Snackbar>
+      </Stack>
+
 
       {userEvents.map(allUserEvents => 
         {(allUserEvents.id == eventDetails.id) && (

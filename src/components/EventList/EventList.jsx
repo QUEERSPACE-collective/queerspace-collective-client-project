@@ -44,7 +44,7 @@ function animater() {
         fontSize: 16
         },}}
         >
-        <ArrowCircleLeftIcon/> Back to Profile
+        <ArrowCircleLeftIcon/> home
       </Button>
         {user.userType !== 1 && (
            <h2>Upcoming Events</h2>

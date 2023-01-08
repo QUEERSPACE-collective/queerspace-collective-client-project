@@ -139,7 +139,7 @@ return (
                     fontSize: 16
                     },}}
                 >
-                    <ArrowCircleLeftIcon/>Back To Profile
+                    <ArrowCircleLeftIcon/>Home
                 </Button>
                 </div>             
             </form>
