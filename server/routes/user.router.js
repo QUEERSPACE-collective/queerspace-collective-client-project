@@ -200,20 +200,22 @@ router.get('/:id', (req, res) => {
       WHERE id = $1
       ORDER BY id ASC;
   `;
-    const sqlParams = [id]; // $1 = req.params.id
 
-    pool.query(sqlText, sqlParams)
-      .then((dbRes) => {
-        const user = dbRes.rows[0];
-        res.send(user);
+  const sqlParams = [id]; // $1 = req.params.id
+  
+  console.log(sqlParams);
+  pool.query(sqlText, sqlParams)
+    .then((dbRes) => {
+      const user = dbRes.rows[0];
 
-        if (user) {
-          delete user.password
-        }
-      })
-      .catch((err) => {
-        console.log(`Error making db query ${sqlText}`, err);
-      });
+      if (user) {
+        delete user.password
+      }
+      res.send(user);
+    })
+    .catch((err) => {
+      console.log(`Error making db query ${sqlText}`, err);
+    });
   } else if (req.user.userType < 4) {
     const id = req.params.id;
     const sqlText = `
@@ -226,12 +228,11 @@ router.get('/:id', (req, res) => {
     pool.query(sqlText, sqlParams)
       .then((dbRes) => {
         const user = dbRes.rows[0];
-        res.send(user);
-
         if (user) {
           delete user.password
           delete user.username
         }
+        res.send(user);
       })
       .catch((err) => {
         console.log(`Error making db query ${sqlText}`, err);

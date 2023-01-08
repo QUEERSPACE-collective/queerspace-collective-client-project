@@ -85,7 +85,7 @@ function EditUser() {
             </div>
             <div className="formContainer">
                 <form onSubmit={onSubmit} className='editUserForm' >
-                    <label for="fName">
+                    <label htmlFor="fName">
                         First Name:
                     </label>
                     <TextField
@@ -182,6 +182,7 @@ function EditUser() {
                             <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
                         </Link>
                     </div>
+
                 </form>
             </div>
         </div>

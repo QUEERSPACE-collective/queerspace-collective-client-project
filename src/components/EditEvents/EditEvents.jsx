@@ -2,11 +2,11 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from '@mui/material';
+import moment from 'moment-timezone';
 
 function EditEvents(){
     const dispatch = useDispatch();
     const params = useParams();
-    console.log(params.id);
     const history = useHistory();
 
     useEffect(() => {
@@ -66,20 +66,40 @@ function pageFadeIn() {
                 {/* end edit event name */}
                 {/* edit event date time */}
                 <label>
-                    Date and Time:
+                    Start Date and Time:
                 </label>
+                
+
+
                 <input
-                    value={editEvent && editEvent.dateTime}
+                    type="datetime-local"
+                    value={editEvent && moment(editEvent.dateTime).format("YYYY-MM-DD HH:mm")}
                     onChange={(evt) => dispatch({
                         type: 'UPDATE_EDIT_EVENT',
-                        payload: {dateTime: evt.target.value}
+                        payload: {dateTime: new Date(evt.target.value)}
                     })}
                 />
+                <label>
+                    End Date and Time:
+                </label>
+                
+
+
+                <input
+                    type="datetime-local"
+                    value={editEvent && moment(editEvent.dateTimeEnd).format("YYYY-MM-DD HH:mm")}
+                    onChange={(evt) => dispatch({
+                        type: 'UPDATE_EDIT_EVENT',
+                        payload: {dateTimeEnd: new Date(evt.target.value)}
+                    })}
+                />
+
                 {/* end edit event date time */}
                 {/* edit description */}
                 <label>
                     Edit Description:
                 </label>
+                
                 <input
                     value={editEvent && editEvent.description}
                     onChange={(evt) => dispatch({
