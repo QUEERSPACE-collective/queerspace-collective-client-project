@@ -71,7 +71,8 @@ function AllUsersList() {
 
   return (
     <>
-      <h1 className='bannerTop'>List of All Users</h1>
+    <br/>
+      <h1 className='bannerTop'>All Users</h1>
       <form className='allusersForm'>
        <FormControl className='formControl'>
         <Select

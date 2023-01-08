@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,13 +10,43 @@ import Autocomplete from '@mui/material/Autocomplete';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 function EditUser() {
     const dispatch = useDispatch();
     const params = useParams();
-    console.log(params.id);
     const history = useHistory();
     const allUsers = useSelector(store => store.allUsers);
+    const [alertOpen, setAlertOpen] = React.useState(false);
+
+
+    const handleAlertClick = () => {
+        setAlertOpen(true);
+      };
+      const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setAlertOpen(false);
+      };
+
+
+    const [unregisterOpen, setUnregisterOpen] = useState(false);
+    const handleUnregisterOpen = () => {
+    setUnregisterOpen(true);
+    };
+    const handleUnregisterClose = () => {
+    setUnregisterOpen(false)
+    }
+    
 
     useEffect(() => {
         animater(),
@@ -52,7 +83,10 @@ const onSubmit = (evt) => {
     dispatch({
         type: 'FETCH_USER'
     });
-    history.push('/allusers')
+    handleAlertClick();
+    setTimeout(() => {
+      history.push('/allusers')
+    }, 1500); 
 }
 
 const deleteUser = (id) => {
@@ -197,8 +231,21 @@ let mentorOptions = allUsers.map(user => {
                  },}}
                  >
                     Submit Changes
-                    </Button>
-                <Button onClick={() => deleteUser(user.id)} className="editUserDelete" 
+                </Button>
+                <Stack spacing={2} sx={{ width: '100%' }}>
+                    <Snackbar open={alertOpen} onClose={handleAlertClose}>
+                        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+                            Changes Submitted!
+                        </Alert>
+                    </Snackbar>
+                </Stack>
+
+
+
+
+                <Button 
+                // onClick={() => deleteUser(user.id)} className="editUserDelete" 
+                onClick = {handleAlertClick}
                 size="small"
                 sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, color: 'white',              
                 '&:hover': {

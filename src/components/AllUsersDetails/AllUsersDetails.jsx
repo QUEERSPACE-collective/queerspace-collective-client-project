@@ -1,14 +1,24 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import * as React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import './AllUsersDetails.css';
 import {
   HashRouter as Router,
   Link,
 } from 'react-router-dom';
+
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
 
 function AllUsersDetails() {
   const allUsersList = useSelector(store => store.allUsers);
@@ -16,8 +26,7 @@ function AllUsersDetails() {
   const params = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log("the user is", user);
-  console.log("all the users are", allUsersList);
+
 
 useEffect(() => {
   animater(), // Call fade effect, yes I know this is spelled wrong
@@ -40,6 +49,15 @@ const deleteUser = (id) => {
     payload: id,
   });
   history.push('/allusers')
+}
+
+
+const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+const handleConfirmationOpen = () => {
+  setConfirmatinoOpen(true);
+};
+const handleConfirmationClose = () => {
+  setConfirmatinoOpen(false)
 }
 
   return (
@@ -118,12 +136,71 @@ const deleteUser = (id) => {
                     },}}
                     variant="contained"
                     value={allUsers.id}
-                    onClick={(evt) => deleteUser(evt.target.value)}
+                    // onClick={(evt) => deleteUser(evt.target.value)}
+                    onClick = {handleConfirmationOpen}
                   >
                     Delete User
                   </Button>
+                  <Dialog
+            open={confirmationOpen}
+            // TransitionComponent={Transition}
+            keepMounted
+            onClose={handleConfirmationClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
+            <DialogActions>
+              <Button variant="contained" 
+                onClick={(evt) => deleteUser(evt.target.value)}
+
+              // onClick={eventUnregistration}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Delete
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleConfirmationClose}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog>
                 </div>
               )}
+
+
+        {/* <Dialog
+            open={confirmationOpen}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleConfirmationClose}
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
+            <DialogActions>
+              <Button variant="contained" 
+                onClick={(evt) => deleteUser(evt.target.value)}
+
+              // onClick={eventUnregistration}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+              >
+                Delete
+              </Button>
+              <Button 
+              variant="contained" 
+              onClick={handleConfirmationClose}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </Dialog> */}
               
               {user.userType == 4 && (
                 <div>

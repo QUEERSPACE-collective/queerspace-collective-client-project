@@ -1,12 +1,19 @@
+import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
 import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function NewEventForm() {
 
@@ -37,7 +44,7 @@ function NewEventForm() {
   const newEventProgramArea = useSelector(store=>store.newEventProgramArea);
   const newEventType = useSelector(store=>store.newEventType);
   const newEventVolunteer = useSelector(store=>store.newEventVolunteer);
-
+  const [alertOpen, setAlertOpen] = React.useState(false);
   const history = useHistory();
   
   function onSubmit(){
@@ -62,7 +69,24 @@ function NewEventForm() {
     dispatch({
       type: 'CLEAR_NEW_EVENT_FORM'
     });
+    handleAlertClick();
+    setTimeout(() => {
+      history.push('/home')
+    }, 1500); 
   }
+
+
+  const handleAlertClick = () => {
+    setAlertOpen(true);
+  };
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertOpen(false);
+  };
+
+
   return (
     <>
     <h1 className='bannerTop' onClick={()=>{dispatch({type: 'EVENT_FORM_FILLER'})}}>New Event Form</h1>
@@ -167,7 +191,13 @@ function NewEventForm() {
       >
         Create Event
       </Button>
-
+      <Stack spacing={2} sx={{ width: '100%' }}>
+        <Snackbar open={alertOpen} onClose={handleAlertClose}>
+          <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+            Event Created!
+          </Alert>
+        </Snackbar>
+      </Stack>
     </>
   );
 }

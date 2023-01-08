@@ -6,6 +6,7 @@
     border: none;
     display: flex;
     justify-content: center;
+    background-color: #90c4bf;
 }
 .navLogin {
     color: black;

@@ -43,11 +43,7 @@ function EventDetails() {
   let [attendeeCount, setAttendeeCount] = useState(0);
   let [volunteerCount, setVolunteerCount] = useState(0);
 
-  const [alertOpen, setAlertOpen] = useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-  });
+  const [alertOpen, setAlertOpen] = useState(false);
 
 
   // handling confirmation modal 
@@ -157,18 +153,6 @@ function EventDetails() {
         >
         <ArrowCircleLeftIcon/>Back to Calendar
       </Button>
-
-      <Stack spacing={2} sx={{ width: '100%' }}>
-      <Button variant="outlined" onClick={handleAlertClick}>
-        Open success snackbar
-      </Button>
-      <Snackbar open={alertOpen} autoHideDuration={3000} onClose={handleAlertClose}>
-        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-          Registration Successful!
-        </Alert>
-      </Snackbar>
-      </Stack>
-
 
       {userEvents.map(allUserEvents => 
         {(allUserEvents.id == eventDetails.id) && (
@@ -350,6 +334,16 @@ function EventDetails() {
               </Button>
             </DialogActions>
           </Dialog>
+
+          <Stack spacing={2} sx={{ width: '100%' }}>
+            <Snackbar open={alertOpen} onClose={handleAlertClose}>
+              <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+                Registration Successful!
+              </Alert>
+            </Snackbar>
+         </Stack>
+
+
           <Dialog
             open={unregisterOpen}
             TransitionComponent={Transition}
