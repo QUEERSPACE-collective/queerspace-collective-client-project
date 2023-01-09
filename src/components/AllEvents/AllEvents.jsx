@@ -125,10 +125,10 @@ function AllEvents() {
           className='allusersSelect'
         >
           <MenuItem value={0}>All Event Types</MenuItem>
-          <MenuItem value={1}>Group Hangout</MenuItem>
-          <MenuItem value={2}>Family Event</MenuItem>
-          <MenuItem value={3}>Training Event</MenuItem>
-          <MenuItem value={4}>Mentor Only</MenuItem>
+          <MenuItem value={"Group Hangout"}>Group Hangout</MenuItem>
+          <MenuItem value={"Family Event"}>Family Event</MenuItem>
+          <MenuItem value={"Training Event"}>Training Event</MenuItem>
+          <MenuItem value={"Mentor Only"}>Mentor Only</MenuItem>
         </Select>
       </FormControl>
       {/*  */}
@@ -227,7 +227,7 @@ function AllEvents() {
               ))}
 
             {allEvents.map(thisEvent =>
-              ((eventType == thisEvent.type && results.length <= 0)) && (
+              ((eventType == thisEvent.eventType && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
@@ -237,14 +237,14 @@ function AllEvents() {
                   </TableCell>
                   <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right">{thisEvent.location}</TableCell>
-                  <TableCell align="right">{thisEvent.type}</TableCell>
+                  <TableCell align="right">{thisEvent.eventType}</TableCell>
                   <TableCell align="right">
                     <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right">{thisEvent.programLocation}</TableCell>
+                  <TableCell align="right">{thisEvent.locationName}</TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button                         sx={{
@@ -283,14 +283,14 @@ function AllEvents() {
                   </TableCell>
                   <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right">{allEvents.location}</TableCell>
-                  <TableCell align="right">{allEvents.type}</TableCell>
+                  <TableCell align="right">{allEvents.eventType}</TableCell>
                   <TableCell align="right">
                     <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>
                       {allEvents.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
-                  <TableCell align="right">{allEvents.programLocation}</TableCell>
+                  <TableCell align="right">{allEvents.locationName}</TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${allEvents.id}/edit`}>
                       <Button variant='contained'

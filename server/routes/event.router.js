@@ -6,7 +6,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // getting all events and info. Joining program location and event types
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText =
-
         `SELECT 
             "events".id, 
             "name", 
@@ -43,13 +42,86 @@ router.get('/order/:order', rejectUnauthenticated, (req, res) => {
     var sqlText = "";
 
     if (order == 1) {
-        sqlText = `SELECT * FROM "events" ORDER BY "id" ASC;`;
+        sqlText = 
+        `SELECT 
+            "events".id, 
+            "name", 
+            "dateTime", 
+            "dateTimeEnd", 
+            "location", 
+            "locationName", 
+            "eventType", 
+            "totalAttendees", 
+            "attendeeMax", 
+            "hasVolunteers", 
+            "registeredVolunteers", 
+            "volunteerMax", 
+            "description"
+        FROM "events" 
+        JOIN "programLocations" ON "events"."programLocationID" = "programLocations".id
+        JOIN "eventTypes" ON "events"."type" = "eventTypes".id 
+        ORDER BY "id" ASC;`
+        ;
     } else if (order == 2) {
-        sqlText = `SELECT * FROM "events" ORDER BY "id" DESC;`;
+        sqlText = 
+            `SELECT 
+            "events".id, 
+            "name", 
+            "dateTime", 
+            "dateTimeEnd", 
+            "location", 
+            "locationName", 
+            "eventType", 
+            "totalAttendees", 
+            "attendeeMax", 
+            "hasVolunteers", 
+            "registeredVolunteers", 
+            "volunteerMax", 
+            "description"
+        FROM "events" 
+        JOIN "programLocations" ON "events"."programLocationID" = "programLocations".id
+        JOIN "eventTypes" ON "events"."type" = "eventTypes".id 
+        ORDER BY "id" DESC;`;
     } else if (order == 3) {
-        sqlText = `SELECT * FROM "events" WHERE "dateTime" > clock_timestamp();`
+        sqlText = 
+        `SELECT 
+            "events".id, 
+            "name", 
+            "dateTime", 
+            "dateTimeEnd", 
+            "location", 
+            "locationName", 
+            "eventType", 
+            "totalAttendees", 
+            "attendeeMax", 
+            "hasVolunteers", 
+            "registeredVolunteers", 
+            "volunteerMax", 
+            "description"
+        FROM "events" 
+        JOIN "programLocations" ON "events"."programLocationID" = "programLocations".id
+        JOIN "eventTypes" ON "events"."type" = "eventTypes".id 
+        WHERE "dateTime" > clock_timestamp();`;
     } else {
-        sqlText = `SELECT * FROM "events" WHERE "dateTime" < clock_timestamp();`
+        sqlText = 
+            `SELECT 
+            "events".id, 
+            "name", 
+            "dateTime", 
+            "dateTimeEnd", 
+            "location", 
+            "locationName", 
+            "eventType", 
+            "totalAttendees", 
+            "attendeeMax", 
+            "hasVolunteers", 
+            "registeredVolunteers", 
+            "volunteerMax", 
+            "description"
+        FROM "events" 
+        JOIN "programLocations" ON "events"."programLocationID" = "programLocations".id
+        JOIN "eventTypes" ON "events"."type" = "eventTypes".id 
+        WHERE "dateTime" < clock_timestamp();`;
     }
 
     pool.query(sqlText)
