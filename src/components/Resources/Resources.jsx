@@ -43,8 +43,6 @@ function Resources() {
       (<div></div>)}
     </div>
     <br/>
-
-
     <br/>
     <br/>
     <div>
@@ -53,7 +51,7 @@ function Resources() {
           <li key={resource.id}>
              <p id="resourceName">{resource.resourceName}</p>
              <p>{resource.resourceDescription}</p>
-             <a href={resource.resourceLink}>{resource.resourceName}<span>&#8594;</span></a>
+             <a id = "resourceLink"href={resource.resourceLink}>{resource.resourceName}<span>&#8594;</span></a>
              <br/>
              <br/>
           </li>
