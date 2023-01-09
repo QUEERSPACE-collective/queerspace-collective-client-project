@@ -36,7 +36,7 @@ function EditEvents(){
           payload: id
         })
         setTimeout(() => {
-            history.push('/alleventslist')
+            history.push('/allevents')
           }, 1500); 
       };
 

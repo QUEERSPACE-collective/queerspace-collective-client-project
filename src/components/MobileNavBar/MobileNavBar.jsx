@@ -64,7 +64,7 @@ function MobileNavBar() {
             {user.userType == 5 && (
               <>
                 <Link to='/allEvents'>
-                  <p><CalendarMonthIcon className='allEvents' />Events List</p>
+                  <p><CalendarMonthIcon className='allEvents' />All Events</p>
                 </Link>
                 <Link to='/adduserform'>
                   <p><PersonSearchIcon className='iconAlign' />Register Users</p>

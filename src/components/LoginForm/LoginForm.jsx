@@ -48,7 +48,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZu0R') }}>
+        <label htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('obBo7hk4') }}>
           Password:
           <input
             type="password"
