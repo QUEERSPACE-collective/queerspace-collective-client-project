@@ -1,13 +1,4 @@
-.alluserDetailsContainer {
-    display: flex;
-    text-align: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: stretch;
-}
-
-.alluserDetailsContainer li  {
-    border-bottom: 1px solid black;
-    padding-bottom:10px;
+.alluserDetailsContainer{
+    margin: 0 50px;
+    
 }

@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
+import {List, ListItem, Card} from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -68,8 +69,7 @@ const handleConfirmationClose = () => {
 
   return (
     <>
-      {/* Just a placeholder, I think it'd be cool to incorporate their styling as much as possible though. */}
-      <div className='bannerTop'></div> 
+      
       <section className='alluserDetailsContainer'>
       <Button
             onClick={() => history.push('/allusers')}
@@ -78,12 +78,17 @@ const handleConfirmationClose = () => {
             fontSize: 16
             },}}
           ><ArrowCircleLeftIcon/>Back To User List</Button>
-       
-            <ul>
+          <Card
+            sx={{
+              p:2,
+              width: '50%'
+            }}
+          >
+            <List>
               <h2> {activeUser.fname} {activeUser.lname}</h2>
               {user.userType == 5 && (
                 <div>
-                  <li>            
+                  <ListItem>            
                     {activeUser.userType == 5 && (
                       <span>Admin</span>
                     )}
@@ -99,28 +104,28 @@ const handleConfirmationClose = () => {
                     {activeUser.userType == 1 && (
                       <span>Volunteer</span>
                     )}
-                  </li>
-                  <li>
+                  </ListItem>
+                  <ListItem>
                     Pronouns: {activeUser.pronouns}
-                  </li>
-                  <li>
+                  </ListItem>
+                  <ListItem>
                     Email: {activeUser.username}
-                  </li>
-                  <li>
+                  </ListItem>
+                  <ListItem>
 
                     Bio: {activeUser.bio}
-                  </li>
+                  </ListItem>
                   {activeUser.userType == 3 && (
-                  <li>
+                  <ListItem>
                   Mentor: {activeUser.mentor_firstname} {activeUser.mentor_lastname}
-                  </li>
+                  </ListItem>
                   )}
                   {activeUser.userType == 4 && (
-                  <li>
+                  <ListItem>
                   Mentee: {activeUser.mentor_firstname} {activeUser.mentor_lastname}
-                  </li>
+                  </ListItem>
                   )}
-                  <li>
+                  <ListItem>
                       <Button 
                         onClick={() => history.push(`/allusers/${activeUser.id}/edit`)}
                         variant='contained'
@@ -134,120 +139,37 @@ const handleConfirmationClose = () => {
                        <EditIcon/>
                       </Button>
 
-                  </li>
-                  {/* <Button
-                    sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                    '&:hover': {
-                    backgroundColor: '#cf2317',
-                    boxShadow: '6px 6px 0px #fe6d0e'
-                    },}}
-                    variant="contained"
-<<<<<<< HEAD:src/components/AllUsersDetails/AllUsersDetails.jsx
-                    value={allUsers.id}
-                    // onClick={(evt) => deleteUser(evt.target.value)}
-                    onClick = {handleConfirmationOpen}
-=======
-                    color="error"
-                    value={activeUser.id}
-                    onClick={(evt) => deleteUser(evt.target.value)}
->>>>>>> main:src/components/UserDetails/UserDetails.jsx
-                  >
-                    Delete User
-                  </Button>
-                  <Dialog
-            open={confirmationOpen}
-            // TransitionComponent={Transition}
-            keepMounted
-            onClose={handleConfirmationClose}
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
-            <DialogActions>
-              <Button variant="contained" 
-                onClick={(evt) => deleteUser(evt.target.value)}
-
-              // onClick={eventUnregistration}
-              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-              '&:hover': {
-              backgroundColor: '#cf2317',
-              boxShadow: '6px 6px 0px #fe6d0e'
-              },}}
-              >
-                Delete
-              </Button>
-              <Button 
-              variant="contained" 
-              onClick={handleConfirmationClose}
-              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-              '&:hover': {
-              backgroundColor: '#cf2317',
-              boxShadow: '6px 6px 0px #fe6d0e'
-              },}}
-              >
-                Cancel
-              </Button>
-            </DialogActions>
-          </Dialog> */}
+                  </ListItem>
+                  
                 </div>
               )}
 
-
-        {/* <Dialog
-            open={confirmationOpen}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleConfirmationClose}
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
-            <DialogActions>
-              <Button variant="contained" 
-                onClick={(evt) => deleteUser(evt.target.value)}
-
-              // onClick={eventUnregistration}
-              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-              '&:hover': {
-              backgroundColor: '#cf2317',
-              boxShadow: '6px 6px 0px #fe6d0e'
-              },}}
-              >
-                Delete
-              </Button>
-              <Button 
-              variant="contained" 
-              onClick={handleConfirmationClose}>
-                Cancel
-              </Button>
-            </DialogActions>
-          </Dialog> */}
-              
               {user.userType == 4 && (
                 <div>
-                  <li>
+                  <ListItem>
                     Pronouns: {activeUser.pronouns}
-                  </li>
-                  <li>
+                  </ListItem>
+                  <ListItem>
                     Email: {activeUser.username}
-                  </li>
-                  <li>
+                  </ListItem>
+                  <ListItem>
                     Bio: {activeUser.bio}
-                  </li>
+                  </ListItem>
                 </div>
               )}
 
               {user.userType < 4 && (
                 <div>
-                  <li>
+                  <ListItem>
                     Pronouns: {activeUser.pronouns}
-                  </li>
-                  <li>
+                  </ListItem>
+                  <ListItem>
                     Bio: {activeUser.bio}
-                  </li>
+                  </ListItem>
                 </div>
               )}
-            </ul>
-
-
+            </List>
+           </Card>     
 
       </section>
     </>
