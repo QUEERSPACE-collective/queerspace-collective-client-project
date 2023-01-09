@@ -49,6 +49,7 @@ let transporter = nodemailer.createTransport({
 // is that the password gets encrypted before being inserted
 router.post('/register', async (req, res) => {
   const username = req.body.username;
+  const token = generatePW();
   const pw = generatePW();
   const password = encryptLib.encryptPassword(pw);
   const userType = req.body.userType;
@@ -102,12 +103,8 @@ router.post('/register', async (req, res) => {
                 customize your account, register for QUEERSPACE events, and find other users. Use the credentials below to login
                 for the first time. After that, you will need to reset your password to get back in.
                 <br><br>
-                Username: ${username}
-                <br><br>
-                Password: ${pw}
-                <br><br>
                 Please follow the link to sign up:
-                http://localhost:3000/#/login
+                <a href="http://localhost:3000/#/reset/${token}">Register Here!</a>
                 <br><br> 
                 </div> 
                           </td>
@@ -130,9 +127,9 @@ router.post('/register', async (req, res) => {
       console.log("Message sent: %s", info.messageId);
       // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-      const queryText = `INSERT INTO "user" (username, password, "userType")
-      VALUES ($1, $2, $3) RETURNING id`;
-      await pool.query(queryText, [username, password, userType])
+      const queryText = `INSERT INTO "user" (username, password, "userType", token)
+      VALUES ($1, $2, $3, $4) RETURNING id`;
+      await pool.query(queryText, [username, password, userType, token])
       res.sendStatus(201);
     }
     catch (err) {
