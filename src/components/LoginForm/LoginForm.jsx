@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
+import './LoginForm.css';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -30,16 +31,17 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2 onClick={() => { setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9') }}>Login</h2>
+      <h1 onClick={() => { setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9') }}>Member Login</h1>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
       <div>
-        <label htmlFor="username" onClick={() => { setUsername('ADMIN'), setPassword('asty') }}>
-          Username:
+        <label className="usernamelabel" htmlFor="username" onClick={() => { setUsername('ADMIN'), setPassword('asty') }}>
           <input
+            placeholder='Username'
+            className='username'
             type="text"
             name="username"
             value={username}
@@ -48,9 +50,10 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZu0R') }}>
-          Password:
+        <label className="passwordlabel" htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZu0R') }}>
           <input
+            placeholder="Password"
+            className="password"
             type="password"
             name="password"
             value={password}
