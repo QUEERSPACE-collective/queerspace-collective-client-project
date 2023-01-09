@@ -109,7 +109,7 @@ function AllEvents() {
   return (
     <>
       <h1>AllEvents</h1>
-      <caption>Filter:</caption>
+      <p>Filter:</p>
 
       {/*  */}
       <FormControl className='formControl'>
@@ -143,7 +143,7 @@ function AllEvents() {
         </input>
       </form>
 
-      <caption>Sort</caption>
+      <p>Sort</p>
       <select onChange={(evt) => whichOrder(evt)}>
         <option value={2}>Newest</option>
         <option value={1}>Oldest</option>
