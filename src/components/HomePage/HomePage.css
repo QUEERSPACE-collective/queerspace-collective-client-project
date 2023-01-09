@@ -18,3 +18,7 @@ span:hover {
 .user-events{
     font-style:italic;
 }
+
+p {
+    font-weight: 800;
+}
