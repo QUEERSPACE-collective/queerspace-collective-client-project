@@ -7,6 +7,7 @@ span:hover {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin: 0 15px;
 }
 
 .editProfPicBtn{
@@ -16,4 +17,8 @@ span:hover {
 
 .user-events{
     font-style:italic;
+}
+
+p {
+    font-weight: 800;
 }

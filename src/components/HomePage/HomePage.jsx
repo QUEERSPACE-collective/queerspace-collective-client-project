@@ -33,7 +33,8 @@ function HomePage() {
 
   return (
     <div className="profilePageContainer">
-          <h2>Welcome, {user.fname} {user.lname}!</h2>
+      <br/>
+          <h2>Welcome, {user.fname} {user.lname}!</h2><br/>
             <img src={user.profilePic} style={{ border: '1px solid black', borderRadius: '50%', height: '150px', width: '150px' }} />
             <div className='editProfPicBtn'>
             <Button
@@ -50,18 +51,25 @@ function HomePage() {
               <EditIcon sx = {{width: '20px', p: 0, m: 0}}/>
             </Button>
             </div>
-          <p>pronouns: {user.pronouns}</p>
+          <p>pronouns:</p> {user.pronouns}
 
 
 
 
           {user.userType == 4 && (
-            <p>Mentee: {user.mentor_firstname} {user.mentor_lastname}</p>
+            <>
+            <p>Mentee:</p>{user.mentor_firstname} {user.mentor_lastname}
+            
+            </>
           )}
-               <p>Bio: <br/>{user.bio}</p> 
-
+          <>
+               <p>Bio:</p>{user.bio} 
+          </>
           {user.userType == 3 && (
-            <p>Mentor: {user.mentor_firstname} {user.mentor_lastname}</p>
+            <>
+          <br/>
+            <p>Mentor: </p>{user.mentor_firstname} {user.mentor_lastname}
+            </>
           )}
           <br/>
         <Button

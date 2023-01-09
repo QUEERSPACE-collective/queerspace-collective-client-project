@@ -198,6 +198,8 @@ const deleteUser = (id) => {
                         Bio:
                     </label>
                     <TextField
+                        rows={8}
+                        multiline
                         id="bio"
                         value={user && user.bio}
                         onChange={(evt) => dispatch({

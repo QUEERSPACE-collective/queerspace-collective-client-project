@@ -1,0 +1,22 @@
+.resourcePageContainer {
+    margin: 0 20px;
+}
+
+
+.resourcePageContainerHeader{
+    text-align: center;
+    margin-left: 20px;
+}
+
+#resourceName{
+    color: #e2bf03;
+    -webkit-text-stroke: 0.5px black ;
+    font-size: 22px;
+}
+
+#resourceLink {
+    font-size: 18px;
+    font-weight: 800;
+    text-decoration: none;
+    margin-left: 50px;
+}

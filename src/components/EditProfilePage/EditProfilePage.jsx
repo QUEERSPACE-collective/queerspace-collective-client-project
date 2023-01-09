@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import './EditProfilePage.css';
+
 
 function EditProfilePage() {
     const dispatch = useDispatch();
@@ -51,79 +53,25 @@ function EditProfilePage() {
 
     return (
         <div className='editUserContainer'>
-            <div>
+            <div className="editUserContainerHeader">
+            <Button
+                onClick={() => history.push('/homepage')}
+                sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', mt: 1,                
+                '&:hover': {
+                fontSize: 16
+                },}}
+            >
+                <ArrowCircleLeftIcon/>Home
+                </Button>
                 <h1 className='bannerTop'>Edit Profile</h1>
             </div>
-            {/* <div className="formContainer">
-                <form onSubmit={onSubmit} className='editUserForm' >
-                    <label for="fName">
-                        First Name:
-                    </label>
-                    <TextField
-                        id="fName"
-                        value={user && user.fname}
-                        onChange={(evt) => dispatch({
-                            type: 'UPDATE_EDIT_USER',
-                            payload: { fname: evt.target.value }
-                        })}
-                    />
-                    <label for="lName">
-                        Last Name:
-                    </label>
-                    <TextField
-                        id="lName"
-                        value={user && user.lname}
-                        onChange={(evt) => dispatch({
-                            type: 'UPDATE_EDIT_USER',
-                            payload: { lname: evt.target.value }
-                        })}
-                    />
-                    <label for="pronouns">
-                        Pronouns:
-                    </label>
-                    <TextField
-                        id="pronouns"
-                        value={user && user.pronouns}
-                        onChange={(evt) => dispatch({
-                            type: 'UPDATE_EDIT_USER',
-                            payload: { pronouns: evt.target.value }
-                        })}
-                    />
-                    <label for="bio">
-                        Bio:
-                    </label>
-                    <TextField
-                        id="bio"
-                        value={user && user.bio}
-                        onChange={(evt) => dispatch({
-                            type: 'UPDATE_EDIT_USER',
-                            payload: { bio: evt.target.value }
-                        })}
-                    />
-                    {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
-                    {/* <label for="mentor">
-                        Mentor:
-                    </label>
-                    <TextField
-                        id="mentor"
-                        disabled
-                        value={user && user.mentorPair}
-                    />
-                    <div className="editUserBottom">
-                        <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
-                        <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete Your Profile</Button>
-                        <Link to="/homepage" className="backToUserList">
-                            <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To Profile</Button>
-                        </Link>
-                    </div>
-                </form>
-            </div>  */}
-        <div className="formContainer">
+        
             <form onSubmit={onSubmit} className='editUserForm' >
                 <label for="fName">
                     First Name:
                 </label>
                 <TextField
+                sx = {{width: '200px'}}
                     id="fName"
                     value={user && user.fname}
                     onChange={(evt) => dispatch({
@@ -135,6 +83,7 @@ function EditProfilePage() {
                     Last Name:
                 </label>
                 <TextField
+                    sx = {{width: '200px'}}
                     id="lName"
                     value={user && user.lname}
                     onChange={(evt) => dispatch({
@@ -146,6 +95,7 @@ function EditProfilePage() {
                     Pronouns:
                 </label>
                 <TextField
+                    sx = {{width: '150px'}}
                     id="pronouns"
                     value={user && user.pronouns}
                     onChange={(evt) => dispatch({
@@ -157,6 +107,9 @@ function EditProfilePage() {
                     Bio:
                 </label>
                 <TextField
+                    sx = {{width: '350px'}}
+                    rows={8}
+                    multiline
                     id="bio"
                     value={user && user.bio}
                     onChange={(evt) => dispatch({
@@ -169,45 +122,49 @@ function EditProfilePage() {
                     Mentor:
                 </label>
                 <TextField
+                    sx = {{width: '200px'}}
+                
                     id="mentor"
                     disabled
                     value={user && user.mentorPair}                 
                 />
                 <div className="editUserBottom">
-                <Button type="submit" className="editUserSubmit"  size="small"
-                    sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+                {/* <Button type="submit" className="editUserSubmit"  size="small"
+                    sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', m: 2, color: 'white',               
                     '&:hover': {
                     backgroundColor: '#46a452e6',
                     boxShadow: '6px 6px 0px #82bc27e0'
                     },}}
                 >
                     Submit Changes
+                </Button> */}
+                <Button variant = "contained" 
+                sx={{fontSize: '12px', bgcolor: '#46a452e6', fontWeight: 'bold', m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#46a452e6',
+                boxShadow: '6px 6px 0px #82bc27e0'
+                },}}
+                type = "submit"
+                >
+                    Submit changes
                 </Button>
-                <Button 
-                    onClick={() => deleteUser(user.id)} className="editUserDelete" 
-                    size="small"
-                    sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                    '&:hover': {
+
+                <Button
+                variant = "contained"
+                sx = {{fontSize: '10px', bgcolor: '#cf2317', fontWeight: 'bold', m: 2, color: 'white', width: '200px',
+                '&:hover': {
                     backgroundColor: '#cf2317',
                     boxShadow: '6px 6px 0px #fe6d0e'
-                    },}}
-                    variant="contained"
-                    >
+                    }, }}
+                onClick={() => deleteUser(user.id)} className="editUserDelete"
+
+                >
                     Delete Your Profile
                 </Button>
-                <Button
-                    onClick={() => history.push('/homepage')}
-                    sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
-                    '&:hover': {
-                    fontSize: 16
-                    },}}
-                >
-                    <ArrowCircleLeftIcon/>Home
-                </Button>
+
                 </div>             
             </form>
             </div>
-        </div>  
     );
 }
 
