@@ -41,7 +41,7 @@ function LoginForm() {
         <label className="usernamelabel" htmlFor="username" onClick={() => { setUsername('ADMIN'), setPassword('asty') }}>
           <input
             placeholder='Username'
-            className='username'
+            className='usernameinput'
             type="text"
             name="username"
             value={username}
@@ -53,7 +53,7 @@ function LoginForm() {
         <label className="passwordlabel" htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZu0R') }}>
           <input
             placeholder="Password"
-            className="password"
+            className="passwordinput"
             type="password"
             name="password"
             value={password}
