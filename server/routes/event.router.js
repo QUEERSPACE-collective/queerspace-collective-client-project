@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GETting the total number of attendees per event
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText =
-        `SELECT * FROM "events" ORDER BY "id" ASC;`;
+        `SELECT * FROM "events" ORDER BY "id" DESC;`;
     pool.query(sqlText)
         .then(dbResult => {
             res.send(dbResult.rows)

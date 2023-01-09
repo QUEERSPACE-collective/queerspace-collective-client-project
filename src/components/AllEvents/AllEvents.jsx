@@ -145,8 +145,8 @@ function AllEvents() {
 
       <caption>Sort</caption>
       <select onChange={(evt) => whichOrder(evt)}>
-        <option value={1}>Newest</option>
-        <option value={2}>Oldest</option>
+        <option value={2}>Newest</option>
+        <option value={1}>Oldest</option>
         <option value={3}>Upcoming</option>
         <option value={4}>Past Events</option>
 
@@ -177,7 +177,7 @@ function AllEvents() {
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>               
+                  <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>               
                     {thisEvent.name}
                   </Link>
                   </TableCell>
@@ -270,7 +270,7 @@ function AllEvents() {
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>
+                  <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>               
                       {thisEvent.name}
                     </Link>
                   </TableCell>
@@ -279,7 +279,7 @@ function AllEvents() {
                   <TableCell align="right"> {thisEvent.location}</TableCell>
                   <TableCell align="right"> {thisEvent.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>
+                  <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>               
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
@@ -308,7 +308,7 @@ function AllEvents() {
               (eventResults.map(allEvents => (
                 <TableRow key={allEvents.id}>
                   <TableCell>
-                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${allEvents.id}`) }}>
+                  <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>               
                       {allEvents.name}
                     </Link>
                   </TableCell>
@@ -318,7 +318,7 @@ function AllEvents() {
                   {/* TODO: convert event type from number value to text*/}
                   <TableCell align="right"> {allEvents.type} </TableCell>
                   <TableCell align="right">
-                    <Link onClick={() => { history.push(`/AllEvents/attendees/event/${allEvents.id}`) }}>
+                  <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>               
                       {allEvents.totalAttendees}
                     </Link>
                   </TableCell>
