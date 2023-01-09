@@ -10,6 +10,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import moment from 'moment-timezone';
+import './EditEvents.css';
+
 
 function EditEvents(){
     const dispatch = useDispatch();
@@ -73,18 +75,20 @@ function pageFadeIn() {
         history.push('/AllEvents')
     }
     return(
-        <>
-            <Button
-                onClick={() => history.push('/allevents')}
-                sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
-                '&:hover': {
-                fontSize: 16
-                },}}
-                >
-                <ArrowCircleLeftIcon/>Back To Events List
-            </Button>
+        <div className='admintEditEventContainer'>
+
             
-                <div>
+                <div className='adminEditEventHeader'>
+                <Button
+                    className='backToEventsBtn'
+                    onClick={() => history.push('/allevents')}
+                    sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
+                    '&:hover': {
+                    fontSize: 16
+                    },}}
+                    >
+                    <ArrowCircleLeftIcon/>Back To Events List
+                </Button>
                     <h2 className='bannerTop'>Edit Event</h2>
                 </div>
                 
@@ -140,8 +144,6 @@ function pageFadeIn() {
                         })}
                     />
 
-                    {/* end edit event date time */}
-                    {/* edit description */}
                     <label>
                         Edit Description:
                     </label>
@@ -154,8 +156,7 @@ function pageFadeIn() {
                             payload: {description: evt.target.value}
                         })}
                     />
-                    {/* end edit description */}
-                    {/* edit event location */}
+
                     <label>
                         Edit Location:
                     </label>
@@ -166,8 +167,7 @@ function pageFadeIn() {
                             payload: {location: evt.target.value}
                         })}
                     />
-                    {/* end edit event location */}
-                    {/* edit event type */}
+
                     <label>
                         Edit Type:
                     </label>
@@ -178,8 +178,7 @@ function pageFadeIn() {
                             payload: {type: evt.target.value}
                         })}
                     />
-                    {/* end edit event type */}
-                    {/* edit event Program location */}
+
                     <label>
                         Edit Program Location:
                     </label>
@@ -191,7 +190,7 @@ function pageFadeIn() {
                         })}
                     />
                     </Card> 
-                    {/* end edit event program location */}
+
                     <Button 
                         type="submit"
                         sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
@@ -250,7 +249,7 @@ function pageFadeIn() {
           </Dialog>
 
 
-        </>
+        </div>
     )
 }
 

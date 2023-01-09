@@ -28,6 +28,7 @@ function EventCalendar() {
 
   return (
     <>
+    <br/>
       <div className='upcoming-events-container'>
         {user.userType !== 1 && (
           <h2>Upcoming Events!</h2>
@@ -35,6 +36,7 @@ function EventCalendar() {
         {user.userType == 1 && (
           <h2>Volunteer Events!</h2>
         )}
+        <br/>
         <Box
           sx={{
             display: 'flex',
