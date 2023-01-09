@@ -28,7 +28,7 @@ import newResourceLink from './newResourceLink.reducer';
 import viewResources from './viewResources.reducer';
 import registrationAnswers from './registrationAnswers.reducer';
 import currentEvent from './currentEvent.reducer';
-
+import attendeesReducer from './attendees.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -65,6 +65,7 @@ const rootReducer = combineReducers({
   eventRegisteredUsers,
   multerReducer,
   currentEvent,
+  attendeesReducer,
 });
 
 export default rootReducer;
