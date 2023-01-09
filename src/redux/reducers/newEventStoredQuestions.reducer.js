@@ -5,7 +5,7 @@ const newEventStoredQuestions = (state = [], action) => {
                 ...state,
                 action.payload
             ];
-        case 'TARGET_QUETION_REMOVE':
+        case 'TARGET_QUESTION_REMOVE':
             let newState = state.filter(question => question !== action.payload);
             return newState;
         case 'EVENT_FORM_FILLER':
