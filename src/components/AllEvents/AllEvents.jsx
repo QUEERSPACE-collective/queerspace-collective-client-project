@@ -33,7 +33,7 @@ function AllEvents() {
   const allEvents = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
   const event = useSelector((store) => store.event);
-  console.log('all events are',allEvents);
+  console.log('all events are', allEvents);
   const fuse = new Fuse(event, {
     keys: [
       'name'
@@ -46,7 +46,7 @@ function AllEvents() {
   const eventResults = results.map(result => result.item);
 
   useEffect(() => {
-    pageFadeIn(), 
+    pageFadeIn(),
       dispatch({ type: "FETCH_EVENTS" })
     dispatch({ type: 'FETCH_TOTAL_ATTENDEES' }),
       axios({
@@ -55,7 +55,7 @@ function AllEvents() {
       }).then((response) => {
         setTheUser(response.data);
       }).catch((err) => {
-        console.log('Error in getting events',err);
+        console.log('Error in getting events', err);
       })
   }, [])
 
@@ -177,29 +177,31 @@ function AllEvents() {
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                  <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>               
-                    {thisEvent.name}
-                  </Link>
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
+                      {thisEvent.name}
+                    </Link>
                   </TableCell>
                   <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right"> {thisEvent.description}</TableCell>
-                  <TableCell align="right"> {thisEvent.location}</TableCell>
-                  <TableCell align="right"> {thisEvent.type} </TableCell>
+                  <TableCell align="right">{thisEvent.description}</TableCell>
+                  <TableCell align="right">{thisEvent.location}</TableCell>
+                  <TableCell align="right">{thisEvent.type}</TableCell>
                   <TableCell align="right">
-                  {thisEvent.totalAttendees}
+                    {thisEvent.totalAttendees}
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right">{thisEvent.programLocation} </TableCell>
+                  <TableCell align="right">{thisEvent.programLocation}</TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button
-                      sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                      '&:hover': {
-                      backgroundColor: '#357590',
-                      boxShadow: '6px 6px 0px #90c5bf'
-                      },}}>
-                    <EditIcon/>
-                  </Button>
+                        sx={{
+                          bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',
+                          '&:hover': {
+                            backgroundColor: '#357590',
+                            boxShadow: '6px 6px 0px #90c5bf'
+                          },
+                        }}>
+                        <EditIcon />
+                      </Button>
 
                     </Link>
                   </TableCell>
@@ -223,11 +225,11 @@ function AllEvents() {
                       <DeleteIcon/>
                     </Button> */}
                   </TableCell>
-                  
+
                 </TableRow>
               ))}
 
-{/* 
+            {/* 
             <Dialog
             open={confirmationOpen}
             keepMounted
@@ -270,24 +272,24 @@ function AllEvents() {
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                  <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>               
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
                       {thisEvent.name}
                     </Link>
                   </TableCell>
                   <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right"> {thisEvent.description}</TableCell>
-                  <TableCell align="right"> {thisEvent.location}</TableCell>
-                  <TableCell align="right"> {thisEvent.type} </TableCell>
+                  <TableCell align="right">{thisEvent.description}</TableCell>
+                  <TableCell align="right">{thisEvent.location}</TableCell>
+                  <TableCell align="right">{thisEvent.type}</TableCell>
                   <TableCell align="right">
-                  <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>               
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right">{thisEvent.programLocation} </TableCell>
+                  <TableCell align="right">{thisEvent.programLocation}</TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button variant='contained'><EditIcon/></Button>
+                      <Button variant='contained'><EditIcon /></Button>
 
                     </Link>
                   </TableCell>
@@ -308,53 +310,45 @@ function AllEvents() {
               (eventResults.map(allEvents => (
                 <TableRow key={allEvents.id}>
                   <TableCell>
-                  <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>               
+                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>
                       {allEvents.name}
                     </Link>
                   </TableCell>
                   <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right"> {allEvents.description}</TableCell>
-                  <TableCell align="right"> {allEvents.location}</TableCell>
-                  {/* TODO: convert event type from number value to text*/}
-                  <TableCell align="right"> {allEvents.type} </TableCell>
+                  <TableCell align="right">{allEvents.description}</TableCell>
+                  <TableCell align="right">{allEvents.location}</TableCell>
+                  <TableCell align="right">{allEvents.type}</TableCell>
                   <TableCell align="right">
-                  <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>               
+                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>
                       {allEvents.totalAttendees}
                     </Link>
                   </TableCell>
                   <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
-                  <TableCell align="right">{allEvents.programLocation} </TableCell>
+                  <TableCell align="right">{allEvents.programLocation}</TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${allEvents.id}/edit`}>
                       <Button variant='contained'><EditIcon/></Button>
                     </Link>
                   </TableCell>
-                  <TableCell align="right">
-                    {/* <Button
-                      variant="contained"
-                      color="error"
-                      value={allEvents.id}
-                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
-                    >
-                      <DeleteIcon/>
-                    </Button> */}
-                  </TableCell>
                 </TableRow>
               )))
-            )} </TableBody>
+            )} 
+            </TableBody>
         </Table>
       </TableContainer>
 
-        <Button     
-          variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
+      <Button
+        variant='contained' sx={{
+          bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,
           '&:hover': {
-          backgroundColor: '#f39536',
-          boxShadow: '6px 6px 0px #e2bf05'
-          },}}
-          onClick = {() => history.push('/neweventform')}
-          >
-            Add New Event
-        </Button>
+            backgroundColor: '#f39536',
+            boxShadow: '6px 6px 0px #e2bf05'
+          },
+        }}
+        onClick={() => history.push('/neweventform')}
+      >
+        Add New Event
+      </Button>
     </>
   );
 }
