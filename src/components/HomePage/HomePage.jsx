@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import EditIcon from '@mui/icons-material/Edit';
-import Box from '@mui/material/Box';
 
 import './HomePage.css';
 
@@ -55,27 +54,24 @@ function HomePage() {
               <EditIcon sx = {{width: '20px', p: 0, m: 0}}/>
             </Button>
             </div>
-          <p>pronouns:</p> {user.pronouns}
-
-
-
-
+          <span>pronouns:</span> {user.pronouns}
+          <br/>
           {user.userType == 4 && (
             <>
-            <p>Mentee:</p>{user.mentor_firstname} {user.mentor_lastname}
-            
+            <span>Mentee:</span>{user.mentor_firstname} {user.mentor_lastname}
             </>
           )}
+          <br/>
           <>
-               <p>Bio:</p>{user.bio} 
+           <span>Bio:</span>{user.bio}
           </>
+          <br/><br/>
           {user.userType == 3 && (
             <>
-          <br/>
-            <p>Mentor: </p>{user.mentor_firstname} {user.mentor_lastname}
+            <span>Mentor: </span>{user.mentor_firstname} {user.mentor_lastname}
             </>
           )}
-          <br/>
+        <br/><br/>
         <Button
           onClick={() => history.push(`/homepage/${user.id}/edit`)}
           variant='contained'

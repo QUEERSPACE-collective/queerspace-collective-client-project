@@ -96,7 +96,7 @@ function MobileNavBar() {
         {user.id && (
           ['left'].map((anchor) => (
             <React.Fragment key={anchor}>
-              <Button onClick={toggleDrawer(anchor, true)}>
+              <Button onClick={toggleDrawer(anchor, true)} sx = {{color: '#357590'}} >
                 <MenuIcon />
               </Button>
               <Drawer
