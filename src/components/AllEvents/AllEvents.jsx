@@ -9,7 +9,8 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  InputLabel
 } from '@mui/material';
 import Fuse from 'fuse.js'
 import axios from 'axios';
@@ -113,12 +114,12 @@ function AllEvents() {
   return (
     <div className='adminAllEventsContainer'>
       <h1>All Events</h1>
-      <p>Filter:</p>
-
+      
+      {/* <p>Filter:</p> */}
       {/*  */}
       <FormControl className='formControl'>
         <Select
-          sx={{ height: '20px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+          sx={{ width: '200px', height: '40px', marginTop: '7px', marginBottom: '7px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
           id="demo-simple-select"
           value={eventType}
           onChange={(evt) => setEventType(evt.target.value)}
@@ -133,10 +134,11 @@ function AllEvents() {
       </FormControl>
       {/*  */}
       
-      <p>Sort</p>
+      {/* <p>Sort:</p> */}
       <FormControl className='formControl'>
+        <InputLabel id="sort-event-select-label">Sort By</InputLabel>
         <Select onChange={(evt) => whichOrder(evt)}
-          sx={{ height: '20px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+          sx={{ width: '200px', height: '40px', marginTop: '7px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
           id="demo-simple-select">
           <MenuItem value={2}>Newest</MenuItem>
           <MenuItem value={1}>Oldest</MenuItem>
