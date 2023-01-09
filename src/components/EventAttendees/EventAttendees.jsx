@@ -83,6 +83,8 @@ function EventAttendees() {
             textAlign: 'center',
             borderRadius: 3,
             boxShadow: 2,
+            boxShadow: '0px 0px 5px green',
+
           }}>
           <h2>
             {eventDetails.name}
