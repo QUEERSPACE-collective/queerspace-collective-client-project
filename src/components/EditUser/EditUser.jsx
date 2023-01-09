@@ -89,7 +89,7 @@ const onSubmit = (evt) => {
     });
     handleAlertClick();
     setTimeout(() => {
-      history.push('/allusers')
+      history.push(`/userdetails/${user.id}`)
     }, 1500); 
 }
 
