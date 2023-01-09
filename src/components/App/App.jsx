@@ -110,6 +110,20 @@ function App() {
             }
           </Route>
 
+          <Route
+            exact
+            path='/forgot'
+          >
+            {user.id ?
+            // If the user is already logged in, 
+              // redirect them to the /user page
+              <Redirect to="/user" />
+              :
+              // Otherwise, show the Landing page
+              <ForgotPassword />
+            }
+          </Route>
+
           <ProtectedRoute exact path='/EventCalendar'>
             <EventCalendar />
           </ProtectedRoute>
@@ -148,10 +162,6 @@ function App() {
           <ProtectedRoute exact path='/ProfilePicture/edit'>
             <EditProfilePicture />
           </ProtectedRoute>
-
-          <Route exact path='/forgot'>
-            <ForgotPassword />
-          </Route>
 
           <ProtectedRoute exact path='/MobileNavBar'>
             <MobileNavBar />
