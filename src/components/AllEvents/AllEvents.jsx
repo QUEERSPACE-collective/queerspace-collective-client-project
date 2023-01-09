@@ -33,7 +33,7 @@ function AllEvents() {
   const allEvents = useSelector(store => store.event);
   const [eventType, setEventType] = useState(0);
   const event = useSelector((store) => store.event);
-
+  console.log('all events are',allEvents);
   const fuse = new Fuse(event, {
     keys: [
       'name'
@@ -269,9 +269,10 @@ function AllEvents() {
               ((eventType == thisEvent.type && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
-                  <TableCell><Link to={`/allevents/${thisEvent.id}/details`}>
-                    {thisEvent.name}
-                  </Link>
+                  <TableCell>
+                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${thisEvent.id}`) }}>
+                      {thisEvent.name}
+                    </Link>
                   </TableCell>
                   <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {thisEvent.description}</TableCell>
@@ -306,9 +307,10 @@ function AllEvents() {
             {results.length > 0 && (
               (eventResults.map(allEvents => (
                 <TableRow key={allEvents.id}>
-                  <TableCell><Link to={`/allevents/${allEvents.id}/details`}>
-                    {allEvents.name}
-                  </Link>
+                  <TableCell>
+                  <Link onClick={() => { history.push(`/AllEvents/attendees/event/${allEvents.id}`) }}>
+                      {allEvents.name}
+                    </Link>
                   </TableCell>
                   <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"> {allEvents.description}</TableCell>
