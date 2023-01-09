@@ -12,15 +12,14 @@ function EditProfilePage() {
     const history = useHistory();
     const params = useParams();
     const user = useSelector((store) => store.editUser);
+    console.log(params);
 
     useEffect(() => {
         pageFadeIn(),
             dispatch({
-                type: "FETCH_EDIT_PROFILE",
-                payload: params.id
-            }),
-            dispatch({ type: "FETCH_EDIT_USER" });
-    }, [params.id]);
+                type: "FETCH_EDIT_PROFILE"
+            })
+    }, []);
 
     //Fade effect
     function pageFadeIn() {
@@ -34,7 +33,7 @@ function EditProfilePage() {
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
-            type: "SAVE_USER",
+            type: "SAVE_PROFILE",
             payload: user
         }),
             dispatch({
@@ -75,7 +74,7 @@ function EditProfilePage() {
                     id="fName"
                     value={user && user.fname}
                     onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_USER',
+                        type: 'UPDATE_EDIT_PROFILE',
                         payload: { fname: evt.target.value }
                     })}
                 />
@@ -87,7 +86,7 @@ function EditProfilePage() {
                     id="lName"
                     value={user && user.lname}
                     onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_USER',
+                        type: 'UPDATE_EDIT_PROFILE',
                         payload: { lname: evt.target.value }
                     })}
                 />
@@ -99,7 +98,7 @@ function EditProfilePage() {
                     id="pronouns"
                     value={user && user.pronouns}
                     onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_USER',
+                        type: 'UPDATE_EDIT_PROFILE',
                         payload: { pronouns: evt.target.value }
                     })}
                 />
@@ -113,31 +112,11 @@ function EditProfilePage() {
                     id="bio"
                     value={user && user.bio}
                     onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_USER',
+                        type: 'UPDATE_EDIT_PROFILE',
                         payload: { bio: evt.target.value }
                     })}
                 />
-                {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
-                <label for="mentor">
-                    Mentor:
-                </label>
-                <TextField
-                    sx = {{width: '200px'}}
-                
-                    id="mentor"
-                    disabled
-                    value={user && user.mentorPair}                 
-                />
                 <div className="editUserBottom">
-                {/* <Button type="submit" className="editUserSubmit"  size="small"
-                    sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', m: 2, color: 'white',               
-                    '&:hover': {
-                    backgroundColor: '#46a452e6',
-                    boxShadow: '6px 6px 0px #82bc27e0'
-                    },}}
-                >
-                    Submit Changes
-                </Button> */}
                 <Button variant = "contained" 
                 sx={{fontSize: '12px', bgcolor: '#46a452e6', fontWeight: 'bold', m: 2, color: 'white',               
                 '&:hover': {

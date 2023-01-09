@@ -16,6 +16,35 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// Editing current user
+router.put('/', (req, res) => {
+    const sqlText = `
+      UPDATE "user"
+      SET "fname" = $1, "lname" = $2, 
+      "userType" = $3, "pronouns" = $4, 
+      "bio" = $5
+      WHERE id = $6;
+    `;
+
+    const sqlParams = [
+      req.body.fname,
+      req.body.lname,
+      req.body.userType,
+      req.body.pronouns,
+      req.body.bio,
+      req.user.id
+    ]
+
+    pool.query(sqlText, sqlParams)
+      .then((dbRes) => {
+        res.sendStatus(200);
+      })
+      .catch((err) => {
+        console.log(`Error making database query ${sqlText}`, err);
+        res.sendStatus(500);
+      })
+})
+
 // Password generator function
 function generatePW() {
   var pass = '';
