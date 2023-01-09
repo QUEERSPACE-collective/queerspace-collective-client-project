@@ -2,6 +2,7 @@ import { useParams, useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import Button from '@mui/material/Button';
+import './PasswordReset.css';
 
 function PasswordReset() {
   const dispatch = useDispatch();
@@ -23,10 +24,17 @@ function PasswordReset() {
   }
     return (
       <div>
-        <form onSubmit={handleSubmit}>
+        <form className="resetform" onSubmit={handleSubmit}>
+          <div>
+          <h1>Reset Password</h1>
+          </div>
+          <div>
+            <h4>Enter in new password to reset and hit "Reset Password" button</h4>
+          </div>
           <label>
-            Password
             <input
+              placeholder="Password"
+              className="pwresetinput"
               name="password"
               type="password"
               value={password}

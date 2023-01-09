@@ -1,0 +1,30 @@
+.adduserform {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    align-items: stretch;
+    margin-top: 5%;
+}
+
+.adduserinput {
+    width: 200px;
+    padding: 2px;
+    box-shadow: 0px 2px 5px grey;
+    margin-top: 20px;
+}
+
+.adduserlabel {
+    font-style: italic;
+    padding-right: 2px;
+}
+
+.accesslevellabel {
+    font-style: italic;
+    padding-right: 15px;
+}
+
+.regbtn {
+    margin-top: 20px;
+    margin-left: 60px;
+}
