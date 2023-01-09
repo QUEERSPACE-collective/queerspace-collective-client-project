@@ -21,7 +21,7 @@ h1 {
 
 .allusersHover ul:hover,
 .allusersContainer:hover .allusersP:hover {
-  background-color: #dae343;
+  background-color: #73c5903b;
 }
 
 .allusersHover ul:hover .allusersP:hover .clickableName {

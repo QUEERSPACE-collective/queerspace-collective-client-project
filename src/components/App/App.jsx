@@ -43,7 +43,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className='app'>
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -137,7 +137,10 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEvents/attendees/event/:id'>
+          {user.userType < 5 ? 
+            <Redirect to='/homepage'/> :
             <EventAttendees />
+          }  
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEvents/:id/edit'>

@@ -78,7 +78,7 @@ function AllEventsDetails() {
             <TableCell align="right"> {currentEvent.type} </TableCell>
             <TableCell align="right">{currentEvent.programLocation} </TableCell> 
             <TableCell align="right">
-              <Link to={`/AllEventsList/${currentEvent.id}/edit`} style = {{textDecoration: 'none'}}>
+              <Link to={`/allevents/${currentEvent.id}/edit`} style = {{textDecoration: 'none'}}>
                 <Button
                 sx = {{bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                 '&:hover': {

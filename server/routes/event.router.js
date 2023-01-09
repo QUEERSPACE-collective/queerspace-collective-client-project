@@ -6,6 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // getting all events and info. Joining program location and event types
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText =
+
         `SELECT 
             "events".id, 
             "name", 
@@ -23,7 +24,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         FROM "events" 
         JOIN "programLocations" ON "events"."programLocationID" = "programLocations".id
         JOIN "eventTypes" ON "events"."type" = "eventTypes".id
-        ORDER BY "events"."id" ASC;`
+        ORDER BY "events"."id" DESC;`
     ;
     pool.query(sqlText)
         .then(dbResult => {

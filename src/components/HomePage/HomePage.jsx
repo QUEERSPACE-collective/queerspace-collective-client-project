@@ -5,6 +5,10 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import EditIcon from '@mui/icons-material/Edit';
+import './HomePage.css';
+
 
 function HomePage() {
   const history = useHistory();
@@ -28,70 +32,73 @@ function HomePage() {
   }
 
   return (
-    <div className="container">
-      <h2>Welcome, {user.fname} {user.lname}!</h2>
-      <div>
-        <img src={user.profilePic} style={{ border: '1px solid black', borderRadius: '50%', height: '200px', width: '200px' }} />
-        <Link to='/ProfilePicture/edit' >
-          <button>Edit Picture</button>
-        </Link>
-      </div>
-      <p> Name: {user.fname} {user.lname}</p>
-      <p> Pronouns: {user.pronouns}</p>
-      <form>
-        <label>
-          Your access level is:
-        </label>
-        < >
-          {user.userType == 1 && (
-            <p>Volunteer</p>
-          )}
-          {user.userType == 2 && (
-            <p>Caregiver</p>
-          )}
-          {user.userType == 3 && (
-            <p>Mentee/Youth</p>
-          )}
+    <div className="profilePageContainer">
+      <br/>
+          <h2>Welcome, {user.fname} {user.lname}!</h2><br/>
+            <img src={user.profilePic} style={{ border: '1px solid black', borderRadius: '50%', height: '150px', width: '150px' }} />
+            <div className='editProfPicBtn'>
+            <Button
+            variant='contained'
+            sx = {{bgcolor: '#357590', fontWeight: 'bold', 
+            wordSpacing: 1, m: 2, color: 'white', 
+            width: '40px', height: '20px',              
+            '&:hover': {
+            backgroundColor: '#357590',
+            boxShadow: '6px 6px 0px #90c5bf'
+            },}}
+            onClick={() => history.push('/ProfilePicture/edit')}
+            >
+              <EditIcon sx = {{width: '20px', p: 0, m: 0}}/>
+            </Button>
+            </div>
+          <p>pronouns:</p> {user.pronouns}
+
+
+
+
           {user.userType == 4 && (
-            <p>Mentor</p>
+            <>
+            <p>Mentee:</p>{user.mentor_firstname} {user.mentor_lastname}
+            
+            </>
           )}
-          {user.userType == 5 && (
-            <p>Admin</p>
+          <>
+               <p>Bio:</p>{user.bio} 
+          </>
+          {user.userType == 3 && (
+            <>
+          <br/>
+            <p>Mentor: </p>{user.mentor_firstname} {user.mentor_lastname}
+            </>
           )}
-        </>
-      </form>
-
-      {user.userType == 3 && (
-        <p>Mentor: {user.mentor_firstname} {user.mentor_lastname}</p>
-      )}
-
-      {user.userType == 4 && (
-        <p>Mentee: {user.mentor_firstname} {user.mentor_lastname}</p>
-      )}
-
-      <article>Bio: {user.bio}</article>
-      <Link to={`/homepage/${user.id}/edit`}>
-        <button>Edit Profile</button>
-      </Link>
-      <div>
+          <br/>
+        <Button
+          onClick={() => history.push(`/homepage/${user.id}/edit`)}
+          variant='contained'
+          sx = {{bgcolor: '#357590', fontWeight: 'bold', 
+          wordSpacing: 1, m: 2, color: 'white', 
+          width: '10px', height: '35px', fontSize:'10px',             
+          '&:hover': {
+          backgroundColor: '#357590',
+          boxShadow: '6px 6px 0px #90c5bf'
+          },}}
+        >
+          Edit Profile
+        </Button>
+        <br/>
         {(user.userType < 5) && (
           <div>
             <h2 className='bannerTop'>
               Your Upcoming Events...
             </h2>
-            <Link to="/EventCalendar">Go to Calendar </Link>
-            <div>
               {userEvents.map(event => (
                 <div className='user-events'
                   key={event.id} onClick={() => { history.push(`/EventDetails/event/${event.id}`) }}>
-                  {event.name}
+                 {event.name}  <ArrowCircleRightIcon/>
                 </div>
               ))}
-            </div>
-            <Button variant={'outlined'}>Delete</Button>
           </div>
         )}
-      </div>
     </div>
   );
 }

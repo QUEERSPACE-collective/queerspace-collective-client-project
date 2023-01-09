@@ -6,9 +6,6 @@
     align-items: stretch;
 }
 
-.editUserContainer h1 {
-    text-decoration: underline;
-}
 
 .editUserContainer input {
     width: 400px;

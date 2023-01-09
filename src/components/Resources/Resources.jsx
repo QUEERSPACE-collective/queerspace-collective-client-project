@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import './Resources.css';
+
 
 
 function Resources() {
@@ -26,13 +28,10 @@ function Resources() {
   }
 
   return (
-    <>
-    <div className="container">
+    <div className='resourcePageContainer'>
+    <div className="resourcePageContainerHeader">
       <h1 className='bannerTop'>Resources</h1>
-    </div>
-    <br/>
-
-    {user && user.userType == 5 ? (<Button 
+      {user && user.userType == 5 ? (<Button 
     variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,                 
     '&:hover': {
       backgroundColor: '#f39536',
@@ -42,15 +41,17 @@ function Resources() {
       Add a resource
       </Button>): 
       (<div></div>)}
+    </div>
+    <br/>
     <br/>
     <br/>
     <div>
       <ul>
         {viewResources.length > 0 && viewResources[0].map((resource)=>
           <li key={resource.id}>
-             <p>{resource.resourceName}</p>
+             <p id="resourceName">{resource.resourceName}</p>
              <p>{resource.resourceDescription}</p>
-             <a href={resource.resourceLink}>View Resource</a>
+             <a id = "resourceLink"href={resource.resourceLink}>{resource.resourceName}<span>&#8594;</span></a>
              <br/>
              <br/>
           </li>
@@ -58,7 +59,7 @@ function Resources() {
       </ul>
     </div>
 
-    </>
+    </div>
   );
 }
 

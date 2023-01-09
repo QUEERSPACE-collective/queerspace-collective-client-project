@@ -4,6 +4,33 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // Registering for an event
+router.get('/getAttendees/:id', rejectUnauthenticated, (req,res) => {
+    console.log('what req.body and whats the user',req.user.id);
+    console.log('params are',req.params.id)
+    const sqlParams = [
+        req.params.id
+    ];
+    if (req.user.userType == 5) {
+        const sqlText =
+            `
+        SELECT "userAttendees", "events"."id", "user"."id" as "uId" FROM "userEvents"
+        JOIN "events"
+        ON "events"."id" = "userEvents"."eventId"
+        JOIN "user"
+        ON "user"."id" = "userEvents"."userId" 
+        WHERE "events"."id" = $1 ;
+        `;
+        pool.query(sqlText, sqlParams)
+            .then(dbResult => {
+                console.log('Registered attendees users dbResult.rows: ', dbResult.rows)
+                res.send(dbResult.rows)
+            })
+            .catch(err => {
+                console.error('error getting attendees users from db', err)
+                res.sendStatus(500)
+            })
+    }
+})
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
         const sqlParams = [

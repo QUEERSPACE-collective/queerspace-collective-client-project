@@ -101,7 +101,7 @@ router.get('/events', rejectUnauthenticated, (req, res) => {
   const sqlParams = [req.user.id]
   const sqlText =
     `
-  SELECT "events"."name", "events"."id" 
+  SELECT "events"."name", "events"."id"
   FROM "userEvents"
   JOIN "events" ON "events".id = "userEvents"."eventId"
   WHERE "userId" = $1;

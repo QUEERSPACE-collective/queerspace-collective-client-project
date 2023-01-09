@@ -37,7 +37,7 @@ function ProfilePage() {
 // end Fade effect
 
   return (
-    <div className="container">
+    <div className="profilePageContainer">
       <h2>Welcome, {user.fname} {user.lname}!</h2>
       <div>
       <img src={user.profilePic} style={{border:'1px solid black',borderRadius:'50%', height:'200px', width:'200px'}}/>
