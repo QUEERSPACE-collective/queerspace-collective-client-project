@@ -64,12 +64,9 @@ const handleConfirmationClose = () => {
       </Button>
 
       <Card className='userDetailsCard'
-        sx = {{mt: 4, p: 4, border: 0.5, borderRadius: 2, boxShadow: '-30px -30px 0px #f39536'}}>
-          
+        sx = {{mt: 4, pl: 10, pr: 10, border: 0.5, borderRadius: 2, width: '50%'}}>
         <List>
-        <Box sx = {{bgcolor: '#e2bf05c2', borderRadius: 2}}>
             <h1 className='userDetailsName'> {activeUser.fname} {activeUser.lname}</h1>
-        </Box>
         <br/>
           {user.userType == 5 && (
             <div>
