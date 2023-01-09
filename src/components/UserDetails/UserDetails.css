@@ -1,13 +1,23 @@
 .alluserDetailsContainer {
     display: flex;
     text-align: center;
-    justify-content: flex-start;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-content: stretch;
+    align-items: center;
 }
 
 .alluserDetailsContainer li  {
-    border-bottom: 1px solid black;
     padding-bottom:10px;
+}
+
+#userDetailsName {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+#BioLi{
+    width: 500px;
+}
+
+.userDetailsName, span {
+    font-weight: 800;
 }
