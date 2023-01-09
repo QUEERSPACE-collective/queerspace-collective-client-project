@@ -25,6 +25,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import moment from 'moment-timezone';
 
+
+
 function AllEvents() {
   const [query, setQuery] = useState(''); // For fuse.js search
   const history = useHistory();
@@ -105,6 +107,8 @@ function AllEvents() {
   const handleConfirmationClose = () => {
     setConfirmatinoOpen(false)
   }
+
+ 
 
   return (
     <>
