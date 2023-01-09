@@ -33,7 +33,7 @@ function* deleteUser(action) {
 
 function* fetchEditProfile(action) {
     try {
-        const response = yield axios.get(`/api/user/${action.payload}`);
+        const response = yield axios.get(`/api/user`);
         yield put({ type: 'SET_EDIT_PROFILE', payload: response.data });
     } catch (err) {
         console.log('fetchEditProfile GET user request failed', err);
@@ -42,7 +42,7 @@ function* fetchEditProfile(action) {
 
 function* saveProfile(action) {
     if (action.payload.id) {
-        yield axios.put(`/api/user/${action.payload.id}`, action.payload);
+        yield axios.put(`/api/user`, action.payload);
     }
     yield put({ type: "FETCH_USER" });
 }
