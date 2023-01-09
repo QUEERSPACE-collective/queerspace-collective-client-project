@@ -232,16 +232,7 @@ const deleteUser = (id) => {
                             onChange={(evt, mentor) => pickMentor(evt, mentor.id)}
                         />
                     </form>
-                    {/* <div className="editUserBottom">
-                        <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
-                        <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
-                        <Link to="/allusers" className="backToUserList">
-                            <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
-                        </Link>
-                    </div> */}
-
-                
-               
+           
                 <div className="editUserBottom">
              
                 <Button type="submit" className="editUserSubmit" 

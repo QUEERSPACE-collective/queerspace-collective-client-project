@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import EditIcon from '@mui/icons-material/Edit';
+import Box from '@mui/material/Box';
+
 import './HomePage.css';
 
 
@@ -35,7 +36,10 @@ function HomePage() {
     <div className="profilePageContainer">
       <br/>
           <h2>Welcome, {user.fname} {user.lname}!</h2><br/>
-            <img src={user.profilePic} style={{ border: '1px solid black', borderRadius: '50%', height: '150px', width: '150px' }} />
+
+            <img className= "userProfilePic" src={user.profilePic} style={{  
+            borderRadius: '50%', height: '180px', width: '180px',
+            boxShadow: '-2px 3px 7px #00344b' }} />
             <div className='editProfPicBtn'>
             <Button
             variant='contained'
