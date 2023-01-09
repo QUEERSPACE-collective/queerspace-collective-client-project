@@ -71,7 +71,7 @@ function AllUsers() {
       <form className='allusersForm'>
         <FormControl className='formControl'>
           <Select
-            sx={{ height: '20px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+            sx={{ height: '30px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
             id="demo-simple-select"
             value={userType}
             onChange={(evt) => setUserType(evt.target.value)}
