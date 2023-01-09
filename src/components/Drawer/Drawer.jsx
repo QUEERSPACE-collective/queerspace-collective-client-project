@@ -63,8 +63,8 @@ function Drawers() {
           </Link>
           {user.userType == 5 && (
             <>
-            <Link to='/allEventsList'>
-            <p><CalendarMonthIcon className='allEventsList'/>Events List</p>
+            <Link to='/allEvents'>
+            <p><CalendarMonthIcon className='allEvents'/>All Events</p>
           </Link>
             <Link to='/adduserform'>
               <p><PersonSearchIcon className='iconAlign'/>Register Users</p>
