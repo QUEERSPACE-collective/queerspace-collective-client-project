@@ -4,6 +4,7 @@
     flex-direction: column;
     align-content: center;
     align-items: stretch;
+    margin-top: 5%;
 }
 
 .adduserinput {
