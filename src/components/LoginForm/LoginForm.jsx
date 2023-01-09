@@ -50,7 +50,7 @@ function LoginForm() {
         </label>
       </div>
       <div>
-        <label className="passwordlabel" htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('E5YPZu0R') }}>
+        <label className="passwordlabel" htmlFor="password" onClick={() => { setUsername('noelani.rose14@gmail.com'), setPassword('obBo7hk4') }}>
           <input
             placeholder="Password"
             className="passwordinput"

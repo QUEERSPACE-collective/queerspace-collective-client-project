@@ -1,3 +1,19 @@
 span:hover {
     background-color: rgba(238, 238, 238, 0.639);
 }
+
+.profilePageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.editProfPicBtn{
+    margin-left: 15em;
+    margin-bottom: 1em;
+}
+
+.user-events{
+    font-style:italic;
+}
