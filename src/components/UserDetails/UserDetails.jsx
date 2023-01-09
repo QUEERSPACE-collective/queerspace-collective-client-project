@@ -46,17 +46,6 @@ function pageFadeIn() {
   setTimeout(() => document.body.classList.add("withOpacity"), 100);
 };
 
-const deleteUser = (id) => {
-  console.log('in AllUsers deleteUser, the users id is', id)
-  dispatch({
-    type: "DELETE_USER",
-    payload: params.id,
-  });
-  setTimeout(() => {
-    history.push('/allusers')
-  }, 1500); 
-}
-
 
 const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
 const handleConfirmationOpen = () => {

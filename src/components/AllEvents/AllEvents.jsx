@@ -147,32 +147,18 @@ function AllEvents() {
         >
         </input>
       </form>
-
-      {/* <p>Sort</p>
-      <select onChange={(evt) => whichOrder(evt)}>
-        <option value={2}>Newest</option>
-        <option value={1}>Oldest</option>
-        <option value={3}>Upcoming</option>
-        <option value={4}>Past Events</option>
-
-      </select> */}
-
-
-
-      {/*  */}
-      <TableContainer>
+      <TableContainer >
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Event</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Date and Time</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Location</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Event Type</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Attendees</TableCell>
-              <TableCell align='right'>Attendee Max</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Program Location</TableCell>
-              <TableCell align="right" sx={{ fontWeight: 'bold' }}>Edit Event</TableCell>
-              {/* <TableCell align="right" sx={{ fontWeight: 'bold' }}>Delete</TableCell> */}
+              <TableCell alight="right"sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic'}}>Event</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Date and Time</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Location</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Event Type</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Attendees</TableCell>
+              <TableCell align='right' sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Attendee Max</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Program Location</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Edit Event</TableCell>
             </TableRow>
           </TableHead>
 
@@ -181,22 +167,23 @@ function AllEvents() {
             {allEvents.map(thisEvent =>
               ((eventType == 0 && results.length <= 0)) && (
 
-                <TableRow key={thisEvent.id}>
+                <TableRow key={thisEvent.id} >
                   <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
-                      {thisEvent.name}
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style = {{textDecoration: 'none', fontWeight: 700,
+                     fontSize: 17, color: '#d069b1'}}>
+                      {thisEvent.name} <span>&#8594;</span>
                     </Link>
                   </TableCell>
-                  <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right">{thisEvent.location}</TableCell>
-                  <TableCell align="right"> {thisEvent.eventType} </TableCell>
-                  <TableCell align="right">
+                  <TableCell align="right" style = {{fontSize: 15}}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
+                  <TableCell align="right"  style = {{fontSize: 15, width: '300px'}}>{thisEvent.location}</TableCell>
+                  <TableCell align="right"  style = {{fontSize: 15}}> {thisEvent.eventType} </TableCell>
+                  <TableCell align="right"  style = {{fontSize: 15}}>
                     {thisEvent.totalAttendees}
                   </TableCell>
-                  <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right">{thisEvent.locationName} </TableCell>
+                  <TableCell align='right' style = {{fontSize: 15}}>{thisEvent.attendeeMax}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.locationName} </TableCell>
                   <TableCell align="right">
-                    <Link to={`/allevents/${thisEvent.id}/edit`}>
+                    <Link to={`/allevents/${thisEvent.id}/edit`} >
                       <Button
                         sx={{
                           bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',
@@ -221,23 +208,25 @@ function AllEvents() {
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} >
                       {thisEvent.name}
                     </Link>
                   </TableCell>
-                  <TableCell align="right">{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right">{thisEvent.location}</TableCell>
-                  <TableCell align="right">{thisEvent.type}</TableCell>
-                  <TableCell align="right">
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}>
+                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.type}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style = {{textDecoration: 'none', 
+                      color: 'black'}}>
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
-                  <TableCell align='right'>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right">{thisEvent.programLocation}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align='right' style = {{fontSize: 15}}>{thisEvent.attendeeMax}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.programLocation}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button                         sx={{
+                      <Button                         
+                          sx={{
                           bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',
                           '&:hover': {
                             backgroundColor: '#357590',
@@ -251,14 +240,6 @@ function AllEvents() {
                     </Link>
                   </TableCell>
                   <TableCell align="right">
-                    {/* <Button
-                      variant="contained"
-                      color="error"
-                      value={thisEvent.id}
-                      onClick={(evt) => handleDeleteEvent(evt.target.value)}
-                    >
-                      <DeleteIcon/>
-                    </Button> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -271,17 +252,18 @@ function AllEvents() {
                       {allEvents.name}
                     </Link>
                   </TableCell>
-                  <TableCell align="right">{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right">{allEvents.location}</TableCell>
-                  <TableCell align="right">{allEvents.type}</TableCell>
-                  <TableCell align="right">
-                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>
+                  <TableCell align="right" style = {{fontSize: 15}}>{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
+                  <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.location}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{allEvents.type}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>
+                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style = {{textDecoration: 'none', 
+                      color: 'black'}}>
                       {allEvents.totalAttendees}
                     </Link>
                   </TableCell>
-                  <TableCell align='right'>{allEvents.attendeeMax}</TableCell>
-                  <TableCell align="right">{allEvents.programLocation}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align='right' style = {{fontSize: 15}}>{allEvents.attendeeMax}</TableCell>
+                  <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.programLocation}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>
                     <Link to={`/allevents/${allEvents.id}/edit`}>
                       <Button variant='contained'
                         sx={{
