@@ -42,7 +42,6 @@ function EditProfilePage() {
     }
 
     const deleteUser = (id) => {
-        console.log('in delete item function onclick')
         dispatch({
             type: "DELETE_USER",
             payload: id,
@@ -55,7 +54,7 @@ function EditProfilePage() {
             <div>
                 <h1 className='bannerTop'>Edit Profile</h1>
             </div>
-            <div className="formContainer">
+            {/* <div className="formContainer">
                 <form onSubmit={onSubmit} className='editUserForm' >
                     <label for="fName">
                         First Name:
@@ -102,7 +101,7 @@ function EditProfilePage() {
                         })}
                     />
                     {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
-                    <label for="mentor">
+                    {/* <label for="mentor">
                         Mentor:
                     </label>
                     <TextField
@@ -118,7 +117,7 @@ function EditProfilePage() {
                         </Link>
                     </div>
                 </form>
-            </div>
+            </div>  */}
         <div className="formContainer">
             <form onSubmit={onSubmit} className='editUserForm' >
                 <label for="fName">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
 import './AddUserForm.css';
 
 function AddUserForm() {
@@ -44,7 +45,7 @@ function AddUserForm() {
 
  
   return (
-    <form onSubmit={registerUser}>
+    <form className="adduserform" onSubmit={registerUser}>
       <h2>Register User</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
@@ -52,22 +53,23 @@ function AddUserForm() {
         </h3>
       )}
       <div>
-        <label htmlFor="username">
-          *Email:
+        <label className="adduserlabel" htmlFor="username">
+          *Email Address:
+        </label>
           <input
+            className='adduserinput'
             type="text"
             name="username"
             value={username}
             required
             onChange={(event) => setUsername(event.target.value)}
           />
-        </label>
       </div>
       <div>
-        <label htmlFor='userType'>
+        <label className="accesslevellabel" htmlFor='userType'>
           *Access Level:
         </label>
-        <select onChange={(event) => setUserType(event.target.value)} value={userType}>
+        <select className='adduserinput' onChange={(event) => setUserType(event.target.value)} value={userType}>
           <option>Select One</option>
           <option value="1">
             Volunteer
@@ -87,7 +89,20 @@ function AddUserForm() {
         </select>
       </div>
       <div>
-        <input type="submit" name="submit" value="Register" disabled={isDisabled()} />
+        <Button
+        disabled={isDisabled()}
+        value="Register"
+        name="submit"
+        type="submit"
+        className="regbtn"
+        variant='contained' sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, mt: 2,                
+        '&:hover': {
+        backgroundColor: '#f39536',
+        boxShadow: '6px 6px 0px #e2bf05'
+        },}}
+        >
+          Register New User
+        </Button>
       </div>
     </form>
   );

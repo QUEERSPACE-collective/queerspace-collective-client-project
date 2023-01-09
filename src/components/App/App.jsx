@@ -149,9 +149,9 @@ function App() {
             <EditProfilePicture />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path='/forgot'>
+          <Route exact path='/forgot'>
             <ForgotPassword />
-          </ProtectedRoute>
+          </Route>
 
           <ProtectedRoute exact path='/MobileNavBar'>
             <MobileNavBar />
