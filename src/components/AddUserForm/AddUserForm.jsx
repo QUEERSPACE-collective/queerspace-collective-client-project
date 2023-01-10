@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
+import { Card, Box } from '@mui/material';
 import './AddUserForm.css';
 
 function AddUserForm() {
@@ -52,6 +53,7 @@ function AddUserForm() {
           {errors.registrationMessage}
         </h3>
       )}
+      <Card sx = {{bgcolor: '#f8f8f9', width: '40%', pb: 10, pt: 5}}>
       <div>
         <label className="adduserlabel" htmlFor="username">
           *Email Address:
@@ -88,6 +90,7 @@ function AddUserForm() {
           </option>
         </select>
       </div>
+      </Card>
       <div>
         <Button
         disabled={isDisabled()}
