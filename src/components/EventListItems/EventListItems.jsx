@@ -23,7 +23,6 @@ function EventListItems() {
             <div key = {event.id} className="eventListItem">
             <h4>{event.name}</h4>
             {moment(event.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}<br/>
-            {/* Location: {event.location}<br/> */}
               <Button 
                 onClick={() => history.push(`/EventDetails/event/${event.id}`)}
                 sx={{
@@ -46,38 +45,31 @@ function EventListItems() {
       </ul>
 
       <ul>
-
-{eventList && eventList.map(event => (
-  ((user.userType == 1 && event.hasVolunteers )&& (
-    <li key = {event.id}>
-    {event.name}<br/>
-    Date: {event.dateTime}<br/>
-    Location: {event.location}<br/>
-    <Link to = {`/EventDetails/event/${event.id}`}>
-      <Button 
-        sx={{
-          mt: 2, fontWeight: 'bold', color: 'white', letterSpacing: 1,
-          backgroundColor: '#aa87c0',
-          '&:hover': {
-            backgroundColor: '#aa87c0',
-            boxShadow: '6px 6px 0px #d069b1'
-          },
-        }}
-        >
-          Details
-      </Button>
-    </Link>
-    <br/>
-    <br/>
-  </li>
-
-  ))  
-))}
- 
-</ul>
-
-    </>
-    
+      {eventList && eventList.map(event => (
+        ((user.userType == 1 && event.hasVolunteers )&& (
+          <div key = {event.id}>
+          <h4>{event.name}</h4><br/>
+          {event.dateTime}<br/>
+            <Button 
+              onClick={() => history.push(`/EventDetails/event/${event.id}`)}
+              sx={{
+                mt: 2, fontWeight: 'bold', color: 'white', letterSpacing: 1,
+                backgroundColor: '#aa87c0',
+                '&:hover': {
+                  backgroundColor: '#aa87c0',
+                  boxShadow: '6px 6px 0px #d069b1'
+                },
+              }}
+              >
+                Details
+            </Button>
+          <br/>
+          <br/>
+        </div>
+        ))  
+      ))}  
+      </ul>
+    </> 
   );
 }
 

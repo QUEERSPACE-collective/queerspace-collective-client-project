@@ -33,11 +33,7 @@ function EventDetails() {
   const eventDetails = useSelector(store => store.currentEvent);
   const userEvents = useSelector(store => store.userEventsReducer);
   const eventQuestions = useSelector(store => store.eventQuestions);
-  const registrationAnswer = useSelector(store => store.registrationAnswers);
-
   let [attendeeCount, setAttendeeCount] = useState(0);
-  let [volunteerCount, setVolunteerCount] = useState(0);
-
   const [alertOpen, setAlertOpen] = useState(false);
 
 
@@ -49,7 +45,6 @@ function EventDetails() {
   const handleClose = () => {
     setOpen(false);
   };
-  // end confirmation modal
 
 
   // success message upon registration
@@ -72,7 +67,6 @@ function EventDetails() {
     setUnregisterOpen(false)
 
   }
-  // end unregister confirmation
 
   useEffect(() => {
     pageFadeIn(),
@@ -96,9 +90,6 @@ function EventDetails() {
     setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
 
-  // looking through users registered events, if they are register for an event
-  // with the same id as the currently displayed event, set isRegistered to "true"
-  // .some() returns a bool
   let isRegistered = userEvents.some(event => event.id === eventDetails?.id);
 
   // let isEventFull = false;
@@ -115,7 +106,6 @@ function EventDetails() {
       payload: { eventId: params.id, attendees: attendeeCount, answer: eventQuestions }
     })
     setOpen(false);
-    // open snack bar 
     handleAlertClick();
     setTimeout(() => {
       history.push('/homepage')
@@ -131,9 +121,8 @@ function EventDetails() {
     history.push('/EventCalendar')
   }
 
-  console.log('is this user registered for this event?', isRegistered)
   return (
-  <>
+  <div className='eventDetailsContainer'>
       <Button 
         onClick={() => history.push('/eventcalendar')} 
         sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
@@ -143,17 +132,7 @@ function EventDetails() {
         >
         <ArrowCircleLeftIcon/>Back to Calendar
       </Button>
-
-      {/* {userEvents.map(allUserEvents => 
-        {(allUserEvents.id == eventDetails.id) && (
-        <>
-          {Number(attendeeCount++)}
-        </>
-        )}
-      )} */}
       
-      <h2 className='bannerTop'>Details</h2>
-
       <div className='event-details-container'>
         <Box
           sx={{
@@ -161,7 +140,7 @@ function EventDetails() {
             flexDirection: 'column',
             alignContent: 'center',
             justifyContent: 'center',
-            backgroundColor: '#b4b4b43d',
+            backgroundColor: '#f8f8f9',
             padding: '20px',
             width: '60%',
             textAlign: 'center',
@@ -171,12 +150,17 @@ function EventDetails() {
           <h2>
             {eventDetails.name}
           </h2>
+          <br/>
+          <h4>            
+            {moment(eventDetails.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}<br/>
+          </h4>
           <h4>
             {eventDetails.location}
           </h4>
-          <p>
+          <br/>
             {eventDetails.description}
-          </p>
+          <br/>
+          <br/>
           <p>
             Max attendees: {eventDetails.attendeeMax}
           </p>
@@ -397,7 +381,7 @@ function EventDetails() {
             </DialogActions>
           </Dialog>
         </div>
-      </>
+      </div>
       );
 
 }
