@@ -81,6 +81,7 @@ const handleConfirmationClose = () => {
           <Card
             sx={{
               p:2,
+              m: 'auto',
               width: '50%'
             }}
           >
