@@ -64,7 +64,7 @@ const handleConfirmationClose = () => {
       </Button>
 
       <Card className='userDetailsCard'
-        sx = {{mt: 4, pl: 10, pr: 10, border: 0.5, borderRadius: 2, width: '50%'}}>
+        sx = {{mt: 4, pl: 10, pr: 10, border: 0.5, borderRadius: 2, width: '50%', bgcolor: '#f8f8f9'}}>
         <List>
             <h1 className='userDetailsName'> {activeUser.fname} {activeUser.lname}</h1>
         <br/>
@@ -94,7 +94,8 @@ const handleConfirmationClose = () => {
                 <span>Email:</span> {activeUser.username}
               </li>
               <li id = "BioLi">
-                <span>Bio:</span> <br/>{activeUser.bio}
+                <span>Bio:</span> <br/>Hey there! My name is {activeUser.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
+	I’ve been involved with the QUEERSPACE collective program for 2 years and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
               </li>
               {activeUser.userType == 3 && (
               <li>
@@ -132,7 +133,8 @@ const handleConfirmationClose = () => {
                 <span>Email:</span> {activeUser.username}
               </li>
               <li id = "BioLi">
-                <span>Bio:</span><br/>{activeUser.bio}
+                <span>Bio:</span><br/>Hey there! My name is {activeUser.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
+	I’ve been involved with the QUEERSPACE collective program for 2 years and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
               </li>
             </div>
           )}
@@ -143,7 +145,8 @@ const handleConfirmationClose = () => {
                 <span>Pronouns:</span> {activeUser.pronouns}
               </li>
               <li id = "BioLi">
-                <span>Bio:</span><br/>{activeUser.bio}
+                <span>Bio:</span><br/>Hey there! My name is {activeUser.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
+	I’ve been involved with the QUEERSPACE collective program for 2 years now and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
               </li>
               </div>
             )}

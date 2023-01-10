@@ -63,7 +63,9 @@ function HomePage() {
           )}
           <br/>
           <>
-           <span>Bio:</span>{user.bio}
+           <span>Bio:</span>
+           Hey there! My name is {user.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
+	I’ve been involved with the QUEERSPACE collective program for 2 years and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
           </>
           <br/><br/>
           {user.userType == 3 && (

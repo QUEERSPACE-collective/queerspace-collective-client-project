@@ -208,8 +208,9 @@ function AllEvents() {
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} >
-                      {thisEvent.name}
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}style = {{textDecoration: 'none', fontWeight: 700,
+                     fontSize: 17, color: '#d069b1'}} >
+                      {thisEvent.name}<span>&#8594;</span>
                     </Link>
                   </TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
@@ -248,8 +249,9 @@ function AllEvents() {
               (eventResults.map(allEvents => (
                 <TableRow key={allEvents.id}>
                   <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`}>
-                      {allEvents.name}
+                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style = {{textDecoration: 'none', fontWeight: 700,
+                     fontSize: 17, color: '#d069b1'}}>
+                      {allEvents.name}<span>&#8594;</span>
                     </Link>
                   </TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>

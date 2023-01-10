@@ -123,8 +123,8 @@ const deleteUser = (id) => {
     }
     return (
         <div className='editUserContainer'>
-            
-                <Link to="/allusers" className="backToUserList">
+            <div className='editUserContainerHeader'>
+            <Link to="/allusers" className="backToUserList">
                     <Button 
                         sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
                         '&:hover': {
@@ -134,11 +134,9 @@ const deleteUser = (id) => {
                            <ArrowCircleLeftIcon/> Back To User List
                     </Button>
                 </Link>
-            <div>
-                <h1 className='bannerTop'>Edit User</h1>
+                <h1>Edit User</h1>
             </div>
             <div className="formContainer">
-
                 <form onSubmit={onSubmit} className='editUserForm' >
                     <label htmlFor="fName">
                         First Name:
