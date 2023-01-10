@@ -65,13 +65,13 @@ function AllUsers() {
   }
 
   return (
-    <>
-    <br/>
+    <div id='AllUsersPageContainer'>
+    
       <h1 className='bannerTop'>All Users</h1>
       <form className='allusersForm'>
         <FormControl className='formControl'>
           <Select
-            sx={{ height: '20px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+            sx={{ height: '30px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
             id="demo-simple-select"
             value={userType}
             onChange={(evt) => setUserType(evt.target.value)}
@@ -141,7 +141,7 @@ function AllUsers() {
                   </Button>
               )}
               {user.userType < 5 && (
-                <br></br>
+                <span></span>
               )}
             </ul>
           ))}
@@ -168,7 +168,7 @@ function AllUsers() {
             </p>
 
               {user.userType < 5 && (
-                <br></br>
+                <span></span>
               )}
               {/* if the above conditional is true, AND the current logged in user is an admin, 
                   then also show the "Edit User" Button/Link */}
@@ -224,7 +224,7 @@ function AllUsers() {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

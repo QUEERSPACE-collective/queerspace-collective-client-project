@@ -8,6 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import { Card, Box } from '@mui/material';
 
 import EditIcon from '@mui/icons-material/Edit';
+import {List, ListItem, Card} from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import './UserDetails.css';
 
@@ -153,6 +154,7 @@ const handleConfirmationClose = () => {
           </List>
       </Card>
     </div>
+
   );
 }
 

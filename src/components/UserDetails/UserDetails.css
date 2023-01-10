@@ -1,5 +1,6 @@
-.alluserDetailsContainer {
-    display: flex;
+.alluserDetailsContainer{
+    margin: auto;
+    width: 100%;
     text-align: center;
     flex-direction: column;
     align-items: center;
@@ -32,3 +33,4 @@
 .userDetailsCard{
     border: 1px solid black; 
 }
+

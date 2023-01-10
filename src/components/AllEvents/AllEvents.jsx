@@ -9,7 +9,8 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  InputLabel
 } from '@mui/material';
 import Fuse from 'fuse.js'
 import axios from 'axios';
@@ -18,6 +19,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment-timezone';
+
+
 
 function AllEvents() {
   const [query, setQuery] = useState(''); // For fuse.js search
@@ -100,33 +103,36 @@ function AllEvents() {
     setConfirmatinoOpen(false)
   }
 
+ 
+
   return (
     <div className='adminAllEventsContainer'>
       <h1>All Events</h1>
-      <p>Filter:</p>
-
+      
+      {/* <p>Filter:</p> */}
       {/*  */}
       <FormControl className='formControl'>
         <Select
-          sx={{ height: '20px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+          sx={{ width: '200px', height: '40px', marginTop: '7px', marginBottom: '7px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
           id="demo-simple-select"
           value={eventType}
           onChange={(evt) => setEventType(evt.target.value)}
           className='allusersSelect'
         >
           <MenuItem value={0}>All Event Types</MenuItem>
-          <MenuItem value={1}>Group Hangout</MenuItem>
-          <MenuItem value={2}>Family Event</MenuItem>
-          <MenuItem value={3}>Training Event</MenuItem>
-          <MenuItem value={4}>Mentor Only</MenuItem>
+          <MenuItem value={"Group Hangout"}>Group Hangout</MenuItem>
+          <MenuItem value={"Family Event"}>Family Event</MenuItem>
+          <MenuItem value={"Training Event"}>Training Event</MenuItem>
+          <MenuItem value={"Mentor Only"}>Mentor Only</MenuItem>
         </Select>
       </FormControl>
       {/*  */}
       
-      <p>Sort</p>
+      {/* <p>Sort:</p> */}
       <FormControl className='formControl'>
+        <InputLabel id="sort-event-select-label">Sort By</InputLabel>
         <Select onChange={(evt) => whichOrder(evt)}
-          sx={{ height: '20px', marginTop: '3px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+          sx={{ width: '200px', height: '40px', marginTop: '7px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
           id="demo-simple-select">
           <MenuItem value={2}>Newest</MenuItem>
           <MenuItem value={1}>Oldest</MenuItem>
@@ -204,7 +210,7 @@ function AllEvents() {
               ))}
 
             {allEvents.map(thisEvent =>
-              ((eventType == thisEvent.type && results.length <= 0)) && (
+              ((eventType == thisEvent.eventType && results.length <= 0)) && (
 
                 <TableRow key={thisEvent.id}>
                   <TableCell>
@@ -225,6 +231,7 @@ function AllEvents() {
                   <TableCell align='right' style = {{fontSize: 15}}>{thisEvent.attendeeMax}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.programLocation}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>
+
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
                       <Button                         
                           sx={{
@@ -266,6 +273,7 @@ function AllEvents() {
                   <TableCell align='right' style = {{fontSize: 15}}>{allEvents.attendeeMax}</TableCell>
                   <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.programLocation}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>
+
                     <Link to={`/allevents/${allEvents.id}/edit`}>
                       <Button variant='contained'
                         sx={{
