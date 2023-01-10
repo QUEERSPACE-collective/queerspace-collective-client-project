@@ -306,95 +306,95 @@ function EventDetails() {
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle>{`Event Registration: ${eventDetails.name}`}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Please answer the following questions:
-            </DialogContentText>
-            <br></br>
-            <DialogContentText>
-              Including yourself, how many will be attending?
-              <input type="number" onChange={(e) => { setAttendeeCount(e.target.value) }} />
-
-              {eventQuestions.map(question => (
-                <div key={question.id}>
-                  {question.question}
-                  <input type="text" onChange={(e) => {
-                    dispatch({
-                      type: 'STORE_USER_ANSWER',
-                      payload: { questionId: question.id, answer: e.target.value }
-                    })
-                  }
-                  } />
-                </div>
-              ))}
-
+          <DialogTitle>{eventDetails.name}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                Please answer the following questions:
               </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button variant="contained" 
-              onClick={eventRegistration}
-              sx={{
-                mb: 1, fontWeight: 'bold',
-                backgroundColor: '#aa87c0',
+              <br></br>
+              <DialogContentText style = {{textAlign: 'left'}}>
+                *Including yourself, how many will be attending?<br/>
+                <input type="number" onChange={(e) => { setAttendeeCount(e.target.value) }} />
+
+                {eventQuestions.map(question => (
+                  <div key={question.id}>
+                    {question.question}<br/>
+                    <input type="text" onChange={(e) => {
+                      dispatch({
+                        type: 'STORE_USER_ANSWER',
+                        payload: { questionId: question.id, answer: e.target.value }
+                      })
+                    }
+                    } />
+                  </div>
+                ))}
+
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button variant="contained" 
+                  onClick={eventRegistration}
+                  sx={{
+                    mb: 1, fontWeight: 'bold',
+                    backgroundColor: '#aa87c0',
+                    '&:hover': {
+                      backgroundColor: '#aa87c0',
+                      boxShadow: '6px 6px 0px #d069b1'
+                    },
+                  }}
+                  >
+                    Register
+                  </Button>
+                  <Button variant="contained" 
+                  onClick={handleClose}
+                  sx={{
+                    mb: 1, fontWeight: 'bold',
+                    backgroundColor: '#aa87c0',
+                    '&:hover': {
+                      backgroundColor: '#aa87c0',
+                      boxShadow: '6px 6px 0px #d069b1'
+                    },
+                  }}
+                  >
+                    Cancel
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+              <Stack spacing={2} sx={{ width: '100%' }}>
+                <Snackbar open={alertOpen} onClose={handleAlertClose}>
+                  <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+                    Registration Successful!
+                  </Alert>
+                </Snackbar>
+            </Stack>
+
+
+            <Dialog
+              open={unregisterOpen}
+              TransitionComponent={Transition}
+              keepMounted
+              onClose={handleUnregisterClose}
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
+              <DialogActions>
+                <Button variant="contained" 
+                onClick={eventUnregistration}
+                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
                 '&:hover': {
-                  backgroundColor: '#aa87c0',
-                  boxShadow: '6px 6px 0px #d069b1'
-                },
-              }}
-              >
-                Register
-              </Button>
-              <Button variant="contained" 
-              onClick={handleClose}
-              sx={{
-                mb: 1, fontWeight: 'bold',
-                backgroundColor: '#aa87c0',
-                '&:hover': {
-                  backgroundColor: '#aa87c0',
-                  boxShadow: '6px 6px 0px #d069b1'
-                },
-              }}
-              >
-                Cancel
-              </Button>
-            </DialogActions>
-          </Dialog>
-
-          <Stack spacing={2} sx={{ width: '100%' }}>
-            <Snackbar open={alertOpen} onClose={handleAlertClose}>
-              <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-                Registration Successful!
-              </Alert>
-            </Snackbar>
-         </Stack>
-
-
-          <Dialog
-            open={unregisterOpen}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={handleUnregisterClose}
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
-            <DialogActions>
-              <Button variant="contained" 
-              onClick={eventUnregistration}
-              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-              '&:hover': {
-              backgroundColor: '#cf2317',
-              boxShadow: '6px 6px 0px #fe6d0e'
-              },}}
-              >
-                Unregister
-              </Button>
-              <Button 
-              variant="contained" 
-              onClick={handleUnregisterClose}>
-                Cancel
-              </Button>
-            </DialogActions>
+                backgroundColor: '#cf2317',
+                boxShadow: '6px 6px 0px #fe6d0e'
+                },}}
+                >
+                  Unregister
+                </Button>
+                <Button 
+                variant="contained" 
+                onClick={handleUnregisterClose}>
+                  Cancel
+                </Button>
+              </DialogActions>
           </Dialog>
         </div>
       </>
