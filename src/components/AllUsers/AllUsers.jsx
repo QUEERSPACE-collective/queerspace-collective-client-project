@@ -65,8 +65,8 @@ function AllUsers() {
   }
 
   return (
-    <>
-    <br/>
+    <div id='AllUsersPageContainer'>
+    
       <h1 className='bannerTop'>All Users</h1>
       <form className='allusersForm'>
         <FormControl className='formControl'>
@@ -141,7 +141,7 @@ function AllUsers() {
                   </Button>
               )}
               {user.userType < 5 && (
-                <br></br>
+                <span></span>
               )}
             </ul>
           ))}
@@ -168,7 +168,7 @@ function AllUsers() {
             </p>
 
               {user.userType < 5 && (
-                <br></br>
+                <span></span>
               )}
               {/* if the above conditional is true, AND the current logged in user is an admin, 
                   then also show the "Edit User" Button/Link */}
@@ -224,7 +224,7 @@ function AllUsers() {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

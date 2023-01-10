@@ -1,12 +1,15 @@
+#AllUsersPageContainer{
+  margin: 0 50px;
+}
 h1 {
   text-align: center;
 }
 
 .allusersContainer {
-  border-bottom: 1px solid black;
-  align-items: center;
+  border-bottom: 1px solid lightgray;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   list-style-type: none;
   text-align: center;
   font-size: 13px;
@@ -29,7 +32,7 @@ h1 {
 }
 
 .allusersP {
-  width: 100%;
+  width: 50%;
   padding-top: 15px;
 }
 
@@ -50,7 +53,6 @@ h1 {
 
 .allusersForm {
   text-align: center;
-  border-bottom: 1px solid black;
   padding-bottom: 20px;
 }
 
@@ -64,7 +66,7 @@ h1 {
 
 @media screen and (min-width: 480px) {
   .allusersP {
-    width: 100%;
+    width: 50%;
   }
 }
 
