@@ -8,8 +8,6 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { OutlinedInput, Card, List, ListItem, Select, MenuItem } from '@mui/material';
-import newEventProgramArea from '../../redux/reducers/newEventProgramArea.reducer';
-import newEventType from '../../redux/reducers/newEventType.reducer';
 import './NewEventForm.css';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
