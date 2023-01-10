@@ -82,7 +82,8 @@ const handleConfirmationClose = () => {
             sx={{
               p:2,
               m: 'auto',
-              width: '50%'
+              width: '75%',
+              overflow: 'auto'
             }}
           >
             <List>
