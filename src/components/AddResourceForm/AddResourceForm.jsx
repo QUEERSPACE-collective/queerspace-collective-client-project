@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import { Card, Box, OutlinedInput } from '@mui/material';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Button from '@mui/material/Button';
 import './AddResourceForm.css';
 
 function AddResourceForm() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const newResourceName = useSelector(store => store.newResourceName);
   const newResourceDescription = useSelector(store => store.newResourceDescription);
@@ -37,20 +41,30 @@ function AddResourceForm() {
     });
   }
   return (
-    <>
-      <h1 className='bannerTop'>Add a New Resource</h1>
+    <div className='addNewResorceFormContainer'>
+      <Button
+      onClick={() => history.push('/resources')}
+      sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
+      '&:hover': {
+      fontSize: 16
+      },}}
+      >
+        <ArrowCircleLeftIcon/> Back To Resources
+      </Button>
+      <h1>Add a New Resource</h1>
+      <Card sx = {{bgcolor: '#f8f8f9', width: '40%', pb: 10, pt: 5, textAlign: 'center'}}>
+      <form onSubmit={onSubmit}>      
 
-      <form onSubmit={onSubmit}>
-        <label for='newResourceName'>Name: </label>
-        <input type='text' value={newResourceName} id='newResourceName' onChange={(e)=>{dispatch({type: 'SAVE_NEW_RESOURCE_NAME', payload: e.target.value})}}></input>
+        <label for='newResourceName'>Title: </label><br/>
+        <OutlinedInput type='text' value={newResourceName} id='newResourceName' onChange={(e)=>{dispatch({type: 'SAVE_NEW_RESOURCE_NAME', payload: e.target.value})}}></OutlinedInput>
         <br/>
         <br/>
-        <label for='newResourceDescription'>Description: </label>
-        <input type='text' value={newResourceDescription} id='newResourceDescription' onChange={(e) => (dispatch({ type: 'SAVE_NEW_RESOURCE_DESCRIPTION', payload: e.target.value }))}></input>
+        <label for='newResourceDescription'>Description: </label><br/>
+        <TextField multiline rows = {3}style = {{width: '50%'}}type='text' value={newResourceDescription} id='newResourceDescription' onChange={(e) => (dispatch({ type: 'SAVE_NEW_RESOURCE_DESCRIPTION', payload: e.target.value }))}></TextField>
         <br />
         <br />
-        <label for='newResourceLink'>Link: </label>
-        <input type='url' value={newResourceLink} id='newResourceLink' onChange={(e)=>{dispatch({type: 'SAVE_NEW_RESOURCE_LINK', payload: e.target.value})}}></input>
+        <label for='newResourceLink'>Link: </label><br/>
+        <OutlinedInput type='url' value={newResourceLink} id='newResourceLink' onChange={(e)=>{dispatch({type: 'SAVE_NEW_RESOURCE_LINK', payload: e.target.value})}}></OutlinedInput>
         <br/>
         <br/>
         <Button type = "submit"
@@ -63,7 +77,8 @@ function AddResourceForm() {
             Add
         </Button>
       </form>
-    </>
+      </Card>
+    </div>
   );
 }
 

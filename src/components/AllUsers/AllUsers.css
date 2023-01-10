@@ -15,12 +15,7 @@ h1 {
   font-size: 13px;
 }
 
-.allusersContainerAdmin {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  list-style-type: none;
-}
+
 
 .allusersHover ul:hover,
 .allusersContainer:hover .allusersP:hover {

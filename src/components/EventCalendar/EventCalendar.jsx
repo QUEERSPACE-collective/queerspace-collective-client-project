@@ -43,7 +43,7 @@ function EventCalendar() {
             flexDirection: 'column',
             alignContent: 'center',
             justifyContent: 'center',
-            backgroundColor: '#b4b4b43d',
+            backgroundColor: '#f8f8f9',
             padding: '20px',
             width: '60%',
             textAlign: 'center',

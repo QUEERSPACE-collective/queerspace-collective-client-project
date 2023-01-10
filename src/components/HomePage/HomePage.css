@@ -22,3 +22,12 @@ span:hover {
 p {
     font-weight: 800;
 }
+
+#userBio{
+    text-decoration: none;
+}
+
+#userBioText {
+    font-style: normal;
+}
+

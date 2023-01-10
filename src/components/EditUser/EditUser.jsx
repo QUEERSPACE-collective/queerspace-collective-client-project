@@ -89,7 +89,7 @@ const onSubmit = (evt) => {
     });
     handleAlertClick();
     setTimeout(() => {
-      history.push('/allusers')
+      history.push(`/userdetails/${user.id}`)
     }, 1500); 
 }
 
@@ -123,8 +123,8 @@ const deleteUser = (id) => {
     }
     return (
         <div className='editUserContainer'>
-            
-                <Link to="/allusers" className="backToUserList">
+            <div className='editUserContainerHeader'>
+            <Link to="/allusers" className="backToUserList">
                     <Button 
                         sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
                         '&:hover': {
@@ -134,11 +134,9 @@ const deleteUser = (id) => {
                            <ArrowCircleLeftIcon/> Back To User List
                     </Button>
                 </Link>
-            <div>
-                <h1 className='bannerTop'>Edit User</h1>
+                <h1>Edit User</h1>
             </div>
             <div className="formContainer">
-
                 <form onSubmit={onSubmit} className='editUserForm' >
                     <label htmlFor="fName">
                         First Name:
@@ -232,16 +230,7 @@ const deleteUser = (id) => {
                             onChange={(evt, mentor) => pickMentor(evt, mentor.id)}
                         />
                     </form>
-                    {/* <div className="editUserBottom">
-                        <Button type="submit" className="editUserSubmit" variant="contained" size="small">Submit Changes</Button>
-                        <Button onClick={() => deleteUser(user.id)} className="editUserDelete" variant="contained" size="small">Delete User</Button>
-                        <Link to="/allusers" className="backToUserList">
-                            <Button variant="contained" size="small"><ArrowCircleLeftIcon /> &nbsp; Back To User List</Button>
-                        </Link>
-                    </div> */}
-
-                
-               
+           
                 <div className="editUserBottom">
              
                 <Button type="submit" className="editUserSubmit" 
