@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { Card, Box, OutlinedInput } from '@mui/material';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import Button from '@mui/material/Button';
 import './AddResourceForm.css';
 
 function AddResourceForm() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const newResourceName = useSelector(store => store.newResourceName);
   const newResourceDescription = useSelector(store => store.newResourceDescription);
@@ -40,6 +42,15 @@ function AddResourceForm() {
   }
   return (
     <div className='addNewResorceFormContainer'>
+      <Button
+      onClick={() => history.push('/resources')}
+      sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
+      '&:hover': {
+      fontSize: 16
+      },}}
+      >
+        <ArrowCircleLeftIcon/> Back To Resources
+      </Button>
       <h1>Add a New Resource</h1>
       <Card sx = {{bgcolor: '#f8f8f9', width: '40%', pb: 10, pt: 5, textAlign: 'center'}}>
       <form onSubmit={onSubmit}>      
