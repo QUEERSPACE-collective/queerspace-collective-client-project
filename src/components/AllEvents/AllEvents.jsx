@@ -19,33 +19,28 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment-timezone';
-
-
-
+// AllEvents is only accessible via the Admin account.  
 function AllEvents() {
-  const [query, setQuery] = useState(''); // For fuse.js search
-  const history = useHistory();
   const dispatch = useDispatch();
-
+  const history = useHistory();
+  const [query, setQuery] = useState(''); // For fuse.js search
   const allEvents = useSelector(store => store.event);
-  const [eventType, setEventType] = useState(0);
+  const [eventType, setEventType] = useState(0); // For filtering
   const event = useSelector((store) => store.event);
-  console.log('all events are', allEvents);
   const fuse = new Fuse(event, {
     keys: [
       'name'
     ],
     includeScore: true
-  })
-  const results = fuse.search(query);
-  console.log('fuse.js results are: ', results);
-  console.log('fuse', fuse);
+  });
+  const results = fuse.search(query); // This creates a new array based 
+  // off of the text entered in the search bar.
   const eventResults = results.map(result => result.item);
-
+  // eventResults then allows us to map through that array. 
   useEffect(() => {
     pageFadeIn(),
-      dispatch({ type: "FETCH_EVENTS" })
-    dispatch({ type: 'FETCH_TOTAL_ATTENDEES' }),
+      dispatch({ type: "FETCH_EVENTS" }),
+      // Filters the events by the text entered in the search(fuse)
       axios({
         method: 'GET',
         url: '/api/event'
@@ -56,7 +51,7 @@ function AllEvents() {
       })
   }, [])
 
-  //Fade effect
+  // Fade effect
   function pageFadeIn() {
     document.body.classList.remove("withOpacity");
     document.body.classList.add("noOpacity");
@@ -70,21 +65,17 @@ function AllEvents() {
     setQuery(value);
   }
 
-  const handleDeleteEvent = (eventId) => {
-    dispatch({
-      type: 'DELETE_EVENT',
-      payload: eventId
-    })
-  }
   const whichOrder = (evt) => {
     evt.preventDefault();
-    console.log(evt.target.value, 'is the option value');
-
+    // Filters the events by a specific order (Goes to event.saga)
     dispatch({
       type: 'CHANGE_EVENT_ORDER',
       payload: evt.target.value
     })
   }
+
+  // THIS CODE BELOW IS NOT YET FUNCTIONAL, BUT WILL BE USED FOR PREVENTING
+  // USERS FROM REGISTERING FOR AN EVENT WHEN THE MAX LIMIT IS REACHED.
 
   // let isEventfull;
   // event.forEach(event => {
@@ -95,25 +86,22 @@ function AllEvents() {
   //   }
   // })
 
-  const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
-  const handleConfirmationOpen = (id) => {
-    setConfirmatinoOpen(true);
-  };
-  const handleConfirmationClose = () => {
-    setConfirmatinoOpen(false)
-  }
-
- 
-
   return (
     <div className='adminAllEventsContainer'>
       <h1>All Events</h1>
-      
-      {/* <p>Filter:</p> */}
-      {/*  */}
+      {/* 1. The onChange in this <FormControl> filters the events 
+        by "All, Group, Family, Training, or Mentor" */}
       <FormControl className='formControl'>
         <Select
-          sx={{ width: '200px', height: '40px', marginTop: '7px', marginBottom: '7px', marginRight: '25px', outline: 'none', border: '1px solid black' }}
+          sx={{
+            width: '200px',
+            height: '40px',
+            marginTop: '7px',
+            marginBottom: '7px',
+            marginRight: '25px',
+            outline: 'none',
+            border: '1px solid black'
+          }}
           id="demo-simple-select"
           value={eventType}
           onChange={(evt) => setEventType(evt.target.value)}
@@ -126,9 +114,9 @@ function AllEvents() {
           <MenuItem value={"Mentor Only"}>Mentor Only</MenuItem>
         </Select>
       </FormControl>
-      {/*  */}
-      
-      {/* <p>Sort:</p> */}
+
+      {/* 2. The onChange in this <FormControl> filters the events 
+        by "Newest, Oldest, Upcoming, and Past Events" */}
       <FormControl className='formControl'>
         <InputLabel id="sort-event-select-label">Sort By</InputLabel>
         <Select onChange={(evt) => whichOrder(evt)}
@@ -140,7 +128,9 @@ function AllEvents() {
           <MenuItem value={4}>Past Events</MenuItem>
         </Select>
       </FormControl>
-      {/* input for fuse.js */}
+      {/* 3. The onChange in this <form> filters the events 
+        using fuse.js, comparing the input string in the search
+        filter against the list of events  */}
       <form className='allusersForm'>
         <input
           type="text"
@@ -153,11 +143,12 @@ function AllEvents() {
         >
         </input>
       </form>
+
       <TableContainer >
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell alight="right"sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic'}}>Event</TableCell>
+              <TableCell alight="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Event</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Date and Time</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Location</TableCell>
               <TableCell align="right" sx={{ fontWeight: 'bold', fontSize: '19px', fontStyle: 'italic' }}>Event Type</TableCell>
@@ -169,25 +160,35 @@ function AllEvents() {
           </TableHead>
 
           <TableBody>
-
             {allEvents.map(thisEvent =>
+              // Map thru all of the events, and while doing so, only return the results
+              // if the eventType (from the event type filtering method above) is 0 (default),
+              // and only if results.length <= 0 (as long as fuse.js searching 
+              // isn't being used. Fuse search overrides other filter methods to search the
+              // entire events list)
               ((eventType == 0 && results.length <= 0)) && (
-
-                <TableRow key={thisEvent.id} >
+                <TableRow key={thisEvent.id}>
                   <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style = {{textDecoration: 'none', fontWeight: 700,
-                     fontSize: 17, color: '#d069b1'}}>
+                    {/* Bring us here when the name of the event is clicked on to see more
+                      details about the event, as well as the registered users/volunteers.  */}
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style={{
+                      textDecoration: 'none',
+                      fontWeight: 700,
+                      fontSize: 17,
+                      color: '#d069b1'
+                    }}>
                       {thisEvent.name} <span>&#8594;</span>
                     </Link>
                   </TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right"  style = {{fontSize: 15, width: '300px'}}>{thisEvent.location}</TableCell>
-                  <TableCell align="right"  style = {{fontSize: 15}}> {thisEvent.eventType} </TableCell>
-                  <TableCell align="right"  style = {{fontSize: 15}}>
+                  {/* "moment" is used for formatting datetime */}
+                  <TableCell align="right" style={{ fontSize: 15 }}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15, width: '300px' }}>{thisEvent.location}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}> {thisEvent.eventType} </TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>
                     {thisEvent.totalAttendees}
                   </TableCell>
-                  <TableCell align='right' style = {{fontSize: 15}}>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.locationName} </TableCell>
+                  <TableCell align='right' style={{ fontSize: 15 }}>{thisEvent.attendeeMax}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>{thisEvent.locationName} </TableCell>
                   <TableCell align="right">
                     <Link to={`/allevents/${thisEvent.id}/edit`} >
                       <Button
@@ -200,103 +201,118 @@ function AllEvents() {
                         }}>
                         <EditIcon />
                       </Button>
-
                     </Link>
                   </TableCell>
                   <TableCell align="right">
                   </TableCell>
-
                 </TableRow>
               ))}
 
             {allEvents.map(thisEvent =>
+              // Same as the mapping above, but here it's saying 'if the 
+              // current event's type (specified in filter method "1") 
+              // is the same as ANY event found in the events list, 
+              // THEN return the following:'
               ((eventType == thisEvent.eventType && results.length <= 0)) && (
-
                 <TableRow key={thisEvent.id}>
                   <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`}style = {{textDecoration: 'none', fontWeight: 700,
-                     fontSize: 17, color: '#d069b1'}} >
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style={{
+                      textDecoration: 'none',
+                      fontWeight: 700,
+                      fontSize: 17,
+                      color: '#d069b1'
+                    }} >
                       {thisEvent.name}<span>&#8594;</span>
                     </Link>
                   </TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right">{thisEvent.location}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.eventType}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>
-                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style = {{textDecoration: 'none', 
-                      color: 'black'}}>
+                  <TableCell align="right" style={{ fontSize: 15 }}>{thisEvent.eventType}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>
+                    <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style={{
+                      textDecoration: 'none',
+                      color: 'black'
+                    }}>
                       {thisEvent.totalAttendees}
                     </Link>
                   </TableCell>
-                  <TableCell align='right' style = {{fontSize: 15}}>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.locationName}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>
-
+                  <TableCell align='right' style={{ fontSize: 15 }}>{thisEvent.attendeeMax}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>{thisEvent.locationName}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
-                      <Button                         
-                          sx={{
-                          bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',
-                          '&:hover': {
-                            backgroundColor: '#357590',
-                            boxShadow: '6px 6px 0px #90c5bf'
-                          },
-                        }}
-                        >
-                          <EditIcon />
-                      </Button>
-
-                    </Link>
-                  </TableCell>
-                  <TableCell align="right">
-                  </TableCell>
-                </TableRow>
-              ))}
-
-            {results.length > 0 && (
-              (eventResults.map(allEvents => (
-                <TableRow key={allEvents.id}>
-                  <TableCell>
-                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style = {{textDecoration: 'none', fontWeight: 700,
-                     fontSize: 17, color: '#d069b1'}}>
-                      {allEvents.name}<span>&#8594;</span>
-                    </Link>
-                  </TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
-                  <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.location}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{allEvents.eventType}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>
-                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style = {{textDecoration: 'none', 
-                      color: 'black'}}>
-                      {allEvents.totalAttendees}
-                    </Link>
-                  </TableCell>
-                  <TableCell align='right' style = {{fontSize: 15}}>{allEvents.attendeeMax}</TableCell>
-                  <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.locationName}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>
-
-                    <Link to={`/allevents/${allEvents.id}/edit`}>
-                      <Button variant='contained'
+                      <Button
                         sx={{
                           bgcolor: '#357590', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',
                           '&:hover': {
                             backgroundColor: '#357590',
                             boxShadow: '6px 6px 0px #90c5bf'
                           },
+                        }}
+                      >
+                        <EditIcon />
+                      </Button>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right">
+                  </TableCell>
+                </TableRow>
+              ))}
+            {results.length > 0 && (
+              // If fuse IS being used, then map through the results of
+              // the new array it created using eventResults.
+              (eventResults.map(fuseResult => (
+                <TableRow key={fuseResult.id}>
+                  <TableCell>
+                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style={{
+                      textDecoration: 'none', fontWeight: 700,
+                      fontSize: 17, color: '#d069b1'
+                    }}>
+                      {fuseResult.name}<span>&#8594;</span>
+                    </Link>
+                  </TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>{moment(fuseResult.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15, width: '300px' }}>{fuseResult.location}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>{fuseResult.eventType}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>
+                    <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style={{
+                      textDecoration: 'none',
+                      color: 'black'
+                    }}>
+                      {fuseResult.totalAttendees}
+                    </Link>
+                  </TableCell>
+                  <TableCell align='right' style={{ fontSize: 15 }}>{fuseResult.attendeeMax}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15, width: '300px' }}>{fuseResult.locationName}</TableCell>
+                  <TableCell align="right" style={{ fontSize: 15 }}>
+                    <Link to={`/allevents/${allEvents.id}/edit`}>
+                      <Button variant='contained'
+                        sx={{
+                          bgcolor: '#357590',
+                          fontWeight: 'bold',
+                          wordSpacing: 1,
+                          m: 2,
+                          color: 'white',
+                          '&:hover': {
+                            backgroundColor: '#357590',
+                            boxShadow: '6px 6px 0px #90c5bf'
+                          },
                         }}>
-                          <EditIcon/>
-                        </Button>
+                        <EditIcon />
+                      </Button>
                     </Link>
                   </TableCell>
                 </TableRow>
               )))
-            )} 
-            </TableBody>
+            )}
+          </TableBody>
         </Table>
       </TableContainer>
       <br/>
       <Button
         variant='contained' sx={{
-          bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1,
+          bgcolor: '#f39536',
+          fontWeight: 'bold',
+          wordSpacing: 1,
           '&:hover': {
             backgroundColor: '#f39536',
             boxShadow: '6px 6px 0px #e2bf05'
@@ -309,6 +325,5 @@ function AllEvents() {
     </div>
   );
 }
-
 
 export default AllEvents;
