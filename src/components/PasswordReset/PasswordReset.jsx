@@ -29,7 +29,7 @@ function PasswordReset() {
           <h1>Reset Password</h1>
           </div>
           <div>
-            <h4>Enter in new password to reset and hit "Reset Password" button</h4>
+            <h4>Enter in new password</h4>
           </div>
           <label>
             <input

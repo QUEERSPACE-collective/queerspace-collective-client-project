@@ -2,17 +2,9 @@ import { useEffect, useState } from 'react';
 import * as React from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {DialogActions, DialogContent, DialogContentText,DialogTitle,
+Snackbar, Stack, Slide, Dialog, Button, Box } from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import Slide from '@mui/material/Slide';
-import {Snackbar} from '@mui/material';
-import { Stack } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import './EventDetails.css';
 import { atcb_action, atcb_init } from 'add-to-calendar-button';
@@ -241,47 +233,6 @@ function EventDetails() {
                add to calendar
                </Button>
             {/* end add to calendar button */}
-
-
-          {/* {isEventFull == true && 
-            <>
-              <p>Sorry ,this event is full!</p>
-              <Button disabled >
-                Register
-=======
-        {isRegistered == true ?
-          (
-            <Button 
-              sx={{ mt: 2 }} 
-              variant='contained' 
-              color='error' 
-              onClick={handleUnregisterOpen}>
-                Unregister
->>>>>>> main
-              </Button>
-          )
-          :
-          (<Button
-            color='primary'
-            variant="contained"
-            sx={{
-              mt: 5,
-              backgroundColor: '#1793E1',
-              '&:hover': {
-                backgroundColor: '#30A0BE',
-                opacity: [0.9, 0.8, 0.7],
-              },
-            }}
-            onClick={handleClickOpen}
-          >
-            Register
-          </Button>
-          )
-        }
-        {/* add to calendar button */}
-
-        {/* end add to calendar button */}
-
 
         <Dialog
           open={open}

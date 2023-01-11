@@ -92,6 +92,6 @@ CREATE TABLE "resources" (
 INSERT INTO "user" ("username", "password", "fname", "lname", "userType", "pronouns", "profilePic", "bio", "mentorPair")
 VALUES ('ADMIN', '$2a$10$pYczARnREJsyea/SrnO87.hfjlf5DSDAfjfF5NHAClveX2tYPsr26', 'ADMIN', 'ADMIN', '5', 'it/its', NULL, 'ADMIN ACCOUNT', NULL);
 
--- current admin password: asty. ----
+-- current admin password: asty ----
 
 

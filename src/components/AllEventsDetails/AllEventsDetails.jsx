@@ -22,18 +22,7 @@ function AllEventsDetails() {
     // const singleEventsList = useSelector(store => store.eventReducerSpecific); 
     // console.log('the single event list: ',singleEventsList); 
     let count = 0;
-// This filter is used to loop thru singleEventsList and filter out duplicate Ids
-//     const uniqueIds = [];
-//     const uniqueUser = singleEventsList.filter(element => {
-//     const isDuplicate = uniqueIds.includes(element.id);
-//     if(!isDuplicate) {
-//         uniqueIds.push(element.id);
-//         return true;
-//     }
-//     return false;
-// });
-    // console.log('What the uniqueUser filter returns: ',uniqueUser);
-    // console.log('the Ids that were found as duplicates: ',uniqueIds);
+
 //
   useEffect(()=> {
     animater(), // call fade effect
@@ -91,17 +80,6 @@ function AllEventsDetails() {
               </Link>
             </TableCell>
             <TableCell align="right">
-              {/* <Button 
-                value={thisEvent.id}
-                onClick={(evt) => handleDeleteEvent(evt.target.value)}
-                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                '&:hover': {
-                backgroundColor: '#cf2317',
-                boxShadow: '6px 6px 0px #fe6d0e'
-                },}}
-              > 
-                <DeleteIcon/>
-              </Button> */}
             </TableCell>
           </TableRow>
         {/* )} */}
@@ -109,25 +87,7 @@ function AllEventsDetails() {
       </Table>
     </TableContainer>
     
-     {/* {uniqueUser.map(employee => 
-        <>              
-            <div key={employee.id} >
-                <span style={{display:'none'}}>{count++}</span>
-                <p>{employee.fname}</p>
-                    {singleEventsList.map(theEvent =>               
-                        (theEvent.id == employee.id && (
-                            <>
-                            <div key={theEvent.id}>
-                             <p>{theEvent.question}</p>
-                             <p>{theEvent.answer}</p>
-                            </div>
-                            </>
-                        ))
-                    )}
-                <hr></hr>
-            </div> 
-        </>             
-    )} */}
+
     <h1>total attendee count: {count}</h1>
    
     </>   

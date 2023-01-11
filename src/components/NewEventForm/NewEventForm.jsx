@@ -118,25 +118,26 @@ function NewEventForm() {
           <input type='radio' id='isNotVolunteer' name="volunteers" onClick={() => { dispatch({ type: 'SET_VOLUNTEERS_FALSE' }) }}></input>
         </div>
         
-        {newEventVolunteer && newEventVolunteer == true ? (<div>
+        {newEventVolunteer && newEventVolunteer == true ? 
+        (<div>
           <label for='newEventVolunteerMax'>How many volunteers are needed? </label>
-          <OutlinedInput sx={{m:1}} type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e) => { dispatch({ type: 'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value }) }}></OutlinedInput>
-        </div>) : (<div></div>)}
-        
+          < OutlinedInput sx={{m:1}} type='number' id="newEventVolunteerMax" value={newEventVolunteerMax} onChange={(e) => { dispatch({ type: 'SET_NEW_EVENT_VOLUNTEER_MAX', payload: e.target.value }) }}></OutlinedInput>
+         </div>
+         ) 
+         : 
+         (<div></div>)}
         
         <label for="newEventDate">Date: </label>
-        <OutlinedInput sx={{m:1}} type="date" id="newEventDate" value={newEventDate} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_DATE', payload: e.target.value }) }}></OutlinedInput>
-        
-        
+          <OutlinedInput sx={{m:1}} type="date" id="newEventDate" value={newEventDate} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_DATE', payload: e.target.value }) }}></OutlinedInput>
+          
         <label for='newEventTime'>Time: </label>
-        <OutlinedInput sx={{m:1}} type="time" id="newEventTime" value={newEventTime} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_TIME', payload: e.target.value }) }}></OutlinedInput>
+          <OutlinedInput sx={{m:1}} type="time" id="newEventTime" value={newEventTime} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_TIME', payload: e.target.value }) }}></OutlinedInput>
         
         
         <label for='newEventTimeEnd'>End Time: </label>
-        <OutlinedInput sx={{m:1}} type="time" id="newEventTimeEnd" value={newEventTimeEnd} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_TIME_END', payload: e.target.value }) }}></OutlinedInput>
-        
-        
-        <label for='programArea'>Event Area: </label>
+          <OutlinedInput sx={{m:1}} type="time" id="newEventTimeEnd" value={newEventTimeEnd} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_TIME_END', payload: e.target.value }) }}></OutlinedInput>
+                  
+        <label for='programArea'>Event Area: </label> 
         <select name="programArea" id="programArea">
           <option value='1' onClick={(e) => { dispatch({ type: "SET_NEW_EVENT_PROGRAM_AREA", payload: e.target.value }) }}>Twin Cities</option>
           <option value='2' onClick={(e) => { dispatch({ type: "SET_NEW_EVENT_PROGRAM_AREA", payload: e.target.value }) }}>St. Cloud</option>
@@ -144,19 +145,19 @@ function NewEventForm() {
         
         
         <label for="newEventAddress">Address: </label>
-        <OutlinedInput sx={{m:1}} type="text" id="newEventAddress" value={newEventAddress} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_ADDRESS', payload: e.target.value }) }}></OutlinedInput>
-        
-        
+          <OutlinedInput sx={{m:1}} type="text" id="newEventAddr ss" value={newEventAddress} onChange={(e) => { dispatch({ type: 'SAVE_NEW_EVENT_ADDRESS', payload: e.target.value }) }}></OutlinedInput>
+
         <label for="newEventAttendeeMax">How many people can attend? </label>
-        <OutlinedInput sx={{m:1}} type='number' id="newEventAttendeeMax" value={newEventAttendeeMax} onChange={(e) => { dispatch({ type: 'SET_NEW_EVENT_ATTENDEE_MAX', payload: e.target.value }) }}></OutlinedInput>
+          <OutlinedInput sx={{m:1}} type='number' id="newEventAttendeeMax" value={newEventAttendeeMax} onChange={(e) => { dispatch({ type: 'SET_NEW_EVENT_ATTENDEE_MAX', payload: e.target.value }) }}></OutlinedInput>
         
         
         <label for="description">Description: </label>
-        <OutlinedInput sx={{m:1}} type="text" id='description' value={newEventDescription} onChange={(e) => { dispatch({ type: 'SET_NEW_EVENT_DESCRIPTION', payload: e.target.value }) }}></OutlinedInput>
+          <OutlinedInput sx={{m:1}} type="text" id='description' value={newEventDescription} onChange={(e) => { dispatch({ type: 'SET_NEW_EVENT_DESCRIPTION', payload: e.target.value }) }}></OutlinedInput>
         
         
         <label for="newEventQuestions">Questions: </label>
-        <OutlinedInput sx={{m:1}} type="text" id="newEventQuestions" value={newEventQuestion} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_QUESTION', payload: e.target.value})}}></OutlinedInput>
+          <OutlinedInput sx={{m:1}} type="text" id="newEventQuestions" value={newEventQuestion} onChange={(e)=>{dispatch({type: 'SAVE_NEW_EVENT_QUESTION', payload: e.target.value})}}></OutlinedInput>
+       
         <Button size = "small"
           onClick={()=>{dispatch({type: 'STORE_NEW_EVENT_QUESTION', payload: newEventQuestion})}}
           sx = {{
@@ -169,8 +170,7 @@ function NewEventForm() {
               '&:hover': {
               backgroundColor: '#f39536',
               boxShadow: '6px 6px 0px #e2bf05'
-              },
-          }}
+              },}}
         > 
           Add question 
         </Button>

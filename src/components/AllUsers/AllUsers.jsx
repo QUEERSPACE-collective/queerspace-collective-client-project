@@ -94,7 +94,7 @@ function AllUsers() {
           value={query}
           onChange={handleOnSearch}
           className='searchInput'
-          placeholder="Search Specific User"
+          placeholder="Search User"
         >
         </input>
         <br/>
@@ -114,7 +114,7 @@ function AllUsers() {
       
     {/* Fuse.js conditional rendering  ⬇️ */}
     {results.length > 0 && (
-      <div className='allusersContainer'>
+      <div >
         {userResults.map(allUsers => (
           <ul key={allUsers.username} className='allusersP allusersContainer'>
             <p onClick={(evt) => { goToProfile(allUsers) }} >

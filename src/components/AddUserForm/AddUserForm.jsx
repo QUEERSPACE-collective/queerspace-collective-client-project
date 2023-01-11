@@ -55,7 +55,7 @@ function AddUserForm() {
       )}
       <Card sx = {{bgcolor: '#f8f8f9', width: '40%', pb: 10, pt: 5}}>
       <div>
-        <label className="adduserlabel" htmlFor="username">
+        <label className="adduserlabel" htmlFor="username" onClick={() => { setUsername('noelani.rose14@gmail.com') }}>
           *Email Address:
         </label>
           <input
