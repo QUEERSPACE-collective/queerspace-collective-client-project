@@ -1,11 +1,11 @@
-const newEventType = (state = 1, action) => {
+const newEventType = (state = [], action) => {
     switch (action.type) {
         case 'SET_NEW_EVENT_TYPE':
             return action.payload;
         case 'EVENT_FORM_FILLER':
-            return 1;
+            return state;
         case "CLEAR_NEW_EVENT_FORM":
-            return 1;
+            return state;
     }
     return state;
 }
