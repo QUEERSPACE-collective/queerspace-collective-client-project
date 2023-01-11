@@ -17,7 +17,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-// Editing current user
+// This takes information given by the user and updates what is currently stored in the database
 router.put('/', (req, res) => {
     const sqlText = `
       UPDATE "user"
@@ -46,7 +46,7 @@ router.put('/', (req, res) => {
       })
 })
 
-// Password generator function
+// This function lets us generate a random password for the user on initial creation of an account or if a password is forgotten
 function generatePW() {
   var pass = '';
   var str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
@@ -144,7 +144,7 @@ router.get('/events', rejectUnauthenticated, (req, res) => {
     })
 })
 
-// Delete event for user
+// This deletes an event from the users registered events
 router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
   const sqlParams = [req.params.id, req.user.id];
   const sqlText = `DELETE FROM "userEvents" WHERE "eventId" = $1 AND "userId" = $2;`;
@@ -158,7 +158,7 @@ router.delete('/events/:id', rejectUnauthenticated, (req, res) => {
     })
 })
 
-// GET specific user
+// This calls for a specific user from the database and returns all their information 
 router.get('/:id', (req, res) => {
   console.log('/user GET/:id req.params.id is: ', req.params.id);
   if (req.user.userType > 3) {
@@ -208,7 +208,7 @@ router.get('/:id', (req, res) => {
   }
 })
 
-// Edit user information
+// This is the admin edit function that allows most of what the other edit has but includes access level and mentor/mentee pair
 router.put('/:id', (req, res) => {
   if (req.user.userType == 5) {
     const sqlText = `
@@ -241,7 +241,7 @@ router.put('/:id', (req, res) => {
   }
 })
 
-// POST send email for password reset
+// This resets a users password if forgotten
 router.post("/reset", async (req, res) => {
   let token;
   try {
@@ -284,7 +284,7 @@ router.post("/reset", async (req, res) => {
   }
 })
 
-// PUT update new password
+// This takes in a new password from a user and updates the database 
 router.put('/reset/:token', (req, res) => {
   const password = encryptLib.encryptPassword(req.body.password);
   const sqlText = `
