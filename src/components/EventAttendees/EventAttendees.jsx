@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import 'add-to-calendar-button/assets/css/atcb.css';
-import moment from 'moment-timezone';
-
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+// using moment.js for time formating 
+import moment from 'moment-timezone';
 import './EventAttendees.css';
+
 function EventAttendees() {
     const params = useParams();
     const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function EventAttendees() {
     const [expanded, setExpanded] = React.useState(false);
 
     console.log('what are the attendees?', theAttendees);
-
+    // on page load
     useEffect(() => {
         pageFadeIn(),
             dispatch({
@@ -39,10 +39,8 @@ function EventAttendees() {
             }),
             dispatch({ type: 'FETCH_USER_EVENTS' }),
             dispatch({ type: 'FETCH_ATTENDEES', payload: params.id })
-
-
     }, [params.id])
-
+    // fade in animation
     function pageFadeIn() {
         document.body.classList.remove("withOpacity");
         document.body.classList.add("noOpacity");
@@ -65,6 +63,7 @@ function EventAttendees() {
     return (
         <>
             <div className="centerBackBtn">
+                {/* back button */}
                 <Button
                     onClick={() => history.push('/allevents')}
                     sx={{
@@ -94,6 +93,7 @@ function EventAttendees() {
                             boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
 
                         }}>
+                        {/* displaying all event details */}
                         <h2>
                             {eventDetails.name}
                         </h2>
@@ -121,7 +121,7 @@ function EventAttendees() {
                     <br></br>
 
                 </div>
-
+                {/* expandable section showing what users are attending as well as their answers to the event questions */}
                 <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} className="accordianTwo">
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
