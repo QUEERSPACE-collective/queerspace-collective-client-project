@@ -6,7 +6,6 @@ import {
   Switch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 import MentorFeedbackForm from '../MentorFeedbackForm/MentorFeedbackForm';
@@ -28,10 +27,10 @@ import NewEventForm from '../NewEventForm/NewEventForm';
 import EventAttendees from '../EventAttendees/EventAttendees';
 import EditEvents from '../EditEvents/EditEvents';
 import EditProfilePicture from '../EditProfilePicture/EditProfilePicture';
-import './App.css';
 import EditProfilePage from '../EditProfilePage/EditProfilePage';
 import PasswordReset from '../PasswordReset/PasswordReset';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,20 +47,18 @@ function App() {
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
-
-          {/* if the usertype is 5 (admin??) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
+          {/* if the usertype is 5 (admin) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
           <ProtectedRoute exact path="/homepage">
             {user.userType == 5 ?
               <Redirect to="/allEvents" />
               :
               <HomePage />}
-            
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEvents'>
-            {user.userType < 5 ? 
-            <Redirect to='/homepage'/> :
-            <AllEvents />}
+            {user.userType < 5 ?
+              <Redirect to='/homepage' /> :
+              <AllEvents />}
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/allusers/:id/edit'>
@@ -84,7 +81,6 @@ function App() {
             <AddResourceForm />
           </ProtectedRoute>
 
-          {/* Does this need to be a protected route? */}
           <Route exact path="/login">
             {user.id ?
               // If the user is already logged in, 
@@ -115,7 +111,7 @@ function App() {
             path='/forgot'
           >
             {user.id ?
-            // If the user is already logged in, 
+              // If the user is already logged in, 
               // redirect them to the /user page
               <Redirect to="/user" />
               :
@@ -125,22 +121,22 @@ function App() {
           </Route>
 
           <ProtectedRoute exact path='/EventCalendar'>
-            <EventCalendar />
+            <EventCalendar/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/EventDetails/event/:id'>
-            <EventDetails />
+            <EventDetails/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/NewEventForm'>
-            <NewEventForm />
+            <NewEventForm/>
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEvents/attendees/event/:id'>
-          {user.userType < 5 ? 
-            <Redirect to='/homepage'/> :
-            <EventAttendees />
-          }  
+            {user.userType < 5 ?
+              <Redirect to='/homepage'/> :
+              <EventAttendees />
+            }
           </ProtectedRoute>
 
           <ProtectedRoute exact path='/AllEvents/:id/edit'>
@@ -176,9 +172,8 @@ function App() {
             <h1>This page doesn't exist.</h1>
           </Route>
         </Switch>
-        <Footer />
+        <Footer/>
       </div>
-
     </Router>
   );
 }
