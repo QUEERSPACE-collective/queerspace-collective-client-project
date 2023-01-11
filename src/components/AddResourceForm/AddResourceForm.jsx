@@ -8,8 +8,8 @@ import Button from '@mui/material/Button';
 import './AddResourceForm.css';
 
 function AddResourceForm() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const newResourceName = useSelector(store => store.newResourceName);
   const newResourceDescription = useSelector(store => store.newResourceDescription);
   const newResourceLink = useSelector(store => store.newResourceLink);
@@ -43,40 +43,76 @@ function AddResourceForm() {
   return (
     <div className='addNewResorceFormContainer'>
       <Button
-      onClick={() => history.push('/resources')}
-      sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', m: 3,                
-      '&:hover': {
-      fontSize: 16
-      },}}
+        onClick={() => history.push('/resources')}
+        sx={{
+          fontWeight: 'bold', 
+          wordSpacing: 1, 
+          color: '#357590', 
+          m: 3,
+          '&:hover': {
+            fontSize: 16
+          },
+        }}
       >
-        <ArrowCircleLeftIcon/> Back To Resources
+        <ArrowCircleLeftIcon /> Back To Resources
       </Button>
       <h1>Add a New Resource</h1>
-      <Card sx = {{bgcolor: '#f8f8f9', width: '40%', pb: 10, pt: 5, textAlign: 'center'}}>
-      <form onSubmit={onSubmit}>      
-
-        <label for='newResourceName'>Title: </label><br/>
-        <OutlinedInput type='text' value={newResourceName} id='newResourceName' onChange={(e)=>{dispatch({type: 'SAVE_NEW_RESOURCE_NAME', payload: e.target.value})}}></OutlinedInput>
-        <br/>
-        <br/>
-        <label for='newResourceDescription'>Description: </label><br/>
-        <TextField multiline rows = {3}style = {{width: '50%'}}type='text' value={newResourceDescription} id='newResourceDescription' onChange={(e) => (dispatch({ type: 'SAVE_NEW_RESOURCE_DESCRIPTION', payload: e.target.value }))}></TextField>
-        <br />
-        <br />
-        <label for='newResourceLink'>Link: </label><br/>
-        <OutlinedInput type='url' value={newResourceLink} id='newResourceLink' onChange={(e)=>{dispatch({type: 'SAVE_NEW_RESOURCE_LINK', payload: e.target.value})}}></OutlinedInput>
-        <br/>
-        <br/>
-        <Button type = "submit"
-          sx = {{bgcolor: '#f39536', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-          '&:hover': {
-          backgroundColor: '#f39536',
-          boxShadow: '6px 6px 0px #e2bf05'
-          },}}
+      <Card sx={{ 
+        bgcolor: '#f8f8f9', 
+        width: '40%', 
+        pb: 10, 
+        pt: 5, 
+        textAlign: 'center' 
+      }}>
+        <form onSubmit={onSubmit}>
+          <label for='newResourceName'>Title:</label><br />
+          <OutlinedInput 
+            type='text' 
+            value={newResourceName} 
+            id='newResourceName' 
+            onChange={(e) => { dispatch({ type: 'SAVE_NEW_RESOURCE_NAME', payload: e.target.value }) }}
+          >
+          </OutlinedInput>
+          <br />
+          <br />
+          <label for='newResourceDescription'>Description:</label><br />
+          <TextField 
+            multiline rows={3} 
+            style={{ width: '50%' }} 
+            type='text' 
+            value={newResourceDescription} 
+            id='newResourceDescription' 
+            onChange={(e) => (dispatch({ type: 'SAVE_NEW_RESOURCE_DESCRIPTION', payload: e.target.value }))}
+          >
+          </TextField>
+          <br />
+          <br />
+          <label for='newResourceLink'>Link:</label><br />
+          <OutlinedInput 
+            type='url' 
+            value={newResourceLink} 
+            id='newResourceLink' 
+            onChange={(e) => { dispatch({ type: 'SAVE_NEW_RESOURCE_LINK', payload: e.target.value }) }}
+          >
+          </OutlinedInput>
+          <br />
+          <br />
+          <Button type="submit"
+            sx={{
+              bgcolor: '#f39536', 
+              fontWeight: 'bold', 
+              wordSpacing: 1, 
+              m: 2, 
+              color: 'white',
+              '&:hover': {
+                backgroundColor: '#f39536',
+                boxShadow: '6px 6px 0px #e2bf05'
+              },
+            }}
           >
             Add
-        </Button>
-      </form>
+          </Button>
+        </form>
       </Card>
     </div>
   );
