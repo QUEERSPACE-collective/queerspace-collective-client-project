@@ -3,20 +3,10 @@ import * as React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import { Card, Box } from '@mui/material';
-
 import EditIcon from '@mui/icons-material/Edit';
 import {List, ListItem, Card} from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import './UserDetails.css';
-
-
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//   return <Slide direction="up" ref={ref} {...props} />;
-// });
-
 
 function UserDetails() {
   const activeUser = useSelector(store => store.editUser);
@@ -28,7 +18,7 @@ function UserDetails() {
 
 
 useEffect(() => {
-  pageFadeIn(), // Call fade effect, yes I know this is spelled wrong
+  pageFadeIn(), 
   dispatch({ 
     type: "FETCH_EDIT_USER",
     payload: params.id
@@ -43,14 +33,6 @@ function pageFadeIn() {
   setTimeout(() => document.body.classList.add("withOpacity"), 100);
 };
 
-
-const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
-const handleConfirmationOpen = () => {
-  setConfirmatinoOpen(true);
-};
-const handleConfirmationClose = () => {
-  setConfirmatinoOpen(false)
-}
 
   return (
     <div className='alluserDetailsContainer'>
@@ -95,8 +77,7 @@ const handleConfirmationClose = () => {
                 <span>Email:</span> {activeUser.username}
               </li>
               <li id = "BioLi">
-                <span>Bio:</span> <br/>Hey there! My name is {activeUser.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
-	I’ve been involved with the QUEERSPACE collective program for 2 years and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
+                <span>Bio:</span> <br/>{activeUser.bio}
               </li>
               {activeUser.userType == 3 && (
               <li>
@@ -134,8 +115,7 @@ const handleConfirmationClose = () => {
                 <span>Email:</span> {activeUser.username}
               </li>
               <li id = "BioLi">
-                <span>Bio:</span><br/>Hey there! My name is {activeUser.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
-	I’ve been involved with the QUEERSPACE collective program for 2 years and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
+                <span>Bio:</span><br/>{activeUser.bio}
               </li>
             </div>
           )}
@@ -146,8 +126,7 @@ const handleConfirmationClose = () => {
                 <span>Pronouns:</span> {activeUser.pronouns}
               </li>
               <li id = "BioLi">
-                <span>Bio:</span><br/>Hey there! My name is {activeUser.fname}. I’m really excited for the start of this new app. It’s going to make finding and scheduling events so much easier. I’m really into the outdoors and pretty much anything physical, so I’ll definitely be registering for events that have any thing like that. When I’m not outside staying active, I love to read fiction novels or watch a comedy movie. 
-	I’ve been involved with the QUEERSPACE collective program for 2 years now and I love everything about it. I’ve met some of the most amazing people through the program and hope I get a chance to meet you too!  
+                <span>Bio:</span><br/>{activeUser.bio}
               </li>
               </div>
             )}

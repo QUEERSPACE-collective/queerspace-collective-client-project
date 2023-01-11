@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import './LoginForm.css';
 
@@ -31,7 +30,7 @@ function LoginForm() {
 
   return (
     <form className="formPanel" onSubmit={login}>
-      <h1 onClick={() => { setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9') }}>Member Login</h1>
+      <h1 onClick={() => { setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9') }}>User Login</h1>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}

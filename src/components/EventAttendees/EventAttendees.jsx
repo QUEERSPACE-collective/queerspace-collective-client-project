@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import Slide from '@mui/material/Slide';
-import { Snackbar } from '@mui/material';
-import { Stack } from '@mui/material';
-import MuiAlert from '@mui/material/Alert';
-import { atcb_action, atcb_init } from 'add-to-calendar-button';
 import 'add-to-calendar-button/assets/css/atcb.css';
 import moment from 'moment-timezone';
 
@@ -32,11 +21,7 @@ function EventAttendees() {
     const registeredAttendees = useSelector(store => store.eventRegisteredUsers)
     const eventDetails = useSelector(store => store.currentEvent);
     const userEvents = useSelector(store => store.userEventsReducer);
-    const eventQuestions = useSelector(store => store.eventQuestions);
-    const registrationAnswer = useSelector(store => store.registrationAnswers);
-    let [cnt, setCnt] = useState(1);
     const theAttendees = useSelector(store => store.attendeesReducer);
-    const allUsers = useSelector(store => store.allUsers);
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -137,9 +122,6 @@ function EventAttendees() {
 
                 </div>
 
-
-
-
                 <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')} className="accordianTwo">
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -162,12 +144,9 @@ function EventAttendees() {
                             <div className={"userAnswerQuestionsContainer"}>
                                 {registeredAttendees.map(attendee => (
                                     <>
-
                                         <h3>Username: {attendee.username}</h3>
-
                                         {theAttendees.map(attend => (
                                             <>
-
                                                 <h3 key={attend.id}>{attendee.name}'s Guest Count: {attend.userAttendees}</h3>
                                             </>
                                         ))}
@@ -183,16 +162,10 @@ function EventAttendees() {
                                     </>
                                 ))}
                             </div>
-
-
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-
             </div>
-
-
-
         </>
     )
 }
