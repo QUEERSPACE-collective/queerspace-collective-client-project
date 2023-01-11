@@ -20,7 +20,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-
+// MUI Alert element
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -32,7 +32,7 @@ function EditUser() {
     const allUsers = useSelector(store => store.allUsers);
     const [alertOpen, setAlertOpen] = React.useState(false);
 
-
+    // opening and closing Alert function
     const handleAlertClick = () => {
         setAlertOpen(true);
       };
@@ -43,7 +43,7 @@ function EditUser() {
         setAlertOpen(false);
       };
 
-
+    //   Confirmation 
       const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
       const handleConfirmationOpen = () => {
         setConfirmatinoOpen(true);
@@ -52,7 +52,7 @@ function EditUser() {
         setConfirmatinoOpen(false)
       }
     
-
+    // on page load
     useEffect(() => {
         pageFadeIn(),
             dispatch({
@@ -76,35 +76,36 @@ function EditUser() {
         setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
-const user = useSelector(store => store.editUser);
-console.log(user);
-const onSubmit = (evt) => {
-    evt.preventDefault();
-    dispatch({
-        type: "SAVE_USER",
-        payload: user
-    }),
-    dispatch({
-        type: 'FETCH_USER'
-    });
-    handleAlertClick();
-    setTimeout(() => {
-      history.push(`/userdetails/${user.id}`)
-    }, 1500); 
-}
+    const user = useSelector(store => store.editUser);
 
-const deleteUser = (id) => {
-    console.log('in delete item function onclick')
-    dispatch({
-        type: "DELETE_USER",
-        payload: id,
-    });
-    setTimeout(() => {
-        history.push('/allusers')
-      }, 1500); 
-}
+    // form submit function
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        dispatch({
+            type: "SAVE_USER",
+            payload: user
+        }),
+        dispatch({
+            type: 'FETCH_USER'
+        });
+        handleAlertClick();
+        setTimeout(() => {
+        history.push(`/userdetails/${user.id}`)
+        }, 1500); 
+    }
+    // delete user function
+    const deleteUser = (id) => {
+        console.log('in delete item function onclick')
+        dispatch({
+            type: "DELETE_USER",
+            payload: id,
+        });
+        setTimeout(() => {
+            history.push('/allusers')
+        }, 1500); 
+    }
 
-
+    // going through all the users with the Mentor user type
     let mentorOptions = allUsers.map(user => {
         console.log(user)
         return {
@@ -113,7 +114,7 @@ const deleteUser = (id) => {
             type: user.userType
         }
     })
-
+    // dispatching to State what the new mentor pairing is for the mentee user
     const pickMentor = (evt, mentor) => {
         evt.preventDefault();
         dispatch({
@@ -121,9 +122,12 @@ const deleteUser = (id) => {
             payload: { mentorPair: mentor }
         })
     }
+
     return (
         <div className='editUserContainer'>
             <div className='editUserContainerHeader'>
+
+            {/* back button */}
             <Link to="/allusers" className="backToUserList">
                     <Button 
                         sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590',                
@@ -137,6 +141,7 @@ const deleteUser = (id) => {
                 <h1>Edit User</h1>
             </div>
             <div className="formContainer">
+                {/* form for all editable fields */}
                 <form onSubmit={onSubmit} className='editUserForm' >
                     <label htmlFor="fName">
                         First Name:
@@ -163,6 +168,7 @@ const deleteUser = (id) => {
                     <label for="uType">
                         User Type:
                     </label>
+                    {/* dropdown menu to select user type */}
                     <FormControl  >
                         <Select
                             labelId="demo-simple-select-label"
@@ -216,10 +222,10 @@ const deleteUser = (id) => {
                             payload: { profilePic: evt.target.value }
                         })}
                     />
-                    {/* TODO: If the user is a mentee; for mentors it will say Mentee */}
                     <label for="mentor">
                         Mentor/Mentee:
                     </label>
+                    {/* autocomplete form where it searches through all mentors in database */}
                     <form>
                         <Autocomplete
                             disablePortal
@@ -232,14 +238,16 @@ const deleteUser = (id) => {
                     </form>
            
                 <div className="editUserBottom">
-             
+                {/* submit button */}
                 <Button type="submit" className="editUserSubmit" 
-                 size="small"
-                 sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
-                 '&:hover': {
-                 backgroundColor: '#46a452e6',
-                 boxShadow: '6px 6px 0px #82bc27e0'
-                 },}}
+                    size="small"
+                    sx = {{
+                        bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+                        '&:hover': {
+                        backgroundColor: '#46a452e6',
+                        boxShadow: '6px 6px 0px #82bc27e0'
+                        },
+                }}
                  >
                     Submit Changes
                 </Button>
@@ -251,52 +259,57 @@ const deleteUser = (id) => {
                     </Snackbar>
                 </Stack>
 
-
-
-
+                {/* delete button */}
                 <Button 
-                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                '&:hover': {
-                backgroundColor: '#cf2317',
-                boxShadow: '6px 6px 0px #fe6d0e'
-                },}}
-                variant="contained"
-                value={allUsers.id}
-                onClick = {handleConfirmationOpen}
+                    sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                        '&:hover': {
+                        backgroundColor: '#cf2317',
+                        boxShadow: '6px 6px 0px #fe6d0e'
+                        },
+                    }}
+                    variant="contained"
+                    value={allUsers.id}
+                    onClick = {handleConfirmationOpen}
                 >
                     Delete User
                 </Button>
 
                 <Dialog
-                open={confirmationOpen}
-                keepMounted
-                onClose={handleConfirmationClose}
-                aria-describedby="alert-dialog-slide-description"
+                    open={confirmationOpen}
+                    keepMounted
+                    onClose={handleConfirmationClose}
+                    aria-describedby="alert-dialog-slide-description"
                 >
-                <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this user?"}</DialogTitle>
+                {/* confirmation dialog after pressing delete button */}
+                <DialogTitle sx = {{textAlign: 'center'}}>{
+                    "Are you sure you want to delete this user?"}
+                </DialogTitle>
                 <DialogActions>
-                <Button variant="contained" 
-                    onClick={() => deleteUser(user.id)}
-                // onClick={eventUnregistration}
-                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                '&:hover': {
-                backgroundColor: '#cf2317',
-                boxShadow: '6px 6px 0px #fe6d0e'
-                },}}
-                >
-                    Delete
-                </Button>
-                <Button 
-                variant="contained" 
-                onClick={handleConfirmationClose}
-                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                '&:hover': {
-                backgroundColor: '#cf2317',
-                boxShadow: '6px 6px 0px #fe6d0e'
-                },}}
-                >
-                Cancel
-              </Button>
+                    {/* final delete button */}
+                    <Button variant="contained" 
+                        onClick={() => deleteUser(user.id)}
+                        sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                            '&:hover': {
+                            backgroundColor: '#cf2317',
+                            boxShadow: '6px 6px 0px #fe6d0e'
+                            },
+                        }}
+                    >
+                        Delete
+                    </Button>
+                    {/* cancel button */}
+                    <Button 
+                        variant="contained" 
+                        onClick={handleConfirmationClose}
+                        sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                            '&:hover': {
+                            backgroundColor: '#cf2317',
+                            boxShadow: '6px 6px 0px #fe6d0e'
+                            },
+                        }}
+                    >
+                    Cancel
+                    </Button>
                 </DialogActions>
                 </Dialog>
                 </div>   
