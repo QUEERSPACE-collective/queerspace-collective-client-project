@@ -221,7 +221,7 @@ function AllEvents() {
                   </TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>{moment(thisEvent.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right">{thisEvent.location}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.type}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.eventType}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>
                     <Link to={`/AllEvents/attendees/event/${thisEvent.id}`} style = {{textDecoration: 'none', 
                       color: 'black'}}>
@@ -229,7 +229,7 @@ function AllEvents() {
                     </Link>
                   </TableCell>
                   <TableCell align='right' style = {{fontSize: 15}}>{thisEvent.attendeeMax}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.programLocation}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{thisEvent.locationName}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>
 
                     <Link to={`/allevents/${thisEvent.id}/edit`}>
@@ -263,7 +263,7 @@ function AllEvents() {
                   </TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>{moment(allEvents.dateTime).format("dddd, MMMM Do YYYY, h:mm:ss A")}</TableCell>
                   <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.location}</TableCell>
-                  <TableCell align="right" style = {{fontSize: 15}}>{allEvents.type}</TableCell>
+                  <TableCell align="right" style = {{fontSize: 15}}>{allEvents.eventType}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>
                     <Link to={`/AllEvents/attendees/event/${allEvents.id}`} style = {{textDecoration: 'none', 
                       color: 'black'}}>
@@ -271,7 +271,7 @@ function AllEvents() {
                     </Link>
                   </TableCell>
                   <TableCell align='right' style = {{fontSize: 15}}>{allEvents.attendeeMax}</TableCell>
-                  <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.programLocation}</TableCell>
+                  <TableCell align="right"style = {{fontSize: 15, width: '300px'}}>{allEvents.locationName}</TableCell>
                   <TableCell align="right" style = {{fontSize: 15}}>
 
                     <Link to={`/allevents/${allEvents.id}/edit`}>
