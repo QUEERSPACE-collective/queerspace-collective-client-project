@@ -144,12 +144,18 @@ function EventAttendees() {
                             <div className={"userAnswerQuestionsContainer"}>
                                 {registeredAttendees.map(attendee => (
                                     <>
-                                        <h3>Username: {attendee.username}</h3>
+                                        <h3 key={attendee.id}>Username: {attendee.username}</h3>
+                                        {/* <h3 key={attendee.id}>{attendee.name}'s Guest Count: </h3>
                                         {theAttendees.map(attend => (
                                             <>
-                                                <h3 key={attend.id}>{attendee.name}'s Guest Count: {attend.userAttendees}</h3>
+                                            {(attend.uId == userEvents.userId) && (
+                                                <>  
+                                                {attend.userAttendees} 
+                                                </>
+                                            )}
+                                            
                                             </>
-                                        ))}
+                                        ))} */}
                                         <ul>
                                             {attendee.question_answer.map(answer => (
                                                 <>
