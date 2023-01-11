@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './Drawer.css';
 import {
   HashRouter as Router,
   Link,
@@ -25,13 +24,16 @@ function Drawers() {
     left: false
   });
 
+
+//Implimenting a MUI drawer
+  // function to open and close the drawer
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setState({ ...state, [anchor]: open });
   };
-
+  // defining the list or menuitems and elements in side the drawer
   const list = (anchor) => (
     <Router>
       {user.id && (
@@ -41,6 +43,7 @@ function Drawers() {
         onClick={toggleDrawer(anchor, false)}
         onKeyDown={toggleDrawer(anchor, false)}
       >
+        {/* links to different pages of app */}
         <List className='drawerText' sx={{ p: 0 }}>
           <Link to='/homepage'>
             <p><CottageIcon className='iconAlign'/>Home</p>
@@ -73,7 +76,7 @@ function Drawers() {
           )}
          
         </List>
-
+        {/* log out button */}
         <Divider/>
             <List className="drawerListLogout" onClick={() => dispatch({ type: 'LOGOUT' })}>        
             <Link to='/login' >
@@ -94,6 +97,7 @@ function Drawers() {
 return (
   <>
     <div className='drawerContainer'>
+      {/* set the drawer to left side of screen */}
       {user.id &&   (
         ['left'].map((anchor) => (
           <React.Fragment key={anchor}>
