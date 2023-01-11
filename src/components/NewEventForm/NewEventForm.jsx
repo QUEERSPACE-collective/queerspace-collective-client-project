@@ -45,6 +45,7 @@ function NewEventForm() {
   const [alertOpen, setAlertOpen] = React.useState(false);
   const history = useHistory();
 
+  // dispatch to post new event infomration to event router
   function onSubmit() {
     let dateTime = `${newEventDate} ${newEventTime}`;
     let dateTimeEnd = `${newEventDate} ${newEventTimeEnd}`;
@@ -73,7 +74,7 @@ function NewEventForm() {
     }, 1500); 
   }
 
-
+  // handling mui success alert after submit
   const handleAlertClick = () => {
     setAlertOpen(true);
   };

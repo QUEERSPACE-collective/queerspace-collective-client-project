@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import './Resources.css';
 
 
-
+// on page load, get resources from resources router
 function Resources() {
   const history = useHistory();
   const dispatch = useDispatch();
