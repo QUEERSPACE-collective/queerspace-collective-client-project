@@ -9,8 +9,8 @@ function EventCalendar() {
   const dispatch = useDispatch();
   const eventList = useSelector(store => store.event)
   const user = useSelector(store => store.user)
-  console.log('event list', eventList)
 
+  // Get all events on page load
   useEffect(() => {
     pageFadeIn(),
       dispatch({
@@ -30,9 +30,11 @@ function EventCalendar() {
     <>
     <br/>
       <div className='upcoming-events-container'>
+        {/* if current user isn't a volunteer, show this */}
         {user.userType !== 1 && (
           <h2>Upcoming Events!</h2>
         )}
+        {/* if current user is a volunteer, show this */}
         {user.userType == 1 && (
           <h2>Volunteer Events!</h2>
         )}
@@ -49,7 +51,8 @@ function EventCalendar() {
             textAlign: 'center',
             borderRadius: 3,
             boxShadow: 2,
-          }}>
+          }}
+        >
           <EventListItems />
         </Box>
       </div>

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {DialogActions, DialogContent, DialogContentText,DialogTitle,
 Snackbar, Stack, Slide, Dialog, Button, Box } from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import MuiAlert from '@mui/material/Alert';
 import './EventDetails.css';
-import { atcb_action, atcb_init } from 'add-to-calendar-button';
+import { atcb_action } from 'add-to-calendar-button';
 import 'add-to-calendar-button/assets/css/atcb.css';
 import moment from 'moment-timezone';
 
@@ -60,6 +60,7 @@ function EventDetails() {
 
   }
 
+  // on page load, get event details, questions, and the current user's events
   useEffect(() => {
     pageFadeIn(),
       dispatch({
@@ -84,14 +85,7 @@ function EventDetails() {
 
   let isRegistered = userEvents.some(event => event.id === eventDetails?.id);
 
-  // let isEventFull = false;
-  // if (eventDetails[0].total_attendees >= eventDetails[0].attendeeMax){
-  //   isEventFull = true
-  //   console.log('is this event full', isEventFull)
-  // } else {
-  //   console.log('is this event full', isEventFull)
-  // }
-
+  // on click, register current user for event and send back to homepage
   const eventRegistration = () => {
     dispatch({
       type: 'REGISTER_FOR_EVENT',
@@ -105,6 +99,7 @@ function EventDetails() {
 
   }
 
+  // on click, unregister current user from event
   const eventUnregistration = () => {
     dispatch({
       type: 'UNREGISTER_FOR_EVENT',
@@ -264,10 +259,10 @@ function EventDetails() {
                   </div>
                 ))}
 
-                </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button variant="contained" 
+              </DialogContentText>
+            </DialogContent>
+              <DialogActions>
+                <Button variant="contained" 
                   onClick={eventRegistration}
                   sx={{
                     mb: 1, fontWeight: 'bold',
@@ -277,10 +272,10 @@ function EventDetails() {
                       boxShadow: '6px 6px 0px #d069b1'
                     },
                   }}
-                  >
-                    Register
-                  </Button>
-                  <Button variant="contained" 
+                >
+                  Register
+                </Button>
+                <Button variant="contained" 
                   onClick={handleClose}
                   sx={{
                     mb: 1, fontWeight: 'bold',
@@ -290,50 +285,51 @@ function EventDetails() {
                       boxShadow: '6px 6px 0px #d069b1'
                     },
                   }}
-                  >
-                    Cancel
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-              <Stack spacing={2} sx={{ width: '100%' }}>
-                <Snackbar open={alertOpen} onClose={handleAlertClose}>
-                  <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-                    Registration Successful!
-                  </Alert>
-                </Snackbar>
-            </Stack>
-
-
-            <Dialog
-              open={unregisterOpen}
-              TransitionComponent={Transition}
-              keepMounted
-              onClose={handleUnregisterClose}
-              aria-describedby="alert-dialog-slide-description"
-            >
-              <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
-              <DialogActions>
-                <Button variant="contained" 
-                onClick={eventUnregistration}
-                sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-                '&:hover': {
-                backgroundColor: '#cf2317',
-                boxShadow: '6px 6px 0px #fe6d0e'
-                },}}
                 >
-                  Unregister
-                </Button>
-                <Button 
-                variant="contained" 
-                onClick={handleUnregisterClose}>
                   Cancel
                 </Button>
               </DialogActions>
-          </Dialog>
-        </div>
+        </Dialog>
+
+        <Stack spacing={2} sx={{ width: '100%' }}>
+          <Snackbar open={alertOpen} onClose={handleAlertClose}>
+              <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+                Registration Successful!
+              </Alert>
+          </Snackbar>
+        </Stack>
+
+
+        <Dialog
+          open={unregisterOpen}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleUnregisterClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to unregister?"}</DialogTitle>
+          <DialogActions>
+            <Button variant="contained" 
+              onClick={eventUnregistration}
+              sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+              '&:hover': {
+              backgroundColor: '#cf2317',
+              boxShadow: '6px 6px 0px #fe6d0e'
+              },}}
+            >
+              Unregister
+            </Button>
+            <Button 
+              variant="contained" 
+              onClick={handleUnregisterClose}
+            >
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
-      );
+  </div>
+);
 
 }
 export default EventDetails;
