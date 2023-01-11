@@ -87,7 +87,7 @@ function NewEventForm() {
 
   return (
     <>
-      <h1 className='bannerTop' onClick={() => { dispatch({ type: 'EVENT_FORM_FILLER' }) }}>Create New Event</h1>
+      <h1 className='bannerTop'>Create New Event</h1>
       <Card
         sx={{
           display: 'flex',
