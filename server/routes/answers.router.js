@@ -20,7 +20,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     }
 })
 
-// update into 'events' table the number of guests  
+// update into 'events' table the number of guests each attendee is bringing (adds to total attendees)
 router.put('/guests', rejectUnauthenticated, async (req, res) => {
     try {
         sqlParams = [req.body.attendees, req.body.eventId]
