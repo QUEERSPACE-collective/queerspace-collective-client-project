@@ -56,3 +56,6 @@
 .hideAccordianP {
     display: none;
 }
+.breakUser {
+    border-bottom:1px solid lightgray;
+}

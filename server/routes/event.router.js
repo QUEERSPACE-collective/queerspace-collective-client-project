@@ -35,7 +35,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
-// GET the events by a certain order depending on the params value
+// Conditional GET the events by a certain order depending on the params value
 router.get('/order/:order', rejectUnauthenticated, (req, res) => {
     console.log('what is req.params.order', req.params.order);
     const order = req.params.order;
@@ -149,7 +149,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-// GET a specific event for editing
+// GET a specific event for editing purposes
 router.get('/:id/edit', rejectUnauthenticated, async (req, res) => {
     console.log('in router.get /:id/edit, req.params are', req.params);
     if (req.user.userType == 5) {
@@ -166,7 +166,7 @@ router.get('/:id/edit', rejectUnauthenticated, async (req, res) => {
     }
 });
 
-// edit the event
+// Edit the event
 router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     console.log('req params id', req.params.id)
 
@@ -205,7 +205,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res)=>{
     }
 })
 
-// DELETE specific event
+// DELETE a specific event
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     if (req.user.userType == 5) {
         try {
@@ -220,7 +220,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     }
 });
 
-// POST new event
+// POST a new event
 router.post('/', (req, res) => {
     console.log('POST req.body is', req.body);
     if (req.user.userType == 5) {
@@ -266,7 +266,7 @@ router.post('/', (req, res) => {
     }
 });
 
-// GET questions for specific event
+// GET the questions for a specific event
 router.get('/questions/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id]
     const sqlText = `SELECT * FROM "questions" WHERE "eventId" = $1;`;

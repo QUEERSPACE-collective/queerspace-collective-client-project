@@ -8,14 +8,15 @@ h1 {
 .allusersContainer {
   border-bottom: 1px solid lightgray;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   list-style-type: none;
   text-align: center;
   font-size: 13px;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
 }
-
-
 
 .allusersHover ul:hover,
 .allusersContainer:hover .allusersP:hover {
@@ -27,7 +28,7 @@ h1 {
 }
 
 .allusersP {
-  width: 50%;
+  /* width: 50%; */
   padding-top: 15px;
 }
 
@@ -61,7 +62,7 @@ h1 {
 
 @media screen and (min-width: 480px) {
   .allusersP {
-    width: 50%;
+    /* width: 50%; */
   }
 }
 
