@@ -31,7 +31,7 @@ function LoginForm() {
   return (
     // Gathers username and password, then sends it to the database to compare and log in the user
     <form className="formPanel" onSubmit={login}>
-      <h1 onClick={() => { setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9') }}>User Login</h1>
+      <h1>User Login</h1>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
