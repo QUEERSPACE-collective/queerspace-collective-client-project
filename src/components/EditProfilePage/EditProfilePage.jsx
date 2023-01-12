@@ -14,6 +14,7 @@ function EditProfilePage() {
     const user = useSelector((store) => store.editUser);
     console.log(params);
 
+    // on page load 
     useEffect(() => {
         pageFadeIn(),
             dispatch({
@@ -29,7 +30,7 @@ function EditProfilePage() {
         setTimeout(() => document.body.classList.add("withOpacity"), 100);
     }
 
-
+    // submit function for editing page
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
@@ -42,6 +43,7 @@ function EditProfilePage() {
         history.push('/homepage')
     }
 
+    // delete user function
     const deleteUser = (id) => {
         dispatch({
             type: "DELETE_USER",
@@ -53,18 +55,21 @@ function EditProfilePage() {
     return (
         <div className='editUserContainer'>
             <div className="editUserContainerHeader">
+            {/* home button */}
             <Button
                 onClick={() => history.push('/homepage')}
-                sx = {{fontWeight: 'bold', wordSpacing: 1, color: '#357590', mt: 1,                
-                '&:hover': {
-                fontSize: 16
-                },}}
+                sx = {{
+                    fontWeight: 'bold', wordSpacing: 1, color: '#357590', mt: 1,                
+                    '&:hover': {
+                    fontSize: 16
+                    },
+                }}
             >
                 <ArrowCircleLeftIcon/>Home
                 </Button>
                 <h1 className='bannerTop'>Edit Profile</h1>
             </div>
-        
+            {/* edit profile page form */}
             <form onSubmit={onSubmit} className='editUserForm' >
                 <label for="fName">
                     First Name:
@@ -117,26 +122,29 @@ function EditProfilePage() {
                     })}
                 />
                 <div className="editUserBottom">
+
+                {/* submit changes button  */}
                 <Button variant = "contained" 
-                sx={{fontSize: '12px', bgcolor: '#46a452e6', fontWeight: 'bold', m: 2, color: 'white',               
-                '&:hover': {
-                backgroundColor: '#46a452e6',
-                boxShadow: '6px 6px 0px #82bc27e0'
-                },}}
-                type = "submit"
+                    sx={{fontSize: '12px', bgcolor: '#46a452e6', fontWeight: 'bold', m: 2, color: 'white',               
+                    '&:hover': {
+                    backgroundColor: '#46a452e6',
+                    boxShadow: '6px 6px 0px #82bc27e0'
+                    },}}
+                    type = "submit"
                 >
                     Submit changes
                 </Button>
-
+                {/* delete profile button */}
                 <Button
-                variant = "contained"
-                sx = {{fontSize: '10px', bgcolor: '#cf2317', fontWeight: 'bold', m: 2, color: 'white', width: '200px',
-                '&:hover': {
-                    backgroundColor: '#cf2317',
-                    boxShadow: '6px 6px 0px #fe6d0e'
-                    }, }}
-                onClick={() => deleteUser(user.id)} className="editUserDelete"
-
+                    variant = "contained"
+                    sx = {{
+                        fontSize: '10px', bgcolor: '#cf2317', fontWeight: 'bold', m: 2, color: 'white', width: '200px',
+                        '&:hover': {
+                        backgroundColor: '#cf2317',
+                        boxShadow: '6px 6px 0px #fe6d0e'
+                        }, 
+                    }}
+                    onClick={() => deleteUser(user.id)} className="editUserDelete"
                 >
                     Delete Your Profile
                 </Button>

@@ -18,6 +18,7 @@ function EditEvents(){
     const params = useParams();
     const history = useHistory();
 
+    // on page load runs....
     useEffect(() => {
         pageFadeIn(),
         dispatch({
@@ -32,6 +33,7 @@ function EditEvents(){
         }
     }, [params.id]);
 
+    // delete event function
     const handleDeleteEvent = (id) => {
         dispatch({
           type: 'DELETE_EVENT',
@@ -42,27 +44,27 @@ function EditEvents(){
           }, 1500); 
       };
 
-
-    const [confirmationOpen, setConfirmatinoOpen] = React.useState(false);
+    // asks to confirm upon certain events/button clicks
+    const [confirmationOpen, setConfirmationOpen] = React.useState(false);
     const handleConfirmationOpen = () => {
-      setConfirmatinoOpen(true);
+      setConfirmationOpen(true);
     };
     const handleConfirmationClose = () => {
-      setConfirmatinoOpen(false)
+      setConfirmationOpen(false)
     }
 
-//Fade effect
-function pageFadeIn() {
-    document.body.classList.remove("withOpacity");
-    document.body.classList.add("noOpacity");
-    setTimeout(() => document.body.classList.remove("noOpacity"), 100);
-    setTimeout(() => document.body.classList.add("withOpacity"), 100);
+    //Fade effect
+    function pageFadeIn() {
+        document.body.classList.remove("withOpacity");
+        document.body.classList.add("noOpacity");
+        setTimeout(() => document.body.classList.remove("noOpacity"), 100);
+        setTimeout(() => document.body.classList.add("withOpacity"), 100);
   }
-//Fade effect
 
     const editEvent = useSelector(store => store.editEvent);
     console.log(editEvent);
 
+    // form submit function
     const onSubmit = (evt) => {
         evt.preventDefault();
         dispatch({
@@ -74,11 +76,12 @@ function pageFadeIn() {
         });
         history.push('/AllEvents')
     }
+
     return(
     <div className='admintEditEventContainer'>
-
         
-            <div className='adminEditEventHeader'>
+        <div className='adminEditEventHeader'>
+        {/* back button, directs to all events */}
             <Button
                 className='backToEventsBtn'
                 onClick={() => history.push('/allevents')}
@@ -89,112 +92,113 @@ function pageFadeIn() {
                 >
                 <ArrowCircleLeftIcon/>Back To Events List
             </Button>
-                <h2 className='bannerTop'>Edit Event</h2>
-            </div>
+            <h2 className='bannerTop'>Edit Event</h2>
+        </div>
+
+        {/* event edit form */}
+        <form onSubmit={onSubmit}>
+            <Card
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    m:1,
+                    p:2
+                }}
+            >
+            {/* edit event name */}
+            <label>
+                Event Name:
+            </label>
+            <OutlinedInput
+                label= "Event Name:"
+                value={editEvent && editEvent.name}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {name: evt.target.value}
+                })}
+            />
+            {/* end edit event name */}
+            {/* edit event date time */}
+            <label>
+                Start Date and Time:
+            </label>
             
-            <form onSubmit={onSubmit}>
-                <Card
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        m:1,
-                        p:2
-                    }}
-                >
-                {/* edit event name */}
-                <label>
-                    Event Name:
-                </label>
-                <OutlinedInput
-                    label= "Event Name:"
-                    value={editEvent && editEvent.name}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {name: evt.target.value}
-                    })}
-                />
-                {/* end edit event name */}
-                {/* edit event date time */}
-                <label>
-                    Start Date and Time:
-                </label>
-                
-                <OutlinedInput
-                    type="datetime-local"
-                    value={editEvent && moment(editEvent.dateTime).format("YYYY-MM-DD HH:mm")}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {dateTime: new Date(evt.target.value)}
-                    })}
-                />
-                <label>
-                    End Date and Time:
-                </label>
+            <OutlinedInput
+                type="datetime-local"
+                value={editEvent && moment(editEvent.dateTime).format("YYYY-MM-DD HH:mm")}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {dateTime: new Date(evt.target.value)}
+                })}
+            />
+            <label>
+                End Date and Time:
+            </label>
 
-                <OutlinedInput
-                    type="datetime-local"
-                    value={editEvent && moment(editEvent.dateTimeEnd).format("YYYY-MM-DD HH:mm")}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {dateTimeEnd: new Date(evt.target.value)}
-                    })}
-/>
+            <OutlinedInput
+                type="datetime-local"
+                value={editEvent && moment(editEvent.dateTimeEnd).format("YYYY-MM-DD HH:mm")}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {dateTimeEnd: new Date(evt.target.value)}
+                })}
+            />
 
-                <label>
-                    Edit Description:
-                </label>
-                
-                <OutlinedInput
-                    multiline
-                    value={editEvent && editEvent.description}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {description: evt.target.value}
-                    })}
-                />
+            <label>
+                Edit Description:
+            </label>
+            
+            <OutlinedInput
+                multiline
+                value={editEvent && editEvent.description}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {description: evt.target.value}
+                })}
+            />
 
-                <label>
-                    Edit Location:
-                </label>
-                <OutlinedInput
-                    value={editEvent && editEvent.location}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {location: evt.target.value}
-                    })}/>
+            <label>
+                Edit Location:
+            </label>
+            <OutlinedInput
+                value={editEvent && editEvent.location}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {location: evt.target.value}
+                })}/>
 
-                <label>
-                    Edit Type:
-                </label>
-                <OutlinedInput
-                    value={editEvent && editEvent.type}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {type: evt.target.value}
-                    })}/>
+            <label>
+                Edit Type:
+            </label>
+            <OutlinedInput
+                value={editEvent && editEvent.type}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {type: evt.target.value}
+                })}/>
 
-                <label>
-                    Edit Program Location:
-                </label>
-                <OutlinedInput
-                    value={editEvent && editEvent.programLocationID}
-                    onChange={(evt) => dispatch({
-                        type: 'UPDATE_EDIT_EVENT',
-                        payload: {programLocationID: evt.target.value}
-                    })}/>
-                </Card> 
+            <label>
+                Edit Program Location:
+            </label>
+            <OutlinedInput
+                value={editEvent && editEvent.programLocationID}
+                onChange={(evt) => dispatch({
+                    type: 'UPDATE_EDIT_EVENT',
+                    payload: {programLocationID: evt.target.value}
+                })}/>
+            </Card> 
 
-                <Button 
-                    type="submit"
-                    sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
-                    '&:hover': {
-                    backgroundColor: '#46a452e6',
-                    boxShadow: '6px 6px 0px #82bc27e0'
-                    },}}
-                >Submit</Button>
-            </form>
+            <Button 
+                type="submit"
+                sx = {{bgcolor: '#46a452e6', fontWeight: 'bold', letterSpacing: 1.5, m: 2, color: 'white',               
+                '&:hover': {
+                backgroundColor: '#46a452e6',
+                boxShadow: '6px 6px 0px #82bc27e0'
+                },}}
+            >Submit</Button>
+        </form>
                     
-
+        {/* delete button */}
         <Button 
             sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
             '&:hover': {
@@ -202,43 +206,45 @@ function pageFadeIn() {
             boxShadow: '6px 6px 0px #fe6d0e'
             },}}
             variant="contained"
-            // value={allUsers.id}
             onClick = {handleConfirmationOpen}
             >
                 Delete Event
-            </Button>
+        </Button>
 
-            <Dialog
+        {/* confirmation alert dialog when delete is pushed */}
+        <Dialog
             open={confirmationOpen}
             keepMounted
             onClose={handleConfirmationClose}
             aria-describedby="alert-dialog-slide-description"
             >
-            <DialogTitle sx = {{textAlign: 'center'}}>{"Are you sure you want to delete this event?"}</DialogTitle>
+            <DialogTitle sx = {{textAlign: 'center'}}>
+                {"Are you sure you want to delete this event?"}
+            </DialogTitle>
             <DialogActions>
-            <Button variant="contained" 
-                onClick={() => handleDeleteEvent(params.id)}
-            // onClick={eventUnregistration}
-            sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-            '&:hover': {
-            backgroundColor: '#cf2317',
-            boxShadow: '6px 6px 0px #fe6d0e'
-            },}}
-            >
-                Delete
-            </Button>
-            <Button 
-            variant="contained" 
-            onClick={handleConfirmationClose}
-            sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
-            '&:hover': {
-            backgroundColor: '#cf2317',
-            boxShadow: '6px 6px 0px #fe6d0e'
-            },}}
-            >
-            Cancel
-            </Button>
-        </DialogActions>
+                <Button 
+                    variant="contained" 
+                    onClick={() => handleDeleteEvent(params.id)}
+                    sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                    '&:hover': {
+                    backgroundColor: '#cf2317',
+                    boxShadow: '6px 6px 0px #fe6d0e'
+                    },}}
+                >
+                    Delete
+                </Button>
+                <Button 
+                    variant="contained" 
+                    onClick={handleConfirmationClose}
+                    sx = {{bgcolor: '#cf2317', fontWeight: 'bold', wordSpacing: 1, m: 2, color: 'white',               
+                    '&:hover': {
+                    backgroundColor: '#cf2317',
+                    boxShadow: '6px 6px 0px #fe6d0e'
+                    },}}
+                >
+                Cancel
+                </Button>
+            </DialogActions>
         </Dialog>
 
 
