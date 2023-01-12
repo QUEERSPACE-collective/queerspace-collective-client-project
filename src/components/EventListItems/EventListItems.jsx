@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import 'add-to-calendar-button/assets/css/atcb.css';
@@ -8,15 +8,14 @@ import './EventListItems.css';
 
 
 function EventListItems() {
-
   const history = useHistory();
   const eventList = useSelector(store => store.event);
   const user = useSelector(store => store.user);
 
-
   return (
     <>
       <ul>
+        {/* map through events, and only show non volunteer ones if current user is not a volunteer */}
         {eventList && eventList.map(event => (
           (user.userType > 1 && (
             <div key = {event.id} className="eventListItem">
@@ -31,19 +30,19 @@ function EventListItems() {
                   backgroundColor: '#aa87c0',
                   boxShadow: '6px 6px 0px #d069b1'
                 },
-              }}
-                >
-                  Details
+                }}
+              >
+                Details
               </Button>
             <br/>
             <br/>
           </div>
           ))  
-        ))}
-         
+        ))}    
       </ul>
 
       <ul>
+      {/* map through events, and only show volunteer ones if current user is a volunteer */}
       {eventList && eventList.map(event => (
         ((user.userType == 1 && event.hasVolunteers )&& (
           <div key = {event.id}>
@@ -59,8 +58,8 @@ function EventListItems() {
                   boxShadow: '6px 6px 0px #d069b1'
                 },
               }}
-              >
-                Details
+            >
+              Details
             </Button>
           <br/>
           <br/>

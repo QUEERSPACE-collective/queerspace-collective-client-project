@@ -9,7 +9,7 @@ function ForgotPassword() {
     const [username, setUsername] = useState("");
     const history = useHistory();
 
-
+    // on submit, send email to email(username) that is entered in and return to login page
     const sendEmail = (evt) => {
         evt.preventDefault();
         dispatch({
@@ -28,7 +28,8 @@ function ForgotPassword() {
                     <h1>Forgot Password?</h1>
                 </div>
                 <div>
-                    <h4>If you have forgotten your password, please enter<br></br> your account's
+                    <h4>
+                        If you have forgotten your password, please enter<br></br> your account's
                         email address below and click the <br></br>"Send Reset Email" button. You
                         will receive an <br></br>email that contains a link to set a new password.
                     </h4>

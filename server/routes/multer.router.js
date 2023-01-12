@@ -23,6 +23,7 @@ const upload = multer({
   })
 });
 
+// POST new profile picture
 app.post('/upload', rejectUnauthenticated, upload.array('photos', 3),
   function (req, res, next) {
     res.send('Successfully uploaded ' + req.files.length + ' files!')

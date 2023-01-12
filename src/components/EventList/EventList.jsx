@@ -15,6 +15,7 @@ function EventList() {
   const user = useSelector(store => store.user)
   console.log('event list', eventList)
   
+  // on page load, fetch all events
   useEffect(() => {
     animater(),
     dispatch({
@@ -34,7 +35,6 @@ function animater() {
   return (
     <>
     <br/>
-
       <div className='upcoming-events-container'>
       <Button 
         onClick={() => history.push('/homepage')} 
@@ -42,12 +42,14 @@ function animater() {
         '&:hover': {
         fontSize: 16
         },}}
-        >
+      >
         <ArrowCircleLeftIcon/> home
       </Button>
+        {/*if user is not volunteer, show this*/}
         {user.userType !== 1 && (
            <h2>Upcoming Events</h2>
         )}
+        {/*if user is volunteer, show this*/}
         {user.userType == 1  && (
            <h2>Volunteer Events</h2>
         )}
@@ -64,10 +66,10 @@ function animater() {
         textAlign: 'center',
         borderRadius: 3,
         boxShadow: 2,
-      }}>
+      }}
+      >
         <EventListItems/>
-      </Box>
-      
+      </Box> 
       </div>
     </>
   );

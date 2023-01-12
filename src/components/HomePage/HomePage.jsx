@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import EditIcon from '@mui/icons-material/Edit';
-
 import './HomePage.css';
 
 
@@ -16,6 +15,7 @@ function HomePage() {
   const user = useSelector((store) => store.user);
   const userEvents = useSelector(store => store.userEventsReducer);
 
+  // on page load, get events for current user
   useEffect(() => {
     pageFadeIn(),
       dispatch({
@@ -35,10 +35,10 @@ function HomePage() {
     <div className="profilePageContainer">
       <br/>
           <h2>Welcome, {user.fname} {user.lname}!</h2><br/>
-
             <img className= "userProfilePic" src={user.profilePic} style={{  
             borderRadius: '50%', height: '180px', width: '180px',
-            boxShadow: '-2px 3px 7px #00344b' }} />
+            boxShadow: '-2px 3px 7px #00344b' }} 
+            />
             <div className='editProfPicBtn'>
             <Button
             variant='contained'
@@ -56,6 +56,7 @@ function HomePage() {
             </div>
           <span>pronouns:</span> {user.pronouns}
           <br/>
+          {/* if user is a mentor, they will see this */}
           {user.userType == 4 && (
             <>
             <span>Mentee:</span>{user.mentor_firstname} {user.mentor_lastname}
@@ -67,6 +68,7 @@ function HomePage() {
            {user.bio}
           </>
           <br/><br/>
+          {/* if user is a mentee, they will see this */}
           {user.userType == 3 && (
             <>
             <span>Mentor: </span>{user.mentor_firstname} {user.mentor_lastname}
