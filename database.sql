@@ -90,7 +90,7 @@ CREATE TABLE "resources" (
 --admin account and password (must be updated prior to handoff!!!) ---
 --
 INSERT INTO "user" ("username", "password", "fname", "lname", "userType", "pronouns", "profilePic", "bio", "mentorPair")
-VALUES ('ADMIN', '$2a$10$r6wZOIthU5ROFLzy8F5jvOSKvOB5uhTYZQIuSUe5Hv/iGLdt3CUIm', 'ADMIN', 'ADMIN', '5', 'it/its', NULL, 'ADMIN ACCOUNT', NULL);
+VALUES ('ADMIN', '$2a$10$gcV/2B79OAwbOlqGwAtM8eAhtD5b3MTRKzXPaYqQmTElvG9sjBZbm', 'ADMIN', 'ADMIN', '5', 'it/its', NULL, 'ADMIN ACCOUNT', NULL);
 
 -- current admin password: Qu33r$pace_ADMIN ----
 
