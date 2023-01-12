@@ -3,10 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// Registering for an event
+// This lets the admin grab the number of attendees who are registered for a specific event
 router.get('/getAttendees/:id', rejectUnauthenticated, (req,res) => {
-    console.log('what req.body and whats the user',req.user.id);
-    console.log('params are',req.params.id)
     const sqlParams = [
         req.params.id
     ];
@@ -22,7 +20,6 @@ router.get('/getAttendees/:id', rejectUnauthenticated, (req,res) => {
         `;
         pool.query(sqlText, sqlParams)
             .then(dbResult => {
-                console.log('Registered attendees users dbResult.rows: ', dbResult.rows)
                 res.send(dbResult.rows)
             })
             .catch(err => {
@@ -31,6 +28,9 @@ router.get('/getAttendees/:id', rejectUnauthenticated, (req,res) => {
             })
     }
 })
+
+//This takes in data given by the user and stores it into the database, it then returns the event the user signed up for as well as the numebr of attendees the user said they
+// were bringing and stores that information into a different table in the database. 
 router.post('/', rejectUnauthenticated, async (req, res) => {
     try {
         const sqlParams = [
@@ -81,7 +81,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 }
 )
 
-// Unregistering from an event
+// This deletes the user's info from several different tables as part of the unregistering from an event
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlParams = [req.params.id, req.user.id]
     const sqlText =
@@ -131,7 +131,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-// GET all users registered for an event
+// This lets the admin get all of the users registered for an event and the answers they gave to the events questions
 router.get('/registered-users/:id', rejectUnauthenticated, (req, res) => {
     if (req.user.userType == 5) {
         const sqlParams = [req.params.id];

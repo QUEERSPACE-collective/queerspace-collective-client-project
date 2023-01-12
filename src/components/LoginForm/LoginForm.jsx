@@ -14,7 +14,7 @@ function LoginForm() {
 
   const login = (event) => {
     event.preventDefault();
-
+    // compares the given username and password to the stored username and password, if they match it logs in the user, if not then it pops up an error
     if (username && password) {
       dispatch({
         type: 'LOGIN',
@@ -29,6 +29,7 @@ function LoginForm() {
   }; // end login
 
   return (
+    // Gathers username and password, then sends it to the database to compare and log in the user
     <form className="formPanel" onSubmit={login}>
       <h1 onClick={() => { setUsername('maiaj1306@gmail.com'), setPassword('gFdQK@9') }}>User Login</h1>
       {errors.loginMessage && (
@@ -63,6 +64,7 @@ function LoginForm() {
       <div>
         <input className="btn" type="submit" name="submit" value="Log In" />
       </div>
+      {/* Sends the user to the forgot page on click */}
       <div>
           <Button 
           onClick={() => history.push('/forgot')}

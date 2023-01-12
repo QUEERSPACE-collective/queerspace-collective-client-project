@@ -18,6 +18,8 @@ import MoodIcon from '@mui/icons-material/Mood';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useSelector, useDispatch } from 'react-redux';
 
+
+// This is the var abar for a mobile view, it also has it's stylings and a drawer so that it is not present at all times. 
 function MobileNavBar() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);

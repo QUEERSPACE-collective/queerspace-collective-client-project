@@ -18,6 +18,7 @@ function MentorFeedbackForm() {
         <>
             <h1 className='bannerTop'>Feedback Form</h1>
             <div className='iframeDivContainer'>
+                {/* This iframe links to a google form that queerspace owns that gathers information on a mentors most recent hangout with their mentee */}
                 <iframe
                     src="https://docs.google.com/forms/d/e/1FAIpQLSfIIft7xLRtdCy4avYWFsGapBg_nDezVD_6Mnnc67HzV7Wznw/viewform"
                     className='iframeContainer'>

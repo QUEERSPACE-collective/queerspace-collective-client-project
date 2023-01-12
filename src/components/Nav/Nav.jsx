@@ -9,6 +9,7 @@ import {
   Link,
 } from 'react-router-dom';
 
+// This is the nav bar for computers, it has different renders based on what level of access an account has on the webpage
 function Nav() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
