@@ -4,15 +4,15 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
-import {List, ListItem, Card} from '@mui/material';
+import {List, Card} from '@mui/material';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import './UserDetails.css';
 
 function UserDetails() {
+  // fetching current user details from the redux store 
   const activeUser = useSelector(store => store.editUser);
   const user = useSelector((store) => store.user);
   const params = useParams();
-  console.log(params.id)
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -79,11 +79,15 @@ function pageFadeIn() {
               <li id = "BioLi">
                 <span>Bio:</span> <br/>{activeUser.bio}
               </li>
+
+              {/* if user type is 3 (mentee), render */}
               {activeUser.userType == 3 && (
               <li>
               <span>Mentor:</span>{activeUser.mentor_firstname} {activeUser.mentor_lastname}
               </li>
               )}
+
+              {/* if user type is 4 (mentor), render */}
               {activeUser.userType == 4 && (
               <li>
               <span>Mentee:</span> {activeUser.mentor_firstname} {activeUser.mentor_lastname}
