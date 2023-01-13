@@ -45,6 +45,11 @@ function App() {
       <div className='app'>
         <Nav />
         <Switch>
+          {/* Default page redirects to homepage */}
+          <Route path="/" exact>
+            <Redirect to="/homepage" />
+          </Route>
+
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           {/* <Redirect exact from="/" to="/home" /> */}
           {/* if the usertype is 5 (admin) then redirect upon login to the AllEventsPage, otherwise ProfilePage */}
