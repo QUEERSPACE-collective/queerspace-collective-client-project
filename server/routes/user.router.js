@@ -62,7 +62,7 @@ function generatePW() {
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
+  host: "smtp.gmail.com",
   port: 587,
   secureConnection: false, // true for 465, false for other ports
   auth: {
