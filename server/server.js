@@ -7,7 +7,7 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const allUsersRouter = require("./routes/allUsers.router");
+const allUsersRouter = require("./routes/allusers.router");
 const eventRouter = require('./routes/event.router');
 const resourcesRouter = require('./routes/resources.router');
 const registrationRouter = require('./routes/registration.router');
